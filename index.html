@@ -1,7 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Call Flow</title>
+    <script>
+        var start = Date.now();
+    </script>
+
+    <link rel="stylesheet" href="public/css/all.css" />
+    <script src="public/js/require.js"></script>
+    <script>
+        require.config({
+            baseUrl: 'public/js'
+        });
+        require( ['jquery', 'domReady!'], function(){
+            console.log( 'App started (' + (Date.now() - start) + 'ms)' );
+        });
+    </script>
 </head>
 <body>
 
