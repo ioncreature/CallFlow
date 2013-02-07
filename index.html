@@ -7,14 +7,21 @@
     </script>
 
     <link rel="stylesheet" href="public/css/all.css" />
+    <script type="text/templates" src="public/js/app/templates.htm"></script>
     <script src="public/js/require.js"></script>
     <script>
         require.config({
             baseUrl: 'public/js'
         });
-        require( ['jquery', 'domReady!'], function(){
-            console.log( 'App started (' + (Date.now() - start) + 'ms)' );
-        });
+        require(
+            [
+                'jquery',
+                'domReady!'
+            ],
+            function(){
+                console.log( 'App started (' + (Date.now() - start) + 'ms)' );
+            }
+        );
     </script>
 </head>
 <body>
