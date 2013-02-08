@@ -5,14 +5,15 @@
 
 define(
     [
-        'domReady!',
-        './ui/Flow'
+        './ui/Flow',
+        'domReady!'
     ],
 
     function( Flow ){
         return initUi;
 
         function initUi(){
+            debugger;
             Flow.attachTo( '#flowUi' );
         }
     }
