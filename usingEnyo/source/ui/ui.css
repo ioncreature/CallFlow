@@ -1,0 +1,16 @@
+.ui-user-info {
+    border: 2px solid rgb(27, 153, 206);
+}
+
+.ui-nav-toolbar {
+    height: 56px;
+}
+
+.ui-nav-toolbar .ui-nav-toolbar-caption {
+    text-align: center;
+    vertical-align: baseline;
+}
+
+.ui-nav-toolbar-button {
+    width: 70px;
+}
