@@ -13,7 +13,6 @@ define(
         return initUi;
 
         function initUi(){
-            debugger;
             Flow.attachTo( '#flowUi' );
         }
     }
