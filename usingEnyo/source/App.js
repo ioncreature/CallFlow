@@ -10,9 +10,9 @@ enyo.kind({
     components: [
         {kind: 'NavToolbar', onBack: 'goBack', showBack: true, caption: 'User Settings' },
         {kind: 'onyx.RadioGroup', layoutKind: 'enyo.ColumnsLayout', onActivate: 'switchTabs', controlClasses: 'onyx-tabbutton', components: [
-            {content: 'Call Flow', name: 'callFlow', active: true },
-            {content: 'Caller ID', name: 'callerId'},
-            {content: 'Fax', name: 'fax'}
+            {content: 'Call Flow', name: 'callFlowButton', active: true },
+            {content: 'Caller ID', name: 'callerIdButton'},
+            {content: 'Fax', name: 'faxButton'}
         ]},
         {kind: 'enyo.Scroller', fit: true, components: [
             {name: 'main', classes: 'nice-padding', allowHtml: true},
@@ -26,6 +26,7 @@ enyo.kind({
     },
 
     switchTabs: function( inSender, inEvent ){
-        // this.log( inSender, inEvent );
+        if ( inEvent.originator.getActive() )
+            this.log( inEvent.originator.getContent() );
     }
 });
