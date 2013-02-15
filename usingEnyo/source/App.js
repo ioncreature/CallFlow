@@ -8,14 +8,15 @@ enyo.kind({
     kind: 'FittableRows',
     fit: true,
     components: [
-        {kind: 'NavToolbar', ontap: 'anyTap', showBack: true, caption: 'User Settings' },
+        {kind: 'NavToolbar', onBack: 'goBack', showBack: true, caption: 'User Settings' },
         {kind: 'enyo.Scroller', fit: true, components: [
             {name: 'main', classes: 'nice-padding', allowHtml: true},
             {kind: 'UserInfo'}
         ]}
     ],
 
-    anyTap: function( inSender, inEvent ){
-        this.log( 'tap-tap' );
+    goBack: function( inSender, inEvent ){
+        this.log( 'Okay... I going back' );
+        window.history.back();
     }
 });
