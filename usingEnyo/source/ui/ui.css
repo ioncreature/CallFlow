@@ -12,5 +12,10 @@
 }
 
 .ui-nav-toolbar-button {
-    width: 70px;
+    width: 80px;
+}
+
+.ui-tabs {
+    width: 100%;
+    /*height: 56px;*/
 }

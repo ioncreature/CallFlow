@@ -7,6 +7,7 @@ enyo.depends(
     'ui/NavToolbar.js',
     'ui/UserInfo.js',
     'ui/CallFlow.js',
+    'ui/ColumnsLayout.js',
 
 	"App.css",
 	"App.js"
