@@ -1,9 +1,0 @@
-[submodule "usingEnyo/enyo"]
-	path = usingEnyo/enyo
-	url = https://github.com/enyojs/enyo.git
-[submodule "usingEnyo/lib/onyx"]
-	path = usingEnyo/lib/onyx
-	url = https://github.com/enyojs/onyx.git
-[submodule "usingEnyo/lib/layout"]
-	path = usingEnyo/lib/layout
-	url = https://github.com/enyojs/layout.git

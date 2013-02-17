@@ -4,5 +4,6 @@
  */
 
 enyo.kind({
-   kind: ''
+    kind: enyo.Scroller,
+    name: ''
 });

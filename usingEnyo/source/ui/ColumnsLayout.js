@@ -4,7 +4,7 @@
  */
 
 enyo.kind({
-    name: 'enyo.ColumnsLayout',
+    name: 'rc.ColumnsLayout',
     kind: 'Layout',
 
     reflow: function(){
@@ -17,7 +17,7 @@ enyo.kind({
         children.forEach( function( child, i ){
             var childWidth = (i + 1 == quantity) ? lastWidth : avgWidth;
             lastWidth -= childWidth;
-            child.applyStyle( 'width', childWidth + 'px');
+            child.applyStyle( 'width', childWidth + 'px' );
         });
     }
 });

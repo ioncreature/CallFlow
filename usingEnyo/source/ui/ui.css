@@ -16,6 +16,28 @@
 }
 
 .ui-tabs {
+    overflow: hidden;
+}
+
+.ui-tabs > .ui-tabs-button {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 100%;
+    float: left;
+}
+
+.ui-message {
+    color: #AD9C5E;
+    border: 1px solid #AD9C5E;
+    margin: 10px 10px 25px;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #FFFBEC;
+}
+
+.ui-header-big {
+    font-size: 1.9em;
+    text-align: center;
+    display: inline-block;
     width: 100%;
-    /*height: 56px;*/
 }
