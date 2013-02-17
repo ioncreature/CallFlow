@@ -38,10 +38,10 @@ enyo.kind({
         }
     },
 
-    onPanelActivate: function( inSender, inEvent ){
+    onPanelActivate: function(){
         var buttonName = this.$.panels.getActive().bindTo,
             button = this.$[buttonName];
         if ( !button.getActive() )
-            button.setActive();
+            button.setActive( true );
     }
 });
