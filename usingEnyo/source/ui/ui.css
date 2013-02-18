@@ -29,7 +29,7 @@
 .ui-message {
     color: #AD9C5E;
     border: 1px solid #AD9C5E;
-    margin: 12px 12px 25px;
+    margin: 10px 10px 25px;
     padding: 10px;
     border-radius: 6px;
     background-color: #FFFBEC;
@@ -52,7 +52,7 @@
     vertical-align: baseline;
 }
 
-.ui-nav-button-content,
+.ui-nav-button-caption,
 .ui-nav-button-value {
     float: left;
     width: 45%;
@@ -66,4 +66,43 @@
 .ui-label {
     font-size: 0.85em;
     margin: 0 10px 5px;
+}
+
+.ui-toggle-button {
+    /* @extends .ui-nav-button */
+    border: 1px solid #1B99CE;
+    border-radius: 6px;
+    margin: 0 10px 25px;
+    padding: 8px;
+    color: #1B99CE;
+    overflow: hidden;
+    background-color: #D6EDFB;
+    vertical-align: baseline;
+}
+
+.ui-toggle-button-caption {
+    float: left;
+    display: table-cell;
+}
+.ui-toggle-button-value {
+    float: right;
+}
+
+.ui-group-first-child {
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.ui-group-middle-child {
+    border-top: 0;
+    border-bottom-width: 1px;
+    border-radius: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.ui-group-last-child {
+    margin-top: 0;
+    border-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }

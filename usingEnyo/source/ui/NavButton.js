@@ -14,7 +14,7 @@ enyo.kind({
     },
 
     components: [
-        {name: 'caption', classes: 'ui-nav-button-content'},
+        {name: 'caption', classes: 'ui-nav-button-caption'},
         {name: 'value', classes: 'ui-nav-button-value'},
         {name: 'nextIcon', content: '>', classes: 'ui-nav-button-icon'}
     ],

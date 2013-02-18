@@ -6,6 +6,8 @@ enyo.depends(
 
     'ui/ui.css',
     'ui/NavButton.js',
+    'ui/ToggleButton.js',
+    'ui/VerticalGroup.js',
     'ui/CallerId.js',
     'ui/NavToolbar.js',
     'ui/UserInfo.js',

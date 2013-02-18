@@ -24,12 +24,24 @@ enyo.kind({
         {classes: 'ui-label', content: 'RingMe (Outgoing to Caller)'},
         {kind: 'rc.NavButton', caption: 'Main Number', value: '(650) 472-4080'},
         {classes: 'ui-label', content: 'Call Flip'},
-        {kind: 'rc.NavButton', caption: 'Main Number', value: '(650) 472-4080'},
+        {kind: 'rc.NavButton', caption: 'Fax Number', value: '(650) 472-4080'},
         {classes: 'ui-label', content: 'Call Flip'},
         {kind: 'rc.NavButton', caption: 'Main Number', value: '(650) 472-4080'},
 
-
-        {classes: 'ui-header-big', content: 'By Internal Calls'}
+        {classes: 'ui-header-big', content: 'Internal Calls'},
+        {kind: 'rc.VerticalGroup', name: 'internalCalls', components: [
+            {kind: 'rc.ToggleButton', name: 'internalCallsToggle', caption: 'Use extension number for internal calls when possible'},
+            {classes: 'ui-message', content:
+                'If selected, when dialing an internal ' +
+                'extension (rather than an external phone ' +
+                'number) the extension number will be used ' +
+                'as the callerid instead of the phone number. ' +
+                'This will only apply to calls received on ' +
+                'RingCentral phones and other IP devices. ' +
+                'Calls forwarded to external numbers such as ' +
+                'a mobile phone will still show the full phone number.'
+            }
+        ]}
     ]
 });
 

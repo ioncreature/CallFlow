@@ -14,7 +14,7 @@ enyo.kind({
             {name: 'callerIdButton', content: 'Caller ID', bindTo: 'callerIdPanel' },
             {name: 'faxButton', content: 'Fax', bindTo: 'faxPanel' }
         ]},
-        {kind: 'Panels', fit: true, realtimeFit: true, onTransitionFinish: 'onPanelActivate', animate: false, components: [
+        {kind: 'Panels', fit: true, realtimeFit: true, onTransitionFinish: 'onPanelActivate', animate: true, components: [
             {name: 'callFlowPanel', content: 'callFlowPanel', active: true, bindTo: 'callFlowButton' },
             {kind: 'rc.CallerId', name: 'callerIdPanel', content: 'callerIdPanel', bindTo: 'callerIdButton' },
             {name: 'faxPanel', content: 'faxPanel', bindTo: 'faxButton' }
