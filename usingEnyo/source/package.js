@@ -5,6 +5,7 @@ enyo.depends(
 	//"Theme.less",	// uncomment this line, and follow the steps described in Theme.less
 
     'ui/ui.css',
+    'ui/NavButton.js',
     'ui/CallerId.js',
     'ui/NavToolbar.js',
     'ui/UserInfo.js',

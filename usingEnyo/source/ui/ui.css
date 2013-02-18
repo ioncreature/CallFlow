@@ -29,15 +29,41 @@
 .ui-message {
     color: #AD9C5E;
     border: 1px solid #AD9C5E;
-    margin: 10px 10px 25px;
+    margin: 12px 12px 25px;
     padding: 10px;
     border-radius: 6px;
     background-color: #FFFBEC;
 }
 
 .ui-header-big {
-    font-size: 1.9em;
+    font-size: 1.7em;
     text-align: center;
-    display: inline-block;
-    width: 100%;
+    margin: 0 10px 20px;
+}
+
+.ui-nav-button {
+    border: 1px solid #1B99CE;
+    border-radius: 6px;
+    margin: 0 10px 25px;
+    padding: 8px;
+    color: #1B99CE;
+    overflow: hidden;
+    background-color: #D6EDFB;
+    vertical-align: baseline;
+}
+
+.ui-nav-button-content,
+.ui-nav-button-value {
+    float: left;
+    width: 45%;
+}
+
+.ui-nav-button-icon {
+    font-weight: bold;
+    float: right;
+}
+
+.ui-label {
+    font-size: 0.85em;
+    margin: 0 10px 5px;
 }
