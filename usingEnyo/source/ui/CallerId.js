@@ -4,8 +4,8 @@
  */
 
 enyo.kind({
-    kind: enyo.Scroller,
     name: 'rc.CallerId',
+    kind: enyo.Scroller,
     layoutKind: enyo.FittableRowsLayout,
     horizontal: 'hidden',
 

@@ -9,6 +9,7 @@ enyo.depends(
     'ui/ToggleButton.js',
     'ui/VerticalGroup.js',
     'ui/CallerId.js',
+    'ui/Fax.js',
     'ui/NavToolbar.js',
     'ui/UserInfo.js',
     'ui/CallFlow.js',
