@@ -10,18 +10,18 @@ enyo.kind({
 
     published: {
         caption: '',
-        value: ''
+        description: ''
     },
 
     components: [
         {name: 'caption', classes: 'ui-nav-button-caption'},
-        {name: 'value', classes: 'ui-nav-button-value'},
+        {name: 'description', classes: 'ui-nav-button-value'},
         {name: 'nextIcon', content: '>', classes: 'ui-nav-button-icon'}
     ],
 
     create: function(){
         this.inherited( arguments );
         this.$.caption.setContent( this.getCaption() );
-        this.$.value.setContent( this.getValue() );
+        this.$.description.setContent( this.getDescription() );
     }
 });

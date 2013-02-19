@@ -64,12 +64,7 @@ enyo.kind({
         ]},
 
         {classes: 'ui-label', content: 'Email addresses permitted to send faxes'},
-        {kind: 'FittableColumns', components: [
-            {kind: 'onyx.InputDecorator', classes: 'ui-text-input', fit: true, components: [
-                {kind: 'onyx.Input', value: '94404', onchange: 'inputChange'}
-            ]},
-            {kind:'onyx.Button', classes: 'ui-button', content: 'Add', ontap: 'inputChange'}
-        ]}
+        {kind: 'rc.EditableList', onAdd: 'inputChange', onSelect: 'inputChange', placeholder: 'user@email.com'}
     ],
 
     inputChange: function( inEvent, inSender ){

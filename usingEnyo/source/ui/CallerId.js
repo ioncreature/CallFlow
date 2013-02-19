@@ -14,19 +14,19 @@ enyo.kind({
 
         {classes: 'ui-header-big', content: 'By Phone'},
         {classes: 'ui-label', content: 'Polycom IP 335 HD IP phone'},
-        {kind: 'rc.NavButton', caption: 'Main Number', value: '(650) 472-4080'},
+        {kind: 'rc.NavButton', caption: 'Main Number', description: '(650) 472-4080'},
         {classes: 'ui-label', content: 'RingMe (Outgoing to Caller)'},
-        {kind: 'rc.NavButton', caption: 'Main Number', value: '(650) 472-4080'},
+        {kind: 'rc.NavButton', caption: 'Main Number', description: '(650) 472-4080'},
 
         {classes: 'ui-header-big', content: 'By Feature'},
         {classes: 'ui-label', content: 'RingOut from Web'},
-        {kind: 'rc.NavButton', caption: 'Main Number', value: '(650) 472-4080'},
+        {kind: 'rc.NavButton', caption: 'Main Number', description: '(650) 472-4080'},
         {classes: 'ui-label', content: 'RingMe (Outgoing to Caller)'},
-        {kind: 'rc.NavButton', caption: 'Main Number', value: '(650) 472-4080'},
+        {kind: 'rc.NavButton', caption: 'Main Number', description: '(650) 472-4080'},
         {classes: 'ui-label', content: 'Call Flip'},
-        {kind: 'rc.NavButton', caption: 'Fax Number', value: '(650) 472-4080'},
+        {kind: 'rc.NavButton', caption: 'Fax Number', description: '(650) 472-4080'},
         {classes: 'ui-label', content: 'Call Flip'},
-        {kind: 'rc.NavButton', caption: 'Main Number', value: '(650) 472-4080'},
+        {kind: 'rc.NavButton', caption: 'Main Number', description: '(650) 472-4080'},
 
         {classes: 'ui-header-big', content: 'Internal Calls'},
         {kind: 'rc.VerticalGroup', name: 'internalCalls', components: [
