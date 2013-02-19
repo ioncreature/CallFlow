@@ -64,10 +64,16 @@ enyo.kind({
         ]},
 
         {classes: 'ui-label', content: 'Email addresses permitted to send faxes'},
-        {kind: 'rc.EditableList', onAdd: 'inputChange', onSelect: 'inputChange', placeholder: 'user@email.com'}
+        {kind: 'rc.EditableList', onAdd: 'inputChange', onSelect: 'inputChange', placeholder: 'user@email.com',
+            data: [
+                {caption: 'alaxeyp@ringcentral.com'},
+                {caption: 'vic@ringcentral.com'},
+                {caption: 'john.smith@ringcentral.com'}
+            ]
+        }
     ],
 
     inputChange: function( inEvent, inSender ){
-        this.log( inSender.originator.name, inSender.originator.getValue() );
+        this.log( inSender.originator.name );
     }
 });

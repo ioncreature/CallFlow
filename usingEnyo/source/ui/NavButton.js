@@ -10,7 +10,8 @@ enyo.kind({
 
     published: {
         caption: '',
-        description: ''
+        description: '',
+        data: ''
     },
 
     components: [

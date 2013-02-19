@@ -6,6 +6,7 @@
 enyo.kind({
     kind: enyo.Control,
     name: 'rc.VerticalGroup',
+    classes: 'ui-vertical-group',
 
     firstClass: 'ui-group-first-child',
     middleClass: 'ui-group-middle-child',
