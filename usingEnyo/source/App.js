@@ -10,13 +10,15 @@ enyo.kind({
     components: [
         {kind: 'rc.NavToolbar', onBack: 'goBack', showBack: true, caption: 'User Settings' },
         {kind: 'onyx.RadioGroup', layoutKind: 'rc.ColumnsLayout', onActivate: 'onTabActivate', classes: 'ui-tabs', controlClasses: 'onyx-tabbutton ui-tabs-button', components: [
-            {name: 'callFlowButton', content: 'Call Flow', active: true, bindTo: 'callFlowPanel' },
+            {name: 'userInfoButton', content: 'User Info', bindTo: 'userInfoPanel' },
             {name: 'callerIdButton', content: 'Caller ID', bindTo: 'callerIdPanel' },
-            {name: 'faxButton', content: 'Fax', bindTo: 'faxPanel' }
+            {name: 'callFlowButton', content: 'Call Flow', bindTo: 'callFlowPanel' },
+            {name: 'faxButton', content: 'Fax', active: true, bindTo: 'faxPanel' }
         ]},
         {kind: 'Panels', fit: true, realtimeFit: true, onTransitionFinish: 'onPanelActivate', animate: true, components: [
-            {name: 'callFlowPanel', content: 'callFlowPanel', active: true, bindTo: 'callFlowButton' },
+            {name: 'userInfoPanel', content: 'User Info', bindTo: 'userInfoButton' },
             {kind: 'rc.CallerId', name: 'callerIdPanel', bindTo: 'callerIdButton' },
+            {name: 'callFlowPanel', content: 'callFlowPanel', active: true, bindTo: 'callFlowButton' },
             {kind: 'rc.Fax', name: 'faxPanel', bindTo: 'faxButton' }
         ]}
     ],

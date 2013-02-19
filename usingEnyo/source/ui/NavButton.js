@@ -9,8 +9,8 @@ enyo.kind({
     classes: 'ui-nav-button',
 
     published: {
-        caption: 'Caption',
-        value: 'Value'
+        caption: '',
+        value: ''
     },
 
     components: [

@@ -75,17 +75,8 @@
     margin: 0 10px 25px;
     padding: 8px;
     color: #1B99CE;
-    overflow: hidden;
     background-color: #D6EDFB;
     vertical-align: baseline;
-}
-
-.ui-toggle-button-caption {
-    float: left;
-    display: table-cell;
-}
-.ui-toggle-button-value {
-    float: right;
 }
 
 .ui-group-first-child {
@@ -105,4 +96,35 @@
     border-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+
+.ui-text-input {
+    border: 3px solid #1B99CE;
+    border-radius: 8px;
+    background-color: #D6EDFB;
+    margin: 0 10px 25px;
+    padding: 8px;
+}
+
+.ui-toggle-button-value {
+    width: 76px;
+}
+
+.ui-block {
+    display: block;
+}
+
+.ui-text-input > * {
+    width: 100%;
+    color: #1B99CE;
+    font-weight: bold;
+    font-family: 'Helvetica Neue', 'Nimbus Sans L', Arial, sans-serif;
+}
+
+.ui-button {
+    border: 3px solid #1B99CE;
+    border-radius: 8px;
+    background-color: #D6EDFB;
+    margin: 0 10px 25px;
 }

@@ -5,7 +5,7 @@
 
 
 enyo.kind({
-    kind: enyo.Control,
+    kind: 'FittableColumns',
     name: 'rc.ToggleButton',
 
     published: {
@@ -16,8 +16,8 @@ enyo.kind({
     classes: 'ui-toggle-button',
 
     components: [
-        {name: 'caption', classes: 'ui-toggle-button-caption'},
-        {kind: 'onyx.ToggleButton', name: 'toggle', onChange: 'toggleChanged', classes: 'ui-toggle-button-value'}
+        {name: 'caption', fit: true},
+        {kind: 'onyx.ToggleButton', name: 'toggle', onChange: 'toggleChanged', classes: 'ui-toggle-button-value' }
     ],
 
     create: function(){
