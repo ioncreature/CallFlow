@@ -4,6 +4,34 @@
 @import 'ToggleButton';
 @import 'EditableList';
 
+
+.ui-placeholder (
+    @color: @rc-placeholder-color,
+    @font-size: @rc-font-size-medium,
+    @font-family: @rc-font-family
+){
+    &::-webkit-input-placeholder { /*WebKit*/
+        color: @color;
+        font-size: @font-size;
+        font-family: @font-family;
+    }
+    &:-moz-placeholder { /*Firefox 4-18*/
+        color: @color;
+        font-size: @font-size;
+        font-family: @font-family;
+    }
+    &::-moz-placeholder { /*Firefox 19+*/
+        color: @color;
+        font-size: @font-size;
+        font-family: @font-family;
+    }
+    &:-ms-input-placeholder { /*IE 10+*/
+        color: @color;
+        font-size: @font-size;
+        font-family: @font-family;
+    }
+}
+
 .ui-tabs {
     overflow: hidden;
 }
@@ -47,11 +75,12 @@
     padding: @rc-input-padding;
 }
 
-.ui-text-input > * {
+.ui-text-input > input {
     width: 100%;
     color: @rc-input-color;
     font-weight: bold;
     font-family: @rc-font-family;
+    .ui-placeholder;
 }
 
 .ui-button {
