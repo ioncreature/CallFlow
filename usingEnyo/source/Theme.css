@@ -138,34 +138,39 @@
   margin: 0 10px 25px;
   padding: 8px;
 }
-.ui-text-input > input {
+.ui-text-input > input,
+.ui-text-input > textarea {
   width: 100%;
   color: #1b99ce;
   font-weight: bold;
   font-family: 'Helvetica Neue', 'Nimbus Sans L', Arial, sans-serif;
 }
-.ui-text-input > input::-webkit-input-placeholder {
+.ui-text-input > input::-webkit-input-placeholder,
+.ui-text-input > textarea::-webkit-input-placeholder {
   /*WebKit*/
 
   color: #a8d3e5;
   font-size: 16px;
   font-family: 'Helvetica Neue', 'Nimbus Sans L', Arial, sans-serif;
 }
-.ui-text-input > input:-moz-placeholder {
+.ui-text-input > input:-moz-placeholder,
+.ui-text-input > textarea:-moz-placeholder {
   /*Firefox 4-18*/
 
   color: #a8d3e5;
   font-size: 16px;
   font-family: 'Helvetica Neue', 'Nimbus Sans L', Arial, sans-serif;
 }
-.ui-text-input > input::-moz-placeholder {
+.ui-text-input > input::-moz-placeholder,
+.ui-text-input > textarea::-moz-placeholder {
   /*Firefox 19+*/
 
   color: #a8d3e5;
   font-size: 16px;
   font-family: 'Helvetica Neue', 'Nimbus Sans L', Arial, sans-serif;
 }
-.ui-text-input > input:-ms-input-placeholder {
+.ui-text-input > input:-ms-input-placeholder,
+.ui-text-input > textarea:-ms-input-placeholder {
   /*IE 10+*/
 
   color: #a8d3e5;
