@@ -43,14 +43,11 @@ enyo.kind({
     },
 
     dataChanged: function( newData ){
-        this.log( newData );
-
         var list = this.$.list,
             itemAdapter = this.getItemAdapter() || this.defaultAdapter,
             component = this;
 
         list.destroyComponents();
-
         newData.forEach( function( item ){
             var adaptedItem = itemAdapter.call( component, item );
             list.createComponent({
@@ -60,7 +57,6 @@ enyo.kind({
                 description: adaptedItem.description
             });
         });
-
         list.render();
     },
 
@@ -74,6 +70,5 @@ enyo.kind({
         this.setData( data );
         this.dataChanged( data );
         this.$.input.setValue( '' );
-        this.log( 'doAdd' );
     }
 });

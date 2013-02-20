@@ -8,12 +8,12 @@ enyo.depends(
     'ui/EditableList.js',
     'ui/ToggleButton.js',
     'ui/VerticalGroup.js',
-    'ui/CallerId.js',
-    'ui/Fax.js',
     'ui/NavToolbar.js',
     'ui/UserInfo.js',
-    'ui/CallFlow.js',
     'ui/ColumnsLayout.js',
+    'ui/CallFlow.js',
+    'ui/CallerId.js',
+    'ui/Fax.js',
 
 	'App.js'
 );

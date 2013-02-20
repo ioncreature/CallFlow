@@ -27,7 +27,7 @@ enyo.kind({
 
         {classes: 'ui-label', content: 'Adress'},
         {kind: 'onyx.InputDecorator', classes: 'ui-text-input ui-block', components: [
-            {kind: 'onyx.TextArea', value: '144 Fashion Islanf Blvd,\n7th Floor', onchange: 'inputChange'}
+            {kind: 'onyx.TextArea', value: '144 Fashion Island Blvd,\n7th Floor', onchange: 'inputChange'}
         ]},
 
         {classes: 'ui-label', content: 'City'},
