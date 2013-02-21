@@ -8,7 +8,6 @@ enyo.kind({
     kind: 'Control',
     name: 'rc.CallFlowItem',
     classes: 'ui-call-flow-item',
-    fit: true,
 
     published: {
         caption: ''
@@ -16,7 +15,7 @@ enyo.kind({
 
     itemTools: [
         {kind: 'FittableRows', name: 'headerLine', components: [
-            {name: 'editButton', content: 'edit'},
+            {name: 'editButton', classes: 'ui-call-flow-edit-button', content: 'edit'},
             {name: 'caption', content: 'Caption'}
         ]},
         {name: 'client'}
@@ -24,6 +23,7 @@ enyo.kind({
 
     create: function(){
         this.inherited( arguments );
+        this.captionChanged();
     },
 
     initComponents: function(){

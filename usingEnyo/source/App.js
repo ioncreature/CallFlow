@@ -16,7 +16,7 @@ enyo.kind({
         ]},
         {kind: 'Panels', fit: true, realtimeFit: true, draggable: true, onTransitionFinish: 'onPanelActivate', animate: true, components: [
             {name: 'userInfoPanel', content: 'User Info', bindTo: 'userInfoButton' },
-            {kind: 'rc.CallFlow', name: 'callFlowPanel', content: 'callFlowPanel', bindTo: 'callFlowButton' },
+            {kind: 'rc.CallFlow', name: 'callFlowPanel', bindTo: 'callFlowButton' },
             {kind: 'rc.Fax', name: 'faxPanel', bindTo: 'faxButton' }
         ]}
     ],

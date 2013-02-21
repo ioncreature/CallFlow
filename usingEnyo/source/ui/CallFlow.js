@@ -5,22 +5,33 @@
 
 enyo.kind({
     name: 'rc.CallFlow',
-    kind: enyo.Scroller,
-    layoutKind: enyo.FittableRowsLayout,
-    horizontal: 'hidden',
-    fit: true,
+    kind: 'FittableRows',
+//    kind: enyo.Scroller,
+//    layoutKind: enyo.FittableRowsLayout,
+//    horizontal: 'hidden',
+//    fit: true,
 
     tools: [
 
     ],
 
+    components: [
+        {kind: 'rc.CallFlowItem', caption: 'ololosh'},
+        {kind: 'rc.CallFlowItem', caption: 'trololosh'},
+        {kind: 'rc.CallFlowItem', caption: 'piu-piu'},
+        {kind: 'rc.CallFlowItem', caption: 'пшь-пшь', components: [
+            {content: 'trololo-ololo'},
+            {content: 'trololo-ololo'}
+        ]}
+    ],
+
     create: function(){
         this.inherited( arguments );
-        this.log( this.$.tabs );
+        this.log( this.children );
     },
 
     initComponents: function(){
-        this.createChrome( this.itemTools );
+        this.createChrome( this.tools );
         this.inherited( arguments );
     }
 });

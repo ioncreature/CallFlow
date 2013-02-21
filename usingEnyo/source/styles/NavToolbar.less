@@ -1,5 +1,10 @@
 .ui-nav-toolbar {
     height: 56px;
+    background-color: @rc-input-color;
+    background-image: none;
+    border: 1px solid @rc-border-color;
+    box-shadow: none;
+    font-size: @rc-font-size-large;
 }
 
 .ui-nav-toolbar .ui-nav-toolbar-caption {
@@ -7,6 +12,15 @@
     vertical-align: baseline;
 }
 
-.ui-nav-toolbar-button {
-    width: 80px;
+.ui-nav-toolbar > .ui-nav-toolbar-button {
+    width: 70px;
+    background-image: none;
+    border-radius: @rc-border-radius-small;
+    outline: none;
+    background-color: @rc-input-color;
+    border: 2px solid @rc-active-color;
+//    font-size: 30px;
+    vertical-align: baseline;
+    line-height: 20px;
+    padding: 5px 20px 7px 15px;
 }

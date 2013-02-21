@@ -55,13 +55,26 @@
 }
 .ui-nav-toolbar {
   height: 56px;
+  background-color: #1b99ce;
+  background-image: none;
+  border: 1px solid #1787b5;
+  box-shadow: none;
+  font-size: 20px;
 }
 .ui-nav-toolbar .ui-nav-toolbar-caption {
   text-align: center;
   vertical-align: baseline;
 }
-.ui-nav-toolbar-button {
-  width: 80px;
+.ui-nav-toolbar > .ui-nav-toolbar-button {
+  width: 70px;
+  background-image: none;
+  border-radius: 4px;
+  outline: none;
+  background-color: #1b99ce;
+  border: 2px solid #ffffff;
+  vertical-align: baseline;
+  line-height: 20px;
+  padding: 5px 20px 7px 15px;
 }
 .ui-vertical-group .ui-group-first-child {
   margin-bottom: 0;
@@ -110,6 +123,19 @@
   padding-right: 10px;
   height: 100%;
   float: left;
+  background-color: #d6edfb;
+  background-image: none;
+  outline: 1px solid #1787b5;
+  border-color: #1787b5;
+  border-width: 0 0 1px 0;
+  box-shadow: none;
+  font-size: 16px;
+  color: #1b99ce;
+}
+.ui-tabs > .ui-tabs-button.active {
+  text-shadow: none;
+  background-color: #1b99ce;
+  color: #ffffff;
 }
 .ui-message {
   color: #ad9c5e;

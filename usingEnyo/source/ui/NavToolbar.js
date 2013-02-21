@@ -13,7 +13,7 @@ enyo.kind({
     },
 
     components: [
-        { kind: onyx.Button, name: 'backButton', content: 'Back', ontap: 'backTapped', classes: 'ui-nav-toolbar-button' },
+        { kind: onyx.Button, name: 'backButton', content: 'Back'/*&#9664;*/, ontap: 'backTapped', classes: 'ui-nav-toolbar-button' },
         { name: 'caption', content: 'Default Caption', fit: true, classes: 'ui-nav-toolbar-caption' },
         { kind: onyx.Button, name: 'nextButton', content: 'Next', ontap: 'nextTapped', classes: 'ui-nav-toolbar-button' }
     ],
