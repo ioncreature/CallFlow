@@ -1,26 +1,30 @@
-.ui-call-flow {
-    margin: 10px 10px 25px;
-    padding: 0 20px;
-}
-
+/* Container Rules */
+.ui-call-flow {}
 .ui-call-flow-decorator {
-//    position: absolute;
-//    top: 0;
-//    left: 0;
-//    height: 100%;
-//    width: 1px;
-//    z-index: -1;
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 10px 10px 25px;
+    padding: 0 10px 0 25px;
 }
-
-
-
-.ui-call-flow-item {
+.ui-call-flow-header {
+    position: relative;
     padding: 0 0 0 10px;
     border-left: 3px solid @rc-input-color;
+    padding-bottom: 40px;
+    margin: 30px 0 0 0;
 }
+.ui-call-flow-items {}
 
-ui-call-flow-header {
-    .ui-call-flow-item;
+
+/* Item Rules */
+
+.ui-call-flow-item {
+    position: relative;
+    padding: 0 0 0 14px;
+    border-left: 3px solid @rc-input-color;
+    padding-bottom: 40px;
+    margin: 0;
 }
 
 .ui-call-flow-item:last-child {
@@ -28,41 +32,31 @@ ui-call-flow-header {
     margin-left: 3px;
 }
 
-.ui-call-flow-items {
-//    position: absolute;
-//    top: 100px;
-//    left: 100px;
-//    z-index: 1;
-}
-
-.ui-call-flow-item {
-    padding-bottom: 40px;
-}
-
 .ui-call-flow-item-header {
-//    overflow: hidden;
-    height: 36px;
+    min-height: 36px;
     display: block;
-    vertical-align: baseline;
-//    vertical-align: text-top;
 }
 
 .ui-call-flow-item-edit-button {
-    margin-left: -32px;
+    position: absolute;
+    top: -6px;
+    left: -23px;
     width: 30px;
     height: 30px;
     border: 6px solid @rc-input-color;
     border-radius: 100%;
     background-color: @rc-input-bg;
-    float: left;
 }
 
 .ui-call-flow-item-caption {
     font-size: @rc-font-size-biggest;
-    margin: 3px 10px 0 10px;
-    float: left;
+    margin: 3px 10px 0 13px;
     height: 30px;
-//    padding-top: 3px;
 }
 
-
+.ui-call-flow-item-description {
+    display: block;
+    font-size: @rc-font-size-small;
+    color: @rc-inactive-color;
+    margin: 3px 10px 0 13px;
+}

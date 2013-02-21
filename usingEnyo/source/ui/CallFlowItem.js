@@ -10,13 +10,15 @@ enyo.kind({
     classes: 'ui-call-flow-item',
 
     published: {
-        caption: ''
+        caption: '',
+        description: ''
     },
 
     itemTools: [
+        {name: 'editButton', classes: 'ui-call-flow-item-edit-button'},
         {classes: 'ui-call-flow-item-header', components: [
-            {name: 'editButton', classes: 'ui-call-flow-item-edit-button'},
-            {name: 'caption', classes: 'ui-call-flow-item-caption', content: 'Caption'}
+            {name: 'caption', classes: 'ui-call-flow-item-caption'},
+            {name: 'description', classes: 'ui-call-flow-item-description', allowHtml: true},
         ]},
         {name: 'client'}
     ],
@@ -24,6 +26,7 @@ enyo.kind({
     create: function(){
         this.inherited( arguments );
         this.captionChanged();
+        this.descriptionChanged();
     },
 
     initComponents: function(){
@@ -33,5 +36,9 @@ enyo.kind({
 
     captionChanged: function(){
         this.$.caption.setContent( this.getCaption() );
+    },
+
+    descriptionChanged: function(){
+        this.$.description.setContent( this.getDescription() );
     }
 });

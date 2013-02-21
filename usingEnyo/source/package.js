@@ -5,6 +5,8 @@ enyo.depends(
 	'$lib/onyx',	// To theme Onyx using Theme.less, change this line to $lib/onyx/source,
 	'Theme.less',	// uncomment this line, and follow the steps described in Theme.less
 
+	'loc/en_US.js',
+
     'ui/NavButton.js',
     'ui/EditableList.js',
     'ui/ToggleButton.js',
