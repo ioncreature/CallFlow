@@ -14,9 +14,9 @@ enyo.kind({
     },
 
     itemTools: [
-        {kind: 'FittableRows', name: 'headerLine', components: [
-            {name: 'editButton', classes: 'ui-call-flow-edit-button', content: 'edit'},
-            {name: 'caption', content: 'Caption'}
+        {classes: 'ui-call-flow-item-header', components: [
+            {name: 'editButton', classes: 'ui-call-flow-item-edit-button'},
+            {name: 'caption', classes: 'ui-call-flow-item-caption', content: 'Caption'}
         ]},
         {name: 'client'}
     ],

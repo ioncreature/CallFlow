@@ -8,7 +8,6 @@ enyo.kind({
     name: 'rc.Fax',
     kind: enyo.Scroller,
     touch: true,
-    thumb: true,
     layoutKind: enyo.FittableRowsLayout,
     horizontal: 'hidden',
     style: 'margin-bottom: 20px;',

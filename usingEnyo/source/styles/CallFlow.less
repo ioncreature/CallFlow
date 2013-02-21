@@ -1,5 +1,68 @@
 .ui-call-flow {
-//    padding: ;
+    margin: 10px 10px 25px;
+    padding: 0 20px;
 }
-.ui-call-flow-item {}
-.ui-call-flow-edit-button {}
+
+.ui-call-flow-decorator {
+//    position: absolute;
+//    top: 0;
+//    left: 0;
+//    height: 100%;
+//    width: 1px;
+//    z-index: -1;
+}
+
+
+
+.ui-call-flow-item {
+    padding: 0 0 0 10px;
+    border-left: 3px solid @rc-input-color;
+}
+
+ui-call-flow-header {
+    .ui-call-flow-item;
+}
+
+.ui-call-flow-item:last-child {
+    border-left: none;
+    margin-left: 3px;
+}
+
+.ui-call-flow-items {
+//    position: absolute;
+//    top: 100px;
+//    left: 100px;
+//    z-index: 1;
+}
+
+.ui-call-flow-item {
+    padding-bottom: 40px;
+}
+
+.ui-call-flow-item-header {
+//    overflow: hidden;
+    height: 36px;
+    display: block;
+    vertical-align: baseline;
+//    vertical-align: text-top;
+}
+
+.ui-call-flow-item-edit-button {
+    margin-left: -32px;
+    width: 30px;
+    height: 30px;
+    border: 6px solid @rc-input-color;
+    border-radius: 100%;
+    background-color: @rc-input-bg;
+    float: left;
+}
+
+.ui-call-flow-item-caption {
+    font-size: @rc-font-size-biggest;
+    margin: 3px 10px 0 10px;
+    float: left;
+    height: 30px;
+//    padding-top: 3px;
+}
+
+

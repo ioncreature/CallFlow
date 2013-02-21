@@ -5,20 +5,24 @@
 
 enyo.kind({
     name: 'rc.CallFlow',
-    kind: 'FittableRows',
-//    kind: enyo.Scroller,
-//    layoutKind: enyo.FittableRowsLayout,
-//    horizontal: 'hidden',
-//    fit: true,
+    kind: enyo.Scroller,
+//    touch: true,
+    horizontal: 'hidden',
+    classes: 'ui-call-flow',
 
     tools: [
-
+        {classes: 'ui-call-flow-decorator', components: [
+            {content: 'Caller', classes: 'ui-call-flow-header'},
+            {name: 'client', classes: 'ui-call-flow-items'}
+        ]}
     ],
 
     components: [
-        {kind: 'rc.CallFlowItem', caption: 'ololosh'},
-        {kind: 'rc.CallFlowItem', caption: 'trololosh'},
-        {kind: 'rc.CallFlowItem', caption: 'piu-piu'},
+        {kind: 'rc.CallFlowItem', caption: 'Block Unwanted Callers'},
+        {kind: 'rc.CallFlowItem', caption: 'Answering Rules'},
+        {kind: 'rc.CallFlowItem', caption: 'Greet the Caller'},
+        {kind: 'rc.CallFlowItem', caption: 'Screen the Caller'},
+        {kind: 'rc.CallFlowItem', caption: 'Connecting'},
         {kind: 'rc.CallFlowItem', caption: 'пшь-пшь', components: [
             {content: 'trololo-ololo'},
             {content: 'trololo-ololo'}
