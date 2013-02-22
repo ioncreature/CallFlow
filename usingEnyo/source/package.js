@@ -14,6 +14,7 @@ enyo.depends(
     'ui/NavToolbar.js',
     'ui/UserInfoPanel.js',
     'ui/ColumnsLayout.js',
+    'ui/UserInfo.js',
     'ui/CallFlowItem.js',
     'ui/CallFlow.js',
     'ui/CallerId.js',

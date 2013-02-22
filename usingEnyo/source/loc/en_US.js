@@ -5,6 +5,10 @@
 
 
 var loc = {
+    img: {
+        avatar: '../../../Design/images/avatar.jpg'
+    },
+
     CallFlow: {
         blockUnwantedCallers: 'Block Unwanted Callers',
         answeringRules: 'Answering Rules',
@@ -17,5 +21,12 @@ var loc = {
         connectingDesc: 'Callers will hear a message that they are being connected to your extension.',
         playing: 'Playing',
         playingDesc: 'What users will hear while call comes through.'
+    },
+
+    UserInfoPanel: {
+        numbers: 'Numbers',
+        phonesAndNumbers: 'Phones & Numbers',
+        callerId: 'Caller ID',
+        musicOnHold: 'Music On Hold'
     }
 };

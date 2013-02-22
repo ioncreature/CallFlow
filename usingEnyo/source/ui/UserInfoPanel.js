@@ -7,12 +7,20 @@ enyo.kind({
     kind: enyo.Scroller,
     touch: true,
     name: 'rc.UserInfoPanel',
-    classes: 'ui-user-info',
+    classes: 'ui-user-info-panel',
+    layoutKind: 'FittableRowsLayout',
 
     components: [
-        {kind: 'rc.NavButton', caption: 'Numbers', description: ['(650) 472-4080', '(800) 513-1320'] },
-        {kind: 'rc.NavButton', caption: 'Phones & Numbers'},
-        {kind: 'rc.NavButton', caption: 'Caller ID', description: 'Vlad Vendrow'},
-        {kind: 'rc.NavButton', caption: 'Music On Hold'}
+        {kind: 'rc.UserInfo', avatarUrl: loc.img.avatar, data: {
+            name: 'Vlad Vendrow,',
+            extension: 'ext. 101',
+            company: 'RingCentral, Inc.',
+            post: 'CTO',
+            email: 'vladv@ringcentral.com'
+        }},
+        {kind: 'rc.NavButton', caption: loc.UserInfoPanel.numbers, description: ['(650) 472-4080', '(800) 513-1320'] },
+        {kind: 'rc.NavButton', caption: loc.UserInfoPanel.phonesAndNumbers},
+        {kind: 'rc.NavButton', caption: loc.UserInfoPanel.callerId, description: 'Vlad Vendrow'},
+        {kind: 'rc.NavButton', caption: loc.UserInfoPanel.musicOnHold}
     ]
 });

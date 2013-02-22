@@ -1,7 +1,49 @@
+/* User Info styles */
+
 .ui-user-info {
-//    padding: 10px 10px;
+    margin: 20px 10px 20px 10px;
+    height: 79px;
+    border-radius: @rc-border-radius;
+    border: 1px solid @rc-input-color;
+    background-color: @rc-input-bg;
+    padding: @rc-input-padding;
+    color: @rc-input-color;
 }
 
-.ui-user-info:first-child {
-    margin-top: 20px;
+.ui-user-info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
 }
+
+.ui-user-info-icon {
+    width: 14px;
+    line-height: 100%;
+    vertical-align: center;
+    font-weight: bold;
+    text-align: right;
+}
+
+.ui-user-info-image-wrapper {
+    padding-right: 14px;
+}
+
+.ui-user-info-name,
+.ui-user-info-extension {
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 7px;
+}
+.ui-user-info-name::after {
+    content: ', '
+}
+.ui-user-info-extension,
+.ui-user-info-company {
+    color: @rc-text-color;
+}
+.ui-user-info-post {}
+.ui-user-info-email {}
+
+/* Panel styles */
+
+.ui-user-info-panel{}
