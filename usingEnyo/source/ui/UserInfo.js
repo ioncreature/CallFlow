@@ -4,13 +4,12 @@
  */
 
 enyo.kind({
-    fit: true,
-    kind: 'Control',
+    kind: enyo.Scroller,
+    touch: true,
     name: 'rc.UserInfo',
-    visible: true,
+    classes: 'ui-user-info',
+
     components: [
-        {name: "MyStartPanel", content: 'ololo'},
-        {name: "MyMiddlePanel", content: 'trololo'},
-        {name: "MyLastPanel", content: 'ololo'}
+        {kind: 'rc.NavButton', caption: 'Numbers', description: '(650) 472-4080\n(800) 513-1320' },
     ]
 });
