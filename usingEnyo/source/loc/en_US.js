@@ -6,7 +6,7 @@
 
 var loc = {
     img: {
-        avatar: '../../../Design/images/avatar.jpg'
+        avatar: '../Design/images/avatar.jpg'
     },
 
     CallFlow: {

@@ -7,13 +7,15 @@ enyo.depends(
 
 	'loc/en_US.js',
 
+    'ui/ColumnsLayout.js',
+    'ui/RadioListItem.js',
+    'ui/RadioList.js',
     'ui/NavButton.js',
     'ui/EditableList.js',
     'ui/ToggleButton.js',
     'ui/VerticalGroup.js',
     'ui/NavToolbar.js',
     'ui/UserInfoPanel.js',
-    'ui/ColumnsLayout.js',
     'ui/UserInfo.js',
     'ui/CallFlowItem.js',
     'ui/CallFlow.js',

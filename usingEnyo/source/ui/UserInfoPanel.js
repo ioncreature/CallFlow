@@ -6,6 +6,7 @@
 enyo.kind({
     kind: enyo.Scroller,
     touch: true,
+    horizontal: 'hidden',
     name: 'rc.UserInfoPanel',
     classes: 'ui-user-info-panel',
     layoutKind: 'FittableRowsLayout',
