@@ -12,7 +12,7 @@ enyo.depends(
     'ui/ToggleButton.js',
     'ui/VerticalGroup.js',
     'ui/NavToolbar.js',
-    'ui/UserInfo.js',
+    'ui/UserInfoPanel.js',
     'ui/ColumnsLayout.js',
     'ui/CallFlowItem.js',
     'ui/CallFlow.js',

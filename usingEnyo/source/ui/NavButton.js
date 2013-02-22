@@ -16,13 +16,28 @@ enyo.kind({
 
     components: [
         {name: 'caption', classes: 'ui-nav-button-caption'},
-        {name: 'description', classes: 'ui-nav-button-value'},
+        {name: 'description', classes: 'ui-nav-button-value', allowHtml: true},
         {name: 'nextIcon', content: '>', classes: 'ui-nav-button-icon'}
     ],
 
     create: function(){
         this.inherited( arguments );
+        this.captionChanged();
+        this.descriptionChanged();
+    },
+
+    descriptionChanged: function(){
+        var desc = this.getDescription(),
+            res;
+        if ( desc instanceof Array )
+            res = desc.join( '<br />' );
+        else
+            res = '' + desc;
+
+        this.$.description.setContent( res );
+    },
+
+    captionChanged: function(){
         this.$.caption.setContent( this.getCaption() );
-        this.$.description.setContent( this.getDescription() );
     }
 });
