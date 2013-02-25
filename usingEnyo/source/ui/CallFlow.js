@@ -17,7 +17,9 @@ enyo.kind({
                 {tag: 'img', src: loc.img.caller}
             ]},
             {name: 'client', classes: 'ui-call-flow-items', components: [
-                {kind: 'rc.CallFlowItem', caption: loc.CallFlow.blockUnwantedCallers, description: loc.CallFlow.answeringRulesDesc},
+                {name: 'blockCallers', kind: 'rc.CallFlowItem', caption: loc.CallFlow.blockUnwantedCallers, components: [
+                    {tag: 'img', classes: 'ui-call-flow-item-img-full', src: loc.img.blockCallers}
+                ]},
                 {kind: 'rc.CallFlowItem', caption: loc.CallFlow.answeringRules,
                     description: loc.CallFlow.answeringRulesDesc, components: [
                     {kind: 'rc.RadioList', items: [

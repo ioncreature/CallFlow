@@ -9,7 +9,9 @@ var loc = {
         avatar: '../Design/images/avatar.jpg',
         notifications: '../Design/images/cartoon_notifications_on.svg',
         notificationsOff: '../Design/images/cartoon_notifications_off.svg',
-        caller: '../Design/images/cartoon_caller.svg'
+        caller: '../Design/images/cartoon_caller.svg',
+        blockCallers: '../Design/images/cartoon_block-unwanted-callers_on.svg',
+        blockCallersOff: '../Design/images/cartoon_block-unwanted-callers_off.svg'
     },
 
     CallFlow: {
