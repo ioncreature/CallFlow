@@ -15,6 +15,7 @@ enyo.depends(
     'ui/NavButton.js',
     'ui/EditableList.js',
     'ui/ToggleButton.js',
+    'ui/Notifications.js',
     'ui/UserInfoPanel.js',
     'ui/UserInfo.js',
     'ui/CallFlowItem.js',
