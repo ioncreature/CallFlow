@@ -8,7 +8,8 @@ var loc = {
     img: {
         avatar: '../Design/images/avatar.jpg',
         notifications: '../Design/images/cartoon_notifications_on.svg',
-        notificationsOff: '../Design/images/cartoon_notifications_off.svg'
+        notificationsOff: '../Design/images/cartoon_notifications_off.svg',
+        caller: '../Design/images/cartoon_caller.svg'
     },
 
     CallFlow: {

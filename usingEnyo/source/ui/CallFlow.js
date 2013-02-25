@@ -12,7 +12,10 @@ enyo.kind({
 
     components: [
         {classes: 'ui-call-flow-decorator', components: [
-            {content: 'Caller', classes: 'ui-call-flow-header'},
+            {content: 'Caller', classes: 'ui-call-flow-header', components: [
+                {classes: 'ui-call-flow-header-decorator'},
+                {tag: 'img', src: loc.img.caller}
+            ]},
             {name: 'client', classes: 'ui-call-flow-items', components: [
                 {kind: 'rc.CallFlowItem', caption: loc.CallFlow.blockUnwantedCallers, description: loc.CallFlow.answeringRulesDesc},
                 {kind: 'rc.CallFlowItem', caption: loc.CallFlow.answeringRules,
