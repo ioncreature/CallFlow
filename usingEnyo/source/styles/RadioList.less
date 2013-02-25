@@ -1,0 +1,52 @@
+/**
+ * @author Marenin Alexander
+ * February 2013
+ */
+
+.ui-radio-list {
+    margin: 15px 10px 10px 10px;
+    padding: 0;
+}
+.ui-radio-list-item {
+    width: 100%;
+    border-radius: @rc-border-radius-small;
+    border: 1px solid @rc-input-color;
+    background-color: @rc-bg-color;
+    color: @rc-input-color;
+    font-size: @rc-font-size-small;
+    font-weight: bold;
+    position: relative;
+    height: 28px;
+
+    &.active {
+        background-color: @rc-input-color;
+        color: @rc-active-color;
+
+        & .ui-radio-list-item-ruler {
+            display: block;
+        }
+    }
+
+    & :first-child {
+        float: left;
+        margin: 6px 0 6px 9px;
+    }
+
+    & :last-child {
+        float: right;
+        margin: 6px 9px 6px 0;
+        text-align: right;
+    }
+}
+
+.ui-radio-list-item-ruler {
+    width: 27px;
+    height: 6px;
+    border-top: 3px solid @rc-input-color;
+    border-bottom: 3px solid @rc-input-color;
+    background-color: white;
+    position: absolute;
+    top: 9px;
+    left: -28px;
+    display: none;
+}

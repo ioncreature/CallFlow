@@ -5,42 +5,52 @@
 
 
 enyo.kind({
-    kind: 'FittableRows',
+    kind: 'rc.VerticalGroup',
     name: 'rc.RadioList',
+    classes: 'ui-radio-list',
 
     published: {
-        rules: null
+        items: null
     },
 
-    events: {
+    handlers: {
         onActivate: ''
     },
 
     itemKind: 'rc.RadioListItem',
+    activeChild: null,
 
     create: function(){
         this.inherited( arguments );
-        this.rulesChanged();
+        this.itemsChanged();
+        this.render();
     },
 
-    rulesChanged: function(){
-        var rules = this.getRules(),
+    itemsChanged: function(){
+        var items = this.getItems(),
             component = this;
 
         this.destroyComponents();
-        if ( rules && rules.length ){
-            rules.forEach( function( rule ){
+        if ( items && items.length ){
+            items.forEach( function( item ){
                 component.createComponent({
                     kind: component.itemKind,
-                    caption: rule.caption,
-                    description: rule.description,
-                    onTap: function( inSender, inEvent ){
-                        component.doActivate();
-                    }
+                    caption: item.caption,
+                    description: item.description,
+                    ontap: 'onItemTap'
                 });
+
+                if ( item.active )
+                    component.onItemTap( component.children[component.children.length - 1] );
             });
-//            this.children[0].activate;
+        }
+    },
+
+    onItemTap: function( inSender, inEvent ){
+        if ( !inSender.getActive() ){
+            inSender.setActive( true );
+            this.activeChild && this.activeChild.setActive( false );
+            this.activeChild = inSender;
         }
     }
-
 });

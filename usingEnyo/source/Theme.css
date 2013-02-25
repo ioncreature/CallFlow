@@ -29,11 +29,23 @@
 /* Images */
 /* ---------------------------------------*/
 /* ONYX */
+/**
+ * @author Marenin Alexander
+ * February 2013
+ */
 /* FONTS */
 /* COLORS */
 /* MARGINS & PADDINGS */
 /* BORDERS */
 /* RULES */
+/**
+ * @author Marenin Alexander
+ * February 2013
+ */
+/**
+ * @author Marenin Alexander
+ * February 2013
+ */
 .ui-nav-button {
   border: 1px solid #1b99ce;
   border-radius: 8px;
@@ -49,10 +61,10 @@
   float: left;
   width: 45%;
 }
-.ui-nav-button-icon {
-  font-weight: bold;
-  float: right;
-}
+/**
+ * @author Marenin Alexander
+ * February 2013
+ */
 .ui-nav-toolbar {
   height: 56px;
   background-color: #1b99ce;
@@ -76,6 +88,10 @@
   line-height: 20px;
   padding: 5px 20px 7px 15px;
 }
+/**
+ * @author Marenin Alexander
+ * February 2013
+ */
 .ui-vertical-group .ui-group-first-child {
   margin-bottom: 0;
   border-bottom-left-radius: 0;
@@ -94,6 +110,10 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+/**
+ * @author Marenin Alexander
+ * February 2013
+ */
 .ui-toggle-button {
   border: 1px solid #1b99ce;
   border-radius: 8px;
@@ -107,13 +127,129 @@
 .ui-toggle-button-value {
   width: 76px;
 }
+/**
+ * @author Marenin Alexander
+ * February 2013
+ */
 .ui-editable-list .ui-button {
   border-width: 1px;
   margin: 0 10px 0 0;
   height: 43px;
+  color: #1b99ce;
 }
 .ui-editable-list .ui-vertical-group {
   margin-top: 10px;
+}
+/**
+ * @author Marenin Alexander
+ * February 2013
+ */
+/* Container Rules */
+.ui-call-flow-decorator {
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: 10px 10px 25px;
+  padding: 0 10px 0 25px;
+}
+.ui-call-flow-header {
+  position: relative;
+  padding: 0 0 0 10px;
+  border-left: 3px solid #1b99ce;
+  padding-bottom: 40px;
+  margin: 30px 0 0 0;
+}
+/* Item Rules */
+.ui-call-flow-item {
+  position: relative;
+  padding: 0 0 0 14px;
+  border-left: 3px solid #1b99ce;
+  padding-bottom: 40px;
+  margin: 0;
+}
+.ui-call-flow-item:last-child {
+  border-left: none;
+  margin-left: 3px;
+}
+.ui-call-flow-item-edit-button {
+  position: absolute;
+  top: -6px;
+  left: -23px;
+  width: 30px;
+  height: 30px;
+  border: 6px solid #1b99ce;
+  border-radius: 100%;
+  background-color: #f4faff;
+}
+.ui-call-flow-item-header {
+  padding-left: 13px;
+}
+.ui-call-flow-item-caption {
+  font-size: 25px;
+  margin: 0 10px 0 0;
+}
+.ui-call-flow-item-description {
+  display: block;
+  font-size: 14px;
+  color: #aaaaaa;
+  margin: 3px 10px 0 0;
+}
+/**
+ * @author Marenin Alexander
+ * February 2013
+ */
+/* User Info styles */
+.ui-user-info {
+  margin: 20px 10px 20px 10px;
+  height: 79px;
+  border-radius: 8px;
+  border: 1px solid #1b99ce;
+  background-color: #d6edfb;
+  padding: 8px;
+  color: #1b99ce;
+}
+.ui-user-info img {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+}
+.ui-user-info-icon {
+  width: 14px;
+  line-height: 100%;
+  vertical-align: center;
+  font-weight: bold;
+  text-align: right;
+}
+.ui-user-info-image-wrapper {
+  padding-right: 14px;
+}
+.ui-user-info-name,
+.ui-user-info-extension {
+  font-weight: bold;
+  display: inline-block;
+  margin-right: 7px;
+}
+.ui-user-info-name::after {
+  content: ', ';
+}
+.ui-user-info-extension,
+.ui-user-info-company {
+  color: #111111;
+}
+/* Panel styles */
+/**
+ * @author Marenin Alexander
+ * February 2013
+ */
+.ui-radio-list {
+  margin: 10px;
+  padding: 0;
+}
+.ui-radio-list-item {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #1b99ce;
+  background-color: #f4faff;
 }
 .ui-tabs {
   overflow: hidden;
@@ -146,7 +282,7 @@
   background-color: #fffbec;
 }
 .ui-header-big {
-  font-size: 1.7em;
+  font-size: 25px;
   text-align: center;
   margin: 0 10px 20px;
 }
@@ -211,4 +347,8 @@
   padding: 8px;
   background-image: none;
   padding: 8px 12px;
+}
+.ui-icon-next {
+  font-weight: bold;
+  float: right;
 }

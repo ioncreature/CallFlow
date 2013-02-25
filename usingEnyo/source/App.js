@@ -10,8 +10,8 @@ enyo.kind({
     components: [
         {kind: 'rc.NavToolbar', onBack: 'goBack', showBack: true, caption: 'User Settings'},
         {kind: 'onyx.RadioGroup', layoutKind: 'rc.ColumnsLayout', onActivate: 'onTabActivate', classes: 'ui-tabs', controlClasses: 'onyx-tabbutton ui-tabs-button', components: [
-            {name: 'userInfoButton', content: 'User Info', active: true, bindTo: 'userInfoPanel'},
-            {name: 'callFlowButton', content: 'Call Flow', bindTo: 'callFlowPanel'},
+            {name: 'userInfoButton', content: 'User Info', bindTo: 'userInfoPanel'},
+            {name: 'callFlowButton', content: 'Call Flow', active: true, bindTo: 'callFlowPanel'},
             {name: 'faxButton', content: 'Fax', bindTo: 'faxPanel'}
         ]},
         {kind: 'Panels', fit: true, realtimeFit: true, draggable: true, onTransitionFinish: 'onPanelActivate', animate: true, components: [
