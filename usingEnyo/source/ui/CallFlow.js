@@ -11,6 +11,10 @@ enyo.kind({
     classes: 'ui-call-flow',
 
     components: [
+        {kind: 'onyx.RadioGroup', layoutKind: 'rc.ColumnsLayout', onActivate: 'onTabActivate', classes: 'ui-tabs', controlClasses: 'onyx-tabbutton ui-tabs-button', components: [
+            {name: 'showActive', content: 'Show Active'},
+            {name: 'showAll', content: 'Show All', active: true}
+        ]},
         {classes: 'ui-call-flow-decorator', components: [
             {content: 'Caller', classes: 'ui-call-flow-header', components: [
                 {classes: 'ui-call-flow-header-decorator'},

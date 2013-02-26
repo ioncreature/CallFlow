@@ -14,6 +14,11 @@
 @import 'Notifications';
 
 
+body {
+    font-family: @rc-font-family;
+}
+
+
 .ui-placeholder (
     @color: @rc-placeholder-color,
     @font-size: @rc-font-size-medium,
@@ -53,10 +58,12 @@
     background-color: @rc-input-bg;
     background-image: none;
     outline: 1px solid @rc-border-color;
+    font-weight: bold;
     border-color: @rc-border-color;
+    text-shadow: none;
     border-width: 0 0 1px 0;
     box-shadow: none;
-    font-size: @rc-font-size-medium;
+    font-size: @rc-font-size-big;
     color: @rc-input-color;
 }
 

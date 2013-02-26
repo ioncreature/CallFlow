@@ -4,12 +4,17 @@
  */
 
 /* FONTS */
-@rc-font-family: 'Helvetica Neue', 'Nimbus Sans L', Arial, sans-serif;
-@rc-font-size-small: 14px;
-@rc-font-size-medium: 16px;
-@rc-font-size-large: 20px;
-@rc-font-size-larger: 22px;
-@rc-font-size-biggest: 25px;
+@font-face {
+    font-family: Calibri;
+    src: url( '../../assets/fonts/Calibri.ttf' ) format( 'truetype' );
+}
+
+@rc-font-family: Calibri, Arial, sans-serif;
+@rc-font-size-small: 15px;
+@rc-font-size-medium: 17px;
+@rc-font-size-big: 20px;
+@rc-font-size-bigger: 23px;
+@rc-font-size-biggest: 26px;
 
 
 /* COLORS */
@@ -34,3 +39,9 @@
 /* BORDERS */
 @rc-border-radius-small: 4px;
 @rc-border-radius: 8px;
+
+
+/* IMAGES */
+@rc-images-path: '../../assets/images/';
+@rc-images-edit: '@{rc-images-path}edit_normal.svg';
+@rc-images-edit-off: '@{rc-images-path}edit_off.svg';

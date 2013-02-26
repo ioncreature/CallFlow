@@ -42,7 +42,7 @@
     position: relative;
     padding: 0 0 0 14px;
     border-left: 3px solid @rc-input-color;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
     margin: 0;
 }
 
@@ -59,11 +59,12 @@
     position: absolute;
     top: -6px;
     left: -23px;
-    width: 30px;
-    height: 30px;
-    border: 6px solid @rc-input-color;
+    width: 42px;
+    height: 42px;
+//    border: 6px solid @rc-input-color;
     border-radius: 100%;
-    background-color: @rc-bg-color;
+    background: url(@rc-images-edit) top left no-repeat;
+    background-size: 100%;
 }
 
 .ui-call-flow-item-header {
@@ -71,7 +72,8 @@
 }
 
 .ui-call-flow-item-caption {
-    font-size: @rc-font-size-larger;
+    font-size: @rc-font-size-bigger;
+    font-weight: bold;
     margin: 0 10px 0 0;
 }
 
