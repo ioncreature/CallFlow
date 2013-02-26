@@ -6,12 +6,12 @@
 
 var loc = {
     img: {
-        avatar: '../Design/images/avatar.jpg',
-        notifications: '../Design/images/cartoon_notifications_on.svg',
-        notificationsOff: '../Design/images/cartoon_notifications_off.svg',
-        caller: '../Design/images/cartoon_caller.svg',
-        blockCallers: '../Design/images/cartoon_block-unwanted-callers_on.svg',
-        blockCallersOff: '../Design/images/cartoon_block-unwanted-callers_off.svg'
+        avatar: 'assets/images/avatar.jpg',
+        notifications: 'assets/images/cartoon_notifications_on.svg',
+        notificationsOff: 'assets/images/cartoon_notifications_off.svg',
+        caller: 'assets/images/cartoon_caller.svg',
+        blockCallers: 'assets/images/cartoon_block-unwanted-callers_on.svg',
+        blockCallersOff: 'assets/images/cartoon_block-unwanted-callers_off.svg'
     },
 
     CallFlow: {
