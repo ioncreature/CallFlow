@@ -1,0 +1,69 @@
+/**
+ * @author Marenin Alexander
+ * February 2013
+ */
+
+.ui-tabs {
+    overflow: hidden;
+    .ui-tabs-button {
+        padding: 8px 10px;
+        float: left;
+        background-color: @rc-input-bg;
+        background-image: none;
+        outline: 1px solid @rc-border-color;
+        border-color: @rc-border-color;
+        border-width: 0 0 1px 0;
+        box-shadow: none;
+        text-shadow: none;
+        font-size: @rc-font-size-big;
+        font-weight: bold;
+        color: @rc-input-color;
+        &.active {
+            background-color: @rc-input-color;
+            color: @rc-active-color;
+        }
+    }
+}
+
+
+.ui-tabs-switcher {
+    overflow: visible;
+    margin: 25px;
+    .ui-tabs-button {
+        position: relative;
+        background-color: @rc-input-bg;
+        background-image: none;
+        border-style: solid;
+        border-width: 1px 1px 1px 0;
+        border-color: @rc-input-color;
+        box-shadow: none;
+        font-size: @rc-font-size-medium;
+        color: @rc-input-color;
+        border-radius: 0;
+        text-shadow: none;
+        &.active {
+            background-color: @rc-input-color;
+            color: @rc-active-color;
+            &::after {
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                content: ' ';
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-color: transparent;
+                border-top-color: @rc-input-color;
+                border-width: 8px;
+                margin-left: -8px;
+            }
+        }
+    }
+    .ui-tabs-button:first-child {
+        border-width: 1px;
+        border-radius: @rc-border-radius-small 0 0 @rc-border-radius-small;
+    }
+    .ui-tabs-button:last-child {
+        border-radius: 0 @rc-border-radius-small @rc-border-radius-small 0;
+    }
+}

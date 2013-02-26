@@ -12,6 +12,7 @@
 @import 'UserInfo';
 @import 'RadioList';
 @import 'Notifications';
+@import 'Tabs';
 
 
 body {
@@ -44,33 +45,6 @@ body {
         font-size: @font-size;
         font-family: @font-family;
     }
-}
-
-.ui-tabs {
-    overflow: hidden;
-}
-
-.ui-tabs > .ui-tabs-button {
-    padding-left: 10px;
-    padding-right: 10px;
-    height: 100%;
-    float: left;
-    background-color: @rc-input-bg;
-    background-image: none;
-    outline: 1px solid @rc-border-color;
-    font-weight: bold;
-    border-color: @rc-border-color;
-    text-shadow: none;
-    border-width: 0 0 1px 0;
-    box-shadow: none;
-    font-size: @rc-font-size-big;
-    color: @rc-input-color;
-}
-
-.ui-tabs > .ui-tabs-button.active {
-    text-shadow: none;
-    background-color: @rc-input-color;
-    color: @rc-active-color;
 }
 
 .ui-message {
