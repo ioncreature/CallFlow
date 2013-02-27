@@ -7,6 +7,8 @@ enyo.depends(
 
 	'loc/en_US.js',
 
+    'core',
+
     'ui/NavToolbar.js',
     'ui/ColumnsLayout.js',
     'ui/VerticalGroup.js',

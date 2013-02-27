@@ -54,11 +54,9 @@ enyo.kind({
     switchShowing: function( inSender, inEvent ){
         var button = inEvent.originator,
             callFlowItems = this.$.items.children;
-        if ( !button.getActive() )
-            return;
-
-        callFlowItems.forEach( function( item ){
-            item.setIsFull( button.name === 'showAll' );
-        });
+        if ( button.getActive() )
+            callFlowItems.forEach( function( item ){
+                item.setIsFull( button.name === 'showAll' );
+            });
     }
 });
