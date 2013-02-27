@@ -14,7 +14,7 @@ enyo.kind({
         {
             kind: 'onyx.RadioGroup',
             layoutKind: 'rc.ColumnsLayout',
-            onActivate: 'onTabActivate',
+            onActivate: 'switchShowing',
             classes: 'ui-tabs-switcher',
             controlClasses: 'ui-tabs-button', components: [
                 {name: 'showActive', content: 'Show Active'},
@@ -26,7 +26,7 @@ enyo.kind({
                 {classes: 'ui-call-flow-header-decorator'},
                 {tag: 'img', src: loc.img.caller}
             ]},
-            {name: 'client', classes: 'ui-call-flow-items', components: [
+            {name: 'items', classes: 'ui-call-flow-items', components: [
                 {name: 'blockCallers', kind: 'rc.CallFlowItem', caption: loc.CallFlow.blockUnwantedCallers, components: [
                     {tag: 'img', classes: 'ui-call-flow-item-img-full', src: loc.img.blockCallers}
                 ]},
@@ -51,13 +51,14 @@ enyo.kind({
         {kind: 'rc.Notifications', name: 'notifications', email: 'vladv@ringcentral.com', phone: '+1 (345) 545-3567'}
     ],
 
-    create: function(){
-        this.inherited( arguments );
-        this.log( this.children );
-    },
+    switchShowing: function( inSender, inEvent ){
+        var button = inEvent.originator,
+            callFlowItems = this.$.items.children;
+        if ( !button.getActive() )
+            return;
 
-    initComponents: function(){
-//        this.createChrome( this.tools );
-        this.inherited( arguments );
+        callFlowItems.forEach( function( item ){
+            item.setIsFull( button.name === 'showAll' );
+        });
     }
 });

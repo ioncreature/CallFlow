@@ -11,7 +11,9 @@ enyo.kind({
 
     published: {
         caption: '',
-        description: ''
+        description: '',
+        active: true,
+        isFull: true
     },
 
     itemTools: [
@@ -27,6 +29,7 @@ enyo.kind({
         this.inherited( arguments );
         this.captionChanged();
         this.descriptionChanged();
+        this.isFullChanged();
     },
 
     initComponents: function(){
@@ -40,5 +43,13 @@ enyo.kind({
 
     descriptionChanged: function(){
         this.$.description.setContent( this.getDescription() );
+    },
+
+    isFullChanged: function(){
+        var isFull = this.getIsFull();
+        if ( isFull )
+            this.$.description.show();
+        else
+            this.$.description.hide();
     }
 });
