@@ -32,7 +32,7 @@ enyo.kind({
         if ( arguments.length == 1 && arguments[0] instanceof Object ){
             var values = arguments[0];
             Object.keys( values ).forEach( function( key ){
-                this.setValue( key, values[key] );
+                this.setValue( key, values[key], options );
             }, this );
         }
         else if ( arguments.length == 2 )
@@ -41,11 +41,12 @@ enyo.kind({
             throw new TypeError( 'Arguments does not match function signature' );
     },
 
-    setValue: function( key, value ){
+    setValue: function( key, value, options ){
         if ( this.attr[key] !== value ){
             this.changed[key] = true;
             this.attr[key] = value;
-            this.notify( key );
+            if ( !(options && options.silent) )
+                this.trigger( key, value );
         }
     },
 
@@ -64,9 +65,11 @@ enyo.kind({
         return res;
     },
 
-    reset: function(){
+    reset: function( options ){
         this.attr = enyo.mixin( this.initAttrs );
         this.changed = {};
+        if ( !(options && options.silent === true) )
+            this.trigger( 'reset', this );
     },
 
     /**
@@ -76,8 +79,6 @@ enyo.kind({
         if ( key )
             return this.changed[key] === true;
         else
-            return Object.keys( this.changed ).every( this.isChanged, this );
-    },
-
-    onChange: function( key, callback ){}
+            return Object.keys( this.changed ).some( this.isChanged, this );
+    }
 });

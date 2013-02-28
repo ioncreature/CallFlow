@@ -26,7 +26,7 @@ enyo.kind({
         }
     },
 
-    notify: function( event ){
+    trigger: function( event ){
         var queue = this.handlers[name],
             args = Array.prototype.slice.call( arguments, 1 );
 
