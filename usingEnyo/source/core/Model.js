@@ -16,7 +16,7 @@ enyo.kind({
     constructor: function( attributes, options ){
         this.changed = {};
         this.handlers = {};
-        this.defaults = enyo.mixin( options.defaults, this.defaults );
+        this.defaults = enyo.mixin( options && options.defaults || {}, this.defaults );
         this.attr = enyo.mixin( attributes || {}, this.defaults );
         this.initAttrs = enyo.mixin( {}, this.attr );
         this.inherited( arguments );

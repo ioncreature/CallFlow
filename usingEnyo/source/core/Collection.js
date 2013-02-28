@@ -9,18 +9,20 @@ enyo.kind({
 
     models: null,
     model: null,
+    idField: null,
 
     constructor: function( options ){
         this.models = [];
         this.add( options.models || [] );
         this.model = options.model || rc.Model;
+        this.idField = options.idField;
         this.inherited( arguments );
     },
 
     /**
-     * @param {Array|Object} models
-     * @param {?Object} options
-     * @param {?boolean} options.silent
+     * @param {Array|rc.Model} models
+     * @param {Object?} options
+     * @param {boolean?} options.silent
      */
     add: function( models, options ){
         if ( models instanceof Array )
@@ -40,8 +42,8 @@ enyo.kind({
 
     /**
      * @param {Array|rc.Model} models
-     * @param {?Object} options
-     * @param {?boolean} options.silent
+     * @param {Object?} options
+     * @param {boolean?} options.silent
      */
     remove: function( models, options ){
         if ( models instanceof Array ){

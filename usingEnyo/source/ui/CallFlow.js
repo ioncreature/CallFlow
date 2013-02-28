@@ -32,11 +32,7 @@ enyo.kind({
                 ]},
                 {kind: 'rc.CallFlowItem', caption: loc.CallFlow.answeringRules,
                     description: loc.CallFlow.answeringRulesDesc, components: [
-                    {kind: 'rc.RadioList', items: [
-                        {caption: 'Work Hours:', description: '8am - 6pm', active: true},
-                        {caption: 'After Hours:', description: '8am - 6pm'},
-                        {caption: 'My Rule 1', description: ''}
-                    ]}
+                    {name: 'rules', kind: 'rc.RadioList'}
                 ]},
                 {kind: 'rc.CallFlowItem', caption: loc.CallFlow.greetTheCaller, description: loc.CallFlow.greetTheCallerDesc},
                 {kind: 'rc.CallFlowItem', caption: loc.CallFlow.screenTheCaller, description: loc.CallFlow.screenTheCallerDesc},
@@ -50,6 +46,27 @@ enyo.kind({
         ]},
         {kind: 'rc.Notifications', name: 'notifications', email: 'vladv@ringcentral.com', phone: '+1 (345) 545-3567'}
     ],
+
+    create: function(){
+        this.inherited( arguments );
+        this.loadRules( this.renderRules );
+    },
+
+    loadRules: function( callback ){
+        this.rules = new rc.data.RuleCollection([
+            new rc.data.RuleModel({ id: 1, name: 'Work Hours:', description: '8am - 6pm' }),
+            new rc.data.RuleModel({ id: 2, name: 'After Hours:', description: '6pm - 8am' }),
+            new rc.data.RuleModel({ id: 3, name: 'My Rule 1' })
+        ]);
+        callback.call( this );
+    },
+
+    renderRules: function(){
+        this.$.rules.removeAll();
+        this.rules.forEach( function( model ){
+            // TODO: !!!
+        }, this );
+    },
 
     switchShowing: function( inSender, inEvent ){
         var button = inEvent.originator,

@@ -8,6 +8,7 @@ enyo.depends(
 	'loc/en_US.js',
 
     'core',
+    'data',
 
     'ui/NavToolbar.js',
     'ui/ColumnsLayout.js',
