@@ -4,6 +4,7 @@
  */
 
 enyo.depends(
+    'Observable.js',
     'Model.js',
     'Collection.js'
 );

@@ -13,18 +13,18 @@ enyo.kind({
     },
 
     forEach: function(){
-        return this.models.forEach.apply( this.models, Array.prototype.slice.call(arguments) );
+        return this.models.forEach.apply( this.models, arguments );
     },
 
     every: function(){
-        return this.models.every.apply( this.models, Array.prototype.slice.call(arguments) );
+        return this.models.every.apply( this.models, arguments );
     },
 
     some: function(){
-        return this.models.some.apply( this.models, Array.prototype.slice.call(arguments) );
+        return this.models.some.apply( this.models, arguments );
     },
 
     filter: function(){
-        return this.models.every.apply( this.models, Array.prototype.slice.call(arguments) );
+        return this.models.every.apply( this.models, arguments );
     }
 });
