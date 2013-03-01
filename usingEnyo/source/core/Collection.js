@@ -13,10 +13,10 @@ enyo.kind({
 
     constructor: function( options ){
         this.models = [];
-        this.add( options.models || [] );
         this.model = options.model || rc.Model;
         this.idField = options.idField;
         this.inherited( arguments );
+        this.add( options.models || [], {silent: true} );
     },
 
     /**
@@ -30,7 +30,7 @@ enyo.kind({
                 this.addModel( model, options );
             }, this );
         else
-            this.addModel( this.models, options )
+            this.addModel( models, options );
     },
 
     addModel: function( model, options ){

@@ -13,21 +13,24 @@ enyo.kind({
         this.reset();
     },
 
-    on: function( name, callback ){
-        var handlers = this.handlers;
+    on: function( name, callback, context ){
+        var handlers = this.handlers,
+            cb = callback.bind( context || null );
         if ( handlers[name] )
-            handlers[name].push( callback );
+            handlers[name].push( cb );
         else
-            handlers[name] = [callback];
+            handlers[name] = [cb];
 
-        return function(){
-            var i = handlers[name].indexOf( callback );
-            delete handlers[name][i];
-        }
+        return {
+            remove: function(){
+                var i = handlers[name].indexOf( cb );
+                delete handlers[name][i];
+            }
+        };
     },
 
     trigger: function( event ){
-        var queue = this.handlers[name],
+        var queue = this.handlers[event],
             args = Array.prototype.slice.call( arguments, 1 );
 
         if ( queue )

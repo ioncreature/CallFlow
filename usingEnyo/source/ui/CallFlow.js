@@ -42,7 +42,7 @@ enyo.kind({
                 {kind: 'rc.CallFlowItem', caption: loc.CallFlow.delay, description: loc.CallFlow.delayDesc},
                 {kind: 'rc.CallFlowItem', caption: loc.CallFlow.ringMyPhones, description: loc.CallFlow.ringMyPhonesDesc},
                 {kind: 'rc.CallFlowItem', caption: loc.CallFlow.voicemail, description: loc.CallFlow.voicemailDesc},
-            ]},
+            ]}
         ]},
         {kind: 'rc.Notifications', name: 'notifications', email: 'vladv@ringcentral.com', phone: '+1 (345) 545-3567'}
     ],
@@ -53,19 +53,33 @@ enyo.kind({
     },
 
     loadRules: function( callback ){
-        this.rules = new rc.data.RuleCollection([
-            new rc.data.RuleModel({ id: 1, name: 'Work Hours:', description: '8am - 6pm' }),
-            new rc.data.RuleModel({ id: 2, name: 'After Hours:', description: '6pm - 8am' }),
-            new rc.data.RuleModel({ id: 3, name: 'My Rule 1' })
-        ]);
-        callback.call( this );
+        var Model = rc.data.RuleModel,
+            mod1 = new Model({ id: 1, name: 'Work Hours:', description: '8am - 6pm' });
+        this.rules = new rc.data.RuleCollection( {models: [
+            mod1,
+            new Model({ id: 2, name: 'After Hours:', description: '6pm - 8am' }),
+            new Model({ id: 3, name: 'My Rule 1' })
+        ]});
+        var coll = this.rules;
+        callback.call( this, this.rules );
+        setTimeout( function(){
+            mod1.set( 'name', 'ololo' );
+            mod1.set( 'description', 'trololo' );
+            debugger;
+            coll.add( new Model({name: 'piu-piu', description: 'пыщ-пыщ'}) );
+        }, 3000 );
     },
 
-    renderRules: function(){
-        this.$.rules.removeAll();
-        this.rules.forEach( function( model ){
-            // TODO: !!!
-        }, this );
+    renderRules: function( collection ){
+        var rulesList = this.$.rules;
+        rulesList.setWatchedNames({ caption: 'name', description: 'description' });
+        rulesList.setAdapter( function( model ){
+            return {
+                caption: model.get( 'name' ),
+                description: model.get( 'description' )
+            }
+        });
+        rulesList.setCollection( collection );
     },
 
     switchShowing: function( inSender, inEvent ){
