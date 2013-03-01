@@ -8,19 +8,19 @@
     .ui-tabs-button {
         padding: 8px 10px;
         float: left;
-        background-color: @rc-input-bg;
+        background-color: @rc-color-input-bg;
         background-image: none;
-        outline: 1px solid @rc-border-color;
-        border-color: @rc-border-color;
+        outline: 1px solid @rc-color-border;
+        border-color: @rc-color-border;
         border-width: 0 0 1px 0;
         box-shadow: none;
         text-shadow: none;
         font-size: @rc-font-size-big;
         font-weight: bold;
-        color: @rc-input-color;
+        color: @rc-color-input;
         &.active {
-            background-color: @rc-input-color;
-            color: @rc-active-color;
+            background-color: @rc-color-input;
+            color: @rc-color-active;
         }
     }
 }
@@ -31,19 +31,19 @@
     margin: 25px;
     .ui-tabs-button {
         position: relative;
-        background-color: @rc-input-bg;
+        background-color: @rc-color-input-bg;
         background-image: none;
         border-style: solid;
         border-width: 1px 1px 1px 0;
-        border-color: @rc-input-color;
+        border-color: @rc-color-input;
         box-shadow: none;
         font-size: @rc-font-size-medium;
-        color: @rc-input-color;
+        color: @rc-color-input;
         border-radius: 0;
         text-shadow: none;
         &.active {
-            background-color: @rc-input-color;
-            color: @rc-active-color;
+            background-color: @rc-color-input;
+            color: @rc-color-active;
             &::after {
                 position: absolute;
                 top: 100%;
@@ -53,7 +53,7 @@
                 height: 0;
                 border-style: solid;
                 border-color: transparent;
-                border-top-color: @rc-input-color;
+                border-top-color: @rc-color-input;
                 border-width: 8px;
                 margin-left: -8px;
             }

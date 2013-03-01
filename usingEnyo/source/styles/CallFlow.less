@@ -4,6 +4,7 @@
  */
 
 /* Container Rules */
+
 .ui-call-flow {}
 .ui-call-flow-decorator {
     position: relative;
@@ -15,7 +16,7 @@
 .ui-call-flow-header {
     position: relative;
     padding: 0 0 0 10px;
-    border-left: 3px solid @rc-input-color;
+    border-left: 3px solid @rc-color-input;
     padding-bottom: 15px;
     margin: 30px 0 0 0;
 
@@ -29,7 +30,7 @@
     left: -3px;
     width: 25px;
     height: 45px;
-    border-bottom: 3px solid @rc-input-color;
+    border-bottom: 3px solid @rc-color-input;
     background-color: white;
 }
 
@@ -41,18 +42,28 @@
 .ui-call-flow-item {
     position: relative;
     padding: 0 0 0 14px;
-    border-left: 3px solid @rc-input-color;
-    padding-bottom: 15px;
+    border-left: 3px solid @rc-color-input;
+    padding-bottom: 20px;
     margin: 0;
+
+    &.last {
+        border-left: none;
+        margin-left: 3px;
+    }
+    &.inactive {
+        border-left-color: @rc-color-inactive;
+
+        .ui-call-flow-item-edit-button {
+            background-image: url( @rc-images-edit-off );
+        }
+        .ui-call-flow-item-caption {
+            color: @rc-color-inactive;
+        }
+    }
 }
 
 .ui-call-flow-item-img-full {
     width: 290px;
-}
-
-.ui-call-flow-item:last-child {
-    border-left: none;
-    margin-left: 3px;
 }
 
 .ui-call-flow-item-edit-button {
@@ -77,8 +88,8 @@
 }
 
 .ui-call-flow-item-description {
-    display: block;
     font-size: @rc-font-size-small;
-    color: @rc-inactive-color;
-    margin: 3px 10px 0 0;
+    color: @rc-color-inactive;
+    margin: 0 10px 0 0;
+    padding-top: 3px;
 }

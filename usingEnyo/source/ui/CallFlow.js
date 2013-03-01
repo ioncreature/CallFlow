@@ -14,7 +14,7 @@ enyo.kind({
         {
             kind: 'onyx.RadioGroup',
             layoutKind: 'rc.ColumnsLayout',
-            onActivate: 'switchShowing',
+            onActivate: 'redrawItems',
             classes: 'ui-tabs-switcher',
             controlClasses: 'ui-tabs-button', components: [
                 {name: 'showActive', content: 'Show Active'},
@@ -30,18 +30,23 @@ enyo.kind({
                 {name: 'blockCallers', kind: 'rc.CallFlowItem', caption: loc.CallFlow.blockUnwantedCallers, components: [
                     {tag: 'img', classes: 'ui-call-flow-item-img-full', src: loc.img.blockCallers}
                 ]},
-                {kind: 'rc.CallFlowItem', caption: loc.CallFlow.answeringRules,
-                    description: loc.CallFlow.answeringRulesDesc, components: [
-                    {name: 'rules', kind: 'rc.RadioList'}
-                ]},
-                {kind: 'rc.CallFlowItem', caption: loc.CallFlow.greetTheCaller, description: loc.CallFlow.greetTheCallerDesc},
-                {kind: 'rc.CallFlowItem', caption: loc.CallFlow.screenTheCaller, description: loc.CallFlow.screenTheCallerDesc},
-                {kind: 'rc.CallFlowItem', caption: loc.CallFlow.connecting, description: loc.CallFlow.connectingDesc},
-                {kind: 'rc.CallFlowItem', caption: loc.CallFlow.playing, description: loc.CallFlow.playingDesc},
-                {kind: 'rc.CallFlowItem', caption: loc.CallFlow.ringSoftphones, description: loc.CallFlow.ringSoftphonesDesc},
-                {kind: 'rc.CallFlowItem', caption: loc.CallFlow.delay, description: loc.CallFlow.delayDesc},
-                {kind: 'rc.CallFlowItem', caption: loc.CallFlow.ringMyPhones, description: loc.CallFlow.ringMyPhonesDesc},
-                {kind: 'rc.CallFlowItem', caption: loc.CallFlow.voicemail, description: loc.CallFlow.voicemailDesc},
+                {
+                    kind: 'rc.CallFlowItem',
+                    caption: loc.CallFlow.answeringRules,
+                    description: loc.CallFlow.answeringRulesDesc,
+                    onActivate: 'redrawItems',
+                    components: [
+                        {name: 'rules', kind: 'rc.RadioList'}
+                    ]
+                },
+                {name: 'greetCaller', kind: 'rc.CallFlowItem', caption: loc.CallFlow.greetTheCaller, description: loc.CallFlow.greetTheCallerDesc},
+                {name: 'screenCaller', kind: 'rc.CallFlowItem', active: false, caption: loc.CallFlow.screenTheCaller, description: loc.CallFlow.screenTheCallerDesc},
+                {name: 'connecting', kind: 'rc.CallFlowItem', caption: loc.CallFlow.connecting, description: loc.CallFlow.connectingDesc},
+                {name: 'playing', kind: 'rc.CallFlowItem', caption: loc.CallFlow.playing, description: loc.CallFlow.playingDesc},
+                {name: 'ringSoftphones', kind: 'rc.CallFlowItem', caption: loc.CallFlow.ringSoftphones, description: loc.CallFlow.ringSoftphonesDesc},
+                {name: 'delay', kind: 'rc.CallFlowItem', caption: loc.CallFlow.delay, description: loc.CallFlow.delayDesc},
+                {name: 'ringPhones', kind: 'rc.CallFlowItem', caption: loc.CallFlow.ringMyPhones, description: loc.CallFlow.ringMyPhonesDesc},
+                {name: 'voicemail', kind: 'rc.CallFlowItem', caption: loc.CallFlow.voicemail, description: loc.CallFlow.voicemailDesc},
             ]}
         ]},
         {kind: 'rc.Notifications', name: 'notifications', email: 'vladv@ringcentral.com', phone: '+1 (345) 545-3567'}
@@ -53,21 +58,38 @@ enyo.kind({
     },
 
     loadRules: function( callback ){
-        var Model = rc.data.RuleModel,
-            mod1 = new Model({ id: 1, name: 'Work Hours:', description: '8am - 6pm' });
-        this.rules = new rc.data.RuleCollection( {models: [
-            mod1,
-            new Model({ id: 2, name: 'After Hours:', description: '6pm - 8am' }),
-            new Model({ id: 3, name: 'My Rule 1' })
-        ]});
-        var coll = this.rules;
+        this.rules = new rc.data.RuleCollection({ models: this._createRuleModels() });
         callback.call( this, this.rules );
-        setTimeout( function(){
-            mod1.set( 'name', 'ololo' );
-            mod1.set( 'description', 'trololo' );
-            debugger;
-            coll.add( new Model({name: 'piu-piu', description: 'пыщ-пыщ'}) );
-        }, 3000 );
+    },
+
+    _createRuleModels: function(){
+        return [
+            { name: 'Work Hours:', description: '8am - 6pm' },
+            {
+                name: 'After Hours',
+                description: '6pm - 8am',
+                greetCaller: false,
+                screenCaller: false,
+                connecting: false,
+                playing: false,
+                ringSoftphones: false,
+                delay: false,
+                ringPhones: false,
+                voicemail: true
+            },
+            {
+                name: 'My Rule 1',
+                description: '',
+                greetCaller: true,
+                screenCaller: false,
+                connecting: false,
+                playing: false,
+                ringSoftphones: false,
+                delay: false,
+                ringPhones: false,
+                voicemail: false
+            }
+        ];
     },
 
     renderRules: function( collection ){
@@ -82,12 +104,26 @@ enyo.kind({
         rulesList.setCollection( collection );
     },
 
-    switchShowing: function( inSender, inEvent ){
-        var button = inEvent.originator,
-            callFlowItems = this.$.items.children;
-        if ( button.getActive() )
-            callFlowItems.forEach( function( item ){
-                item.setIsFull( button.name === 'showAll' );
-            });
+    redrawItems: function(){
+        var isShowAll = this.$.showAll.getActive(),
+            model = this.$.rules.getActiveItem().model,
+            items = this.$.items.children;
+
+        this.lastVisible && this.lastVisible.removeClass( 'last' );
+        items.forEach( function( item ){
+            if ( isShowAll )
+                model.get(item.name) === false
+                    ? item.hide()
+                    : item.show();
+            else
+                item.getActive() && model.get(item.name) !== false
+                    ? item.show()
+                    : item.hide();
+            item.setIsFull( isShowAll );
+
+            if ( item.getShowing() )
+                this.lastVisible = item;
+        }, this );
+        this.lastVisible && this.lastVisible.addClass( 'last' );
     }
 });

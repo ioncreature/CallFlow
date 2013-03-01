@@ -30,6 +30,13 @@ enyo.kind({
         this.captionChanged();
         this.descriptionChanged();
         this.isFullChanged();
+        this.activeChanged();
+    },
+
+    activeChanged: function(){
+        this.getActive()
+            ? this.removeClass( 'inactive' )
+            : this.addClass( 'inactive' );
     },
 
     initComponents: function(){

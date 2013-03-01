@@ -21,7 +21,7 @@ body {
 
 
 .ui-placeholder (
-    @color: @rc-placeholder-color,
+    @color: @rc-color-placeholder,
     @font-size: @rc-font-size-medium,
     @font-family: @rc-font-family
 ){
@@ -48,12 +48,12 @@ body {
 }
 
 .ui-message {
-    color: @rc-message-color;
-    border: 1px solid @rc-message-color;
+    color: @rc-color-message;
+    border: 1px solid @rc-color-message;
     margin: 10px 10px 25px;
-    padding: @rc-input-padding;
+    padding: @rc-padding-input;
     border-radius: @rc-border-radius;
-    background-color: @rc-message-bg;
+    background-color: @rc-color-message-bg;
 }
 
 .ui-header-big {
@@ -72,17 +72,17 @@ body {
 }
 
 .ui-text-input {
-    border: 3px solid @rc-input-color;
+    border: 3px solid @rc-color-input;
     border-radius: @rc-border-radius;
-    background-color: @rc-input-bg;
-    margin: @rc-input-margin;
-    padding: @rc-input-padding;
+    background-color: @rc-color-input-bg;
+    margin: @rc-margin-input;
+    padding: @rc-padding-input;
 }
 
 .ui-text-input > input,
 .ui-text-input > textarea {
     width: 100%;
-    color: @rc-input-color;
+    color: @rc-color-input;
     font-weight: bold;
     font-family: @rc-font-family;
     .ui-placeholder;
@@ -91,7 +91,7 @@ body {
 .ui-button {
     .ui-text-input;
     background-image: none;
-    padding: @rc-button-padding;
+    padding: @rc-padding-button;
 }
 
 

@@ -6,7 +6,7 @@
 enyo.kind({
 
     name: 'rc.Observable',
-    kind: null,
+    kind: enyo.Object,
     handlers: null,
 
     constructor: function(){
