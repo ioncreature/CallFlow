@@ -17,8 +17,8 @@ enyo.kind({
             onActivate: 'redrawItems',
             classes: 'ui-tabs-switcher',
             controlClasses: 'ui-tabs-button', components: [
-                {name: 'showActive', content: loc.CallFlow.showActive},
-                {name: 'showAll', content: loc.CallFlow.showAll, active: true}
+                {name: 'showActive', content: loc.CallFlow.showActive, active: true},
+                {name: 'showAll', content: loc.CallFlow.showAll}
             ]
         },
         {classes: 'ui-call-flow-decorator', components: [
@@ -56,11 +56,15 @@ enyo.kind({
                 {name: 'connecting', kind: 'rc.CallFlowItem', caption: loc.CallFlow.connecting, description: loc.CallFlow.connectingDesc, components: [
                     {classes: 'ui-call-flow-connecting', content: loc.CallFlow.connectingHint}
                 ]},
-                {name: 'playing', kind: 'rc.CallFlowItem', caption: loc.CallFlow.playing, description: loc.CallFlow.playingDesc},
+                {name: 'playing', kind: 'rc.CallFlowItem', caption: loc.CallFlow.playing, description: loc.CallFlow.playingDesc, components: [
+                    {classes: 'ui-call-flow-playing', content: loc.CallFlow.playingHint}
+                ]},
                 {name: 'ringSoftphones', kind: 'rc.CallFlowItem', caption: loc.CallFlow.ringSoftphones, description: loc.CallFlow.ringSoftphonesDesc},
                 {name: 'delay', kind: 'rc.CallFlowItem', caption: loc.CallFlow.delay, description: loc.CallFlow.delayDesc},
                 {name: 'ringPhones', kind: 'rc.CallFlowItem', caption: loc.CallFlow.ringMyPhones, description: loc.CallFlow.ringMyPhonesDesc},
-                {name: 'voicemail', kind: 'rc.CallFlowItem', caption: loc.CallFlow.voicemail, description: loc.CallFlow.voicemailDesc},
+                {name: 'voicemail', kind: 'rc.CallFlowItem', caption: loc.CallFlow.voicemail, description: loc.CallFlow.voicemailDesc, components: [
+                    {classes: 'ui-call-flow-voicemail', content: loc.CallFlow.voicemailHint}
+                ]},
             ]}
         ]},
         {kind: 'rc.Notifications', name: 'notifications', email: 'vladv@ringcentral.com', phone: '+1 (345) 545-3567'}
