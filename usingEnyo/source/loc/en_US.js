@@ -37,7 +37,9 @@ var loc = {
         notifications: 'Notifications',
         notificationsDesc: 'You will be notified about new events by selected method.',
         sendViaEmail: 'Send via email:',
-        sendViaText: 'Send via Text:'
+        sendViaText: 'Send via Text:',
+        addAfterHours: 'Add After Hours',
+        addCustomRule: 'Add Custom Rule'
     },
 
     UserInfoPanel: {

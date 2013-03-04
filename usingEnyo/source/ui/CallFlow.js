@@ -36,7 +36,11 @@ enyo.kind({
                     description: loc.CallFlow.answeringRulesDesc,
                     onActivate: 'redrawItems',
                     components: [
-                        {name: 'rules', kind: 'rc.RadioList'}
+                        {name: 'rules', kind: 'rc.RadioList'},
+                        {classes: 'ui-call-flow-rule-buttons', controlClasses: 'ui-button', components: [
+                            {name: 'addAfterHours', kind: 'onyx.Button', ontap: 'addAfterHours', content: loc.CallFlow.addAfterHours },
+                            {name: 'addCustomRule', kind: 'onyx.Button', ontap: 'addCustomRule', content: loc.CallFlow.addCustomRule }
+                        ]}
                     ]
                 },
                 {name: 'greetCaller', kind: 'rc.CallFlowItem', caption: loc.CallFlow.greetTheCaller, description: loc.CallFlow.greetTheCallerDesc},
@@ -64,31 +68,7 @@ enyo.kind({
 
     _createRuleModels: function(){
         return [
-            { name: 'Work Hours:', description: '8am - 6pm' },
-            {
-                name: 'After Hours',
-                description: '6pm - 8am',
-                greetCaller: false,
-                screenCaller: false,
-                connecting: false,
-                playing: false,
-                ringSoftphones: false,
-                delay: false,
-                ringPhones: false,
-                voicemail: true
-            },
-            {
-                name: 'My Rule 1',
-                description: '',
-                greetCaller: true,
-                screenCaller: false,
-                connecting: false,
-                playing: false,
-                ringSoftphones: false,
-                delay: false,
-                ringPhones: false,
-                voicemail: false
-            }
+            { name: 'Work Hours:', description: '8am - 6pm' }
         ];
     },
 
@@ -125,5 +105,37 @@ enyo.kind({
                 this.lastVisible = item;
         }, this );
         this.lastVisible && this.lastVisible.addClass( 'last' );
+    },
+
+    addCustomRule: function( inSender, inEvent ){
+        this.rules.add({
+            name: 'My Rule 1',
+            description: '',
+            greetCaller: true,
+            screenCaller: false,
+            connecting: false,
+            playing: false,
+            ringSoftphones: false,
+            delay: false,
+            ringPhones: false,
+            voicemail: false
+        });
+        inEvent.originator.hide();
+    },
+
+    addAfterHours: function( inSender, inEvent ){
+        this.rules.add({
+            name: 'After Hours',
+            description: '6pm - 8am',
+            greetCaller: false,
+            screenCaller: false,
+            connecting: false,
+            playing: false,
+            ringSoftphones: false,
+            delay: false,
+            ringPhones: false,
+            voicemail: true
+        });
+        inEvent.originator.hide();
     }
 });
