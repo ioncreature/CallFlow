@@ -10,13 +10,22 @@ enyo.kind({
 
     defaults: {
         greetCaller: true,
+        greetCallerActive: true,
         screenCaller: true,
+        screenCallerActive: true,
         connecting: true,
+        connectingActive: true,
         playing: true,
+        playingActive: true,
         ringSoftphones: true,
+        ringSoftphonesActive: true,
         delay: true,
+        delayActive: true,
         ringPhones: true,
+        ringPhonesActive: true,
         voicemail: true,
+        voicemailActive: true,
+
         description: '',
         name: ''
     }

@@ -32,6 +32,7 @@ enyo.kind({
                 ]},
                 {
                     kind: 'rc.CallFlowItem',
+                    name: 'answeringRules',
                     caption: loc.CallFlow.answeringRules,
                     description: loc.CallFlow.answeringRulesDesc,
                     onActivate: 'redrawItems',
@@ -44,7 +45,7 @@ enyo.kind({
                     ]
                 },
                 {name: 'greetCaller', kind: 'rc.CallFlowItem', caption: loc.CallFlow.greetTheCaller, description: loc.CallFlow.greetTheCallerDesc},
-                {name: 'screenCaller', kind: 'rc.CallFlowItem', active: false, caption: loc.CallFlow.screenTheCaller, description: loc.CallFlow.screenTheCallerDesc},
+                {name: 'screenCaller', kind: 'rc.CallFlowItem', caption: loc.CallFlow.screenTheCaller, description: loc.CallFlow.screenTheCallerDesc},
                 {name: 'connecting', kind: 'rc.CallFlowItem', caption: loc.CallFlow.connecting, description: loc.CallFlow.connectingDesc},
                 {name: 'playing', kind: 'rc.CallFlowItem', caption: loc.CallFlow.playing, description: loc.CallFlow.playingDesc},
                 {name: 'ringSoftphones', kind: 'rc.CallFlowItem', caption: loc.CallFlow.ringSoftphones, description: loc.CallFlow.ringSoftphonesDesc},
@@ -91,6 +92,7 @@ enyo.kind({
 
         this.lastVisible && this.lastVisible.removeClass( 'last' );
         items.forEach( function( item ){
+            item.setActive( model.get(item.name + 'Active') !== false );
             if ( isShowAll )
                 model.get(item.name) === false
                     ? item.hide()
@@ -100,6 +102,7 @@ enyo.kind({
                     ? item.show()
                     : item.hide();
             item.setIsFull( isShowAll );
+
 
             if ( item.getShowing() )
                 this.lastVisible = item;
@@ -127,14 +130,22 @@ enyo.kind({
         this.rules.add({
             name: 'After Hours',
             description: '6pm - 8am',
-            greetCaller: false,
-            screenCaller: false,
-            connecting: false,
-            playing: false,
-            ringSoftphones: false,
-            delay: false,
-            ringPhones: false,
-            voicemail: true
+            greetCaller: true,
+            greetCallerActive: false,
+            screenCaller: true,
+            screenCallerActive: false,
+            connecting: true,
+            connectingActive: false,
+            playing: true,
+            playingActive: false,
+            ringSoftphones: true,
+            ringSoftphonesActive: false,
+            delay: true,
+            delayActive: false,
+            ringPhones: true,
+            ringPhonesActive: false,
+            voicemail: true,
+            voicemailActive: true
         });
         inEvent.originator.hide();
     }
