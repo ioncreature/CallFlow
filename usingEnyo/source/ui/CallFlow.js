@@ -38,8 +38,8 @@ enyo.kind({
                     components: [
                         {name: 'rules', kind: 'rc.RadioList'},
                         {classes: 'ui-call-flow-rule-buttons', controlClasses: 'ui-button', components: [
-                            {name: 'addAfterHours', kind: 'onyx.Button', ontap: 'addAfterHours', content: loc.CallFlow.addAfterHours },
-                            {name: 'addCustomRule', kind: 'onyx.Button', ontap: 'addCustomRule', content: loc.CallFlow.addCustomRule }
+                            {name: 'addCustomRule', kind: 'onyx.Button', ontap: 'addCustomRule', content: loc.CallFlow.addCustomRule },
+                            {name: 'addAfterHours', kind: 'onyx.Button', ontap: 'addAfterHours', content: loc.CallFlow.addAfterHours }
                         ]}
                     ]
                 },
@@ -108,8 +108,9 @@ enyo.kind({
     },
 
     addCustomRule: function( inSender, inEvent ){
+        this.customRules = this.customRules ? this.customRules + 1 : 1;
         this.rules.add({
-            name: 'My Rule 1',
+            name: 'My Rule ' + this.customRules,
             description: '',
             greetCaller: true,
             screenCaller: false,
@@ -120,7 +121,6 @@ enyo.kind({
             ringPhones: false,
             voicemail: false
         });
-        inEvent.originator.hide();
     },
 
     addAfterHours: function( inSender, inEvent ){
