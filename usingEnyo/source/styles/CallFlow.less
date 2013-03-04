@@ -101,3 +101,17 @@
         margin: 5px 8px 10px 5px;
     }
 }
+
+.ui-call-flow-greet-the-caller {
+    background: transparent url(@rc-images-greet-the-caller) top left no-repeat;
+    background-size: 100%;
+    width: 200px;
+    height: 50px;
+    padding: 15px 50px 100px 25px;
+    font-weight: bold;
+    color: @rc-color-active;
+    .inactive & {
+        background-image: url(@rc-images-greet-the-caller-off);
+    }
+}
+

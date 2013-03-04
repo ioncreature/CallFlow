@@ -44,7 +44,9 @@ enyo.kind({
                         ]}
                     ]
                 },
-                {name: 'greetCaller', kind: 'rc.CallFlowItem', caption: loc.CallFlow.greetTheCaller, description: loc.CallFlow.greetTheCallerDesc},
+                {name: 'greetCaller', kind: 'rc.CallFlowItem', caption: loc.CallFlow.greetTheCaller, description: loc.CallFlow.greetTheCallerDesc, components: [
+                    {classes: 'ui-call-flow-greet-the-caller', content: loc.CallFlow.greetTheCallerHint}
+                ]},
                 {name: 'screenCaller', kind: 'rc.CallFlowItem', caption: loc.CallFlow.screenTheCaller, description: loc.CallFlow.screenTheCallerDesc},
                 {name: 'connecting', kind: 'rc.CallFlowItem', caption: loc.CallFlow.connecting, description: loc.CallFlow.connectingDesc},
                 {name: 'playing', kind: 'rc.CallFlowItem', caption: loc.CallFlow.playing, description: loc.CallFlow.playingDesc},
@@ -130,21 +132,13 @@ enyo.kind({
         this.rules.add({
             name: 'After Hours',
             description: '6pm - 8am',
-            greetCaller: true,
             greetCallerActive: false,
-            screenCaller: true,
             screenCallerActive: false,
-            connecting: true,
             connectingActive: false,
-            playing: true,
             playingActive: false,
-            ringSoftphones: true,
             ringSoftphonesActive: false,
-            delay: true,
             delayActive: false,
-            ringPhones: true,
             ringPhonesActive: false,
-            voicemail: true,
             voicemailActive: true
         });
         inEvent.originator.hide();

@@ -11,7 +11,8 @@ var loc = {
         notificationsOff: 'assets/images/cartoon_notifications_off.svg',
         caller: 'assets/images/cartoon_caller.svg',
         blockCallers: 'assets/images/cartoon_block-unwanted-callers_on.svg',
-        blockCallersOff: 'assets/images/cartoon_block-unwanted-callers_off.svg'
+        blockCallersOff: 'assets/images/cartoon_block-unwanted-callers_off.svg',
+        greetTheCallerOn: 'assets/images/cartoon_greet-the-caller_on.svg'
     },
 
     CallFlow: {
@@ -20,6 +21,7 @@ var loc = {
         answeringRulesDesc: 'System behavior based on time of the day and day of the week.',
         greetTheCaller: 'Greet the Caller',
         greetTheCallerDesc: 'First thing that callers will hear after system picks up incoming call.',
+        greetTheCallerHint: 'Thank you for calling Vlad Vendrow',
         screenTheCaller: 'Screen the Caller',
         screenTheCallerDesc: 'Ask callers to say their name before connecting.',
         connecting: 'Connecting',
