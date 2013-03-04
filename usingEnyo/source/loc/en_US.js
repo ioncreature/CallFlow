@@ -27,6 +27,7 @@ var loc = {
         screenTheCallerHint: 'Please say who is calling',
         connecting: 'Connecting',
         connectingDesc: 'Callers will hear a message that they are being connected to your extension.',
+        connectingHint: 'Please hold while I try to connect you',
         playing: 'Playing',
         playingDesc: 'What users will hear while call comes through.',
         ringSoftphones: 'Ring My Softphones:',
@@ -42,12 +43,14 @@ var loc = {
         sendViaEmail: 'Send via email:',
         sendViaText: 'Send via Text:',
         addAfterHours: 'Add After Hours',
-        addCustomRule: 'Add Custom Rule'
+        addCustomRule: 'Add Custom Rule',
+        showActive: 'Show',
+        showAll: 'Edit'
     },
 
     UserInfoPanel: {
         numbers: 'Numbers',
-        phonesAndNumbers: 'Phones & Numbers',
+        phonesAndPresence: 'Phones & Presence',
         callerId: 'Caller ID',
         musicOnHold: 'Music On Hold'
     }

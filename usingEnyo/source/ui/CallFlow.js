@@ -17,8 +17,8 @@ enyo.kind({
             onActivate: 'redrawItems',
             classes: 'ui-tabs-switcher',
             controlClasses: 'ui-tabs-button', components: [
-                {name: 'showActive', content: 'Show Active'},
-                {name: 'showAll', content: 'Show All', active: true}
+                {name: 'showActive', content: loc.CallFlow.showActive},
+                {name: 'showAll', content: loc.CallFlow.showAll, active: true}
             ]
         },
         {classes: 'ui-call-flow-decorator', components: [
@@ -53,7 +53,9 @@ enyo.kind({
                         {tag: 'span', content: 'Sarah O\'Connor'}
                     ]}
                 ]},
-                {name: 'connecting', kind: 'rc.CallFlowItem', caption: loc.CallFlow.connecting, description: loc.CallFlow.connectingDesc},
+                {name: 'connecting', kind: 'rc.CallFlowItem', caption: loc.CallFlow.connecting, description: loc.CallFlow.connectingDesc, components: [
+                    {classes: 'ui-call-flow-connecting', content: loc.CallFlow.connectingHint}
+                ]},
                 {name: 'playing', kind: 'rc.CallFlowItem', caption: loc.CallFlow.playing, description: loc.CallFlow.playingDesc},
                 {name: 'ringSoftphones', kind: 'rc.CallFlowItem', caption: loc.CallFlow.ringSoftphones, description: loc.CallFlow.ringSoftphonesDesc},
                 {name: 'delay', kind: 'rc.CallFlowItem', caption: loc.CallFlow.delay, description: loc.CallFlow.delayDesc},
