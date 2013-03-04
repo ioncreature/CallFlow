@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="90.665px" height="58.73px" viewBox="0 0 90.665 58.73" enable-background="new 0 0 90.665 58.73" xml:space="preserve">
+	 width="74.18px" height="35.453px" viewBox="0 0 74.18 35.453" enable-background="new 0 0 74.18 35.453" xml:space="preserve">
 <g>
 	<g>
 		<g>
 			
-				<radialGradient id="SVGID_1_" cx="-1132.3364" cy="-440.2002" r="41.5245" gradientTransform="matrix(0.4097 0 0 0.0996 529.0527 86.3229)" gradientUnits="userSpaceOnUse">
+				<radialGradient id="SVGID_1_" cx="-59.2205" cy="4935.2153" r="41.5283" gradientTransform="matrix(0.4097 0 0 0.0996 81.1536 -460.7066)" gradientUnits="userSpaceOnUse">
 				<stop  offset="0" style="stop-color:#5F564A"/>
 				<stop  offset="0.0287" style="stop-color:#75695A"/>
 				<stop  offset="0.0884" style="stop-color:#A1917C"/>
@@ -21,80 +21,80 @@
 				<stop  offset="0.8252" style="stop-color:#FFFEFC"/>
 				<stop  offset="1" style="stop-color:#FFFFFF"/>
 			</radialGradient>
-			<path fill="url(#SVGID_1_)" d="M82.423,42.492c0,2.525-7.738,4.574-17.287,4.574c-9.551,0-17.291-2.049-17.291-4.574
-				c0-2.521,7.74-4.568,17.291-4.568C74.685,37.924,82.423,39.971,82.423,42.492z"/>
+			<path fill="url(#SVGID_1_)" d="M74.18,30.853c0,2.525-7.737,4.574-17.286,4.574c-9.552,0-17.291-2.049-17.291-4.574
+				c0-2.521,7.739-4.568,17.291-4.568C66.443,26.285,74.18,28.333,74.18,30.853z"/>
 			
 				<polygon fill="#FFFFFF" stroke="#1E1E1C" stroke-width="0.4909" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-				64.642,30.986 60.025,28.547 60.267,22.008 65.537,23.791 			"/>
-			<polygon fill="#1E1E1C" points="62.07,25.535 61.099,25.078 61.382,24.772 62.087,25.127 			"/>
-			<polygon fill="#1E1E1C" points="63.992,26.265 63.111,25.858 63.023,25.388 63.859,25.745 			"/>
-			<polygon fill="#1E1E1C" points="62.851,28.215 61.679,27.646 61.423,26.801 63.244,27.646 			"/>
+				56.4,19.347 51.782,16.908 52.025,10.369 57.296,12.152 			"/>
+			<polygon fill="#1E1E1C" points="53.827,13.896 52.857,13.439 53.139,13.133 53.844,13.488 			"/>
+			<polygon fill="#1E1E1C" points="55.751,14.626 54.868,14.219 54.781,13.75 55.616,14.107 			"/>
+			<polygon fill="#1E1E1C" points="54.609,16.576 53.437,16.007 53.18,15.164 55.003,16.007 			"/>
 			
 				<polygon fill="#FFFFFF" stroke="#1E1E1C" stroke-width="0.4909" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-				65.537,23.791 60.267,22.008 65.089,22.222 69.279,23.791 			"/>
+				57.296,12.152 52.025,10.369 56.846,10.583 61.036,12.152 			"/>
 			
 				<polygon fill="#FFFFFF" stroke="#1E1E1C" stroke-width="0.4909" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-				68.341,30.059 64.642,30.986 65.501,23.791 69.279,23.791 			"/>
+				60.098,18.42 56.4,19.347 57.258,12.152 61.036,12.152 			"/>
 			
 				<path fill="none" stroke="#1E1E1C" stroke-width="0.4909" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
-				M52.007,32.52c0,0,5.746,1.629,9.199,0.105"/>
+				M43.764,20.881c0,0,5.746,1.629,9.199,0.104"/>
 			
 				<path fill="none" stroke="#1E1E1C" stroke-width="0.4909" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
-				M69.105,33.264c0,0,1.023,1.598,0.818,3.197"/>
-			<path fill="#1E1E1C" d="M68.089,28.298c-0.352,0.858-1.146,1.343-1.771,1.083c-0.625-0.256-0.844-1.158-0.49-2.015
-				c0.352-0.854,1.145-1.342,1.77-1.081C68.224,26.542,68.439,27.442,68.089,28.298z"/>
+				M60.863,21.625c0,0,1.022,1.598,0.817,3.196"/>
+			<path fill="#1E1E1C" d="M59.846,16.66c-0.353,0.857-1.146,1.344-1.771,1.082c-0.625-0.256-0.844-1.156-0.488-2.014
+				c0.352-0.854,1.145-1.343,1.77-1.082C59.982,14.904,60.197,15.803,59.846,16.66z"/>
 			
 				<path fill="none" stroke="#1E1E1C" stroke-width="0.2455" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
-				M62.333,21.987c0.572-1.266,1.514-2.087,2.576-2.087c1.742,0,3.154,2.212,3.154,4.939c0,1.282-0.311,2.453-0.824,3.329"/>
+				M54.091,10.348c0.571-1.266,1.515-2.087,2.576-2.087c1.741,0,3.153,2.212,3.153,4.938c0,1.283-0.311,2.453-0.824,3.33"/>
 			
 				<path fill="none" stroke="#1E1E1C" stroke-width="0.4909" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
-				M67.24,28.169"/>
+				M58.999,16.531"/>
 			
 				<path fill="none" stroke="#1E1E1C" stroke-width="0.9818" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
-				M63.572,20.366c1.117-0.646,2.459-0.466,3.387,0.714"/>
-			<path fill="#1E1E1C" d="M60.75,30.664c-0.248,0.297-0.773,0.271-1.176-0.064c-0.4-0.33-0.523-0.846-0.275-1.146
-				c0.25-0.3,0.777-0.272,1.178,0.065C60.88,29.852,61.001,30.361,60.75,30.664z"/>
+				M55.329,8.728c1.117-0.646,2.459-0.467,3.389,0.713"/>
+			<path fill="#1E1E1C" d="M52.508,19.025c-0.248,0.297-0.773,0.271-1.176-0.062c-0.4-0.33-0.523-0.848-0.275-1.146
+				c0.25-0.3,0.777-0.271,1.178,0.065C52.637,18.213,52.758,18.722,52.508,19.025z"/>
 			
-				<ellipse transform="matrix(0.9239 0.3826 -0.3826 0.9239 15.8258 -23.5883)" fill="#FFFFFF" cx="67.226" cy="28" rx="0.541" ry="0.827"/>
+				<ellipse transform="matrix(-0.9239 -0.3826 0.3826 -0.9239 107.2175 54.0512)" fill="#FFFFFF" cx="58.983" cy="16.366" rx="0.541" ry="0.828"/>
 			
 				<path fill="none" stroke="#1E1E1C" stroke-width="0.2455" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
-				M67.33,28.042c-1.154,1.661-3.943,4.388-7.305,2.017"/>
-			<text transform="matrix(1 0 0 1 63.0552 35.0518)" fill="#1E1E1C" font-family="'ArialRoundedMTBold'" font-size="1.8378">AR-1</text>
+				M59.089,16.404c-1.154,1.66-3.943,4.389-7.307,2.018"/>
+			<text transform="matrix(1 0 0 1 54.8127 23.4136)" fill="#1E1E1C" font-family="'ArialRoundedMTBold'" font-size="1.8378">AR-1</text>
 			<g>
-				<path fill="none" stroke="#1E1E1C" stroke-width="0.5411" stroke-miterlimit="10" d="M67.728,37.398
-					c-0.077,0.585-0.624,1.064-1.214,1.064h-2.596c-0.59,0-1.154-0.477-1.255-1.059l-0.756-4.42
-					c-0.101-0.582,0.302-1.059,0.892-1.059h4.58c0.59,0,1.01,0.479,0.933,1.064L67.728,37.398z"/>
+				<path fill="none" stroke="#1E1E1C" stroke-width="0.5411" stroke-miterlimit="10" d="M59.486,25.759
+					c-0.077,0.585-0.624,1.062-1.214,1.062h-2.596c-0.59,0-1.154-0.477-1.256-1.059l-0.757-4.42
+					c-0.101-0.582,0.304-1.061,0.894-1.061h4.58c0.59,0,1.01,0.479,0.933,1.064L59.486,25.759z"/>
 			</g>
 			<g>
-				<path fill="#FFFFFF" d="M67.359,41.532c-0.184-0.474-0.817-0.86-1.407-0.86h-1.525c-0.59,0-1.268,0.387-1.506,0.86
-					s0.051,0.86,0.641,0.86h3.059C67.209,42.393,67.542,42.006,67.359,41.532z"/>
-				<path fill="none" stroke="#1E1E1C" stroke-width="0.5411" stroke-miterlimit="10" d="M67.359,41.532
-					c-0.184-0.474-0.817-0.86-1.407-0.86h-1.525c-0.59,0-1.268,0.387-1.506,0.86s0.051,0.86,0.641,0.86h3.059
-					C67.209,42.393,67.542,42.006,67.359,41.532z"/>
+				<path fill="#FFFFFF" d="M59.116,29.893c-0.185-0.474-0.816-0.86-1.406-0.86h-1.524c-0.591,0-1.269,0.389-1.507,0.86
+					c-0.237,0.474,0.052,0.86,0.642,0.86h3.061C58.967,30.754,59.3,30.367,59.116,29.893z"/>
+				<path fill="none" stroke="#1E1E1C" stroke-width="0.5411" stroke-miterlimit="10" d="M59.116,29.893
+					c-0.185-0.474-0.816-0.86-1.406-0.86h-1.524c-0.591,0-1.269,0.389-1.507,0.86c-0.237,0.474,0.052,0.86,0.642,0.86h3.061
+					C58.967,30.754,59.3,30.367,59.116,29.893z"/>
 			</g>
 			
-				<rect x="64.642" y="38.463" fill="#FFFFFF" stroke="#1E1E1C" stroke-width="0.5411" stroke-miterlimit="10" width="0.895" height="2.209"/>
+				<rect x="56.4" y="26.824" fill="#FFFFFF" stroke="#1E1E1C" stroke-width="0.5411" stroke-miterlimit="10" width="0.896" height="2.209"/>
 			
 				<path fill="none" stroke="#1E1E1C" stroke-width="0.4909" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
-				M69.105,37.232c0.082-0.479,0.416-0.824,0.758-0.766c0.34,0.053,0.553,0.484,0.475,0.965"/>
+				M60.863,25.593c0.082-0.479,0.416-0.824,0.758-0.768c0.342,0.055,0.555,0.484,0.477,0.967"/>
 			
 				<path fill="none" stroke="#1E1E1C" stroke-width="0.4909" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
-				M51.562,31.869c0.271,0.191,0.408,0.471,0.328,0.717c-0.107,0.328-0.572,0.469-1.033,0.312"/>
+				M43.32,20.23c0.271,0.191,0.408,0.471,0.328,0.717c-0.105,0.328-0.572,0.471-1.033,0.312"/>
 		</g>
 		<g>
 			
-				<line fill="none" stroke="#1E1E1C" stroke-width="0.9818" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="50.802" y1="25.341" x2="50.802" y2="41.945"/>
+				<line fill="none" stroke="#1E1E1C" stroke-width="0.9818" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="42.559" y1="13.703" x2="42.559" y2="30.306"/>
 			<g>
-				<polygon fill="#E8501D" points="44.009,23.458 43.96,15.586 50.757,11.611 57.595,15.507 57.642,23.378 50.849,27.354 				"/>
-				<polygon fill="none" stroke="#FFFFFF" stroke-width="0.5199" stroke-miterlimit="10" points="44.656,23.078 44.617,15.96 
-					50.761,12.359 56.949,15.889 56.99,23.008 50.847,26.604 				"/>
-				<text transform="matrix(0.7176 0 0 1 45.7061 21.6885)" fill="#FFFFFF" font-family="'ArialNarrow-Bold'" font-size="6.3972">STOP</text>
+				<polygon fill="#E8501D" points="35.767,11.82 35.718,3.948 42.514,-0.028 49.353,3.869 49.4,11.74 42.607,15.715 				"/>
+				<polygon fill="none" stroke="#FFFFFF" stroke-width="0.5199" stroke-miterlimit="10" points="36.413,11.439 36.375,4.322 
+					42.519,0.72 48.708,4.25 48.749,11.369 42.605,14.965 				"/>
+				<text transform="matrix(0.7176 0 0 1 37.4636 10.0503)" fill="#FFFFFF" font-family="'ArialNarrow-Bold'" font-size="6.3972">STOP</text>
 			</g>
 		</g>
 	</g>
 	<g>
 		
-			<radialGradient id="SVGID_2_" cx="13818.0996" cy="-440.1226" r="41.5285" gradientTransform="matrix(-0.4097 0 0 0.0996 5686.8081 86.3669)" gradientUnits="userSpaceOnUse">
+			<radialGradient id="SVGID_2_" cx="11227.832" cy="4935.2925" r="41.522" gradientTransform="matrix(-0.4097 0 0 0.0996 4617.332 -460.6636)" gradientUnits="userSpaceOnUse">
 			<stop  offset="0" style="stop-color:#729954"/>
 			<stop  offset="0.1851" style="stop-color:#B7CA97"/>
 			<stop  offset="0.3067" style="stop-color:#DDEAC3"/>
@@ -104,41 +104,41 @@
 			<stop  offset="0.8388" style="stop-color:#FEFEFD"/>
 			<stop  offset="1" style="stop-color:#FFFFFF"/>
 		</radialGradient>
-		<ellipse fill="url(#SVGID_2_)" cx="25.532" cy="42.547" rx="17.29" ry="4.572"/>
+		<ellipse fill="url(#SVGID_2_)" cx="17.29" cy="30.908" rx="17.289" ry="4.572"/>
 		<g>
-			<path fill="#699E2F" d="M29.408,22.774c-0.738,2.269-3.178,3.51-5.443,2.77c-2.271-0.738-3.512-3.175-2.773-5.442
-				c0.738-2.271,3.176-3.511,5.447-2.771C28.906,18.067,30.144,20.504,29.408,22.774z"/>
+			<path fill="#699E2F" d="M21.166,11.135c-0.738,2.269-3.179,3.511-5.443,2.771c-2.271-0.737-3.512-3.176-2.773-5.441
+				c0.738-2.271,3.177-3.512,5.447-2.771C20.663,6.428,21.902,8.865,21.166,11.135z"/>
 			
-				<rect x="22.258" y="16.844" transform="matrix(0.5803 0.8144 -0.8144 0.5803 23.7339 -11.1595)" fill="#1E1E1C" width="0.872" height="1.205"/>
-			<path fill="#54551D" d="M19.05,22.192c1.109-3.237-0.521-4.872,0.457-6.824c0.967-1.929,4.094-0.705,3.424,1.373
-				c-0.561,0.398-0.98,0.701-0.98,0.701s-0.998-0.803-1.225,0.4C20.449,19.301,20.162,20.345,19.05,22.192z"/>
-			<path fill="#FFFFFF" d="M28.65,21.899c-0.082,0.26-0.277,0.424-0.432,0.375c-0.156-0.051-0.213-0.298-0.127-0.555
-				c0.082-0.256,0.271-0.423,0.43-0.373C28.675,21.397,28.73,21.646,28.65,21.899z"/>
-			<path fill="#FFFFFF" d="M26.804,22.507c-0.086,0.262-0.303,0.429-0.486,0.368c-0.182-0.06-0.26-0.321-0.174-0.583
-				c0.086-0.266,0.301-0.43,0.484-0.369C26.814,21.98,26.89,22.242,26.804,22.507z"/>
-			<path fill="#1E1E1C" d="M26.556,24.547c0,0,0.818-1.445,1.59-0.683"/>
+				<rect x="14.016" y="5.206" transform="matrix(0.5798 0.8148 -0.8148 0.5798 10.8057 -9.3345)" fill="#1E1E1C" width="0.873" height="1.205"/>
+			<path fill="#54551D" d="M10.808,10.553c1.109-3.237-0.521-4.872,0.457-6.823c0.967-1.93,4.094-0.705,3.424,1.373
+				c-0.561,0.397-0.979,0.7-0.979,0.7S12.711,5,12.484,6.203C12.207,7.664,11.92,8.707,10.808,10.553z"/>
+			<path fill="#FFFFFF" d="M20.407,10.26c-0.082,0.261-0.276,0.424-0.432,0.375c-0.156-0.051-0.213-0.298-0.127-0.555
+				c0.082-0.257,0.271-0.425,0.43-0.373C20.433,9.758,20.488,10.007,20.407,10.26z"/>
+			<path fill="#FFFFFF" d="M18.562,10.869c-0.086,0.263-0.303,0.43-0.486,0.367c-0.182-0.06-0.26-0.319-0.174-0.582
+				c0.086-0.267,0.301-0.431,0.484-0.369C18.572,10.341,18.648,10.603,18.562,10.869z"/>
+			<path fill="#1E1E1C" d="M18.314,12.908c0,0,0.818-1.443,1.59-0.683"/>
 			
-				<rect x="21.923" y="21.737" transform="matrix(0.9233 -0.3841 0.3841 0.9233 -7.299 10.7076)" fill="#FFFFFF" stroke="#1E1E1C" stroke-width="0.4689" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="2.469" height="3.782"/>
+				<rect x="13.679" y="10.098" transform="matrix(0.9232 -0.3843 0.3843 0.9232 -3.4624 6.6524)" fill="#FFFFFF" stroke="#1E1E1C" stroke-width="0.4689" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="2.47" height="3.783"/>
 			<g>
 				<polyline fill="none" stroke="#1E1E1C" stroke-width="0.4689" stroke-linecap="round" stroke-linejoin="round" points="
-					22.783,23.629 21.148,29.914 23.494,27.436 				"/>
+					14.541,11.99 12.906,18.275 15.252,15.797 				"/>
 			</g>
 			
 				<polyline fill="none" stroke="#1E1E1C" stroke-width="0.4689" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-				31.603,22.067 31.867,26.774 27.759,27.068 			"/>
+				23.361,10.428 23.625,15.135 19.517,15.429 			"/>
 			
 				<path fill="none" stroke="#1E1E1C" stroke-width="0.4689" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
-				M24.394,37.398c0,0.154-0.727,5.201-0.727,5.201"/>
+				M16.152,25.759c0,0.154-0.727,5.201-0.727,5.201"/>
 			
 				<path fill="none" stroke="#1E1E1C" stroke-width="0.4689" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
-				M27.24,37.398c0,0.154,0.223,5.201,0.223,5.201"/>
-			<polygon fill="#1C99CE" points="28.812,36.496 22.88,36.496 24.431,26.705 26.841,26.705 			"/>
-			<path fill="#54551D" d="M27.796,18.248c0,0,0.404,0.659,1.697,0.969c-2.168-3.365-7.52-3.382-8.693,1.859
-				c0.197,0.991,2.068,0.132,2.158-0.308c-0.09-0.22-0.047-0.418-0.047-0.418s0.34,0.493,0.662,0.55
-				c-0.199-0.903,0.262-1.101,0.262-1.101s0.221,0.66,1.08,0.573c0.176-1.343,1.043-1.69,1.043-1.69s-0.043,0.572,0.068,1.164
-				c0.459-0.985,0.83-1.35,0.83-1.35s0.547,0.95,1.145,1.105C27.472,18.813,27.796,18.248,27.796,18.248z"/>
-			<polygon fill="#1E1E1C" points="26.277,30.953 25.074,33.387 24.365,32.229 24.5,36.525 25.429,34.352 25.888,34.688 			"/>
-			<polygon fill="#1E1E1C" points="25.882,29.784 25.443,26.769 26.476,26.829 			"/>
+				M18.998,25.759c0,0.154,0.223,5.201,0.223,5.201"/>
+			<polygon fill="#1C99CE" points="20.57,24.857 14.638,24.857 16.189,15.066 18.599,15.066 			"/>
+			<path fill="#54551D" d="M19.554,6.609c0,0,0.404,0.659,1.697,0.969c-2.168-3.363-7.521-3.381-8.693,1.859
+				c0.197,0.991,2.068,0.133,2.158-0.308c-0.09-0.222-0.047-0.418-0.047-0.418s0.34,0.493,0.662,0.55
+				c-0.199-0.902,0.262-1.102,0.262-1.102s0.221,0.66,1.08,0.572c0.176-1.343,1.043-1.688,1.043-1.688s-0.043,0.571,0.067,1.164
+				c0.459-0.985,0.83-1.351,0.83-1.351s0.547,0.949,1.146,1.104C19.23,7.174,19.554,6.609,19.554,6.609z"/>
+			<polygon fill="#1E1E1C" points="18.034,19.314 16.832,21.749 16.123,20.59 16.258,24.886 17.187,22.713 17.646,23.049 			"/>
+			<polygon fill="#1E1E1C" points="17.64,18.146 17.2,15.13 18.234,15.191 			"/>
 		</g>
 	</g>
 </g>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="56.25px" height="33.75px" viewBox="0 0 56.25 33.75" enable-background="new 0 0 56.25 33.75" xml:space="preserve">
+	 width="56.25px" height="31.6px" viewBox="0 0.896 56.25 31.6" enable-background="new 0 0.896 56.25 31.6" xml:space="preserve">
 <g>
 	
-		<radialGradient id="SVGID_1_" cx="-1181.0391" cy="-455.207" r="39.9382" gradientTransform="matrix(0.4097 0 0 0.0996 515.7511 73.4263)" gradientUnits="userSpaceOnUse">
+		<radialGradient id="SVGID_1_" cx="-615.5684" cy="-2049.3477" r="39.9391" gradientTransform="matrix(0.4097 0 0 -0.0996 284.0773 -176.0266)" gradientUnits="userSpaceOnUse">
 		<stop  offset="0" style="stop-color:#5F564A"/>
 		<stop  offset="0.0287" style="stop-color:#75695A"/>
 		<stop  offset="0.0884" style="stop-color:#A1917C"/>
@@ -33,7 +33,7 @@
 					<rect x="15.209" y="25.734" fill="none" stroke="#1E1E1C" stroke-width="0.2642" stroke-miterlimit="10" width="2.95" height="0.5"/>
 				
 					<rect x="13.195" y="19.415" fill="none" stroke="#1E1E1C" stroke-width="0.2642" stroke-miterlimit="10" width="6.967" height="4.591"/>
-				<rect x="8.207" y="19.275" fill="#1E1E1C" width="2.775" height="0.825"/>
+				<rect x="8.207" y="19.275" fill="#1E1E1C" width="2.775" height="0.824"/>
 				<rect x="8.207" y="20.43" fill="#1E1E1C" width="2.775" height="0.744"/>
 				<circle fill="#1E1E1C" cx="10.696" cy="21.807" r="0.259"/>
 			</g>
@@ -43,9 +43,9 @@
 				<path fill="#1E1E1C" d="M27.492,4.356c0.533-1.423,1.604-2.309,2.498-2.705c2.346-1.045,5.096,0.012,6.141,2.36
 					c0.082,0.183,0.145,0.368,0.201,0.557c-1.379,0.292-3.201,0.776-5.48,0.093C28.926,4.084,28.275,4.277,27.492,4.356z"/>
 				
-					<ellipse transform="matrix(-0.9139 0.406 -0.406 -0.9139 57.4994 1.0837)" fill="#1E1E1C" cx="28.635" cy="6.641" rx="0.316" ry="0.526"/>
+					<ellipse transform="matrix(0.4065 0.9137 -0.9137 0.4065 23.0617 -22.2203)" fill="#1E1E1C" cx="28.634" cy="6.64" rx="0.526" ry="0.316"/>
 				
-					<ellipse transform="matrix(-0.9125 0.4091 -0.4091 -0.9125 61.6565 0.9327)" fill="#1E1E1C" cx="30.729" cy="7.06" rx="0.372" ry="0.54"/>
+					<ellipse transform="matrix(0.4088 0.9126 -0.9126 0.4088 24.6105 -23.8687)" fill="#1E1E1C" cx="30.729" cy="7.062" rx="0.54" ry="0.372"/>
 				<path fill="#1E1E1C" d="M29.035,8.767c0,0,1.154,1.368,1.816,0.407"/>
 				
 					<polygon fill="#FFFFFF" stroke="#1E1E1C" stroke-width="0.5049" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
