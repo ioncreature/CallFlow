@@ -24,6 +24,7 @@ var loc = {
         greetTheCallerHint: 'Thank you for calling Vlad Vendrow',
         screenTheCaller: 'Screen the Caller',
         screenTheCallerDesc: 'Ask callers to say their name before connecting.',
+        screenTheCallerHint: 'Please say who is calling',
         connecting: 'Connecting',
         connectingDesc: 'Callers will hear a message that they are being connected to your extension.',
         playing: 'Playing',

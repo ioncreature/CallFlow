@@ -116,3 +116,23 @@
     }
 }
 
+.ui-call-flow-screen-the-caller {
+    position: relative;
+    background: transparent url(@rc-images-screening) top left no-repeat;
+    background-size: 100%;
+    width: 200px;
+    height: 50px;
+    padding: 10px 50px 122px 25px;
+    margin: 10px 0 0 0;
+    font-weight: bold;
+    color: @rc-color-active;
+    span {
+        position: absolute;
+        top: 150px;
+        left: 100px;
+    }
+    .inactive & {
+        background-image: url(@rc-images-screening-off);
+    }
+}
+

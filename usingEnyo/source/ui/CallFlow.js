@@ -47,7 +47,12 @@ enyo.kind({
                 {name: 'greetCaller', kind: 'rc.CallFlowItem', caption: loc.CallFlow.greetTheCaller, description: loc.CallFlow.greetTheCallerDesc, components: [
                     {classes: 'ui-call-flow-greet-the-caller', content: loc.CallFlow.greetTheCallerHint}
                 ]},
-                {name: 'screenCaller', kind: 'rc.CallFlowItem', caption: loc.CallFlow.screenTheCaller, description: loc.CallFlow.screenTheCallerDesc},
+                {name: 'screenCaller', kind: 'rc.CallFlowItem', caption: loc.CallFlow.screenTheCaller, description: loc.CallFlow.screenTheCallerDesc, components: [
+                    {classes: 'ui-call-flow-screen-the-caller', components: [
+                        {content: loc.CallFlow.screenTheCallerHint},
+                        {tag: 'span', content: 'Sarah O\'Connor'}
+                    ]}
+                ]},
                 {name: 'connecting', kind: 'rc.CallFlowItem', caption: loc.CallFlow.connecting, description: loc.CallFlow.connectingDesc},
                 {name: 'playing', kind: 'rc.CallFlowItem', caption: loc.CallFlow.playing, description: loc.CallFlow.playingDesc},
                 {name: 'ringSoftphones', kind: 'rc.CallFlowItem', caption: loc.CallFlow.ringSoftphones, description: loc.CallFlow.ringSoftphonesDesc},
