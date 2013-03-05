@@ -37,7 +37,7 @@ enyo.kind({
         ]},
 
         {classes: 'ui-label', content: 'State/Province'},
-        {kind: 'rc.NavButton', caption: 'California' },
+        {kind: 'rc.NavButton', caption: 'California', ontap: 'goToNowhere' },
 
         {classes: 'ui-label', content: 'Zip/Postal Code'},
         {kind: 'onyx.InputDecorator', classes: 'ui-text-input ui-block', components: [
@@ -45,7 +45,7 @@ enyo.kind({
         ]},
 
         {classes: 'ui-label', content: 'Country'},
-        {kind: 'rc.NavButton', caption: 'USA' },
+        {kind: 'rc.NavButton', caption: 'USA', ontap: 'goToNowhere' },
 
         {classes: 'ui-header-big', content: 'Faxes Sent via Email', style: 'margin-top: 20px;' },
         {classes: 'ui-message', content:
@@ -74,7 +74,12 @@ enyo.kind({
         }
     ],
 
+    goToNowhere: function(){
+        App.goToNowhere();
+    },
+
     inputChange: function( inEvent, inSender ){
+//        App.goToNowhere();
         this.log( inSender.originator.name );
     }
 });

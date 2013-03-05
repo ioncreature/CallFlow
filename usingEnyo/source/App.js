@@ -19,25 +19,33 @@ enyo.kind({
 
     create: function(){
         this.inherited( arguments );
-        App.on( 'onBack', this.onBack, this );
+        App.on( 'goBack', this.goBack, this );
         App.on( 'goToNowhere', this.goToNowhere, this );
-        App.on( 'goTo', this.goToNowhere, this );
+        App.on( 'goTo', this.goTo, this );
+        this.pageStack = [0];
     },
 
-    onBack: function(){
-        this.log( 'I\'m going back' );
-        var panels = this.$.panels,
-            index = panels.getIndex();
-        index && panels.setIndex( index - 1 );
+    goBack: function(){
+        var panels = this.$.panels;
+        if ( this.pageStack.length > 1 ){
+            this.pageStack.pop();
+            panels.setIndex( this.pageStack[this.pageStack.length - 1] );
+        }
     },
 
     goToNowhere: function(){
-        var panel = this.$.panels;
-//        panels.setAc
+        this.goTo( 'UnderConstruction' );
     },
 
-    goTo: function(){
-
+    goTo: function( pageName ){
+        var panels = this.$.panels;
+        panels.children.some( function( child, i ){
+            if ( child.name === pageName ){
+                panels.setIndex( i );
+                this.pageStack.push( i );
+                return true;
+            }
+        }, this );
     },
 
     statics: {
@@ -70,10 +78,10 @@ enyo.kind({
          * Helpers methods
          */
         back: function(){
-            this.notify( 'onBack' );
+            this.notify( 'goBack' );
         },
 
-        toNowhere: function(){
+        goToNowhere: function(){
             this.notify( 'goToNowhere' );
         },
 

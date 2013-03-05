@@ -27,7 +27,6 @@ enyo.kind({
         {classes: 'ui-user-info-icon', content: '>'}
     ],
 
-
     create: function(){
         this.inherited( arguments );
         this.avatarUrlChanged();

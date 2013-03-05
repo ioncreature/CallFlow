@@ -11,8 +11,7 @@ enyo.kind({
     published: {
         showBack: true,
         showNext: false,
-        caption: 'Page Caption',
-        scrollable: true
+        caption: 'Page Caption'
     },
 
     handlers: {
@@ -22,21 +21,10 @@ enyo.kind({
 
     pageTools: [
         {name: 'nav', kind: 'rc.NavToolbar', onBack: 'doBack', onNext: 'doNext'},
-        {
-            name: 'client',
-//            kind: 'Scroller',
-            kind: 'FittableRows',
-//            layoutKind: 'FittableRowsLayout',
-//            touch: true,
-//            horizontal: 'hidden',
-//            vertical: 'hidden',
-            fit: true
-        }
-//        {name: 'client'}
+        {name: 'client', kind: 'FittableRows', fit: true }
     ],
 
     doBack: function(){
-        this.log( 'Back, Niggas!!!' );
         App.back();
     },
 
@@ -66,7 +54,6 @@ enyo.kind({
     reflow: function(){
         this.inherited( arguments );
         this.$.client.reflow();
-        this.log( this.getBounds(), this.$.client.getBounds() );
    	},
 
     showBackChanged: function(){
@@ -79,9 +66,5 @@ enyo.kind({
 
     captionChanged: function(){
         this.$.nav.setCaption( this.getCaption() );
-    },
-
-    scrollableChanged: function(){
-//        this.$.client.setVertical( this.getScrollable() ? 'default' : 'hidden' );
     }
 });
