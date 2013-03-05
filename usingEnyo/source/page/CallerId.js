@@ -6,6 +6,7 @@
 enyo.kind({
     name: 'rc.page.CallerId',
     kind: 'rc.Page',
+    caption: loc.CallerId.caption,
 
     components: [
         {classes: 'ui-message', content: 'Please select caller ID that will be used when calls are made from the following devices or features'},

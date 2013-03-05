@@ -6,7 +6,9 @@
 enyo.kind({
     name: 'rc.page.UserSettings',
     kind: 'rc.Page',
-    fit: true,
+    caption: loc.UserSettings.caption,
+    scrollable: false,
+
     handlers: {
         onBack: 'goBack'
     },
@@ -17,7 +19,7 @@ enyo.kind({
             {name: 'callFlowButton', content: 'Call Flow', active: true, bindTo: 'callFlowPanel'},
             {name: 'faxButton', content: 'Fax', bindTo: 'faxPanel'}
         ]},
-        {kind: 'Panels', fit: true, realtimeFit: true, draggable: false, onTransitionFinish: 'onPanelActivate', animate: true, components: [
+        {kind: 'Panels', fit: true, draggable: false, onTransitionFinish: 'onPanelActivate', animate: true, components: [
             {kind: 'rc.UserInfoPanel', name: 'userInfoPanel', bindTo: 'userInfoButton'},
             {kind: 'rc.CallFlow', name: 'callFlowPanel', bindTo: 'callFlowButton'},
             {kind: 'rc.Fax', name: 'faxPanel', bindTo: 'faxButton'}

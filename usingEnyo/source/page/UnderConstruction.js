@@ -19,6 +19,9 @@ enyo.kind({
     },
 
     components: [
-        {content: 'Please leave this area'}
+        {
+            content: 'Please leave this area',
+            style: 'font-size: 2em; text-align: center; margin-top: 50px;'
+        }
     ]
 });

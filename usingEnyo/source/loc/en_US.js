@@ -67,5 +67,9 @@ var loc = {
 
     UnderConstruction: {
         caption: 'Under Construction'
+    },
+
+    UserSettings: {
+        caption: 'User Settings'
     }
 };

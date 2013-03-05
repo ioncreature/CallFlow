@@ -22,7 +22,15 @@ enyo.kind({
 
     pageTools: [
         {name: 'nav', kind: 'rc.NavToolbar', onBack: 'doBack', onNext: 'doNext'},
-        {name: 'client', kind: 'Scroller', touch: false, horizontal: 'hidden', vertical: 'hidden',fit: true}
+        {
+            name: 'client',
+            kind: 'Scroller',
+            layoutKind: 'FittableRowsLayout',
+            touch: true,
+            horizontal: 'hidden',
+            vertical: 'hidden',
+            fit: true
+        }
     ],
 
     doBack: function(){
@@ -60,7 +68,6 @@ enyo.kind({
     },
 
     scrollableChanged: function(){
-        this.$.client.setTouch( this.getScrollable() );
-        this.$.client.setVertical( this.getScrollable() ? 'default' : 'scroll' );
+        this.$.client.setVertical( this.getScrollable() ? 'default' : 'hidden' );
     }
 });

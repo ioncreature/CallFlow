@@ -41,11 +41,11 @@ enyo.kind({
                 this.listeners[eventName].push( callback.bind(context) );
             else
                 this.listeners[eventName] = [ callback.bind(context) ];
-            var index = this.listeners[eventName].length - 1;
+            var index = listeners[eventName].length - 1;
 
             return {
                 remove: function(){
-                    delete listeners[index];
+                    delete listeners[eventName][index];
                 }
             }
         },
