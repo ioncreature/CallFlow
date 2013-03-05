@@ -25,6 +25,7 @@ enyo.depends(
     'ui/CallFlow.js',
     'ui/CallerId.js',
     'ui/Fax.js',
+    'page/UserSettings.js',
 
 	'App.js'
 );
