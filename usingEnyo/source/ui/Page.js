@@ -37,7 +37,6 @@ enyo.kind({
         this.showBackChanged();
         this.showNextChanged();
         this.captionChanged();
-        this.scrollableChanged();
         this.flow();
     },
 
