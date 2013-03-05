@@ -6,11 +6,13 @@
 enyo.kind({
     name: 'rc.Page',
     kind: 'FittableRows',
+    classes: 'ui-page',
 
     published: {
         showBack: true,
         showNext: false,
-        caption: 'Page Caption'
+        caption: 'Page Caption',
+        scrollable: true
     },
 
     handlers: {
@@ -20,11 +22,12 @@ enyo.kind({
 
     pageTools: [
         {name: 'nav', kind: 'rc.NavToolbar', onBack: 'doBack', onNext: 'doNext'},
-        {name: 'client', fit: true}
+        {name: 'client', kind: 'Scroller', touch: false, horizontal: 'hidden', vertical: 'hidden',fit: true}
     ],
 
     doBack: function(){
         this.log( 'Back, Niggas!!!' );
+        App.back();
     },
 
     doNext: function(){
@@ -36,6 +39,7 @@ enyo.kind({
         this.showBackChanged();
         this.showNextChanged();
         this.captionChanged();
+        this.scrollableChanged();
     },
 
     initComponents: function(){
@@ -53,5 +57,10 @@ enyo.kind({
 
     captionChanged: function(){
         this.$.nav.setCaption( this.getCaption() );
+    },
+
+    scrollableChanged: function(){
+        this.$.client.setTouch( this.getScrollable() );
+        this.$.client.setVertical( this.getScrollable() ? 'default' : 'scroll' );
     }
 });

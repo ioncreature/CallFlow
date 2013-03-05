@@ -5,10 +5,13 @@
 
 enyo.kind({
     name: 'rc.page.UserSettings',
-    kind: 'FittableRows',
+    kind: 'rc.Page',
     fit: true,
+    handlers: {
+        onBack: 'goBack'
+    },
+
     components: [
-        {kind: 'rc.NavToolbar', onBack: 'goBack', showBack: true, caption: 'User Settings'},
         {kind: 'onyx.RadioGroup', layoutKind: 'rc.ColumnsLayout', onActivate: 'onTabActivate', classes: 'ui-tabs', controlClasses: 'onyx-tabbutton ui-tabs-button', components: [
             {name: 'userInfoButton', content: 'User Info', bindTo: 'userInfoPanel'},
             {name: 'callFlowButton', content: 'Call Flow', active: true, bindTo: 'callFlowPanel'},
