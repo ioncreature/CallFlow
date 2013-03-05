@@ -24,13 +24,15 @@ enyo.kind({
         {name: 'nav', kind: 'rc.NavToolbar', onBack: 'doBack', onNext: 'doNext'},
         {
             name: 'client',
-            kind: 'Scroller',
-            layoutKind: 'FittableRowsLayout',
-            touch: true,
-            horizontal: 'hidden',
-            vertical: 'hidden',
+//            kind: 'Scroller',
+            kind: 'FittableRows',
+//            layoutKind: 'FittableRowsLayout',
+//            touch: true,
+//            horizontal: 'hidden',
+//            vertical: 'hidden',
             fit: true
         }
+//        {name: 'client'}
     ],
 
     doBack: function(){
@@ -48,12 +50,24 @@ enyo.kind({
         this.showNextChanged();
         this.captionChanged();
         this.scrollableChanged();
+        this.flow();
     },
 
     initComponents: function(){
         this.createChrome( this.pageTools );
         this.inherited( arguments );
     },
+
+    flow: function(){
+        this.inherited( arguments );
+        this.$.client.flow();
+    },
+
+    reflow: function(){
+        this.inherited( arguments );
+        this.$.client.reflow();
+        this.log( this.getBounds(), this.$.client.getBounds() );
+   	},
 
     showBackChanged: function(){
         this.$.nav.setShowBack( this.getShowBack() );
@@ -68,6 +82,6 @@ enyo.kind({
     },
 
     scrollableChanged: function(){
-        this.$.client.setVertical( this.getScrollable() ? 'default' : 'hidden' );
+//        this.$.client.setVertical( this.getScrollable() ? 'default' : 'hidden' );
     }
 });

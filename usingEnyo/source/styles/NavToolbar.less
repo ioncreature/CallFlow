@@ -9,24 +9,27 @@
     background-image: none;
     border: 1px solid @rc-color-border;
     box-shadow: none;
-    font-size: @rc-font-size-big;
     font-weight: bold;
+    overflow: hidden;
+
+    & > .ui-nav-toolbar-caption {
+        line-height: @rc-font-size-big;
+        font-size: @rc-font-size-big;
+        text-align: center;
+        vertical-align: baseline;
+    }
+
+    & > .ui-nav-toolbar-button {
+        width: 70px;
+        background-image: none;
+        border-radius: @rc-border-radius-small;
+        outline: none;
+        background-color: @rc-color-input;
+        border: 2px solid @rc-color-active;
+        vertical-align: baseline;
+        line-height: 20px;
+        padding: 5px 20px 7px 15px;
+    }
 }
 
-.ui-nav-toolbar .ui-nav-toolbar-caption {
-    text-align: center;
-    vertical-align: baseline;
-}
 
-.ui-nav-toolbar > .ui-nav-toolbar-button {
-    width: 70px;
-    background-image: none;
-    border-radius: @rc-border-radius-small;
-    outline: none;
-    background-color: @rc-color-input;
-    border: 2px solid @rc-color-active;
-//    font-size: 30px;
-    vertical-align: baseline;
-    line-height: 20px;
-    padding: 5px 20px 7px 15px;
-}

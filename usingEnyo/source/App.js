@@ -7,20 +7,20 @@ enyo.kind({
     name: 'App',
     kind: 'FittableRows',
     classes: 'enyo-fit',
-    draggable: false,
 
     components: [
         {name: 'panels', kind: 'Panels', fit: true, arrangerKind: 'LeftRightArranger', margin: 0, components: [
-            {kind: 'rc.page.UserSettings'},
-            {kind: 'rc.page.CallerId'},
-            {kind: 'rc.page.GreetCaller'},
-            {kind: 'rc.page.UnderConstruction'}
+            {kind: 'rc.page.UserSettings', name: 'UserSettings'},
+            {kind: 'rc.page.CallerId', name: 'CallerId'},
+            {kind: 'rc.page.GreetCaller', name: 'GreetCaller'},
+            {kind: 'rc.page.UnderConstruction', name: 'UnderConstruction'}
         ]}
     ],
 
     create: function(){
         this.inherited( arguments );
         App.on( 'onBack', this.onBack, this );
+        App.on( 'toNowhere', this.toNowhere, this );
     },
 
     onBack: function(){
@@ -28,6 +28,10 @@ enyo.kind({
         var panels = this.$.panels,
             index = panels.getIndex();
         index && panels.setIndex( index - 1 );
+    },
+
+    toNowhere: function(){
+
     },
 
     statics: {
@@ -61,6 +65,14 @@ enyo.kind({
          */
         back: function(){
             this.notify( 'onBack' );
+        },
+
+        toNowhere: function(){
+            this.notify( 'toNowhere' );
+        },
+
+        goTo: function( pageName ){
+            this.notify( 'goTo', pageName );
         }
     }
 });
