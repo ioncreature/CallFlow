@@ -23,8 +23,11 @@ enyo.depends(
     'ui/UserInfo.js',
     'ui/CallFlowItem.js',
     'ui/CallFlow.js',
-    'ui/CallerId.js',
     'ui/Fax.js',
+    'ui/Page.js',
+    'page/UnderConstruction.js',
+    'page/GreetCaller.js',
+    'page/CallerId.js',
     'page/UserSettings.js',
 
 	'App.js'

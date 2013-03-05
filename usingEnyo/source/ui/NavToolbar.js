@@ -4,37 +4,51 @@
  */
 
 enyo.kind({
-    classes: 'onyx onyx-toolbar onyx-toolbar-inline ui-nav-toolbar',
-    kind: enyo.FittableColumns,
     name: 'rc.NavToolbar',
+    classes: 'onyx onyx-toolbar onyx-toolbar-inline ui-nav-toolbar',
+    kind: 'FittableColumns',
+
+    published: {
+        showBack: true,
+        showNext: false,
+        caption: 'This Is Caption'
+    },
+
     events: {
         onBack: '',
         onNext: ''
     },
 
     components: [
-        { kind: onyx.Button, name: 'backButton', content: 'Back'/*&#9664;*/, ontap: 'backTapped', classes: 'ui-nav-toolbar-button' },
-        { name: 'caption', content: 'Default Caption', fit: true, classes: 'ui-nav-toolbar-caption' },
-        { kind: onyx.Button, name: 'nextButton', content: 'Next', ontap: 'nextTapped', classes: 'ui-nav-toolbar-button' }
+        { name: 'back', kind: onyx.Button, content: 'Back', ontap: 'backTapped', classes: 'ui-nav-toolbar-button' },
+        { name: 'caption', fit: true, classes: 'ui-nav-toolbar-caption' },
+        { name: 'next', kind: onyx.Button, content: 'Next', ontap: 'nextTapped', classes: 'ui-nav-toolbar-button' }
     ],
 
     backTapped: function(){
-        this.log( 'Back tapped' );
         this.doBack();
     },
 
     nextTapped: function(){
-        this.log( 'Next tapped' );
         this.doNext();
     },
 
     create: function(){
         this.inherited( arguments );
-        if ( !this.showNext )
-            this.$.nextButton.hide();
-        if ( !this.showBack )
-            this.$.backButton.hide();
-        if ( this.caption )
-            this.$.caption.setContent( this.caption );
+        this.showBackChanged();
+        this.showNextChanged();
+        this.captionChanged();
+    },
+
+    showBackChanged: function(){
+        this.$.back.setShowing( this.getShowBack() );
+    },
+
+    showNextChanged: function(){
+        this.$.next.setShowing( this.getShowNext() );
+    },
+
+    captionChanged: function(){
+        this.$.caption.setContent( this.getCaption() );
     }
 });

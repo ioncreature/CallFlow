@@ -6,8 +6,19 @@
 enyo.kind({
     name: 'App',
     kind: 'FittableRows',
-    fit: true,
+    classes: 'enyo-fit',
+    draggable: false,
+
     components: [
-        {kind: 'rc.page.UserSettings'}
-    ]
+        {name: 'panels', kind: 'Panels', fit: true, components: [
+            {kind: 'rc.page.UserSettings'},
+            {kind: 'rc.page.CallerId'},
+            {kind: 'rc.page.GreetCaller'},
+            {kind: 'rc.page.UnderConstruction'}
+        ]}
+    ],
+
+    create: function(){
+        this.inherited( arguments );
+    }
 });

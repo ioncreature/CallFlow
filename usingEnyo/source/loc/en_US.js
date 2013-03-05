@@ -55,5 +55,17 @@ var loc = {
         phonesAndPresence: 'Phones & Presence',
         callerId: 'Caller ID',
         musicOnHold: 'Music On Hold'
+    },
+
+    CallerId: {
+        caption: 'Caller ID'
+    },
+
+    GreetCaller: {
+        caption: 'Greet the Caller'
+    },
+
+    UnderConstruction: {
+        caption: 'Under Construction'
     }
 };
