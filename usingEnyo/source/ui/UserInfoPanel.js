@@ -13,7 +13,7 @@ enyo.kind({
 
     components: [
         {kind: 'rc.UserInfo', ontap: 'goToNowhere', avatarUrl: loc.img.avatar, data: {
-            name: 'Vlad Vendrow,',
+            name: 'Vlad Vendrow',
             extension: 'ext. 101',
             company: 'RingCentral, Inc.',
             post: 'CTO',

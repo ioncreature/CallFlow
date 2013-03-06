@@ -8,13 +8,12 @@
     font-family: Calibri;
     src: url( '../../assets/fonts/Calibri.ttf' ) format( 'truetype' );
 }
-
 @rc-font-family: Calibri, Arial, sans-serif;
-@rc-font-size-small: 15px;
-@rc-font-size-medium: 17px;
-@rc-font-size-big: 20px;
-@rc-font-size-bigger: 23px;
-@rc-font-size-biggest: 26px;
+@rc-font-size-small: 12px;
+@rc-font-size-medium: 14px;
+@rc-font-size-big: 16px;
+@rc-font-size-bigger: 19px;
+@rc-font-size-biggest: 22px;
 
 
 /* COLORS */
@@ -31,15 +30,23 @@
 @rc-color-hint: #F29119;
 
 
+/* WIDTHS AND HEIGHTS */
+@rc-width-default-screen: 320px;
+
 /* MARGINS & PADDINGS */
-@rc-margin-input: 0 10px 25px;
-@rc-padding-input: 8px;
-@rc-padding-button: 8px 12px;
+@rc-margin-default: 8px;
+@rc-margin-input: 0 @rc-margin-default 20px;
+@rc-padding-default: 8px;
+@rc-padding-big: 14px;
+@rc-padding-input: @rc-padding-default;
+@rc-padding-button: @rc-padding-default 10px;
 
 
 /* BORDERS */
+@rc-border-width: 1px;
+@rc-border-width-bold: 3px;
 @rc-border-radius-small: 4px;
-@rc-border-radius: 8px;
+@rc-border-radius: 7px;
 
 
 /* IMAGES */
@@ -56,3 +63,4 @@
 @rc-images-playing-off: '@{rc-images-path}cartoon_playing_off.svg';
 @rc-images-voicemail: '@{rc-images-path}cartoon_voicemail_on.svg';
 @rc-images-voicemail-off: '@{rc-images-path}cartoon_voicemail_off.svg';
+@rc-images-restricted-area: '@{rc-images-path}area51_sign.jpg';

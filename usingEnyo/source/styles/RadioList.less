@@ -4,19 +4,20 @@
  */
 
 .ui-radio-list {
-    margin: 15px 10px 10px 10px;
+    margin: 15px @rc-margin-default @rc-margin-default @rc-margin-default;
     padding: 0;
 }
 .ui-radio-list-item {
     width: 100%;
     border-radius: @rc-border-radius-small;
-    border: 1px solid @rc-color-input;
+    border: @rc-border-width solid @rc-color-input;
     background-color: @rc-color-bg;
     color: @rc-color-input;
-    font-size: @rc-font-size-small;
+    font-size: @rc-font-size-medium;
+    line-height: @rc-font-size-medium;
     font-weight: bold;
     position: relative;
-    height: 30px;
+    height: @rc-padding-input * 2 + @rc-font-size-medium;
 
     &.active {
         background-color: @rc-color-input;
@@ -29,24 +30,24 @@
 
     & :first-child {
         float: left;
-        margin: 6px 0 6px 9px;
+        margin: @rc-padding-default 0 @rc-padding-default 9px;
     }
 
     & :last-child {
         float: right;
-        margin: 6px 9px 6px 0;
+        margin: @rc-padding-default 9px @rc-padding-default 0;
         text-align: right;
     }
 }
 
 .ui-radio-list-item-ruler {
-    width: 27px;
+    width: @rc-border-width-bold + @rc-margin-default + @rc-padding-big;
     height: 6px;
-    border-top: 3px solid @rc-color-input;
-    border-bottom: 3px solid @rc-color-input;
+    border-top: @rc-border-width-bold solid @rc-color-input;
+    border-bottom: @rc-border-width-bold solid @rc-color-input;
     background-color: white;
     position: absolute;
-    top: 9px;
-    left: -28px;
+    top: 8px;
+    left: -( @rc-border-width + @rc-border-width-bold + @rc-margin-default + @rc-padding-big );
     display: none;
 }

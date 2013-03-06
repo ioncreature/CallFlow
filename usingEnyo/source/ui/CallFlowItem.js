@@ -9,6 +9,10 @@ enyo.kind({
     name: 'rc.CallFlowItem',
     classes: 'ui-call-flow-item',
 
+    handlers: {
+        onButtonTap: 'doButtonTap'
+    },
+
     published: {
         caption: '',
         description: '',
@@ -17,7 +21,7 @@ enyo.kind({
     },
 
     itemTools: [
-        {name: 'editButton', classes: 'ui-call-flow-item-edit-button'},
+        {name: 'editButton', classes: 'ui-call-flow-item-edit-button', ontap: 'onButtonTap'},
         {classes: 'ui-call-flow-item-header', components: [
             {name: 'caption', classes: 'ui-call-flow-item-caption'},
             {name: 'description', classes: 'ui-call-flow-item-description', allowHtml: true},

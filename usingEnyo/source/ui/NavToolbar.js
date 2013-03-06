@@ -11,7 +11,8 @@ enyo.kind({
     published: {
         showBack: true,
         showNext: false,
-        caption: 'This Is Caption'
+        caption: 'This Is Caption',
+        nextButtonCaption: loc.next
     },
 
     events: {
@@ -38,6 +39,7 @@ enyo.kind({
         this.showBackChanged();
         this.showNextChanged();
         this.captionChanged();
+        this.nextButtonCaptionChanged();
     },
 
     showBackChanged: function(){
@@ -50,5 +52,9 @@ enyo.kind({
 
     captionChanged: function(){
         this.$.caption.setContent( this.getCaption() );
+    },
+
+    nextButtonCaptionChanged: function(){
+        this.$.next.setContent( this.getNextButtonCaption() );
     }
 });

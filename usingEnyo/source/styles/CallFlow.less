@@ -11,7 +11,7 @@
     top: 0;
     left: 0;
     margin: 10px;
-    padding: 0 10px 0 25px;
+    padding: 0 @rc-padding-default 0 25px;
 }
 .ui-call-flow-header {
     position: relative;
@@ -41,7 +41,7 @@
 
 .ui-call-flow-item {
     position: relative;
-    padding: 0 0 0 14px;
+    padding: 0 0 0 @rc-padding-big;
     border-left: 3px solid @rc-color-input;
     padding-bottom: 20px;
     margin: 0;
@@ -98,7 +98,8 @@
     overflow: hidden;
     & > .ui-button {
         float: right;
-        margin: 5px 8px 10px 5px;
+        font-size: @rc-font-size-medium;
+        margin: 5px 5px @rc-margin-default 5px;
     }
 }
 

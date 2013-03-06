@@ -15,6 +15,9 @@ var loc = {
         greetTheCallerOn: 'assets/images/cartoon_greet-the-caller_on.svg'
     },
 
+    next: 'Next',
+    save: 'Save',
+
     CallFlow: {
         blockUnwantedCallers: 'Block Unwanted Callers',
         answeringRules: 'Answering Rules',
@@ -62,7 +65,10 @@ var loc = {
     },
 
     GreetCaller: {
-        caption: 'Greet the Caller'
+        caption: 'Greet the Caller',
+        setDefault: 'Set Default',
+        setCustom: 'Set Custom',
+        listenGreeting: 'Listen Greeting'
     },
 
     UnderConstruction: {

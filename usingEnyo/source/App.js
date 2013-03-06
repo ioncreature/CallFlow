@@ -9,7 +9,7 @@ enyo.kind({
     classes: 'enyo-fit',
 
     components: [
-        {name: 'panels', kind: 'Panels', fit: true, draggable: false, arrangerKind: 'LeftRightArranger', margin: 0, components: [
+        {name: 'panels', kind: 'Panels', fit: true, draggable: false, components: [
             {kind: 'rc.page.UserSettings', name: 'UserSettings'},
             {kind: 'rc.page.CallerId', name: 'CallerId'},
             {kind: 'rc.page.GreetCaller', name: 'GreetCaller'},
@@ -37,11 +37,16 @@ enyo.kind({
         this.goTo( 'UnderConstruction' );
     },
 
-    goTo: function( pageName ){
+    /**
+     * @param {string} pageName
+     * @param {Object?} data
+     */
+    goTo: function( pageName, data ){
         var panels = this.$.panels;
         panels.children.some( function( child, i ){
             if ( child.name === pageName ){
                 panels.setIndex( i );
+                child.setPageData && child.setPageData( data );
                 this.pageStack.push( i );
                 return true;
             }

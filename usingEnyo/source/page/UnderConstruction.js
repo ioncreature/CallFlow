@@ -22,6 +22,7 @@ enyo.kind({
         {
             content: 'Please leave this area',
             style: 'font-size: 2em; text-align: center; margin-top: 50px;'
-        }
+        },
+        {classes: 'ui-restricted-area'}
     ]
 });
