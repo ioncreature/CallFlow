@@ -26,15 +26,22 @@ enyo.kind({
                 {classes: 'ui-call-flow-header-decorator'}
             ]},
             {name: 'items', classes: 'ui-call-flow-items', components: [
-                {name: 'blockCallers', kind: 'rc.CallFlowItem', caption: loc.CallFlow.blockUnwantedCallers, components: [
-                    {classes: 'ui-call-flow-block-callers'}
-                ]},
+                {
+                    name: 'blockCallers',
+                    kind: 'rc.CallFlowItem',
+                    caption: loc.CallFlow.blockUnwantedCallers,
+                    onButtonTap: 'goToNowhere',
+                    components: [
+                        {classes: 'ui-call-flow-block-callers'}
+                    ]
+                },
                 {
                     kind: 'rc.CallFlowItem',
                     name: 'answeringRules',
                     caption: loc.CallFlow.answeringRules,
                     description: loc.CallFlow.answeringRulesDesc,
                     onActivate: 'redrawItems',
+                    onButtonTap: 'goToNowhere',
                     components: [
                         {name: 'rules', kind: 'rc.RadioList'},
                         {classes: 'ui-call-flow-rule-buttons', controlClasses: 'ui-button', components: [
@@ -48,7 +55,7 @@ enyo.kind({
                     kind: 'rc.CallFlowItem',
                     caption: loc.CallFlow.greetTheCaller,
                     description: loc.CallFlow.greetTheCallerDesc,
-                    onButtonTap: function(){ App.goTo('GreetCaller') },
+                    onButtonTap: 'goToGreetCaller',
                     components: [{classes: 'ui-call-flow-greet-the-caller'}]
                 },
                 {name: 'screenCaller', kind: 'rc.CallFlowItem', caption: loc.CallFlow.screenTheCaller, description: loc.CallFlow.screenTheCallerDesc, components: [
@@ -83,7 +90,7 @@ enyo.kind({
 
     _createRuleModels: function(){
         return [
-            { name: 'Work Hours:', description: '8am - 6pm' }
+            { name: 'Work Hours:', description: '8am - 6pm', screenCallerActive: false }
         ];
     },
 
@@ -154,5 +161,13 @@ enyo.kind({
             voicemailActive: true
         });
         inEvent.originator.hide();
+    },
+
+    goToNowhere: function(){
+        App.goToNowhere();
+    },
+
+    goToGreetCaller: function(){
+        App.goTo('GreetCaller');
     }
 });

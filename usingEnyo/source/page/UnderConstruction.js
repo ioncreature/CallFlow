@@ -21,7 +21,7 @@ enyo.kind({
     components: [
         {
             content: 'Please leave this area',
-            style: 'font-size: 2em; text-align: center; margin-top: 50px;'
+            style: 'font-size: 2em; text-align: center; margin-top: 30px;'
         },
         {classes: 'ui-restricted-area'}
     ]
