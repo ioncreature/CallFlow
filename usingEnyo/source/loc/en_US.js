@@ -62,7 +62,8 @@ var loc = {
         caption: 'Greet the Caller',
         setDefault: 'Set Default',
         setCustom: 'Set Custom',
-        listenGreeting: 'Listen Greeting'
+        listenGreeting: 'Listen Greeting',
+        play: 'Play'
     },
 
     UnderConstruction: {

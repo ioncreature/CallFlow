@@ -168,6 +168,8 @@ enyo.kind({
     },
 
     goToGreetCaller: function(){
-        App.goTo('GreetCaller');
+        App.goTo('GreetCaller', {
+            model: this.$.rules.getActiveItem().model
+        });
     }
 });

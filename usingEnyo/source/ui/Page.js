@@ -16,6 +16,10 @@ enyo.kind({
         pageData: null
     },
 
+    events: {
+        onOpen: ''
+    },
+
     handlers: {
         onBack: '',
         onNext: ''
@@ -72,9 +76,5 @@ enyo.kind({
 
     nextButtonCaptionChanged: function(){
         this.$.nav.setNextButtonCaption( this.getNextButtonCaption() );
-    },
-
-    pageDataChanged: function(){
-
     }
 });

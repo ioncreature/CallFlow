@@ -11,27 +11,41 @@ enyo.kind({
     showNext: true,
 
     handlers: {
-        onBack: 'goBack',
-        onNext: 'save'
+        onBack: '',
+        onNext: 'save',
+        onOpen: 'pageOpen'
     },
 
-    goBack: function(){
-        this.log( 'piu' );
+    getVal: function(){
+        this.log( this.$.toggle.getValue() );
+    },
+
+    pageOpen: function(){
+        this.getPageData() && this.$.toggle.setValue( this.getPageData().model.get('greetCallerActive') );
     },
 
     components: [
-        {content: 'Piu-Piu-Piu-Piu-Piu-Piu-Piu'},
-        {classes: 'ui-label', content: loc.GreetCaller.listenGreeting},
-        {kind:"onyx.ToggleButton", onChange:"toggleChanged", value: true},
-        {kind: 'onyx.Button', name:'setDefault', classes: 'ui-button', ontap: 'goToNowhere', content: loc.GreetCaller.setDefault},
-        {kind: 'onyx.Button', name:'setCustom', classes: 'ui-button', ontap: 'goToNowhere', content: loc.GreetCaller.setCustom}
+        {kind: 'Scroller', fit: true, style: 'text-align: center;', horizontal: 'hidden', vertical: 'scroll', components: [
+            {name: 'toggle', style: 'margin: 25px 10px;', kind: 'onyx.ToggleButton', onChange: 'getVal', classes: 'ui-label'},
+            {classes: 'ui-label', content: loc.GreetCaller.listenGreeting},
+            {kind: 'onyx.Button', name:'play', classes: 'ui-button', ontap: 'playGreeting', content: loc.GreetCaller.play},
+            {tag: "br"},
+            {kind: 'onyx.Button', name:'setDefault', classes: 'ui-button', ontap: 'goToNowhere', content: loc.GreetCaller.setDefault},
+            {tag: "br"},
+            {kind: 'onyx.Button', name:'setCustom', classes: 'ui-button', ontap: 'goToNowhere', content: loc.GreetCaller.setCustom}
+        ]}
     ],
+
+    playGreeting: function(){
+        alert( 'la-la-la-la-la' );
+    },
 
     goToNowhere: function(){
         App.goToNowhere();
     },
 
     save: function(){
+        this.getPageData().model.set( 'greetCallerActive', this.$.toggle.getValue() );
         App.back();
     }
 });

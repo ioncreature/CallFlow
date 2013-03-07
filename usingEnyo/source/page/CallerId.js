@@ -9,7 +9,7 @@ enyo.kind({
     caption: loc.CallerId.caption,
 
     components: [
-        {kind: 'Scroller', fit: true, horizontal: 'hidden', vertical: 'scroll', components:[
+        {kind: 'Scroller', fit: true, horizontal: 'hidden', vertical: 'scroll', components: [
             {classes: 'ui-message', style: 'margin-top: 20px;', content: 'Please select caller ID that will be used when calls are made from the following devices or features'},
 
             {classes: 'ui-header-big', content: 'By Phone'},

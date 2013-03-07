@@ -10,7 +10,8 @@ enyo.kind({
     scrollable: false,
 
     handlers: {
-        onBack: 'goBack'
+        onBack: 'goBack',
+        onOpen: 'redrawCallFlow'
     },
 
     components: [
@@ -48,5 +49,10 @@ enyo.kind({
             button = this.$[buttonName];
         if ( !button.getActive() )
             button.setActive( true );
+    },
+
+    redrawCallFlow: function(){
+        this.log( 'omnomnom' );
+        this.$.callFlowPanel.redrawItems();
     }
 });

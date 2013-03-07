@@ -22,31 +22,42 @@ enyo.kind({
         App.on( 'goBack', this.goBack, this );
         App.on( 'goToNowhere', this.goToNowhere, this );
         App.on( 'goTo', this.goTo, this );
-        this.pageStack = [0];
+
+        var i = 0;
+        this.pageStack = [i];
+        this.$.panels.children[i].doOpen();
     },
 
     goBack: function(){
-        var panels = this.$.panels;
+        var panels = this.$.panels,
+            i;
         if ( this.pageStack.length > 1 ){
             this.pageStack.pop();
-            panels.setIndex( this.pageStack[this.pageStack.length - 1] );
+            i = this.pageStack[this.pageStack.length - 1];
+            panels.setIndex( i );
+            panels.children[i].doOpen();
         }
     },
 
     goToNowhere: function(){
-        this.goTo( 'UnderConstruction' );
+        this.goTo({ pageName: 'UnderConstruction' });
     },
 
     /**
-     * @param {string} pageName
-     * @param {Object?} data
+     * @param {Object} options
+     * @param {string} options.pageName
+     * @param {?} options.data
      */
-    goTo: function( pageName, data ){
-        var panels = this.$.panels;
+    goTo: function( options ){
+        var panels = this.$.panels,
+            pageName = options.pageName,
+            data = options.data;
+
         panels.children.some( function( child, i ){
             if ( child.name === pageName ){
                 panels.setIndex( i );
                 child.setPageData && child.setPageData( data );
+                panels.children[i].doOpen();
                 this.pageStack.push( i );
                 return true;
             }
@@ -90,8 +101,8 @@ enyo.kind({
             this.notify( 'goToNowhere' );
         },
 
-        goTo: function( pageName ){
-            this.notify( 'goTo', pageName );
+        goTo: function( pageName, data ){
+            this.notify( 'goTo', {pageName: pageName, data: data} );
         }
     }
 });
