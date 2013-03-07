@@ -93,6 +93,7 @@ enyo.kind({
                     kind: 'rc.CallFlowItem',
                     caption: loc.CallFlow.ringSoftphones,
                     description: loc.CallFlow.ringSoftphonesDesc,
+                    value: 'Off',
                     onButtonTap: 'goToNowhere'
                 },
                 {
@@ -109,7 +110,9 @@ enyo.kind({
                     onButtonTap: 'goToNowhere',
                     caption: loc.CallFlow.ringMyPhones,
                     description: loc.CallFlow.ringMyPhonesDesc,
-                    value: 'Off'
+                    components: [
+                        {kind: 'rc.PhonesContainer'}
+                    ]
                 },
                 {
                     name: 'voicemail',

@@ -1,0 +1,87 @@
+/**
+ * @author Marenin Alexander 
+ * March 2013
+ */
+
+.ui-phone-container {
+    margin: 25px 0 0 -30px;
+}
+
+.ui-phone-container-block {
+    position: relative;
+    border: @rc-border-width solid @rc-color-input;
+    border-radius: @rc-border-radius;
+    margin-top: @rc-margin-default * 2;
+    background-color: @rc-color-input;
+    font-size: @rc-font-size-medium;
+    font-weight: bold;
+}
+
+.ui-phone-container-block-left {
+    margin-right: 41px;
+    background-color: @rc-color-bg;
+    border-radius: @rc-border-radius;
+    padding: @rc-padding-default;
+}
+
+.ui-phone-container-block-right {
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    margin-top: -19px;
+    text-align: center;
+    color: @rc-color-active;
+    & :first-child {
+        font-size: @rc-font-size-biggest;
+        line-height: @rc-font-size-bigger;
+    }
+}
+
+.ui-phone-container-block-left-item {
+    overflow: hidden;
+    margin-bottom: @rc-margin-default;
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.ui-phone-container-block-left-item-img {
+    float: left;
+    width: 50px;
+    height: 50px;
+    background: transparent center center no-repeat;
+    background-size: auto 100%;
+
+    &.mobile {
+        background-image: url(@rc-images-phone-mobile);
+        .inactive > & {
+            background-image: url(@rc-images-phone-mobile-off);
+        }
+    }
+    &.home {
+        background-image: url(@rc-images-phone-home);
+        .inactive > & {
+            background-image: url(@rc-images-phone-home-off);
+        }
+    }
+}
+
+.ui-phone-container-block-left-item-caption {
+    float: left;
+    color: @rc-color-input;
+    margin-top: 4px;
+    height: 22px;
+    width: 170px;
+    clear: right;
+    .inactive > & {
+        color: @rc-color-inactive;
+    }
+}
+
+.ui-phone-container-block-left-item-number {
+    float: left;
+    height: 20px;
+    .inactive > & {
+        color: @rc-color-inactive;
+    }
+}

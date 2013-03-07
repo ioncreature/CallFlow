@@ -32,7 +32,7 @@ var loc = {
         ringSoftphonesDesc: 'As call comes through you will receive real time notification on your desktop client and mobile device.',
         delay: 'Delay:',
         delayDesc: 'Phone system will wait 5 rings before continue routing incoming call.',
-        ringMyPhones: 'Ring My Phones:',
+        ringMyPhones: 'Ring My Phones',
         ringMyPhonesDesc: 'Define in what order and which of your phones will ring when call comes in.',
         voicemail: 'Voicemail',
         voicemailDesc: 'You can listen to your voicemail on service site or your mobile device at any time.',
