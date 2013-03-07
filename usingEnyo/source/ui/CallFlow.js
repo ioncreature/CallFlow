@@ -191,7 +191,7 @@ enyo.kind({
     addCustomRule: function( inSender, inEvent ){
         this.customRules = this.customRules ? this.customRules + 1 : 1;
         this.rules.add({
-            name: 'After Hours',
+            name: 'My Rule ' + this.customRules,
             description: '6pm - 8am',
             greetCallerActive: false,
             screenCallerActive: false,
@@ -207,7 +207,7 @@ enyo.kind({
 
     addAfterHours: function( inSender, inEvent ){
         this.rules.add({
-            name: 'My Rule ' + this.customRules,
+            name: 'After Hours',
             description: '',
             greetCaller: true,
             screenCaller: false,
