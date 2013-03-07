@@ -27,7 +27,7 @@ enyo.kind({
                 {name: 'caption'},
                 {name: 'value'}
             ]},
-            {name: 'description', classes: 'ui-call-flow-item-description', allowHtml: true},
+            {name: 'description', classes: 'ui-call-flow-item-description', allowHtml: true}
         ]},
         {name: 'client'}
     ],

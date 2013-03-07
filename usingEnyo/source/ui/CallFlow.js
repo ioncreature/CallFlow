@@ -188,22 +188,6 @@ enyo.kind({
     addCustomRule: function( inSender, inEvent ){
         this.customRules = this.customRules ? this.customRules + 1 : 1;
         this.rules.add({
-            name: 'My Rule ' + this.customRules,
-            description: '',
-            greetCaller: true,
-            screenCaller: false,
-            connecting: false,
-            playing: false,
-            ringSoftphones: false,
-            delay: false,
-            ringPhones: false,
-            voicemail: false
-        });
-        this.selectLastRule();
-    },
-
-    addAfterHours: function( inSender, inEvent ){
-        this.rules.add({
             name: 'After Hours',
             description: '6pm - 8am',
             greetCallerActive: false,
@@ -214,6 +198,22 @@ enyo.kind({
             delayActive: false,
             ringPhonesActive: false,
             voicemailActive: true
+        });
+        this.selectLastRule();
+    },
+
+    addAfterHours: function( inSender, inEvent ){
+        this.rules.add({
+            name: 'My Rule ' + this.customRules,
+            description: '',
+            greetCaller: true,
+            screenCaller: false,
+            connecting: false,
+            playing: false,
+            ringSoftphones: false,
+            delay: false,
+            ringPhones: false,
+            voicemail: false
         });
         inEvent.originator.hide();
         this.selectLastRule();
