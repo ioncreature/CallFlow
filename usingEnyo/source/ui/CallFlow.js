@@ -58,21 +58,55 @@ enyo.kind({
                     onButtonTap: 'goToGreetCaller',
                     components: [{classes: 'ui-call-flow-greet-the-caller'}]
                 },
-                {name: 'screenCaller', kind: 'rc.CallFlowItem', caption: loc.CallFlow.screenTheCaller, description: loc.CallFlow.screenTheCallerDesc, components: [
-                    {classes: 'ui-call-flow-screen-the-caller'}
-                ]},
-                {name: 'connecting', kind: 'rc.CallFlowItem', caption: loc.CallFlow.connecting, description: loc.CallFlow.connectingDesc, components: [
-                    {classes: 'ui-call-flow-connecting'}
-                ]},
-                {name: 'playing', kind: 'rc.CallFlowItem', caption: loc.CallFlow.playing, description: loc.CallFlow.playingDesc, components: [
-                    {classes: 'ui-call-flow-playing'}
-                ]},
-                {name: 'ringSoftphones', kind: 'rc.CallFlowItem', caption: loc.CallFlow.ringSoftphones, description: loc.CallFlow.ringSoftphonesDesc},
-                {name: 'delay', kind: 'rc.CallFlowItem', caption: loc.CallFlow.delay, description: loc.CallFlow.delayDesc},
-                {name: 'ringPhones', kind: 'rc.CallFlowItem', caption: loc.CallFlow.ringMyPhones, description: loc.CallFlow.ringMyPhonesDesc},
-                {name: 'voicemail', kind: 'rc.CallFlowItem', caption: loc.CallFlow.voicemail, description: loc.CallFlow.voicemailDesc, components: [
-                    {classes: 'ui-call-flow-voicemail'}
-                ]}
+                {
+                    name: 'screenCaller',
+                    kind: 'rc.CallFlowItem',
+                    caption: loc.CallFlow.screenTheCaller,
+                    description: loc.CallFlow.screenTheCallerDesc,
+                    onButtonTap: 'goToNowhere',
+                    components: [
+                        {classes: 'ui-call-flow-screen-the-caller'}
+                    ]
+                },
+                {
+                    name: 'connecting',
+                    kind: 'rc.CallFlowItem',
+                    caption: loc.CallFlow.connecting,
+                    description: loc.CallFlow.connectingDesc,
+                    onButtonTap: 'goToNowhere',
+                    components: [
+                        {classes: 'ui-call-flow-connecting'}
+                    ]
+                },
+                {
+                    name: 'playing',
+                    kind: 'rc.CallFlowItem',
+                    caption: loc.CallFlow.playing,
+                    description: loc.CallFlow.playingDesc,
+                    onButtonTap: 'goToNowhere',
+                    components: [
+                        {classes: 'ui-call-flow-playing'}
+                    ]
+                },
+                {
+                    name: 'ringSoftphones',
+                    kind: 'rc.CallFlowItem',
+                    caption: loc.CallFlow.ringSoftphones,
+                    description: loc.CallFlow.ringSoftphonesDesc,
+                    onButtonTap: 'goToNowhere'
+                },
+                {name: 'delay', kind: 'rc.CallFlowItem', onButtonTap: 'goToNowhere', caption: loc.CallFlow.delay, description: loc.CallFlow.delayDesc},
+                {name: 'ringPhones', kind: 'rc.CallFlowItem', onButtonTap: 'goToNowhere', caption: loc.CallFlow.ringMyPhones, description: loc.CallFlow.ringMyPhonesDesc},
+                {
+                    name: 'voicemail',
+                    kind: 'rc.CallFlowItem',
+                    caption: loc.CallFlow.voicemail,
+                    description: loc.CallFlow.voicemailDesc,
+                    onButtonTap: 'goToNowhere',
+                    components: [
+                        {classes: 'ui-call-flow-voicemail'}
+                    ]
+                }
             ]}
         ]},
         {kind: 'rc.Notifications', name: 'notifications', email: 'vladv@ringcentral.com', phone: '+1 (345) 545-3567'}
@@ -145,6 +179,7 @@ enyo.kind({
             ringPhones: false,
             voicemail: false
         });
+        this.selectLastRule();
     },
 
     addAfterHours: function( inSender, inEvent ){
@@ -161,6 +196,13 @@ enyo.kind({
             voicemailActive: true
         });
         inEvent.originator.hide();
+        this.selectLastRule();
+    },
+
+    selectLastRule: function(){
+        var rules = this.$.rules,
+            lastChild = rules.children[rules.children.length -1 ];
+        this.$.rules.onItemTap( lastChild );
     },
 
     goToNowhere: function(){
