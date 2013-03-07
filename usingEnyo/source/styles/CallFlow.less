@@ -55,8 +55,9 @@
         .ui-call-flow-item-edit-button {
             background-image: url( @rc-images-edit-off );
         }
-        .ui-call-flow-item-caption {
-            color: @rc-color-inactive;
+        .ui-call-flow-item-caption > *,
+        .ui-call-flow-item-description {
+            color: @rc-color-green;
         }
     }
 }
@@ -80,6 +81,13 @@
     font-size: @rc-font-size-bigger;
     font-weight: bold;
     margin: 0 10px 0 0;
+    & > * {
+        display: inline-block;
+    }
+    & :last-child {
+        margin-left: 8px;
+        color: @rc-color-input;
+    }
 }
 
 .ui-call-flow-item-description {
@@ -94,8 +102,8 @@
     & > .ui-button {
         float: right;
         font-size: @rc-font-size-medium;
-        padding: 6px 7px;
-        margin: 5px 6px @rc-margin-default 2px;
+        padding: 6px 4px;
+        margin: 5px 3px @rc-margin-default 2px;
     }
 }
 

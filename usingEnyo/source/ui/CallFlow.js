@@ -95,8 +95,22 @@ enyo.kind({
                     description: loc.CallFlow.ringSoftphonesDesc,
                     onButtonTap: 'goToNowhere'
                 },
-                {name: 'delay', kind: 'rc.CallFlowItem', onButtonTap: 'goToNowhere', caption: loc.CallFlow.delay, description: loc.CallFlow.delayDesc},
-                {name: 'ringPhones', kind: 'rc.CallFlowItem', onButtonTap: 'goToNowhere', caption: loc.CallFlow.ringMyPhones, description: loc.CallFlow.ringMyPhonesDesc},
+                {
+                    name: 'delay',
+                    kind: 'rc.CallFlowItem',
+                    onButtonTap: 'goToNowhere',
+                    caption: loc.CallFlow.delay,
+                    description: loc.CallFlow.delayDesc,
+                    value: '5 rings'
+                },
+                {
+                    name: 'ringPhones',
+                    kind: 'rc.CallFlowItem',
+                    onButtonTap: 'goToNowhere',
+                    caption: loc.CallFlow.ringMyPhones,
+                    description: loc.CallFlow.ringMyPhonesDesc,
+                    value: 'Off'
+                },
                 {
                     name: 'voicemail',
                     kind: 'rc.CallFlowItem',
@@ -109,7 +123,13 @@ enyo.kind({
                 }
             ]}
         ]},
-        {kind: 'rc.Notifications', name: 'notifications', email: 'vladv@ringcentral.com', phone: '+1 (345) 545-3567'}
+        {
+            kind: 'rc.Notifications',
+            name: 'notifications',
+            email: 'vladv@ringcentral.com',
+            phone: '+1 (345) 545-3567',
+            ontap: 'goToNowhere'
+        }
     ],
 
     create: function(){

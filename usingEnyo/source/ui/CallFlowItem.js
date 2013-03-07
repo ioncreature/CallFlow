@@ -15,6 +15,7 @@ enyo.kind({
     published: {
         caption: '',
         description: '',
+        value: '',
         active: true,
         isFull: true
     },
@@ -22,7 +23,10 @@ enyo.kind({
     itemTools: [
         {name: 'editButton', classes: 'ui-call-flow-item-edit-button', ontap: 'doButtonTap'},
         {classes: 'ui-call-flow-item-header', components: [
-            {name: 'caption', classes: 'ui-call-flow-item-caption'},
+            {classes: 'ui-call-flow-item-caption', components: [
+                {name: 'caption'},
+                {name: 'value'}
+            ]},
             {name: 'description', classes: 'ui-call-flow-item-description', allowHtml: true},
         ]},
         {name: 'client'}
@@ -34,6 +38,7 @@ enyo.kind({
         this.descriptionChanged();
         this.isFullChanged();
         this.activeChanged();
+        this.valueChanged();
     },
 
     activeChanged: function(){
@@ -61,5 +66,10 @@ enyo.kind({
             this.$.description.show();
         else
             this.$.description.hide();
+    },
+
+    valueChanged: function(){
+        this.$.value.setContent( this.getValue() );
+        this.$.value.setShowing( !!this.getValue() );
     }
 });
