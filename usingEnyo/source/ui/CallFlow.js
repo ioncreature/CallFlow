@@ -210,13 +210,15 @@ enyo.kind({
             name: 'After Hours',
             description: '',
             greetCaller: true,
-            screenCaller: false,
-            connecting: false,
+            greetCallerActive: false,
+            screenCaller: true,
+            screenCallerActive: false,
+            connecting: true,
             playing: false,
             ringSoftphones: false,
             delay: false,
             ringPhones: false,
-            voicemail: false
+            voicemail: true
         });
         inEvent.originator.hide();
         this.selectLastRule();
