@@ -6,13 +6,7 @@
 
 var loc = {
     img: {
-        avatar: 'assets/images/avatar.jpg',
-        notifications: 'assets/images/cartoon_notifications_on.svg',
-        notificationsOff: 'assets/images/cartoon_notifications_off.svg',
-        caller: 'assets/images/cartoon_caller.svg',
-        blockCallers: 'assets/images/cartoon_block-unwanted-callers_on.svg',
-        blockCallersOff: 'assets/images/cartoon_block-unwanted-callers_off.svg',
-        greetTheCallerOn: 'assets/images/cartoon_greet-the-caller_on.svg'
+        avatar: 'assets/images/avatar.jpg'
     },
 
     next: 'Next',

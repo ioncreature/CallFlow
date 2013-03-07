@@ -23,12 +23,11 @@ enyo.kind({
         },
         {classes: 'ui-call-flow-decorator', components: [
             {content: 'Caller', classes: 'ui-call-flow-header', components: [
-                {classes: 'ui-call-flow-header-decorator'},
-                {tag: 'img', src: loc.img.caller}
+                {classes: 'ui-call-flow-header-decorator'}
             ]},
             {name: 'items', classes: 'ui-call-flow-items', components: [
                 {name: 'blockCallers', kind: 'rc.CallFlowItem', caption: loc.CallFlow.blockUnwantedCallers, components: [
-                    {tag: 'img', classes: 'ui-call-flow-item-img-full', src: loc.img.blockCallers}
+                    {classes: 'ui-call-flow-block-callers'}
                 ]},
                 {
                     kind: 'rc.CallFlowItem',
@@ -50,26 +49,23 @@ enyo.kind({
                     caption: loc.CallFlow.greetTheCaller,
                     description: loc.CallFlow.greetTheCallerDesc,
                     onButtonTap: function(){ App.goTo('GreetCaller') },
-                    components: [{classes: 'ui-call-flow-greet-the-caller', content: loc.CallFlow.greetTheCallerHint}]
+                    components: [{classes: 'ui-call-flow-greet-the-caller'}]
                 },
                 {name: 'screenCaller', kind: 'rc.CallFlowItem', caption: loc.CallFlow.screenTheCaller, description: loc.CallFlow.screenTheCallerDesc, components: [
-                    {classes: 'ui-call-flow-screen-the-caller', components: [
-                        {content: loc.CallFlow.screenTheCallerHint},
-                        {tag: 'span', content: 'Sarah O\'Connor'}
-                    ]}
+                    {classes: 'ui-call-flow-screen-the-caller'}
                 ]},
                 {name: 'connecting', kind: 'rc.CallFlowItem', caption: loc.CallFlow.connecting, description: loc.CallFlow.connectingDesc, components: [
-                    {classes: 'ui-call-flow-connecting', content: loc.CallFlow.connectingHint}
+                    {classes: 'ui-call-flow-connecting'}
                 ]},
                 {name: 'playing', kind: 'rc.CallFlowItem', caption: loc.CallFlow.playing, description: loc.CallFlow.playingDesc, components: [
-                    {classes: 'ui-call-flow-playing', content: loc.CallFlow.playingHint}
+                    {classes: 'ui-call-flow-playing'}
                 ]},
                 {name: 'ringSoftphones', kind: 'rc.CallFlowItem', caption: loc.CallFlow.ringSoftphones, description: loc.CallFlow.ringSoftphonesDesc},
                 {name: 'delay', kind: 'rc.CallFlowItem', caption: loc.CallFlow.delay, description: loc.CallFlow.delayDesc},
                 {name: 'ringPhones', kind: 'rc.CallFlowItem', caption: loc.CallFlow.ringMyPhones, description: loc.CallFlow.ringMyPhonesDesc},
                 {name: 'voicemail', kind: 'rc.CallFlowItem', caption: loc.CallFlow.voicemail, description: loc.CallFlow.voicemailDesc, components: [
-                    {classes: 'ui-call-flow-voicemail', content: loc.CallFlow.voicemailHint}
-                ]},
+                    {classes: 'ui-call-flow-voicemail'}
+                ]}
             ]}
         ]},
         {kind: 'rc.Notifications', name: 'notifications', email: 'vladv@ringcentral.com', phone: '+1 (345) 545-3567'}

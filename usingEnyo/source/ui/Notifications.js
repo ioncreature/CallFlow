@@ -16,7 +16,7 @@ enyo.kind({
     components: [
         {classes: 'ui-notification-caption', content: loc.CallFlow.notifications},
         {classes: 'ui-notification-description', content: loc.CallFlow.notificationsDesc},
-        {tag: 'img', src: loc.img.notifications},
+        {classes: 'ui-notification-image'},
         {name: 'emailContainer', classes: 'ui-notification-send-via', components: [
             {content: loc.CallFlow.sendViaEmail},
             {name: 'email'}

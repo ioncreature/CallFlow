@@ -17,19 +17,18 @@
     position: relative;
     padding: 0 0 0 10px;
     border-left: 3px solid @rc-color-input;
-    padding-bottom: 15px;
+    padding-bottom: 25px;
     margin: 30px 0 0 0;
-
-    & > img {
-        width: 180px;
-    }
+    background: transparent url(@rc-images-caller) top center no-repeat;
+    background-size: auto 47px;
+    height: 50px;
 }
 .ui-call-flow-header-decorator {
     position: absolute;
     top: 0px;
     left: -3px;
     width: 25px;
-    height: 45px;
+    height: 30px;
     border-bottom: 3px solid @rc-color-input;
     background-color: white;
 }
@@ -43,7 +42,7 @@
     position: relative;
     padding: 0 0 0 @rc-padding-big;
     border-left: 3px solid @rc-color-input;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
     margin: 0;
 
     &.last {
@@ -60,10 +59,6 @@
             color: @rc-color-inactive;
         }
     }
-}
-
-.ui-call-flow-item-img-full {
-    width: 250px;
 }
 
 .ui-call-flow-item-edit-button {
@@ -103,35 +98,37 @@
     }
 }
 
+.ui-call-flow-block-callers {
+    background: transparent url(@rc-images-block-callers) top center no-repeat;
+    background-size: auto 100%;
+    width: 250px;
+    height: 110px;
+    margin-top: @rc-margin-default * 2;
+    padding: 0;
+    .inactive & {
+        background-image: url(@rc-images-block-callers-off);
+    }
+}
+
 .ui-call-flow-greet-the-caller {
     background: transparent url(@rc-images-greet-the-caller) top left no-repeat;
     background-size: 100%;
-    width: 200px;
-    height: 50px;
-    padding: 10px 50px 100px 15px;
-    margin: 10px 0 0 10px;
-    font-weight: bold;
-    color: @rc-color-active;
+    width: 250px;
+    height: 60px;
+    margin-top: @rc-margin-default * 2;
+    padding: 0;
     .inactive & {
         background-image: url(@rc-images-greet-the-caller-off);
     }
 }
 
 .ui-call-flow-screen-the-caller {
-    position: relative;
     background: transparent url(@rc-images-screening) top left no-repeat;
     background-size: 100%;
-    width: 200px;
-    height: 50px;
-    padding: 10px 50px 122px 25px;
-    margin: 10px 0 0 0;
-    font-weight: bold;
-    color: @rc-color-active;
-    span {
-        position: absolute;
-        top: 150px;
-        left: 100px;
-    }
+    width: 250px;
+    height: 110px;
+    margin-top: @rc-margin-default * 2;
+    padding: 0;
     .inactive & {
         background-image: url(@rc-images-screening-off);
     }
@@ -140,12 +137,10 @@
 .ui-call-flow-connecting {
     background: transparent url(@rc-images-connecting) top left no-repeat;
     background-size: 100%;
-    width: 200px;
-    height: 50px;
-    padding: 8px 50px 100px 13px;
-    margin: 10px 0 0 10px;
-    font-weight: bold;
-    color: @rc-color-active;
+    width: 250px;
+    height: 55px;
+    margin-top: @rc-margin-default * 2;
+    padding: 0;
     .inactive & {
         background-image: url(@rc-images-connecting-off);
     }
@@ -154,12 +149,10 @@
 .ui-call-flow-playing {
     background: transparent url(@rc-images-playing) top left no-repeat;
     background-size: 100%;
-    width: 200px;
-    height: 50px;
-    padding: 8px 50px 94px 13px;
-    margin: 10px 0 0 10px;
-    font-weight: bold;
-    color: @rc-color-active;
+    width: 250px;
+    height: 55px;
+    margin-top: @rc-margin-default * 2;
+    padding: 0;
     .inactive & {
         background-image: url(@rc-images-playing-off);
     }
@@ -168,12 +161,10 @@
 .ui-call-flow-voicemail {
     background: transparent url(@rc-images-voicemail) top left no-repeat;
     background-size: 100%;
-    width: 230px;
-    height: 50px;
-    padding: 8px 20px 94px 25px;
-    margin: 10px 0 0 0;
-    font-weight: bold;
-    color: @rc-color-active;
+    width: 250px;
+    height: 60px;
+    margin-top: @rc-margin-default * 2;
+    padding: 0;
     .inactive & {
         background-image: url(@rc-images-voicemail-off);
     }
