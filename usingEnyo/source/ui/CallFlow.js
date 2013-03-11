@@ -15,7 +15,15 @@ enyo.kind({
     },
 
     events: {
-        onShowChange: ''
+        onShowChange: '',
+        onBelowTop: '',
+        onTop: ''
+    },
+
+    handlers: {
+        onScrollStart: 'scrollStart',
+        onScrollStop: 'checkScroll',
+        onOpen: 'pageOpen'
     },
 
     components: [
@@ -208,21 +216,8 @@ enyo.kind({
         this.lastVisible && this.lastVisible.addClass( 'last' );
     },
 
-    addCustomRule: function( inSender, inEvent ){
-        this.customRules = this.customRules ? this.customRules + 1 : 1;
-        this.rules.add({
-            name: 'My Rule ' + this.customRules,
-            description: '6pm - 8am',
-            greetCallerActive: false,
-            screenCallerActive: false,
-            connectingActive: false,
-            playingActive: false,
-            ringSoftphonesActive: false,
-            delayActive: false,
-            ringPhonesActive: false,
-            voicemailActive: true
-        });
-        this.selectLastRule();
+    addCustomRule: function(){
+        App.goTo( 'AddRule', {collection: this.rule} );
     },
 
     addAfterHours: function( inSender, inEvent ){
@@ -255,8 +250,25 @@ enyo.kind({
     },
 
     goToGreetCaller: function(){
-        App.goTo('GreetCaller', {
+        App.goTo( 'GreetCaller', {
             model: this.$.rules.getActiveItem().model
         });
+    },
+
+    scrollStart: function(){
+        this.doBelowTop();
+    },
+
+    scrollStop: function(){
+        this.doTop();
+    },
+
+    pageOpen: function(){
+        this.selectLastRule();
+    },
+
+    checkScroll: function(){
+        if ( this.getScrollTop() == 0 )
+            this.doTop();
     }
 });

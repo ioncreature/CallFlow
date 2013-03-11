@@ -65,6 +65,7 @@ enyo.kind({
     showBackChanged: function(){
         this.$.nav.setShowBack( this.getShowBack() );
         this.$.nav.reflow();
+
     },
 
     showNextChanged: function(){

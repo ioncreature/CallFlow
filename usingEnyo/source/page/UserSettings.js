@@ -17,14 +17,16 @@ enyo.kind({
     },
 
     components: [
-        {kind: 'onyx.RadioGroup', layoutKind: 'rc.ColumnsLayout', onActivate: 'onTabActivate', classes: 'ui-tabs', controlClasses: 'onyx-tabbutton ui-tabs-button', components: [
+        {name: 'tabs', kind: 'onyx.RadioGroup', layoutKind: 'rc.ColumnsLayout', onActivate: 'onTabActivate', classes: 'ui-tabs', controlClasses: 'onyx-tabbutton ui-tabs-button', components: [
             {name: 'userInfoButton', content: 'User Info', bindTo: 'userInfoPanel'},
             {name: 'callFlowButton', content: 'Call Flow', active: true, bindTo: 'callFlowPanel'},
             {name: 'faxButton', content: 'Fax', bindTo: 'faxPanel'}
         ]},
         {kind: 'Panels', fit: true, draggable: false, onTransitionFinish: 'onPanelActivate', animate: true, components: [
             {kind: 'rc.UserInfoPanel', name: 'userInfoPanel', bindTo: 'userInfoButton'},
-            {kind: 'rc.CallFlow', name: 'callFlowPanel', bindTo: 'callFlowButton', onShowChange: 'onShowChange'},
+            {kind: 'rc.CallFlow', name: 'callFlowPanel', bindTo: 'callFlowButton', onShowChange: 'onShowChange',
+                onBelowTop: 'hideTabs', onTop: 'showTabs'
+            },
             {kind: 'rc.Fax', name: 'faxPanel', bindTo: 'faxButton'}
         ]}
     ],
@@ -77,5 +79,15 @@ enyo.kind({
     switchCallFlowShowing: function(){
         var panel = this.$.callFlowPanel;
         panel.setShowAll( !panel.getShowAll() );
+    },
+
+    hideTabs: function(){
+        this.$.tabs.setShowing( false );
+        this.reflow();
+    },
+
+    showTabs: function(){
+        this.$.tabs.setShowing( true );
+        this.reflow();
     }
 });
