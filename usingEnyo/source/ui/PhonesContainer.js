@@ -13,7 +13,7 @@ enyo.kind({
             {classes: 'ui-phone-container-block-left', components: [
                 {classes: 'ui-phone-container-block-left-item', components: [
                     {classes: 'ui-phone-container-block-left-item-img mobile'},
-                    {classes: 'ui-phone-container-block-left-item-caption', content: 'Office desk phone (Ext. 101)'},
+                    {classes: 'ui-phone-container-block-left-item-caption', content: 'Office phone (Ext. 101)'},
                     {classes: 'ui-phone-container-block-left-item-number', content: '(452) 345-6345'}
                 ]}
             ]},
@@ -44,7 +44,7 @@ enyo.kind({
             {classes: 'ui-phone-container-block-left', components: [
                 {classes: 'ui-phone-container-block-left-item inactive', components: [
                     {classes: 'ui-phone-container-block-left-item-img mobile'},
-                    {classes: 'ui-phone-container-block-left-item-caption', content: 'Unassigned Cisco SPA-5...'},
+                    {classes: 'ui-phone-container-block-left-item-caption', content: 'Cisco SPA-5'},
                     {classes: 'ui-phone-container-block-left-item-number', content: '(674) 345-4572'}
                 ]}
             ]},

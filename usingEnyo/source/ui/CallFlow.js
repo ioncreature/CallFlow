@@ -31,7 +31,7 @@ enyo.kind({
         {
             kind: 'onyx.RadioGroup',
             layoutKind: 'rc.ColumnsLayout',
-            onActivate: 'onSnowTabActivate',
+            onActivate: 'onShowTabActivate',
             classes: 'ui-tabs-switcher',
             controlClasses: 'ui-tabs-button', components: [
                 {name: 'showActive', content: loc.CallFlow.showActive, active: true},
@@ -184,7 +184,7 @@ enyo.kind({
         this.showAllChanged();
     },
 
-    onSnowTabActivate: function(){
+    onShowTabActivate: function(){
         this.setShowAll( this.$.showAll.getActive() );
     },
 

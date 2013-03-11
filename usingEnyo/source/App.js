@@ -13,7 +13,8 @@ enyo.kind({
             {kind: 'rc.page.UserSettings', name: 'UserSettings'},
             {kind: 'rc.page.CallerId', name: 'CallerId'},
             {kind: 'rc.page.GreetCaller', name: 'GreetCaller'},
-            {kind: 'rc.page.UnderConstruction', name: 'UnderConstruction'}
+            {kind: 'rc.page.UnderConstruction', name: 'UnderConstruction'},
+            {kind: 'rc.page.AddRule', name: 'AddRule'}
         ]}
     ],
 
