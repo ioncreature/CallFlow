@@ -40,10 +40,8 @@ enyo.kind({
                     name: 'blockCallers',
                     kind: 'rc.CallFlowItem',
                     caption: loc.CallFlow.blockCallers,
-                    onButtonTap: 'goToNowhere',
-                    components: [
-                        {classes: 'ui-call-flow-block-callers'}
-                    ]
+                    valueClasses: 'ui-call-flow-block-callers',
+                    onButtonTap: 'goToNowhere'
                 },
                 {
                     kind: 'rc.CallFlowItem',

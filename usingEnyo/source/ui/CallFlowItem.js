@@ -16,6 +16,7 @@ enyo.kind({
         caption: '',
         description: '',
         value: '',
+        valueClasses: '',
         active: true,
         isFull: true
     },
@@ -39,6 +40,7 @@ enyo.kind({
         this.isFullChanged();
         this.activeChanged();
         this.valueChanged();
+        this.valueClassesChanged();
     },
 
     activeChanged: function(){
@@ -70,6 +72,9 @@ enyo.kind({
 
     valueChanged: function(){
         this.$.value.setContent( this.getValue() );
-        this.$.value.setShowing( !!this.getValue() );
+    },
+
+    valueClassesChanged: function(){
+        this.$.value.setClasses( this.getValueClasses() );
     }
 });
