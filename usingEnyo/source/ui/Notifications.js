@@ -14,9 +14,13 @@ enyo.kind({
     },
 
     components: [
-        {classes: 'ui-notification-caption', content: loc.CallFlow.notifications},
-        {classes: 'ui-notification-description', content: loc.CallFlow.notificationsDesc},
-        {classes: 'ui-notification-image'},
+        {classes: 'ui-notification-header', components: [
+            {classes: 'ui-notification-header-left', components: [
+                {classes: 'ui-notification-caption', content: loc.CallFlow.notifications},
+                {classes: 'ui-notification-description', content: loc.CallFlow.notificationsDesc},
+            ]},
+            {classes: 'ui-notification-header-right'}
+        ]},
         {name: 'emailContainer', classes: 'ui-notification-send-via', components: [
             {content: loc.CallFlow.sendViaEmail},
             {name: 'email'}

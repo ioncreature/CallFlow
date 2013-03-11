@@ -12,23 +12,35 @@
     position: relative;
 }
 
-.ui-notification-image {
+.ui-notification-header {
+    overflow: hidden;
+}
+
+.ui-notification-header-left {
+    float: left;
+    width: 180px;
+}
+
+.ui-notification-header-right {
+    float: right;
     background: transparent url(@rc-images-notifications) top center no-repeat;
-    background-size: auto 100%;
-    width: 250px;
-    height: 100px;
+    background-size: 100% auto;
+    width: 64px;
+    height: 55px;
     margin-top: @rc-margin-default;
     padding: 0;
 }
 
 .ui-notification-caption {
     font-size: @rc-font-size-bigger;
+    font-weight: bold;
     margin: 0 10px 0 0;
 }
 
 .ui-notification-description {
     display: block;
     font-size: @rc-font-size-small;
+    color: @rc-color-inactive;
     margin: 3px 10px 0 0;
 }
 
