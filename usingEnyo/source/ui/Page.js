@@ -27,7 +27,7 @@ enyo.kind({
 
     pageTools: [
         {name: 'nav', kind: 'rc.NavToolbar', onBack: 'doBack', onNext: 'doNext'},
-        {name: 'client', kind: 'FittableRows', fit: true }
+        {name: 'client', kind: 'FittableRows', fit: true}
     ],
 
     doBack: function(){
@@ -64,10 +64,12 @@ enyo.kind({
 
     showBackChanged: function(){
         this.$.nav.setShowBack( this.getShowBack() );
+        this.$.nav.reflow();
     },
 
     showNextChanged: function(){
         this.$.nav.setShowNext( this.getShowNext() );
+        this.$.nav.reflow();
     },
 
     captionChanged: function(){

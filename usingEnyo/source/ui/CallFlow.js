@@ -10,17 +10,27 @@ enyo.kind({
     horizontal: 'hidden',
     classes: 'ui-call-flow',
 
+    published: {
+        showAll: false
+    },
+
+    events: {
+        onShowChange: ''
+    },
+
     components: [
+/*
         {
             kind: 'onyx.RadioGroup',
             layoutKind: 'rc.ColumnsLayout',
-            onActivate: 'redrawItems',
+            onActivate: 'onSnowTabActivate',
             classes: 'ui-tabs-switcher',
             controlClasses: 'ui-tabs-button', components: [
                 {name: 'showActive', content: loc.CallFlow.showActive, active: true},
                 {name: 'showAll', content: loc.CallFlow.showAll}
             ]
         },
+*/
         {classes: 'ui-call-flow-decorator', components: [
             {content: 'Caller', classes: 'ui-call-flow-header', components: [
                 {classes: 'ui-call-flow-header-decorator'}
@@ -29,7 +39,7 @@ enyo.kind({
                 {
                     name: 'blockCallers',
                     kind: 'rc.CallFlowItem',
-                    caption: loc.CallFlow.blockUnwantedCallers,
+                    caption: loc.CallFlow.blockCallers,
                     onButtonTap: 'goToNowhere',
                     components: [
                         {classes: 'ui-call-flow-block-callers'}
@@ -138,6 +148,7 @@ enyo.kind({
     create: function(){
         this.inherited( arguments );
         this.loadRules( this.renderRules );
+        this.showAllChanged();
     },
 
     loadRules: function( callback ){
@@ -164,8 +175,20 @@ enyo.kind({
     },
 
     redrawItems: function(){
-        var isShowAll = this.$.showAll.getActive(),
-            model = this.$.rules.getActiveItem().model,
+        this.showAllChanged();
+    },
+
+    onSnowTabActivate: function(){
+        this.setShowAll( this.$.showAll.getActive() );
+    },
+
+    showAllChanged: function(){
+        this._redrawItems( this.getShowAll() );
+        this.doShowChange();
+    },
+
+    _redrawItems: function( isShowAll ){
+        var model = this.$.rules.getActiveItem().model,
             items = this.$.items.children;
 
         this.lastVisible && this.lastVisible.removeClass( 'last' );
@@ -180,7 +203,6 @@ enyo.kind({
                     ? item.show()
                     : item.hide();
             item.setIsFull( isShowAll );
-
 
             if ( item.getShowing() )
                 this.lastVisible = item;

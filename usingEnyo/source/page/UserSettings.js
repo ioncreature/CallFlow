@@ -8,10 +8,12 @@ enyo.kind({
     kind: 'rc.Page',
     caption: loc.UserSettings.caption,
     scrollable: false,
+    nextButtonCaption: loc.edit,
 
     handlers: {
         onBack: 'goBack',
-        onOpen: 'redrawCallFlow'
+        onNext: 'switchCallFlowShowing',
+        onOpen: 'onOpen'
     },
 
     components: [
@@ -22,13 +24,12 @@ enyo.kind({
         ]},
         {kind: 'Panels', fit: true, draggable: false, onTransitionFinish: 'onPanelActivate', animate: true, components: [
             {kind: 'rc.UserInfoPanel', name: 'userInfoPanel', bindTo: 'userInfoButton'},
-            {kind: 'rc.CallFlow', name: 'callFlowPanel', bindTo: 'callFlowButton'},
+            {kind: 'rc.CallFlow', name: 'callFlowPanel', bindTo: 'callFlowButton', onShowChange: 'onShowChange'},
             {kind: 'rc.Fax', name: 'faxPanel', bindTo: 'faxButton'}
         ]}
     ],
 
     goBack: function(){
-        this.log( 'Okay... I\'m going back' );
         window.history.back();
     },
 
@@ -41,6 +42,7 @@ enyo.kind({
 
             if ( !isActive )
                 parent.setIndex( parent.children.indexOf(panel) );
+            this.activateCallFLowButton( inEvent.originator.name );
         }
     },
 
@@ -49,10 +51,31 @@ enyo.kind({
             button = this.$[buttonName];
         if ( !button.getActive() )
             button.setActive( true );
+        this.activateCallFLowButton( buttonName );
     },
 
-    redrawCallFlow: function(){
-        this.log( 'omnomnom' );
+    activateCallFLowButton: function( buttonName ){
+        this.setShowNext( buttonName === 'callFlowButton' );
+    },
+
+    onOpen: function(){
         this.$.callFlowPanel.redrawItems();
+        this.switchNextButtonCaption();
+    },
+
+    switchNextButtonCaption: function(){
+        var callFlow = this.$.callFlowPanel,
+            showAll = callFlow.getShowAll();
+
+        this.setNextButtonCaption( showAll ? loc.done : loc.edit );
+    },
+
+    onShowChange: function(){
+        this.switchNextButtonCaption();
+    },
+
+    switchCallFlowShowing: function(){
+        var panel = this.$.callFlowPanel;
+        panel.setShowAll( !panel.getShowAll() );
     }
 });

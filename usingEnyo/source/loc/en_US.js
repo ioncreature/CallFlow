@@ -11,9 +11,11 @@ var loc = {
 
     next: 'Next',
     save: 'Save',
+    edit: 'Edit',
+    done: 'Done',
 
     CallFlow: {
-        blockUnwantedCallers: 'Block Unwanted Callers',
+        blockCallers: 'Block Callers',
         answeringRules: 'Answering Rules',
         answeringRulesDesc: 'System behavior based on time of the day and day of the week.',
         greetTheCaller: 'Greet the Caller',
