@@ -9,13 +9,17 @@ enyo.kind({
     classes: 'ui-add-rule',
     nextButtonCaption: loc.save,
     showNext: true,
+    caption: loc.AddRule.caption,
 
     handlers: {
         onNext: 'addRule'
     },
 
     components: [
-        {}
+        {classes: 'ui-add-rule-top'},
+        {classes: 'ui-add-rule-img'},
+        {classes: 'ui-add-rule-placeholder', content: loc.AddRule.placeholder},
+        {classes: 'ui-message', content: loc.AddRule.hint}
     ],
 
     addRule: function(){

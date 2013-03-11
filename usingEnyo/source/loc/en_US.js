@@ -74,5 +74,11 @@ var loc = {
 
     UserSettings: {
         caption: 'User Settings'
+    },
+
+    AddRule: {
+        caption: 'Add Custom Rule',
+        placeholder: 'This page is a placeholder for add custom rule wizard.',
+        hint: 'To finish the wizard — tap “Save” at the top.'
     }
 };

@@ -13,7 +13,7 @@ enyo.kind({
     handlers: {
         onBack: 'goBack',
         onNext: 'switchCallFlowShowing',
-        onOpen: 'onOpen'
+        onOpen: 'pageOpen'
     },
 
     components: [
@@ -60,8 +60,9 @@ enyo.kind({
         this.setShowNext( buttonName === 'callFlowButton' );
     },
 
-    onOpen: function(){
+    pageOpen: function(){
         this.$.callFlowPanel.redrawItems();
+        this.$.callFlowPanel.selectLastRule();
         this.switchNextButtonCaption();
     },
 

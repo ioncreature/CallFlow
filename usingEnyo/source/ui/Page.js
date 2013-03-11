@@ -34,10 +34,6 @@ enyo.kind({
         App.back();
     },
 
-    doNext: function(){
-        this.log( 'Go ahead, Niggas!!!' );
-    },
-
     create: function(){
         this.inherited( arguments );
         this.showBackChanged();

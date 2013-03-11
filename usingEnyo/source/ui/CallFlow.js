@@ -22,8 +22,7 @@ enyo.kind({
 
     handlers: {
         onScrollStart: 'scrollStart',
-        onScrollStop: 'checkScroll',
-        onOpen: 'pageOpen'
+        onScrollStop: 'checkScroll'
     },
 
     components: [
@@ -217,7 +216,7 @@ enyo.kind({
     },
 
     addCustomRule: function(){
-        App.goTo( 'AddRule', {collection: this.rule} );
+        App.goTo( 'AddRule', {collection: this.rules} );
     },
 
     addAfterHours: function( inSender, inEvent ){
