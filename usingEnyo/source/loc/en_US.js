@@ -69,7 +69,8 @@ var loc = {
     },
 
     UnderConstruction: {
-        caption: 'Under Construction'
+        caption: 'Under Construction',
+        placeholder: 'This page is under construction'
     },
 
     UserSettings: {

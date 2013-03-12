@@ -9,6 +9,7 @@ enyo.kind({
     kind: 'rc.Page',
     caption: loc.UnderConstruction.caption,
     showBack: true,
+    classes: 'ui-under-construction',
 
     handlers: {
         onBack: 'onBack'
@@ -19,12 +20,10 @@ enyo.kind({
     },
 
     components: [
-        {kind: 'Scroller', fit: true, style: 'text-align: center;', horizontal: 'hidden', vertical: 'scroll', components: [
-            {
-                content: 'Please leave this area',
-                style: 'font-size: 2em; text-align: center; margin-top: 30px;'
-            },
-            {classes: 'ui-restricted-area'}
+        {kind: 'Scroller', fit: true, horizontal: 'hidden', components: [
+            {classes: 'ui-under-construction-top'},
+            {classes: 'ui-under-construction-img'},
+            {classes: 'ui-under-construction-placeholder', content: loc.UnderConstruction.placeholder}
         ]}
     ]
 });
