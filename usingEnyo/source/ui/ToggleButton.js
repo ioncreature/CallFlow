@@ -7,13 +7,13 @@
 enyo.kind({
     kind: 'FittableColumns',
     name: 'rc.ToggleButton',
+    classes: 'ui-toggle-button',
 
     published: {
         caption: '',
         value: false
     },
 
-    classes: 'ui-toggle-button',
 
     components: [
         {name: 'caption', fit: true},

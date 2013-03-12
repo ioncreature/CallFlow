@@ -4,12 +4,9 @@
  */
 
 enyo.kind({
-    kind: enyo.Scroller,
-    touch: true,
-    horizontal: 'hidden',
+    kind: enyo.FittableRows,
     name: 'rc.UserInfoPanel',
     classes: 'ui-user-info-panel',
-    layoutKind: 'FittableRowsLayout',
 
     components: [
         {kind: 'rc.UserInfo', ontap: 'goToNowhere', avatarUrl: loc.img.avatar, data: {

@@ -5,9 +5,7 @@
 
 enyo.kind({
     name: 'rc.CallFlow',
-    kind: enyo.Scroller,
-    touch: true,
-    horizontal: 'hidden',
+    kind: enyo.Control,
     classes: 'ui-call-flow',
 
     published: {

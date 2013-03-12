@@ -25,15 +25,13 @@ enyo.kind({
     },
 
     components: [
-        {kind: 'Scroller', fit: true, style: 'text-align: center;', horizontal: 'hidden', vertical: 'scroll', components: [
-            {name: 'toggle', style: 'margin: 25px 10px;', kind: 'onyx.ToggleButton', onChange: 'getVal', classes: 'ui-label'},
-            {classes: 'ui-label', content: loc.GreetCaller.listenGreeting},
-            {kind: 'onyx.Button', name:'play', classes: 'ui-button', ontap: 'playGreeting', content: loc.GreetCaller.play},
-            {tag: "br"},
-            {kind: 'onyx.Button', name:'setDefault', classes: 'ui-button', ontap: 'goToNowhere', content: loc.GreetCaller.setDefault},
-            {tag: "br"},
-            {kind: 'onyx.Button', name:'setCustom', classes: 'ui-button', ontap: 'goToNowhere', content: loc.GreetCaller.setCustom}
-        ]}
+        {name: 'toggle', style: 'margin: 25px 10px;', kind: 'onyx.ToggleButton', onChange: 'getVal', classes: 'ui-label'},
+        {classes: 'ui-label', content: loc.GreetCaller.listenGreeting},
+        {kind: 'onyx.Button', name:'play', classes: 'ui-button', ontap: 'playGreeting', content: loc.GreetCaller.play},
+        {tag: "br"},
+        {kind: 'onyx.Button', name:'setDefault', classes: 'ui-button', ontap: 'goToNowhere', content: loc.GreetCaller.setDefault},
+        {tag: "br"},
+        {kind: 'onyx.Button', name:'setCustom', classes: 'ui-button', ontap: 'goToNowhere', content: loc.GreetCaller.setCustom}
     ],
 
     playGreeting: function(){

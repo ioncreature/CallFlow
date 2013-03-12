@@ -27,7 +27,7 @@ enyo.kind({
 
     pageTools: [
         {name: 'nav', kind: 'rc.NavToolbar', onBack: 'doBack', onNext: 'doNext'},
-        {name: 'client', kind: 'FittableRows', fit: true}
+        {name: 'client', kind: 'Scroller', fit: true}
     ],
 
     doBack: function(){

@@ -6,13 +6,16 @@
 /* User Info styles */
 
 .ui-user-info {
+    position: relative;
     margin: 20px 10px 20px 10px;
-    height: 79px;
+    height: 89px;
     border-radius: @rc-border-radius;
     border: 1px solid @rc-color-input;
-    background-color: @rc-color-input-bg;
     padding: @rc-padding-input;
     color: @rc-color-input;
+    overflow: hidden;
+    background-color: @rc-color-input-bg;
+    line-height: @rc-font-size-medium * 1.3;
 }
 
 .ui-user-info img {
@@ -21,15 +24,9 @@
     border-radius: 5px;
 }
 
-.ui-user-info-icon {
-    width: 14px;
-    line-height: 100%;
-    vertical-align: center;
-    font-weight: bold;
-    text-align: right;
-}
-
-.ui-user-info-image-wrapper {
+.ui-user-info-left,
+.ui-user-info-right {
+    float: left;
     padding-right: 14px;
 }
 
@@ -51,4 +48,4 @@
 
 /* Panel styles */
 
-.ui-user-info-panel{}
+.ui-user-info-panel {}

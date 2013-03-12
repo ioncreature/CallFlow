@@ -20,10 +20,8 @@ enyo.kind({
     },
 
     components: [
-        {kind: 'Scroller', fit: true, horizontal: 'hidden', components: [
-            {classes: 'ui-under-construction-top'},
-            {classes: 'ui-under-construction-img'},
-            {classes: 'ui-under-construction-placeholder', content: loc.UnderConstruction.placeholder}
-        ]}
+        {classes: 'ui-under-construction-top'},
+        {classes: 'ui-under-construction-img'},
+        {classes: 'ui-under-construction-placeholder', content: loc.UnderConstruction.placeholder}
     ]
 });

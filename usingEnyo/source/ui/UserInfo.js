@@ -4,7 +4,7 @@
  */
 
 enyo.kind({
-    kind: 'FittableColumns',
+    kind: 'Control',
     name: 'rc.UserInfo',
     classes: 'ui-user-info',
 
@@ -14,17 +14,17 @@ enyo.kind({
     },
 
     components: [
-        {classes: 'ui-user-info-image-wrapper', components: [
+        {classes: 'ui-user-info-left', components: [
             {name: 'avatar', tag: 'img', content: ''}
         ]},
-        {fit: true, components: [
+        {classes: 'ui-user-info-right', components: [
             {name: 'name', classes: 'ui-user-info-name'},
             {name: 'extension', classes: 'ui-user-info-extension'},
             {name: 'company', classes: 'ui-user-info-company'},
             {name: 'post', classes: 'ui-user-info-post'},
             {name: 'email', classes: 'ui-user-info-email'}
         ]},
-        {classes: 'ui-user-info-icon', content: '>'}
+        {classes: 'ui-icon-next'}
     ],
 
     create: function(){

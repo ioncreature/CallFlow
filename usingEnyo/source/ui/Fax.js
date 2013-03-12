@@ -6,10 +6,7 @@
 
 enyo.kind({
     name: 'rc.Fax',
-    kind: enyo.Scroller,
-    touch: true,
-    layoutKind: enyo.FittableRowsLayout,
-    horizontal: 'hidden',
+    kind: 'FittableRows',
     style: 'margin-bottom: 20px;',
 
     components: [
@@ -79,7 +76,6 @@ enyo.kind({
     },
 
     inputChange: function( inEvent, inSender ){
-//        App.goToNowhere();
         this.log( inSender.originator.name );
     }
 });

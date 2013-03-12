@@ -13,6 +13,7 @@
 @import 'RadioList';
 @import 'Notifications';
 @import 'Tabs';
+@import 'Panels';
 @import 'PhoneContainer';
 @import 'AddRule';
 @import 'UnderConstruction';
@@ -20,6 +21,7 @@
 
 body {
     font-family: @rc-font-family;
+    min-width: 320px;
 }
 
 .ui-placeholder (
@@ -102,20 +104,18 @@ body {
 }
 
 .ui-icon-next {
-    font-weight: bold;
-    float: right;
+    position: absolute;
+    background: @rc-color-input-bg url(@rc-images-button-arrow-right) right center no-repeat;
+    background-size: 10px;
+    top: 50%;
+    right: 5px;
+    margin-top: -10px;
+    width: 12px;
+    height: 20px;
 }
 
 .ui-page {
     background-color: white;
-}
-
-.ui-restricted-area {
-    width: 100%;
-    height: @rc-width-default-screen - 50px;
-    margin: 0 auto;
-    background: transparent url(@rc-images-restricted-area) top center no-repeat;
-    background-size: 100%;
 }
 
 .ui-margin {
