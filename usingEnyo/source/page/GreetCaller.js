@@ -22,7 +22,7 @@ enyo.kind({
 
     components: [
         {style: 'text-align: center;', components: [
-            {name: 'toggle', style: 'margin: 25px 10px;', kind: 'onyx.ToggleButton', classes: 'ui-label'},
+            {name: 'toggle', style: 'margin: 20px 10px 5px 10px;', kind: 'onyx.ToggleButton', classes: 'ui-label'},
         ]},
         {classes: 'ui-greet-caller'}
 //        {classes: 'ui-label', content: loc.GreetCaller.listenGreeting},
