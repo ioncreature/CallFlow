@@ -21,6 +21,7 @@ enyo.kind({
         var index = this.getIndex();
         this.children.forEach( function( child, i ){
             child.setShowing( i === index );
+            child.reflow();
         }, this );
     },
 

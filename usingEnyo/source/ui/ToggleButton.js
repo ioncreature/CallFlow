@@ -22,11 +22,15 @@ enyo.kind({
 
     create: function(){
         this.inherited( arguments );
-        this.$.toggle.setValue( this.getValue() );
+        this.valueChanged();
+        this.captionChanged();
+    },
+
+    captionChanged: function(){
         this.$.caption.setContent( this.getCaption() );
     },
 
-    captionChanged: function(){},
-
-    valueChanged: function(){}
+    valueChanged: function(){
+        this.$.toggle.setValue( this.getValue() );
+    }
 });
