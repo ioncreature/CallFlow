@@ -16,22 +16,21 @@ enyo.kind({
         onOpen: 'pageOpen'
     },
 
-    getVal: function(){
-        this.log( this.$.toggle.getValue() );
-    },
-
     pageOpen: function(){
         this.getPageData() && this.$.toggle.setValue( this.getPageData().model.get('greetCallerActive') );
     },
 
     components: [
-        {name: 'toggle', style: 'margin: 25px 10px;', kind: 'onyx.ToggleButton', onChange: 'getVal', classes: 'ui-label'},
-        {classes: 'ui-label', content: loc.GreetCaller.listenGreeting},
-        {kind: 'onyx.Button', name:'play', classes: 'ui-button', ontap: 'playGreeting', content: loc.GreetCaller.play},
-        {tag: "br"},
-        {kind: 'onyx.Button', name:'setDefault', classes: 'ui-button', ontap: 'goToNowhere', content: loc.GreetCaller.setDefault},
-        {tag: "br"},
-        {kind: 'onyx.Button', name:'setCustom', classes: 'ui-button', ontap: 'goToNowhere', content: loc.GreetCaller.setCustom}
+        {style: 'text-align: center;', components: [
+            {name: 'toggle', style: 'margin: 25px 10px;', kind: 'onyx.ToggleButton', classes: 'ui-label'},
+        ]},
+        {classes: 'ui-greet-caller'}
+//        {classes: 'ui-label', content: loc.GreetCaller.listenGreeting},
+//        {kind: 'onyx.Button', name:'play', classes: 'ui-button', ontap: 'playGreeting', content: loc.GreetCaller.play},
+//        {tag: "br"},
+//        {kind: 'onyx.Button', name:'setDefault', classes: 'ui-button', ontap: 'goToNowhere', content: loc.GreetCaller.setDefault},
+//        {tag: "br"},
+//        {kind: 'onyx.Button', name:'setCustom', classes: 'ui-button', ontap: 'goToNowhere', content: loc.GreetCaller.setCustom}
     ],
 
     playGreeting: function(){
