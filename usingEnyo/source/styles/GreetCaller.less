@@ -6,6 +6,9 @@
 .ui-greet-caller {
     width: 100%;
     height: 300px;
-    background: transparent url(@rc-images-placeholder_greet-the-caller) center center no-repeat;
+    background: transparent url(@rc-images-placeholder-greet-the-caller) center center no-repeat;
     background-size: 300px auto;
+    &.inactive {
+        background-image: url(@rc-images-placeholder-greet-the-caller-off);
+    }
 }

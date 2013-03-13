@@ -22,16 +22,18 @@ enyo.kind({
 
     components: [
         {style: 'text-align: center;', components: [
-            {name: 'toggle', style: 'margin: 20px 10px 5px 10px;', kind: 'onyx.ToggleButton', classes: 'ui-label'},
+            {name: 'toggle', style: 'margin: 20px 10px 5px;', kind: 'onyx.ToggleButton', onChange: 'switchState'},
         ]},
-        {classes: 'ui-greet-caller'}
-//        {classes: 'ui-label', content: loc.GreetCaller.listenGreeting},
-//        {kind: 'onyx.Button', name:'play', classes: 'ui-button', ontap: 'playGreeting', content: loc.GreetCaller.play},
-//        {tag: "br"},
-//        {kind: 'onyx.Button', name:'setDefault', classes: 'ui-button', ontap: 'goToNowhere', content: loc.GreetCaller.setDefault},
-//        {tag: "br"},
-//        {kind: 'onyx.Button', name:'setCustom', classes: 'ui-button', ontap: 'goToNowhere', content: loc.GreetCaller.setCustom}
+        {name: 'pic', classes: 'ui-greet-caller', ontap: 'goToNowhere'}
     ],
+
+    switchState: function(){
+        this.log('piupiu');
+        if ( this.$.toggle.getValue() )
+            this.$.pic.removeClass( 'inactive' );
+        else
+            this.$.pic.addClass( 'inactive' );
+    },
 
     playGreeting: function(){
         alert( 'la-la-la-la-la' );
