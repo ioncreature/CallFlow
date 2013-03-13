@@ -205,7 +205,7 @@ enyo.kind({
                 item.getActive() && model.get(item.name) !== false
                     ? item.show()
                     : item.hide();
-            item.setIsFull( isShowAll );
+            item.setIsFull( true );
 
             if ( item.getShowing() )
                 this.lastVisible = item;
