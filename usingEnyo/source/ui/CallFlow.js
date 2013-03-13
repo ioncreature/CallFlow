@@ -197,15 +197,6 @@ enyo.kind({
         this.lastVisible && this.lastVisible.removeClass( 'last' );
         items.forEach( function( item ){
             item.setActive( model.get(item.name + 'Active') !== false );
-            if ( isShowAll )
-                model.get(item.name) === false
-                    ? item.hide()
-                    : item.show();
-            else
-                item.getActive() && model.get(item.name) !== false
-                    ? item.show()
-                    : item.hide();
-            item.setIsFull( true );
 
             if ( item.getShowing() )
                 this.lastVisible = item;

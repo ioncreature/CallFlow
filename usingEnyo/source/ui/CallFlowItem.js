@@ -23,7 +23,7 @@ enyo.kind({
 
     itemTools: [
         {name: 'editButton', classes: 'ui-call-flow-item-edit-button', ontap: 'doButtonTap'},
-        {classes: 'ui-call-flow-item-header', components: [
+        {classes: 'ui-call-flow-item-header', ontap: 'headerTap', components: [
             {classes: 'ui-call-flow-item-caption', components: [
                 {name: 'caption'},
                 {name: 'value'}
@@ -44,9 +44,20 @@ enyo.kind({
     },
 
     activeChanged: function(){
-        this.getActive()
-            ? this.removeClass( 'inactive' )
-            : this.addClass( 'inactive' );
+        if ( this.getActive() ){
+            this.removeClass( 'inactive' );
+            this.$.client.show();
+            this.$.description.show();
+            this.$.value.show();
+            this.$.editButton.show();
+        }
+        else {
+            this.addClass( 'inactive' );
+            this.$.client.hide();
+            this.$.description.hide();
+            this.$.value.hide();
+            this.$.editButton.hide();
+        }
     },
 
     initComponents: function(){
@@ -76,5 +87,10 @@ enyo.kind({
 
     valueClassesChanged: function(){
         this.$.value.setClasses( this.getValueClasses() );
+    },
+
+    headerTap: function(){
+        if ( !this.getActive() )
+            this.doButtonTap.apply( this, arguments );
     }
 });

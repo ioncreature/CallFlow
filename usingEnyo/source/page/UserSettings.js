@@ -42,7 +42,6 @@ enyo.kind({
 
             if ( !isActive )
                 parent.setIndex( parent.children.indexOf(panel) );
-            this.activateCallFLowButton( inEvent.originator.name );
         }
     },
 
@@ -52,10 +51,6 @@ enyo.kind({
         if ( !button.getActive() )
             button.setActive( true );
         this.activateCallFLowButton( buttonName );
-    },
-
-    activateCallFLowButton: function( buttonName ){
-        this.setShowNext( buttonName === 'callFlowButton' );
     },
 
     pageOpen: function(){

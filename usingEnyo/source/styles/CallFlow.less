@@ -50,14 +50,23 @@
         margin-left: 3px;
     }
     &.inactive {
-        border-left-color: @rc-color-green;
-
         .ui-call-flow-item-edit-button {
             background-image: url( @rc-images-edit-off );
         }
-        .ui-call-flow-item-caption > *,
-        .ui-call-flow-item-description {
-            color: @rc-color-green;
+        .ui-call-flow-item-header {
+            background: transparent url(@rc-images-button-arrow-right) left center no-repeat;
+            background-size: 15px 15px;
+        }
+        .ui-call-flow-item-caption {
+            margin-left: @rc-margin-default;
+            padding: @rc-padding-default;
+            border-radius: @rc-border-radius;
+            border: 1px solid @rc-color-input;
+            background-color: @rc-color-bg;
+        }
+
+        .ui-call-flow-item-edit-button {
+
         }
     }
 }
