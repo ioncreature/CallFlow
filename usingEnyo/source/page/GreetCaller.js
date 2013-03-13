@@ -18,6 +18,7 @@ enyo.kind({
 
     pageOpen: function(){
         this.getPageData() && this.$.toggle.setValue( this.getPageData().model.get('greetCallerActive') );
+        this.switchState();
     },
 
     components: [
@@ -28,7 +29,6 @@ enyo.kind({
     ],
 
     switchState: function(){
-        this.log('piupiu');
         if ( this.$.toggle.getValue() )
             this.$.pic.removeClass( 'inactive' );
         else
