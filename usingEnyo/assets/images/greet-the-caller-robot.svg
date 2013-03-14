@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+]>
+<svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20.416px"
+	 height="19.754px" viewBox="0 0 20.416 19.754" style="enable-background:new 0 0 20.416 19.754;" xml:space="preserve">
+<style type="text/css">
+<![CDATA[
+	.st0{fill:#1E1E1C;}
+	.st1{fill:none;stroke:#1E1E1C;stroke-width:0.3483;stroke-miterlimit:10;}
+	.st2{fill:#FFFFFF;stroke:#1E1E1C;stroke-width:0.316;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st3{font-family:'ArialRoundedMTBold';}
+	.st4{fill:none;stroke:#1E1E1C;stroke-width:0.158;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st5{fill:#FFFFFF;stroke:#1E1E1C;stroke-width:0.3483;stroke-miterlimit:10;}
+	.st6{fill:url(#SVGID_1_);}
+	.st7{font-size:1.3197;}
+	.st8{fill:#FFFFFF;}
+	.st9{fill:none;stroke:#1E1E1C;stroke-width:0.632;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st10{fill:none;stroke:#1E1E1C;stroke-width:0.316;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+]]>
+</style>
+<metadata>
+	<sfw  xmlns="&ns_sfw;">
+		<slices></slices>
+		<sliceSourceBounds  height="19.755" width="20.416" x="411.071" y="-307.041" bottomLeftOrigin="true"></sliceSourceBounds>
+	</sfw>
+</metadata>
+<g>
+	
+		<radialGradient id="SVGID_1_" cx="-258.437" cy="-469.7607" r="29.8231" gradientTransform="matrix(0.3368 0 0 0.0996 97.2497 63.2415)" gradientUnits="userSpaceOnUse">
+		<stop  offset="0" style="stop-color:#5F564A"/>
+		<stop  offset="0.0287" style="stop-color:#75695A"/>
+		<stop  offset="0.0884" style="stop-color:#A1917C"/>
+		<stop  offset="0.1473" style="stop-color:#C7B59B"/>
+		<stop  offset="0.2042" style="stop-color:#E5D1B3"/>
+		<stop  offset="0.2583" style="stop-color:#F8E3C2"/>
+		<stop  offset="0.3067" style="stop-color:#FFE9C7"/>
+		<stop  offset="0.3343" style="stop-color:#FFEBCC"/>
+		<stop  offset="0.4949" style="stop-color:#FFF4E3"/>
+		<stop  offset="0.6584" style="stop-color:#FFFAF3"/>
+		<stop  offset="0.8252" style="stop-color:#FFFEFC"/>
+		<stop  offset="1" style="stop-color:#FFFFFF"/>
+	</radialGradient>
+	<ellipse class="st6" cx="10.208" cy="16.471" rx="10.208" ry="3.283"/>
+	<g>
+		<polygon class="st2" points="9.855,8.209 6.539,6.455 6.713,1.762 10.498,3.041 		"/>
+		<polygon class="st0" points="8.008,4.293 7.311,3.966 7.516,3.745 8.021,4.001 		"/>
+		<polygon class="st0" points="9.387,4.816 8.755,4.527 8.694,4.188 9.291,4.444 		"/>
+		<polygon class="st0" points="8.567,6.217 7.729,5.809 7.543,5.202 8.852,5.809 		"/>
+		<polygon class="st2" points="10.498,3.041 6.713,1.762 10.176,1.912 13.185,3.041 		"/>
+		<polygon class="st2" points="12.511,7.541 9.855,8.209 10.473,3.041 13.185,3.041 		"/>
+		<path class="st10" d="M4.304,10.247c0,0,1.623,2.285,3.085,0.029"/>
+		<path class="st10" d="M13.058,9.845c0,0,1.371,0.344-1.432,2.313"/>
+		<path class="st0" d="M12.33,6.278c-0.254,0.614-0.822,0.962-1.271,0.777c-0.449-0.185-0.606-0.832-0.353-1.448
+			c0.255-0.613,0.824-0.963,1.269-0.775C12.425,5.016,12.583,5.664,12.33,6.278z"/>
+		<path class="st4" d="M8.197,1.746c0.409-0.91,1.087-1.5,1.85-1.5c1.253,0,2.265,1.588,2.265,3.547
+			c0,0.923-0.225,1.763-0.592,2.392"/>
+		<path class="st10" d="M11.72,6.185"/>
+		<path class="st9" d="M9.086,0.581c0.805-0.464,1.766-0.335,2.431,0.513"/>
+		<path class="st0" d="M7.062,7.976C6.881,8.19,6.504,8.172,6.215,7.93C5.93,7.692,5.838,7.323,6.016,7.107
+			c0.182-0.215,0.561-0.195,0.848,0.046C7.153,7.392,7.24,7.76,7.062,7.976z"/>
+		<path class="st8" d="M12.068,6.211c-0.123,0.305-0.385,0.484-0.582,0.4c-0.199-0.081-0.26-0.392-0.135-0.697
+			c0.125-0.303,0.387-0.481,0.588-0.401C12.134,5.597,12.195,5.909,12.068,6.211z"/>
+		<path class="st4" d="M11.783,6.096c-0.828,1.189-2.83,3.149-5.244,1.445"/>
+		<polygon class="st10" points="4.561,11.347 2.939,10.747 1.896,6.71 3.621,7.323 		"/>
+		<text transform="matrix(1 0 0 1 8.7109 11.1265)" class="st0 st3 st7">AR-1</text>
+		<g>
+			<path class="st1" d="M12.062,12.893c-0.051,0.376-0.402,0.685-0.783,0.685H9.257c-0.38,0-0.744-0.307-0.808-0.681L7.878,9.563
+				C7.814,9.189,8.072,8.882,8.453,8.882H11.9c0.381,0,0.65,0.309,0.602,0.685L12.062,12.893z"/>
+		</g>
+		<g>
+			<path class="st8" d="M11.804,15.782c-0.133-0.34-0.553-0.618-0.932-0.618H9.621c-0.381,0-0.832,0.278-1.002,0.618l0,0
+				c-0.171,0.34,0,0.617,0.381,0.617h2.353C11.734,16.399,11.937,16.122,11.804,15.782z"/>
+			<path class="st1" d="M11.804,15.782c-0.133-0.34-0.553-0.618-0.932-0.618H9.621c-0.381,0-0.832,0.278-1.002,0.618l0,0
+				c-0.171,0.34,0,0.617,0.381,0.617h2.353C11.734,16.399,11.937,16.122,11.804,15.782z"/>
+		</g>
+		<rect x="9.855" y="13.578" class="st5" width="0.643" height="1.586"/>
+		<path class="st10" d="M10.879,11.956c0.33-0.119,0.666-0.027,0.748,0.203c0.086,0.233-0.111,0.52-0.438,0.639"/>
+	</g>
+</g>
+</svg>
