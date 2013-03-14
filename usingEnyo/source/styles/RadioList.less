@@ -9,8 +9,8 @@
 }
 .ui-radio-list-item {
     width: 100%;
-    border-radius: @rc-border-radius-small;
     border: @rc-border-width solid @rc-color-input;
+    border-radius: @rc-border-radius;
     background-color: @rc-color-bg;
     color: @rc-color-input;
     font-size: @rc-font-size-medium;
@@ -22,21 +22,32 @@
     &.active {
         background-color: @rc-color-input;
         color: @rc-color-active;
-
-        & .ui-radio-list-item-ruler {
+        &.show-ruler .ui-radio-list-item-ruler {
             display: block;
         }
     }
 
     & :first-child {
         float: left;
-        margin: @rc-padding-default 0 @rc-padding-default 9px;
+        margin: @rc-padding-default 0 @rc-padding-default @rc-padding-default;
     }
 
     & :last-child {
         float: right;
-        margin: @rc-padding-default 9px @rc-padding-default 0;
+        margin: @rc-padding-default 9px @rc-padding-default @rc-padding-default;
         text-align: right;
+    }
+
+    .compact > & {
+        border-radius: @rc-border-radius-small;
+        &.active .ui-radio-list-item-ruler {
+            display: block;
+        }
+    }
+
+    .inactive & {
+        color: @rc-color-inactive;
+        border-color: @rc-color-inactive;
     }
 }
 

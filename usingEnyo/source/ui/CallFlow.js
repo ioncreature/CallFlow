@@ -56,7 +56,7 @@ enyo.kind({
                     onActivate: 'redrawItems',
                     onButtonTap: 'goToNowhere',
                     components: [
-                        {name: 'rules', kind: 'rc.RadioList'},
+                        {name: 'rules', kind: 'rc.RadioList', classes: 'compact show-ruler'},
                         {classes: 'ui-call-flow-rule-buttons', controlClasses: 'ui-button', components: [
                             {name: 'addCustomRule', kind: 'onyx.Button', ontap: 'addCustomRule', content: loc.CallFlow.addCustomRule },
                             {name: 'addAfterHours', kind: 'onyx.Button', ontap: 'addAfterHours', content: loc.CallFlow.addAfterHours }
