@@ -62,10 +62,18 @@ var loc = {
 
     GreetCaller: {
         caption: 'Greet the Caller',
+        description: 'First thing that callers will hear after system picks up incoming call.',
+        custom: 'Custom',
+        off: 'Off',
+        default: 'Default',
         setDefault: 'Set Default',
         setCustom: 'Set Custom',
         listenGreeting: 'Listen Greeting',
-        play: 'Play'
+        defaultHint: 'Thank you for calling Vlad Vendrow',
+        overPhone: 'Record Over the Phone',
+        overPhoneDescription: 'RingCentral will call you to record your custom greeting over the phone.',
+        overMicrophone: 'Record Using Device Microphone',
+        import: 'Import'
     },
 
     UnderConstruction: {

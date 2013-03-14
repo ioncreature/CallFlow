@@ -18,6 +18,7 @@
 @import 'AddRule';
 @import 'UnderConstruction';
 @import 'GreetCaller';
+@import 'AudioPlayer';
 
 
 body {
@@ -69,6 +70,11 @@ body {
     font-size: @rc-font-size-biggest;
     text-align: center;
     margin: 0 10px 20px;
+}
+
+.ui-description {
+    font-size: @rc-font-size-small;
+    color: @rc-color-inactive;
 }
 
 .ui-label {
@@ -124,5 +130,31 @@ body {
 }
 
 .ui-margin {
-    margin: @rc-margin-default;
+    margin: @rc-margin;
+}
+
+.ui-hint {
+    position: relative;
+    margin: @rc-margin-input;
+    padding: @rc-padding;
+    background-color: @rc-color-hint;
+    color: @rc-color-active;
+    border-radius: @rc-border-radius;
+}
+
+.ui-hint-arrow-top {
+    .ui-hint;
+    &::after {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        content: ' ';
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-color: transparent;
+        border-bottom-color: @rc-color-hint;
+        border-width: 8px;
+        margin-left: -8px;
+    }
 }

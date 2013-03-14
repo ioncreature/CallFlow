@@ -3,12 +3,19 @@
  * March 2013
  */
 
-.ui-greet-caller {
-    width: 100%;
-    height: 300px;
-    background: transparent url(@rc-images-placeholder-greet-the-caller) center center no-repeat;
-    background-size: 300px auto;
-    &.inactive {
-        background-image: url(@rc-images-placeholder-greet-the-caller-off);
-    }
+.ui-greet-caller-top {
+    margin: @rc-margin;
+    padding-right: 60px;
+    background: transparent url(@rc-images-greet-the-caller-robot) right center no-repeat;
+    background-size: auto 50px;
+}
+
+
+.ui-greet-caller-header {
+    font-size: @rc-font-size-biggest;
+    margin-bottom: @rc-margin;
+}
+
+.ui-greet-caller-tabs {
+    height: 110px;
 }

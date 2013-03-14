@@ -11,6 +11,7 @@ enyo.kind({
     defaults: {
         greetCaller: true,
         greetCallerActive: true,
+        greetCallerType: 'default',
         screenCaller: true,
         screenCallerActive: true,
         connecting: true,
@@ -28,5 +29,10 @@ enyo.kind({
 
         description: '',
         name: ''
+    },
+
+    statics: {
+        GREET_CALLER_TYPE_DEFAULT: 'default',
+        GREET_CALLER_TYPE_CUSTOM: 'custom'
     }
 });
