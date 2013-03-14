@@ -26,11 +26,9 @@ enyo.kind({
     components: [
 /*
         {
-            kind: 'onyx.RadioGroup',
-            layoutKind: 'rc.ColumnsLayout',
+            kind: 'rc.Tabs',
             onActivate: 'onShowTabActivate',
-            classes: 'ui-tabs-switcher',
-            controlClasses: 'ui-tabs-button', components: [
+            components: [
                 {name: 'showActive', content: loc.CallFlow.showActive, active: true},
                 {name: 'showAll', content: loc.CallFlow.showAll}
             ]
@@ -51,6 +49,7 @@ enyo.kind({
                 {
                     kind: 'rc.CallFlowItem',
                     name: 'answeringRules',
+                    classes: 'ui-call-flow-answering-rules',
                     caption: loc.CallFlow.answeringRules,
                     description: loc.CallFlow.answeringRulesDesc,
                     onActivate: 'redrawItems',

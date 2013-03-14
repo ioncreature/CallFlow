@@ -28,6 +28,7 @@ enyo.depends(
     'ui/Fax.js',
     'ui/Page.js',
     'ui/AudioPlayer.js',
+    'ui/Tabs.js',
 
     'page/UnderConstruction.js',
     'page/GreetCaller.js',

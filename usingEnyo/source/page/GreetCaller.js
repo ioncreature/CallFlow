@@ -19,7 +19,7 @@ enyo.kind({
     pageOpen: function(){
         var model = this.getPageData().model,
             type = model.get( 'greetCallerType' ),
-            radio = this.$.switch;
+            radio = this.$.radio;
         if ( model.get('greetCallerActive') ){
             if ( type === rc.data.RuleModel.GREET_CALLER_TYPE_DEFAULT )
                 radio.setActiveItem( this.$.default );
@@ -35,7 +35,7 @@ enyo.kind({
             {classes: 'ui-greet-caller-header', content: loc.GreetCaller.caption},
             {classes: 'ui-description', content: loc.GreetCaller.description}
         ]},
-        {name: 'switch', kind: 'rc.RadioList', onActivate: 'switchActivate', components: [
+        {name: 'radio', kind: 'rc.RadioList', onActivate: 'switchActivate', components: [
             {caption: 'Off', name: 'off'},
             {caption: 'Default', name: 'default'},
             {caption: 'Custom', name: 'custom'}
@@ -46,17 +46,32 @@ enyo.kind({
         ]},
         {name: 'customControls', classes: 'ui-audio-player-custom', components: [
             {
-                kind: 'onyx.RadioGroup',
-                layoutKind: 'rc.ColumnsLayout',
-                classes: 'ui-tabs-switcher',
-                controlClasses: 'ui-tabs-button ui-greet-caller-tabs', components: [
+                kind: 'rc.Tabs',
+                name: 'customTabs',
+                onActivate: 'customTabActivate',
+                components: [
                     {name: 'overPhone', content: loc.GreetCaller.overPhone, active: true},
                     {name: 'overMicrophone', content: loc.GreetCaller.overMicrophone},
                     {name: 'import', content: loc.GreetCaller.import}
                 ]
             },
             {name: 'overPhoneContainer', components: [
-                {classes: 'ui-message', content: loc.GreetCaller.overPhoneDescription}
+                {classes: 'ui-message', content: loc.GreetCaller.overPhoneDescription},
+                {classes: 'ui-label', content: loc.GreetCaller.callMe},
+                {kind: 'rc.RadioList', components: [
+                    // TODO: here must be a phone collection
+                    {caption: 'Work', description: '+1 (650) 654-9984', active: true},
+                    {caption: 'Mobile', description: '+1 (985) 654-6574'}
+                ]},
+                {kind: 'onyx.InputDecorator', classes: 'ui-text-input ui-block', components: [
+                    {kind: 'onyx.Input', placeholder: loc.GreetCaller.inputPlaceholder}
+                ]},
+                {classes: 'ui-center', components: [
+                    {kind:'onyx.Button', classes: 'ui-button', content: loc.GreetCaller.callMeNow}
+                ]}
+            ]},
+            {name: 'overMicrophoneContainer', components: [
+                {classes: 'ui-greet-caller-under-construction'}
             ]}
         ]}
     ],
@@ -84,7 +99,7 @@ enyo.kind({
     },
 
     switchActivate: function(){
-        this.setActiveItem( this.$.switch.getActiveItem() );
+        this.setActiveItem( this.$.radio.getActiveItem() );
     },
 
     setActiveItem: function( item ){
@@ -100,5 +115,11 @@ enyo.kind({
             this.$.defaultControls.hide();
             this.$.customControls.show();
         }
+    },
+
+    customTabActivate: function(){
+        var active = this.$.customTabs.getActive();
+        this.$.overPhoneContainer.setShowing( active.name === 'overPhone' );
+        this.$.overMicrophoneContainer.setShowing( active.name !== 'overPhone' );
     }
 });

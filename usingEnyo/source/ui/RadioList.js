@@ -33,6 +33,7 @@ enyo.kind({
     create: function(){
         this.bindings = [];
         this.inherited( arguments );
+        this.checkActiveItems();
     },
 
     defaultAdapter: function( model ){
@@ -84,5 +85,12 @@ enyo.kind({
     onItemTap: function( inSender ){
         if ( !inSender.getActive() )
             this.setActiveItem( inSender );
+    },
+
+    checkActiveItems: function(){
+        this.children.forEach( function( item ){
+            if ( item.getActive() )
+                this.setActiveItem(item);
+        }, this );
     }
 });

@@ -73,7 +73,10 @@ var loc = {
         overPhone: 'Record Over the Phone',
         overPhoneDescription: 'RingCentral will call you to record your custom greeting over the phone.',
         overMicrophone: 'Record Using Device Microphone',
-        import: 'Import'
+        import: 'Import',
+        callMe: 'Call me',
+        inputPlaceholder: 'Enter a new number',
+        callMeNow: 'Call Me Now'
     },
 
     UnderConstruction: {

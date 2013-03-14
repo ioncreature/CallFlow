@@ -4,11 +4,10 @@
  */
 
 .ui-radio-list {
-    margin: 15px @rc-margin @rc-margin @rc-margin;
+    margin: @rc-margin-input;
     padding: 0;
 }
 .ui-radio-list-item {
-    width: 100%;
     border: @rc-border-width solid @rc-color-input;
     border-radius: @rc-border-radius-small;
     background-color: @rc-color-bg;
@@ -22,9 +21,10 @@
     &.active {
         background-color: @rc-color-input;
         color: @rc-color-active;
-        &.show-ruler .ui-radio-list-item-ruler {
-            display: block;
-        }
+    }
+
+    .show-ruler &.active .ui-radio-list-item-ruler {
+        display: block;
     }
 
     & :first-child {

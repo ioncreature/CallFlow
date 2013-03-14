@@ -100,16 +100,6 @@
     padding-top: 3px;
 }
 
-.ui-call-flow-rule-buttons {
-    overflow: hidden;
-    & > .ui-button {
-        float: right;
-        font-size: @rc-font-size-medium;
-        padding: 6px 5px;
-        margin: 5px 6px @rc-margin 2px;
-    }
-}
-
 .ui-call-flow-block-callers {
     background: transparent url(@rc-images-block-callers) center center no-repeat;
     background-size: 100% auto;
@@ -119,6 +109,21 @@
     padding: 0;
     .inactive & {
         background-image: url(@rc-images-block-callers-off);
+    }
+}
+
+.ui-call-flow-answering-rules {
+    .ui-radio-list {
+        margin: 15px @rc-margin @rc-margin;
+    }
+    .ui-call-flow-rule-buttons {
+        overflow: hidden;
+        & > .ui-button {
+            float: right;
+            font-size: @rc-font-size-medium;
+            padding: 6px 5px;
+            margin: 5px @rc-margin 0 0;
+        }
     }
 }
 

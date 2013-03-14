@@ -4,7 +4,7 @@
  */
 
 .ui-greet-caller-top {
-    margin: @rc-margin;
+    margin: @rc-margin * 2 @rc-margin;
     padding-right: 60px;
     background: transparent url(@rc-images-greet-the-caller-robot) right center no-repeat;
     background-size: auto 50px;
@@ -17,5 +17,12 @@
 }
 
 .ui-greet-caller-tabs {
-    height: 110px;
+    line-height: @rc-font-size-big;
+    height: @rc-font-size-big * 3 + @rc-padding * 2;
+}
+
+.ui-greet-caller-under-construction {
+    background: transparent url(@rc-images-under-construction) center top no-repeat;
+    background-size: 80% 90px;
+    height: 90px;
 }
