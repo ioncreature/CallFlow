@@ -13,7 +13,8 @@ enyo.kind({
         showNext: false,
         caption: '',
         nextButtonCaption: loc.next,
-        pageData: null
+        pageData: null,
+        showPreview: false
     },
 
     events: {
@@ -27,6 +28,7 @@ enyo.kind({
 
     pageTools: [
         {name: 'nav', kind: 'rc.NavToolbar', onBack: 'doBack', onNext: 'doNext'},
+        {name: 'preview'},
         {name: 'client', kind: 'Scroller', fit: true, touch: true, vertical: 'scroll', horizontal: 'hidden'}
     ],
 
@@ -40,7 +42,7 @@ enyo.kind({
         this.showNextChanged();
         this.captionChanged();
         this.nextButtonCaptionChanged();
-        this.flow();
+        this.showPreviewChanged();
     },
 
     initComponents: function(){
@@ -75,5 +77,19 @@ enyo.kind({
 
     nextButtonCaptionChanged: function(){
         this.$.nav.setNextButtonCaption( this.getNextButtonCaption() );
+    },
+
+    showPreviewChanged: function(){
+        this.getShowPreview()
+            ? this.enablePreview()
+            : this.disablePreview();
+    },
+
+    enablePreview: function(){
+        this.$.preview.show();
+    },
+
+    disablePreview: function(){
+        this.$.preview.hide();
     }
 });
