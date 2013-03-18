@@ -6,6 +6,6 @@
 enyo.kind({
     name: 'rc.page.RingPhones',
     kind: 'rc.Page',
-    classes: 'ui-ring-my-phones',
+    classes: 'ui-ring-phones',
     caption: loc.RingPhones.caption
 });
