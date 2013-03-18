@@ -14,7 +14,8 @@ enyo.kind({
             {kind: 'rc.page.CallerId', name: 'CallerId'},
             {kind: 'rc.page.GreetCaller', name: 'GreetCaller'},
             {kind: 'rc.page.UnderConstruction', name: 'UnderConstruction'},
-            {kind: 'rc.page.AddRule', name: 'AddRule'}
+            {kind: 'rc.page.AddRule', name: 'AddRule'},
+            {kind: 'rc.page.RingPhones', name: 'RingPhones'}
         ]}
     ],
 
@@ -85,7 +86,7 @@ enyo.kind({
             }
         },
 
-        notify: function( eventName, data ){
+        trigger: function( eventName, data ){
             this.listeners[eventName] && this.listeners[eventName].forEach( function( cb ){
                 cb( data );
             });
@@ -95,15 +96,15 @@ enyo.kind({
          * Helpers methods
          */
         back: function(){
-            this.notify( 'goBack' );
+            this.trigger( 'goBack' );
         },
 
         goToNowhere: function(){
-            this.notify( 'goToNowhere' );
+            this.trigger( 'goToNowhere' );
         },
 
         goTo: function( pageName, data ){
-            this.notify( 'goTo', {pageName: pageName, data: data} );
+            this.trigger( 'goTo', {pageName: pageName, data: data} );
         }
     }
 });

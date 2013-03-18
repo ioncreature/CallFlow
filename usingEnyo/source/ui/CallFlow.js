@@ -119,7 +119,7 @@ enyo.kind({
                 {
                     name: 'ringPhones',
                     kind: 'rc.CallFlowItem',
-                    onButtonTap: 'goToNowhere',
+                    onButtonTap: 'goToRingPhones',
                     caption: loc.CallFlow.ringMyPhones,
                     description: loc.CallFlow.ringMyPhonesDesc,
                     components: [
@@ -247,6 +247,12 @@ enyo.kind({
 
     goToGreetCaller: function(){
         App.goTo( 'GreetCaller', {
+            model: this.$.rules.getActiveItem().model
+        });
+    },
+
+    goToRingPhones: function(){
+        App.goTo( 'RingPhones', {
             model: this.$.rules.getActiveItem().model
         });
     },

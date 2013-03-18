@@ -35,6 +35,7 @@ enyo.depends(
     'page/CallerId.js',
     'page/UserSettings.js',
     'page/AddRule.js',
+    'page/RingPhones.js',
 
 	'App.js'
 );
