@@ -113,9 +113,9 @@ enyo.kind({
         if ( !this.getPreview() )
             return;
 
-        this.hidePreviewTimer && clearTimeout( this.hidePreviewTimer );
-
+        this.cancelHide();
         this.makePreviewContent();
+
         this.$.preview.setBounds({
             width: this.clientBounds.width * this.previewRatio,
             height: this.clientBounds.height * this.previewRatio
@@ -146,7 +146,7 @@ enyo.kind({
     delayedHidePreview: function(){
         var page = this;
 
-        page.hidePreviewTimer && clearTimeout( page.hidePreviewTimer );
+        page.cancelHide();
         page.clientBounds = page.$.client.getScrollBounds();
         page.hidePreviewTimer = setTimeout( function(){
             page.hidePreview();
@@ -164,5 +164,9 @@ enyo.kind({
         this.$.previewViewport.setBounds({
            top: this.$.client.getScrollTop() * this.previewRatio
        });
+    },
+
+    cancelHide: function(){
+        this.hidePreviewTimer && clearTimeout( this.hidePreviewTimer );
     }
 });
