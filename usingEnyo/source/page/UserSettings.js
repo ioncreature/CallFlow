@@ -9,6 +9,7 @@ enyo.kind({
     caption: loc.UserSettings.caption,
     scrollable: false,
     nextButtonCaption: loc.edit,
+    preview: true,
 
     handlers: {
         onBack: 'goBack',
