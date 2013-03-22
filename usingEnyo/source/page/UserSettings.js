@@ -8,11 +8,13 @@ enyo.kind({
     kind: 'rc.Page',
     caption: loc.UserSettings.caption,
     scrollable: false,
-    nextButtonCaption: loc.edit,
+    nextButtonCaption: loc.test + 0,
+    showNext: true,
     preview: true,
 
     handlers: {
         onBack: 'goBack',
+        onNext: 'switchTestMode',
         onOpen: 'pageOpen'
     },
 
@@ -56,5 +58,15 @@ enyo.kind({
     pageOpen: function(){
         this.$.callFlowPanel.redrawItems();
         this.$.callFlowPanel.selectLastRule();
+    },
+
+    switchTestMode: function(){
+        var modes = [rc.Page.MODE_VIEWPORT, rc.Page.MODE_PREVIEW],
+            current = this.getPreviewMode(),
+            nextIndex = modes.indexOf( current ) + 1 === modes.length
+                ? 0
+                : modes.indexOf( current ) + 1;
+        this.setPreviewMode( modes[nextIndex] );
+        this.setNextButtonCaption( loc.test + nextIndex );
     }
 });

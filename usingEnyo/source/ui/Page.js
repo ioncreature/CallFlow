@@ -16,7 +16,13 @@ enyo.kind({
         pageData: null,
         preview: false,
         previewRatio: 0.21,
-        hidePreviewDelay: 300
+        previewHideDelay: 300,
+        previewMode: null // 'scrollViewport' || 'scrollPreview'
+    },
+
+    statics: {
+        MODE_VIEWPORT: 'scrollViewport',
+        MODE_PREVIEW: 'scrollPreview'
     },
 
     events: {
@@ -57,6 +63,8 @@ enyo.kind({
         this.captionChanged();
         this.nextButtonCaptionChanged();
         this.previewChanged();
+        if ( !this.getPreviewMode() )
+            this.setPreviewMode( rc.Page.MODE_VIEWPORT );
     },
 
     initComponents: function(){
@@ -109,16 +117,24 @@ enyo.kind({
         this.$.preview.hide();
     },
 
-    showPreview: function(){
+    showPreview: function( element, event ){
         if ( !this.getPreview() )
             return;
+
+        var x = event.originator.mx,
+            offset = 20,
+            width = this.clientBounds.width * this.previewRatio,
+            left = offset + width + x > this.clientBounds.width
+                ? x - offset - width
+                : x + offset;
 
         this.cancelHide();
         this.makePreviewContent();
 
         this.$.preview.setBounds({
-            width: this.clientBounds.width * this.previewRatio,
-            height: this.clientBounds.height * this.previewRatio
+            width: width,
+            height: this.clientBounds.height * this.previewRatio,
+            left: left
         });
         this.$.previewViewport.setBounds({
             top: this.$.client.getScrollTop() * this.previewRatio,
@@ -148,9 +164,9 @@ enyo.kind({
 
         page.cancelHide();
         page.clientBounds = page.$.client.getScrollBounds();
-        page.hidePreviewTimer = setTimeout( function(){
+        page.previewHideTimer = setTimeout( function(){
             page.hidePreview();
-        }, page.getHidePreviewDelay() );
+        }, page.getPreviewHideDelay() );
     },
 
     hidePreview: function(){
@@ -167,6 +183,6 @@ enyo.kind({
     },
 
     cancelHide: function(){
-        this.hidePreviewTimer && clearTimeout( this.hidePreviewTimer );
+        this.previewHideTimer && clearTimeout( this.previewHideTimer );
     }
 });

@@ -13,6 +13,7 @@ var loc = {
     save: 'Save',
     edit: 'Edit',
     done: 'Done',
+    test: 'Test',
 
     CallFlow: {
         blockCallers: 'Block Callers',
