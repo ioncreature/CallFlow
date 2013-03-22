@@ -62,10 +62,21 @@ var loc = {
 
     GreetCaller: {
         caption: 'Greet the Caller',
+        description: 'First thing that callers will hear after system picks up incoming call.',
+        custom: 'Custom',
+        off: 'Off',
+        default: 'Default',
         setDefault: 'Set Default',
         setCustom: 'Set Custom',
         listenGreeting: 'Listen Greeting',
-        play: 'Play'
+        defaultHint: 'Thank you for calling Vlad Vendrow',
+        overPhone: 'Record Over the Phone',
+        overPhoneDescription: 'RingCentral will call you to record your custom greeting over the phone.',
+        overMicrophone: 'Record Using Device Microphone',
+        import: 'Import',
+        callMe: 'Call me',
+        inputPlaceholder: 'Enter a new number',
+        callMeNow: 'Call Me Now'
     },
 
     UnderConstruction: {
@@ -81,5 +92,9 @@ var loc = {
         caption: 'Add Custom Rule',
         placeholder: 'This page is a placeholder for add custom rule wizard.',
         hint: 'To finish the wizard — tap “Save” at the top.'
+    },
+
+    RingPhones: {
+        caption: 'Ring My Phones'
     }
 };

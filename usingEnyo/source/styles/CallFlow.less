@@ -11,7 +11,7 @@
     top: 0;
     left: 0;
     margin: 10px 2px 10px 10px;
-    padding: 0 @rc-padding-default 0 20px;
+    padding: 0 @rc-padding 0 20px;
 }
 .ui-call-flow-header {
     position: relative;
@@ -109,16 +109,6 @@
     padding-top: 3px;
 }
 
-.ui-call-flow-rule-buttons {
-    overflow: hidden;
-    & > .ui-button {
-        float: right;
-        font-size: @rc-font-size-medium;
-        padding: 6px 5px;
-        margin: 5px 6px @rc-margin-default 2px;
-    }
-}
-
 .ui-call-flow-block-callers {
     background: transparent url(@rc-images-block-callers) center center no-repeat;
     background-size: 100% auto;
@@ -131,12 +121,27 @@
     }
 }
 
+.ui-call-flow-answering-rules {
+    .ui-radio-list {
+        margin: 15px @rc-margin @rc-margin;
+    }
+    .ui-call-flow-rule-buttons {
+        overflow: hidden;
+        & > .ui-button {
+            float: right;
+            font-size: @rc-font-size-medium;
+            padding: 6px 5px;
+            margin: 5px @rc-margin 0 0;
+        }
+    }
+}
+
 .ui-call-flow-greet-the-caller {
-    background: transparent url(@rc-images-greet-the-caller) top left no-repeat;
+    background: transparent url(@rc-images-greet-caller) top left no-repeat;
     background-size: 100%;
     width: 250px;
     height: 60px;
-    margin-top: @rc-margin-default * 2;
+    margin-top: @rc-margin * 2;
     padding: 0;
     .inactive & {
         background-image: url(@rc-images-greet-the-caller-off);
@@ -148,7 +153,7 @@
     background-size: 100%;
     width: 250px;
     height: 110px;
-    margin-top: @rc-margin-default * 2;
+    margin-top: @rc-margin * 2;
     padding: 0;
     .inactive & {
         background-image: url(@rc-images-screening-off);
@@ -160,7 +165,7 @@
     background-size: 100%;
     width: 250px;
     height: 55px;
-    margin-top: @rc-margin-default * 2;
+    margin-top: @rc-margin * 2;
     padding: 0;
     .inactive & {
         background-image: url(@rc-images-connecting-off);
@@ -172,7 +177,7 @@
     background-size: 100%;
     width: 250px;
     height: 55px;
-    margin-top: @rc-margin-default * 2;
+    margin-top: @rc-margin * 2;
     padding: 0;
     .inactive & {
         background-image: url(@rc-images-playing-off);
@@ -184,7 +189,7 @@
     background-size: 100%;
     width: 250px;
     height: 60px;
-    margin-top: @rc-margin-default * 2;
+    margin-top: @rc-margin * 2;
     padding: 0;
     .inactive & {
         background-image: url(@rc-images-voicemail-off);

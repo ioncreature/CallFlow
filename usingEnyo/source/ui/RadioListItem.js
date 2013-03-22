@@ -9,10 +9,6 @@ enyo.kind({
     classes: 'ui-radio-list-item',
     activeClass: 'active',
 
-    handlers: {
-        ontap: 'tapHandler'
-    },
-
     published: {
         active: false,
         caption: '',
@@ -45,9 +41,5 @@ enyo.kind({
             this.addClass( this.activeClass );
         else
             this.removeClass( this.activeClass );
-    },
-
-    tapHandler: function(){
-        this.log( this.getCaption() );
     }
 });

@@ -27,17 +27,22 @@
 
 
 .ui-tabs-switcher {
+    @arrow-height: 8px;
     overflow: visible;
-    margin: 25px;
+    overflow: hidden;
+    padding-bottom: @arrow-height;
+    margin: @rc-margin-input;
     .ui-tabs-button {
         position: relative;
+        display: block;
+        float: left;
         background-color: @rc-color-input-bg;
         background-image: none;
         border-style: solid;
         border-width: 1px 1px 1px 0;
         border-color: @rc-color-input;
         box-shadow: none;
-        font-size: @rc-font-size-big;
+        font-size: @rc-font-size-medium;
         font-weight: bold;
         color: @rc-color-input;
         border-radius: 0;
@@ -55,8 +60,8 @@
                 border-style: solid;
                 border-color: transparent;
                 border-top-color: @rc-color-input;
-                border-width: 8px;
-                margin-left: -8px;
+                border-width: @arrow-height;
+                margin-left: -@arrow-height;
             }
         }
     }

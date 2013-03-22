@@ -18,6 +18,9 @@
 @import 'AddRule';
 @import 'UnderConstruction';
 @import 'GreetCaller';
+@import 'AudioPlayer';
+@import 'RingPhones';
+@import 'Page';
 
 
 body {
@@ -59,12 +62,21 @@ body {
     padding: @rc-padding-input;
     border-radius: @rc-border-radius;
     background-color: @rc-color-message-bg;
+    .inactive & {
+        color: @rc-color-inactive;
+        border-color: @rc-color-inactive;
+    }
 }
 
 .ui-header-big {
     font-size: @rc-font-size-biggest;
     text-align: center;
     margin: 0 10px 20px;
+}
+
+.ui-description {
+    font-size: @rc-font-size-small;
+    color: @rc-color-inactive;
 }
 
 .ui-label {
@@ -74,6 +86,10 @@ body {
 
 .ui-block {
     display: block;
+}
+
+.ui-center {
+    text-align: center;
 }
 
 .ui-text-input {
@@ -115,10 +131,32 @@ body {
     height: 20px;
 }
 
-.ui-page {
-    background-color: white;
+.ui-margin {
+    margin: @rc-margin;
 }
 
-.ui-margin {
-    margin: @rc-margin-default;
+.ui-hint {
+    position: relative;
+    margin: @rc-margin-input;
+    padding: @rc-padding;
+    background-color: @rc-color-hint;
+    color: @rc-color-active;
+    border-radius: @rc-border-radius;
+}
+
+.ui-hint-arrow-top {
+    .ui-hint;
+    &::after {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        content: ' ';
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-color: transparent;
+        border-bottom-color: @rc-color-hint;
+        border-width: 8px;
+        margin-left: -8px;
+    }
 }

@@ -26,11 +26,9 @@ enyo.kind({
     components: [
 /*
         {
-            kind: 'onyx.RadioGroup',
-            layoutKind: 'rc.ColumnsLayout',
+            kind: 'rc.Tabs',
             onActivate: 'onShowTabActivate',
-            classes: 'ui-tabs-switcher',
-            controlClasses: 'ui-tabs-button', components: [
+            components: [
                 {name: 'showActive', content: loc.CallFlow.showActive, active: true},
                 {name: 'showAll', content: loc.CallFlow.showAll}
             ]
@@ -51,12 +49,13 @@ enyo.kind({
                 {
                     kind: 'rc.CallFlowItem',
                     name: 'answeringRules',
+                    classes: 'ui-call-flow-answering-rules',
                     caption: loc.CallFlow.answeringRules,
                     description: loc.CallFlow.answeringRulesDesc,
                     onActivate: 'redrawItems',
                     onButtonTap: 'goToNowhere',
                     components: [
-                        {name: 'rules', kind: 'rc.RadioList'},
+                        {name: 'rules', kind: 'rc.RadioList', classes: 'compact show-ruler'},
                         {classes: 'ui-call-flow-rule-buttons', controlClasses: 'ui-button', components: [
                             {name: 'addCustomRule', kind: 'onyx.Button', ontap: 'addCustomRule', content: loc.CallFlow.addCustomRule },
                             {name: 'addAfterHours', kind: 'onyx.Button', ontap: 'addAfterHours', content: loc.CallFlow.addAfterHours }
@@ -120,7 +119,7 @@ enyo.kind({
                 {
                     name: 'ringPhones',
                     kind: 'rc.CallFlowItem',
-                    onButtonTap: 'goToNowhere',
+                    onButtonTap: 'goToRingPhones',
                     caption: loc.CallFlow.ringMyPhones,
                     description: loc.CallFlow.ringMyPhonesDesc,
                     components: [
@@ -239,6 +238,12 @@ enyo.kind({
 
     goToGreetCaller: function(){
         App.goTo( 'GreetCaller', {
+            model: this.$.rules.getActiveItem().model
+        });
+    },
+
+    goToRingPhones: function(){
+        App.goTo( 'RingPhones', {
             model: this.$.rules.getActiveItem().model
         });
     },

@@ -27,12 +27,15 @@ enyo.depends(
     'ui/CallFlow.js',
     'ui/Fax.js',
     'ui/Page.js',
+    'ui/AudioPlayer.js',
+    'ui/Tabs.js',
 
     'page/UnderConstruction.js',
     'page/GreetCaller.js',
     'page/CallerId.js',
     'page/UserSettings.js',
     'page/AddRule.js',
+    'page/RingPhones.js',
 
 	'App.js'
 );

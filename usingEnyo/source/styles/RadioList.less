@@ -4,13 +4,12 @@
  */
 
 .ui-radio-list {
-    margin: 15px @rc-margin-default @rc-margin-default @rc-margin-default;
+    margin: @rc-margin-input;
     padding: 0;
 }
 .ui-radio-list-item {
-    width: 100%;
-    border-radius: @rc-border-radius-small;
     border: @rc-border-width solid @rc-color-input;
+    border-radius: @rc-border-radius-small;
     background-color: @rc-color-bg;
     color: @rc-color-input;
     font-size: @rc-font-size-medium;
@@ -22,32 +21,41 @@
     &.active {
         background-color: @rc-color-input;
         color: @rc-color-active;
+    }
 
-        & .ui-radio-list-item-ruler {
-            display: block;
-        }
+    .show-ruler &.active .ui-radio-list-item-ruler {
+        display: block;
     }
 
     & :first-child {
         float: left;
-        margin: @rc-padding-default 0 @rc-padding-default 9px;
+        margin: @rc-padding 0 @rc-padding @rc-padding;
     }
 
     & :last-child {
         float: right;
-        margin: @rc-padding-default 9px @rc-padding-default 0;
+        margin: @rc-padding 9px @rc-padding @rc-padding;
         text-align: right;
+    }
+
+    .compact > .active .ui-radio-list-item-ruler {
+        display: block;
+    }
+
+    .inactive & {
+        color: @rc-color-inactive;
+        border-color: @rc-color-inactive;
     }
 }
 
 .ui-radio-list-item-ruler {
-    width: @rc-border-width-bold + @rc-margin-default + @rc-padding-big;
+    width: @rc-border-width-bold + @rc-margin + @rc-padding-big;
     height: 6px;
     border-top: @rc-border-width-bold solid @rc-color-input;
     border-bottom: @rc-border-width-bold solid @rc-color-input;
     background-color: white;
     position: absolute;
     top: 8px;
-    left: -( @rc-border-width + @rc-border-width-bold + @rc-margin-default + @rc-padding-big );
+    left: -( @rc-border-width + @rc-border-width-bold + @rc-margin + @rc-padding-big );
     display: none;
 }

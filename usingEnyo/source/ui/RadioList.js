@@ -10,7 +10,6 @@ enyo.kind({
     classes: 'ui-radio-list',
 
     published: {
-        items: null,
         collection: null,
         adapter: null,
         watchedNames: {
@@ -23,13 +22,18 @@ enyo.kind({
         onActivate: ''
     },
 
+    handlers: {
+        ontap: 'onItemTap'
+    },
+
     itemKind: 'rc.RadioListItem',
+    defaultKind: 'rc.RadioListItem',
     activeChild: null,
 
     create: function(){
         this.bindings = [];
         this.inherited( arguments );
-        this.itemsChanged();
+        this.checkActiveItems();
     },
 
     defaultAdapter: function( model ){
@@ -71,32 +75,22 @@ enyo.kind({
         return this.activeChild;
     },
 
-    itemsChanged: function(){
-        var items = this.getItems();
-        this.removeBindings();
-        this.destroyComponents();
-        if ( items && items.length ){
-            items.forEach( function( item ){
-                this.createComponent({
-                    kind: this.itemKind,
-                    caption: item.caption,
-                    description: item.description,
-                    ontap: 'onItemTap'
-                });
-
-                if ( item.active )
-                    this.onItemTap( this.children[this.children.length - 1] );
-            }, this );
-        }
-        this.render();
+    setActiveItem: function( item ){
+        this.activeChild && this.activeChild.setActive( false );
+        item.setActive( true );
+        this.activeChild = item;
+        this.doActivate( item );
     },
 
-    onItemTap: function( inSender, inEvent ){
-        if ( !inSender.getActive() ){
-            inSender.setActive( true );
-            this.activeChild && this.activeChild.setActive( false );
-            this.activeChild = inSender;
-            this.doActivate( inSender );
-        }
+    onItemTap: function( inSender ){
+        if ( !inSender.getActive() )
+            this.setActiveItem( inSender );
+    },
+
+    checkActiveItems: function(){
+        this.children.forEach( function( item ){
+            if ( item.getActive() )
+                this.setActiveItem(item);
+        }, this );
     }
 });
