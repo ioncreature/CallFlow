@@ -13,7 +13,6 @@ enyo.kind({
 
     handlers: {
         onBack: 'goBack',
-        onNext: 'switchCallFlowShowing',
         onOpen: 'pageOpen'
     },
 
@@ -57,18 +56,5 @@ enyo.kind({
     pageOpen: function(){
         this.$.callFlowPanel.redrawItems();
         this.$.callFlowPanel.selectLastRule();
-        this.switchNextButtonCaption();
-    },
-
-    switchNextButtonCaption: function(){
-        var callFlow = this.$.callFlowPanel,
-            showAll = callFlow.getShowAll();
-
-        this.setNextButtonCaption( showAll ? loc.done : loc.edit );
-    },
-
-    switchCallFlowShowing: function(){
-        var panel = this.$.callFlowPanel;
-        panel.setShowAll( !panel.getShowAll() );
     }
 });
