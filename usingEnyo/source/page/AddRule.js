@@ -27,7 +27,7 @@ enyo.kind({
         this.customRules = this.customRules ? this.customRules + 1 : 1;
         collection.add({
             name: 'My Rule ' + this.customRules,
-            description: '6pm - 8am',
+            description: '',
             greetCallerActive: false,
             screenCallerActive: false,
             connectingActive: false,

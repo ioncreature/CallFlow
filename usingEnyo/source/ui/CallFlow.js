@@ -8,12 +8,7 @@ enyo.kind({
     kind: enyo.Control,
     classes: 'ui-call-flow',
 
-    published: {
-        showAll: false
-    },
-
     events: {
-        onShowChange: '',
         onBelowTop: '',
         onTop: ''
     },
@@ -24,16 +19,6 @@ enyo.kind({
     },
 
     components: [
-/*
-        {
-            kind: 'rc.Tabs',
-            onActivate: 'onShowTabActivate',
-            components: [
-                {name: 'showActive', content: loc.CallFlow.showActive, active: true},
-                {name: 'showAll', content: loc.CallFlow.showAll}
-            ]
-        },
-*/
         {classes: 'ui-call-flow-decorator', components: [
             {content: 'Caller', classes: 'ui-call-flow-header', components: [
                 {classes: 'ui-call-flow-header-decorator'}
@@ -150,7 +135,6 @@ enyo.kind({
     create: function(){
         this.inherited( arguments );
         this.loadRules( this.renderRules );
-        this.showAllChanged();
     },
 
     loadRules: function( callback ){
@@ -177,19 +161,10 @@ enyo.kind({
     },
 
     redrawItems: function(){
-        this.showAllChanged();
+        this._redrawItems();
     },
 
-    onShowTabActivate: function(){
-        this.setShowAll( this.$.showAll.getActive() );
-    },
-
-    showAllChanged: function(){
-        this._redrawItems( this.getShowAll() );
-        this.doShowChange();
-    },
-
-    _redrawItems: function( isShowAll ){
+    _redrawItems: function(){
         var model = this.$.rules.getActiveItem().model,
             items = this.$.items.children;
 
@@ -210,7 +185,7 @@ enyo.kind({
     addAfterHours: function( inSender, inEvent ){
         this.rules.add({
             name: 'After Hours',
-            description: '',
+            description: '6pm - 8am',
             greetCaller: true,
             greetCallerActive: false,
             screenCaller: true,

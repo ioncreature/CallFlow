@@ -80,6 +80,10 @@ enyo.kind({
             this.trigger( 'remove', this );
     },
 
+    getItems: function(){
+        return this.models;
+    },
+
     forEach: function(){
         return this.models.forEach.apply( this.models, arguments );
     },

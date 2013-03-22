@@ -25,7 +25,7 @@ enyo.kind({
         ]},
         {name: 'panels', kind: 'rc.Panels', fit: true, components: [
             {kind: 'rc.UserInfoPanel', name: 'userInfoPanel', bindTo: 'userInfoButton'},
-            {kind: 'rc.CallFlow', name: 'callFlowPanel', bindTo: 'callFlowButton', onShowChange: 'onShowChange'},
+            {kind: 'rc.CallFlow', name: 'callFlowPanel', bindTo: 'callFlowButton'},
             {kind: 'rc.Fax', name: 'faxPanel', bindTo: 'faxButton'}
         ]}
     ],
@@ -65,10 +65,6 @@ enyo.kind({
             showAll = callFlow.getShowAll();
 
         this.setNextButtonCaption( showAll ? loc.done : loc.edit );
-    },
-
-    onShowChange: function(){
-        this.switchNextButtonCaption();
     },
 
     switchCallFlowShowing: function(){
