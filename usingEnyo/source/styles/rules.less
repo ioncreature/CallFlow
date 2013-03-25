@@ -21,6 +21,7 @@
 @import 'AudioPlayer';
 @import 'RingPhones';
 @import 'Page';
+@import 'Scroller';
 
 
 body {
@@ -93,9 +94,9 @@ body {
 }
 
 .ui-text-input {
-    border: 3px solid @rc-color-input;
+    border: 3px solid @rc-color-main;
     border-radius: @rc-border-radius;
-    background-color: @rc-color-input-bg;
+    background-color: @rc-color-bg-input;
     margin: @rc-margin-input;
     padding: @rc-padding-input;
 }
@@ -103,26 +104,26 @@ body {
 .ui-text-input > input,
 .ui-text-input > textarea {
     width: 100%;
-    color: @rc-color-input;
+    color: @rc-color-main;
     font-weight: bold;
     font-family: @rc-font-family;
     .ui-placeholder;
 }
 
 .ui-button {
-    border: 1px solid @rc-color-input;
+    border: 1px solid @rc-color-main;
     border-radius: @rc-border-radius-small;
-    background-color: @rc-color-bg;
+    background-color: @rc-color-bg-light;
     background-image: none;
     margin: @rc-margin-input;
-    color: @rc-color-input;
+    color: @rc-color-main;
     font-weight: bold;
     padding: @rc-padding-button;
 }
 
 .ui-icon-next {
     position: absolute;
-    background: @rc-color-input-bg url(@rc-images-button-arrow-right) right center no-repeat;
+    background: @rc-color-bg-input url(@rc-images-button-arrow-right) right center no-repeat;
     background-size: 10px;
     top: 50%;
     right: 5px;

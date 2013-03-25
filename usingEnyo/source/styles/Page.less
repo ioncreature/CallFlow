@@ -7,36 +7,3 @@
     position: relative;
     background-color: white;
 }
-
-.ui-page-preview {
-    position: absolute;
-    top: 68px;
-    right: 22px;
-    z-index: 10;
-    box-sizing: content-box;
-    border: @rc-border-width-bold solid @rc-color-input;
-    background-color: white;
-    opacity: 0.8;
-}
-
-.ui-page-preview-viewport {
-    position: absolute;
-    left: -@rc-border-width-bold*2;
-    border: @rc-border-width-bold*2 solid @rc-color-violet;
-    background-color: rgba(0, 0, 0, 0.2);
-    width: 100%;
-    height: 100px;
-    z-index: 1;
-    margin-top: -@rc-border-width-bold;
-}
-
-.ui-page-preview-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    -webkit-transform-origin: 0 0 0;
-       -moz-transform-origin: 0 0 0;
-        -ms-transform-origin: 0 0 0;
-         -o-transform-origin: 0 0 0;
-}

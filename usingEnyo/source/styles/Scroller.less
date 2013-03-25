@@ -1,0 +1,42 @@
+/**
+ * @author Marenin Alexander 
+ * March 2013
+ */
+
+.ui-scroller {
+    position: relative;
+    background-color: @rc-color-bg;
+}
+
+.ui-scroller-preview {
+    position: absolute;
+    top: @rc-margin;
+    right: 22px;
+    z-index: 10;
+    box-sizing: content-box;
+    border: @rc-border-width-bold solid @rc-color-main;
+    background-color: white;
+    opacity: 0.8;
+}
+
+.ui-scroller-viewport {
+    position: absolute;
+    left: -2 * @rc-border-width-bold;
+    border: 2 * @rc-border-width-bold solid @rc-color-violet;
+    background-color: rgba(0, 0, 0, 0.25);
+    width: 100%;
+    height: 100px;
+    z-index: 1;
+    margin-top: -2 * @rc-border-width-bold;
+}
+
+.ui-scroller-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    -webkit-transform-origin: 0 0 0;
+       -moz-transform-origin: 0 0 0;
+        -ms-transform-origin: 0 0 0;
+         -o-transform-origin: 0 0 0;
+}

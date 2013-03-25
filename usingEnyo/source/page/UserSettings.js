@@ -10,7 +10,7 @@ enyo.kind({
     scrollable: false,
     nextButtonCaption: loc.test + 0,
     showNext: true,
-    preview: true,
+    preview: rc.Scroller.THUMB,
 
     handlers: {
         onBack: 'goBack',
@@ -61,12 +61,21 @@ enyo.kind({
     },
 
     switchTestMode: function(){
-        var modes = [rc.Page.MODE_VIEWPORT, rc.Page.MODE_PREVIEW],
-            current = this.getPreviewMode(),
-            nextIndex = modes.indexOf( current ) + 1 === modes.length
+        var statics = rc.Scroller,
+            modes = [
+                statics.THUMB,
+                statics.VIEWPORT_MOVING,
+                statics.VIEWPORT_NEAR_FINGER,
+                statics.VIEWPORT_LEFT,
+                statics.VIEWPORT_RIGHT,
+                statics.VIEWPORT_UNDER_FINGER
+            ],
+            current = this.getPreview(),
+            currentIndex = modes.indexOf( current ),
+            nextIndex = currentIndex + 1 === modes.length
                 ? 0
-                : modes.indexOf( current ) + 1;
-        this.setPreviewMode( modes[nextIndex] );
+                : currentIndex + 1;
+        this.setPreview( modes[nextIndex] );
         this.setNextButtonCaption( loc.test + nextIndex );
     }
 });

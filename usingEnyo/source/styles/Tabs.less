@@ -8,7 +8,7 @@
     .ui-tabs-button {
         padding: 8px 10px;
         float: left;
-        background-color: @rc-color-input-bg;
+        background-color: @rc-color-bg-input;
         background-image: none;
         outline: 1px solid @rc-color-border;
         border-color: @rc-color-border;
@@ -17,9 +17,9 @@
         text-shadow: none;
         font-size: @rc-font-size-big;
         font-weight: bold;
-        color: @rc-color-input;
+        color: @rc-color-main;
         &.active {
-            background-color: @rc-color-input;
+            background-color: @rc-color-main;
             color: @rc-color-active;
         }
     }
@@ -36,19 +36,19 @@
         position: relative;
         display: block;
         float: left;
-        background-color: @rc-color-input-bg;
+        background-color: @rc-color-bg-input;
         background-image: none;
         border-style: solid;
         border-width: 1px 1px 1px 0;
-        border-color: @rc-color-input;
+        border-color: @rc-color-main;
         box-shadow: none;
         font-size: @rc-font-size-medium;
         font-weight: bold;
-        color: @rc-color-input;
+        color: @rc-color-main;
         border-radius: 0;
         text-shadow: none;
         &.active {
-            background-color: @rc-color-input;
+            background-color: @rc-color-main;
             color: @rc-color-active;
             &::after {
                 position: absolute;
@@ -59,7 +59,7 @@
                 height: 0;
                 border-style: solid;
                 border-color: transparent;
-                border-top-color: @rc-color-input;
+                border-top-color: @rc-color-main;
                 border-width: @arrow-height;
                 margin-left: -@arrow-height;
             }
