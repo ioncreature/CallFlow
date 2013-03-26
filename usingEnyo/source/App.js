@@ -5,11 +5,31 @@
 
 enyo.kind({
     name: 'App',
-    kind: 'FittableRows',
-    classes: 'enyo-fit',
+//    kind: 'FittableRows',
+    classes: 'enyo-fit ui-app',
+    kind: 'Panels',
+    arrangerKind: 'CollapsingArranger',
 
     components: [
-        {name: 'pages', kind: 'Panels', fit: true, draggable: false, components: [
+        {name: 'menuContainer', classes: 'ui-app-menu', layoutKind: 'FittableRowsLayout', components: [
+            {name: 'menu', kind: 'List', touch: true, components: [
+                {name: "item", style: "padding: 10px;", classes: "enyo-border-box", ontap: "itemTap"},
+//                {content: "Dialer"},
+//                {content: "Activity Log"},
+//                {content: "Contacts"},
+//                {content: "Favorites"},
+//                {content: "Messages"},
+//                {content: "Conference"},
+//                {content: "Account Settings"},
+//                {content: "User Info"},
+//                {content: "Call Flow"},
+//                {content: "Fax"},
+//                {content: "Application Settings"},
+//                {content: "General"},
+//                {content: "Audio"},
+            ]},
+        ]},
+        {name: 'pages', style: 'background-color: white;', kind: 'Panels', fit: true, draggable: false, components: [
             {kind: 'rc.page.UserSettings', name: 'UserSettings'},
             {kind: 'rc.page.CallerId', name: 'CallerId'},
             {kind: 'rc.page.GreetCaller', name: 'GreetCaller'},
