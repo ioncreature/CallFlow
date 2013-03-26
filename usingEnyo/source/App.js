@@ -9,7 +9,7 @@ enyo.kind({
     classes: 'enyo-fit',
 
     components: [
-        {name: 'panels', kind: 'Panels', fit: true, draggable: false, components: [
+        {name: 'pages', kind: 'Panels', fit: true, draggable: false, components: [
             {kind: 'rc.page.UserSettings', name: 'UserSettings'},
             {kind: 'rc.page.CallerId', name: 'CallerId'},
             {kind: 'rc.page.GreetCaller', name: 'GreetCaller'},
@@ -27,17 +27,17 @@ enyo.kind({
 
         var i = 0;
         this.pageStack = [i];
-        this.$.panels.children[i].doOpen();
+        this.$.pages.children[i].doOpen();
     },
 
     goBack: function(){
-        var panels = this.$.panels,
+        var pages = this.$.pages,
             i;
         if ( this.pageStack.length > 1 ){
             this.pageStack.pop();
             i = this.pageStack[this.pageStack.length - 1];
-            panels.setIndex( i );
-            panels.children[i].doOpen();
+            pages.setIndex( i );
+            pages.children[i].doOpen();
         }
     },
 
@@ -51,15 +51,15 @@ enyo.kind({
      * @param {?} options.data
      */
     goTo: function( options ){
-        var panels = this.$.panels,
+        var pages = this.$.pages,
             pageName = options.pageName,
             data = options.data;
 
-        panels.children.some( function( child, i ){
+        pages.children.some( function( child, i ){
             if ( child.name === pageName ){
-                panels.setIndex( i );
+                pages.setIndex( i );
                 child.setPageData && child.setPageData( data );
-                panels.children[i].doOpen();
+                pages.children[i].doOpen();
                 this.pageStack.push( i );
                 return true;
             }
