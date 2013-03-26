@@ -8,10 +8,15 @@
 }
 
 .ui-app > * {
-    width: 200px;
     .ui-shadow( -14px, 0px, 24px, rgba(0, 0, 0, 0.3) );
 }
 
 .ui-app-menu {
+    min-width: @rc-width-main-menu;
     background-color: @rc-color-bg-main-menu;
+}
+
+.ui-app-pages {
+    background-color: @rc-color-bg;
+    min-width: @rc-width-screen;
 }

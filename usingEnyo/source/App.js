@@ -29,7 +29,7 @@ enyo.kind({
 //                {content: "Audio"},
             ]},
         ]},
-        {name: 'pages', style: 'background-color: white;', kind: 'Panels', fit: true, draggable: false, components: [
+        {name: 'pages', classes: 'ui-app-pages', kind: 'Panels', fit: false, draggable: false, components: [
             {kind: 'rc.page.UserSettings', name: 'UserSettings'},
             {kind: 'rc.page.CallerId', name: 'CallerId'},
             {kind: 'rc.page.GreetCaller', name: 'GreetCaller'},
