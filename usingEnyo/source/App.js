@@ -20,7 +20,7 @@ enyo.kind({
             {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-conference', caption: loc.App.conference},
             {classes: 'ui-main-menu-header', content: loc.App.accountSettings},
             {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-user-info', caption: loc.App.userInfo},
-            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-call-flow active', caption: loc.App.callFlow},
+            {kind: 'rc.MainMenuItem', classes: 'active', icon: 'ui-main-menu-call-flow', caption: loc.App.callFlow},
             {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-fax', caption: loc.App.fax},
             {classes: 'ui-main-menu-header', content: loc.App.applicationSettings},
             {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-general', caption: loc.App.general},

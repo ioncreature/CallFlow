@@ -30,6 +30,7 @@
 
 .ui-main-menu-item {
     @icon-size: 50px;
+
     position: relative;
     color: @rc-color-main-menu;
     border-top: 1px solid lighten(@rc-color-main-menu-item, 10%);
@@ -40,9 +41,6 @@
 
     &.active {
         color: @rc-color-hint;
-        .ui-main-menu-item-icon {
-            background-position: right inherit !important;
-        }
     }
 
     .ui-main-menu-item-icon {
@@ -55,19 +53,29 @@
         background-image: url(@rc-images-menu-sprite);
         background-repeat: no-repeat;
         background-size: 2 * @icon-size auto;
-        &.ui-main-menu-dialer { background-position: left 0;  }
-        &.ui-main-menu-activity-log { background-position: left -(@icon-size);  }
-        &.ui-main-menu-contacts { background-position: left -(2 * @icon-size);  }
-        &.ui-main-menu-favorites { background-position: left -(3 * @icon-size);  }
-        &.ui-main-menu-messages { background-position: left -(4 * @icon-size);  }
-        &.ui-main-menu-conference { background-position: left -(5 * @icon-size);  }
-        &.ui-main-menu-user-info { background-position: left -(6 * @icon-size);  }
-        &.ui-main-menu-call-flow { background-position: left -(7 * @icon-size);  }
-        &.ui-main-menu-fax { background-position: left -(8 * @icon-size);  }
-        &.ui-main-menu-general { background-position: left -(9 * @icon-size);  }
-        &.ui-main-menu-audio { background-position: left -(10 * @icon-size);  }
     }
-
+    .ui-main-menu-item-icon.ui-main-menu-dialer { background-position: left 0; }
+    &.active .ui-main-menu-item-icon.ui-main-menu-dialer { background-position: right 0; }
+    .ui-main-menu-item-icon.ui-main-menu-activity-log { background-position: left -(@icon-size); }
+    &.active .ui-main-menu-item-icon.ui-main-menu-activity-log { background-position: right -(@icon-size); }
+    .ui-main-menu-item-icon.ui-main-menu-contacts { background-position: left -(2 * @icon-size); }
+    &.active .ui-main-menu-item-icon.ui-main-menu-contacts { background-position: right -(2 * @icon-size); }
+    .ui-main-menu-item-icon.ui-main-menu-favorites { background-position: left -(3 * @icon-size); }
+    &.active .ui-main-menu-item-icon.ui-main-menu-favorites { background-position: right -(3 * @icon-size); }
+    .ui-main-menu-item-icon.ui-main-menu-messages { background-position: left -(4 * @icon-size); }
+    &.active .ui-main-menu-item-icon.ui-main-menu-messages { background-position: right -(4 * @icon-size); }
+    .ui-main-menu-item-icon.ui-main-menu-conference { background-position: left -(5 * @icon-size); }
+    &.active .ui-main-menu-item-icon.ui-main-menu-conference { background-position: right -(5 * @icon-size); }
+    .ui-main-menu-item-icon.ui-main-menu-user-info { background-position: left -(6 * @icon-size); }
+    &.active .ui-main-menu-item-icon.ui-main-menu-user-info { background-position: right -(6 * @icon-size); }
+    .ui-main-menu-item-icon.ui-main-menu-call-flow { background-position: left -(7 * @icon-size); }
+    &.active .ui-main-menu-item-icon.ui-main-menu-call-flow { background-position: right -(7 * @icon-size); }
+    .ui-main-menu-item-icon.ui-main-menu-fax { background-position: left -(8 * @icon-size); }
+    &.active .ui-main-menu-item-icon.ui-main-fax { background-position: right -(8 * @icon-size); }
+    .ui-main-menu-item-icon.ui-main-menu-general { background-position: left -(9 * @icon-size); }
+    &.active .ui-main-menu-item-icon.ui-main-menu-general { background-position: right -(9 * @icon-size); }
+    .ui-main-menu-item-icon.ui-main-menu-audio { background-position: left -(10 * @icon-size); }
+    &.active .ui-main-menu-item-icon.ui-main-menu-audio { background-position: right -(10 * @icon-size); }
 
     .ui-main-menu-item-caption {}
 
