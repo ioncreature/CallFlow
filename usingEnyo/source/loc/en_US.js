@@ -15,6 +15,22 @@ var loc = {
     done: 'Done',
     test: 'Test',
 
+    App: {
+        dialer: 'Dialer',
+        activityLog: 'Activity Log',
+        contacts: 'Contacts',
+        favorites: 'Favorites',
+        messages: 'Messages',
+        conference: 'Conference',
+        accountSettings: 'Account Settings',
+        userInfo: 'User Info',
+        callFlow: 'Call Flow',
+        fax: 'Fax',
+        applicationSettings: 'Application Settings',
+        general: 'General',
+        audio: 'Audio'
+    },
+
     CallFlow: {
         blockCallers: 'Block Callers',
         answeringRules: 'Answering Rules',

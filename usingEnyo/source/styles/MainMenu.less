@@ -1,0 +1,90 @@
+/**
+ * @author Marenin Alexander 
+ * March 2013
+ */
+
+
+.ui-main-menu {
+    min-width: @rc-width-main-menu;
+    background-color: @rc-color-main-menu-item;
+}
+
+.ui-main-menu-header {
+    padding: @rc-padding @rc-padding-bigger;
+    font-size: @rc-font-size-biggest;
+    font-weight: bold;
+    color: @rc-color-main-menu;
+    border-top: 1px solid darken(@rc-color-main-menu-item, 10%);
+    border-bottom: 1px solid lighten(@rc-color-main-menu-item, 10%);
+    background-color: @rc-color-bg-main-menu;
+}
+
+.ui-main-menu-logo {
+    @height: 36px;
+    padding: @rc-padding-big;
+    height: @height;
+    background: url(@rc-images-menu-logo) center center no-repeat;
+    background-size: auto @height;
+    background-color: @rc-color-bg-main-menu;
+}
+
+.ui-main-menu-item {
+    @icon-size: 50px;
+    position: relative;
+    color: @rc-color-main-menu;
+    border-top: 1px solid lighten(@rc-color-main-menu-item, 10%);
+    border-bottom: 1px solid darken(@rc-color-main-menu-item, 10%);
+    background-color: @rc-color-main-menu-item;
+    padding: @rc-padding-big @rc-padding-big @rc-padding-big (@icon-size + @rc-padding);
+    font-size: @rc-font-size-biggest;
+
+    &.active {
+        color: @rc-color-hint;
+        .ui-main-menu-item-icon {
+            background-position: right inherit !important;
+        }
+    }
+
+    .ui-main-menu-item-icon {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -( @icon-size ) / 2;
+        width: @icon-size;
+        height: @icon-size;
+        background-image: url(@rc-images-menu-sprite);
+        background-repeat: no-repeat;
+        background-size: 2 * @icon-size auto;
+        &.ui-main-menu-dialer { background-position: left 0;  }
+        &.ui-main-menu-activity-log { background-position: left -(@icon-size);  }
+        &.ui-main-menu-contacts { background-position: left -(2 * @icon-size);  }
+        &.ui-main-menu-favorites { background-position: left -(3 * @icon-size);  }
+        &.ui-main-menu-messages { background-position: left -(4 * @icon-size);  }
+        &.ui-main-menu-conference { background-position: left -(5 * @icon-size);  }
+        &.ui-main-menu-user-info { background-position: left -(6 * @icon-size);  }
+        &.ui-main-menu-call-flow { background-position: left -(7 * @icon-size);  }
+        &.ui-main-menu-fax { background-position: left -(8 * @icon-size);  }
+        &.ui-main-menu-general { background-position: left -(9 * @icon-size);  }
+        &.ui-main-menu-audio { background-position: left -(10 * @icon-size);  }
+    }
+
+
+    .ui-main-menu-item-caption {}
+
+    .ui-main-menu-item-value {
+        @padding: 3px;
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        margin-top: -( @rc-font-size-medium / 2 + @padding );
+        z-index: 1;
+        font-size: @rc-font-size-medium;
+        line-height: @rc-font-size-medium;
+        font-weight: bold;
+        color: @rc-color-main-menu-item;
+        background-color: @rc-color-main-menu;
+        padding: @padding 3 * @padding;
+        border-radius: 10px;
+    }
+}
+

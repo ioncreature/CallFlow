@@ -17,6 +17,7 @@ enyo.depends(
     'ui/RadioList.js',
     'ui/NavButton.js',
     'ui/Scroller.js',
+    'ui/MainMenuItem.js',
     'ui/Panels.js',
     'ui/EditableList.js',
     'ui/ToggleButton.js',

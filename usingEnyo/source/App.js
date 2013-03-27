@@ -5,17 +5,26 @@
 
 enyo.kind({
     name: 'App',
-//    kind: 'FittableRows',
     classes: 'enyo-fit ui-app',
     kind: 'Panels',
     arrangerKind: 'CollapsingArranger',
 
     components: [
-        {name: 'menuContainer', kind: 'Scroller', classes: 'ui-app-menu', layoutKind: 'FittableRowsLayout', components: [
-            {kind: 'rc.NavButton', caption: 'piu'},
-            {kind: 'rc.NavButton', caption: 'piu'},
-            {kind: 'rc.NavButton', caption: 'piu'},
-            {kind: 'rc.NavButton', caption: 'piu'}
+        {name: 'menuContainer', kind: 'Scroller', thumb: false, classes: 'ui-main-menu', components: [
+            {classes: 'ui-main-menu-header ui-main-menu-logo'},
+            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-dialer', caption: loc.App.dialer},
+            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-activity-log', caption: loc.App.activityLog, value: 24},
+            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-contacts', caption: loc.App.contacts},
+            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-favorites', caption: loc.App.favorites},
+            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-messages', caption: loc.App.messages, value: 2},
+            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-conference', caption: loc.App.conference},
+            {classes: 'ui-main-menu-header', content: loc.App.accountSettings},
+            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-user-info', caption: loc.App.userInfo},
+            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-call-flow active', caption: loc.App.callFlow},
+            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-fax', caption: loc.App.fax},
+            {classes: 'ui-main-menu-header', content: loc.App.applicationSettings},
+            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-general', caption: loc.App.general},
+            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-audio', caption: loc.App.audio}
         ]},
         {name: 'pages', classes: 'ui-app-pages', kind: 'Panels', fit: false, draggable: false, components: [
             {kind: 'rc.page.UserSettings', name: 'UserSettings'},
