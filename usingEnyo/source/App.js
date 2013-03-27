@@ -11,23 +11,11 @@ enyo.kind({
     arrangerKind: 'CollapsingArranger',
 
     components: [
-        {name: 'menuContainer', classes: 'ui-app-menu', layoutKind: 'FittableRowsLayout', components: [
-            {name: 'menu', kind: 'List', touch: true, components: [
-                {name: "item", style: "padding: 10px;", classes: "enyo-border-box", ontap: "itemTap"},
-//                {content: "Dialer"},
-//                {content: "Activity Log"},
-//                {content: "Contacts"},
-//                {content: "Favorites"},
-//                {content: "Messages"},
-//                {content: "Conference"},
-//                {content: "Account Settings"},
-//                {content: "User Info"},
-//                {content: "Call Flow"},
-//                {content: "Fax"},
-//                {content: "Application Settings"},
-//                {content: "General"},
-//                {content: "Audio"},
-            ]},
+        {name: 'menuContainer', kind: 'Scroller', classes: 'ui-app-menu', layoutKind: 'FittableRowsLayout', components: [
+            {kind: 'rc.NavButton', caption: 'piu'},
+            {kind: 'rc.NavButton', caption: 'piu'},
+            {kind: 'rc.NavButton', caption: 'piu'},
+            {kind: 'rc.NavButton', caption: 'piu'}
         ]},
         {name: 'pages', classes: 'ui-app-pages', kind: 'Panels', fit: false, draggable: false, components: [
             {kind: 'rc.page.UserSettings', name: 'UserSettings'},
