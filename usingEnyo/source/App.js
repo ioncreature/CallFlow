@@ -54,7 +54,6 @@ enyo.kind({
 
     menuItemTap: function( inSender ){
         inSender.page && App.goTo( inSender.page );
-        this.hideMenu();
     },
 
     hideMenu: function(){
@@ -84,6 +83,7 @@ enyo.kind({
             i = this.pageStack[this.pageStack.length - 1];
             pages.setIndex( i );
             pages.children[i].doOpen();
+            this.hideMenu();
         }
     },
 
@@ -106,18 +106,15 @@ enyo.kind({
                 this.pageStack.push( i );
 
                 pages.setIndex( i );
-                this._configurePage( page );
+                page.setIsRoot( isRootPage );
+                page.setPreview( App.get('scrollType') );
+                page.setPreviewSize( App.get('scrollSize') );
                 page.setPageData && page.setPageData( data );
                 page.doOpen();
+                this.hideMenu();
                 return true;
             }
         }, this );
-    },
-
-    _configurePage: function( page ){
-        page.setIsRoot( this._isRootPage(page) );
-        page.setPreview( App.get('scrollType') );
-        page.setPreviewSize( App.get('scrollSize') );
     },
 
     _isRootPage: function( pageName ){
