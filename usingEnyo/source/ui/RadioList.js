@@ -75,6 +75,10 @@ enyo.kind({
         return this.activeChild;
     },
 
+    getValue: function(){
+        return this.getActiveItem().getValue();
+    },
+
     setActiveItem: function( item ){
         this.activeChild && this.activeChild.setActive( false );
         item.setActive( true );

@@ -106,12 +106,18 @@ enyo.kind({
                 this.pageStack.push( i );
 
                 pages.setIndex( i );
-                page.setIsRoot( isRootPage );
+                this._configurePage( page );
                 page.setPageData && page.setPageData( data );
                 page.doOpen();
                 return true;
             }
         }, this );
+    },
+
+    _configurePage: function( page ){
+        page.setIsRoot( this._isRootPage(page) );
+        page.setPreview( App.get('scrollType') );
+        page.setPreviewSize( App.get('scrollSize') );
     },
 
     _isRootPage: function( pageName ){

@@ -9,17 +9,22 @@ enyo.kind({
     classes: 'ui-scroller',
 
     statics: {
-        THUMB: false,
+        THUMB: -1,
         VIEWPORT_NEAR_FINGER: 1,
         VIEWPORT_UNDER_FINGER: 2,
         VIEWPORT_LEFT: 3,
         VIEWPORT_RIGHT: 4,
-        VIEWPORT_MOVING: 5
+        VIEWPORT_MOVING: 5,
+        SIZE_DEFAULT: -1,
+        SIZE_5_20: 7,
+        SIZE_15_15: 8
     },
 
     published: {
         preview: false,
-        ratio: 0.20,
+        previewSize: false,
+        ratioX: 0.20,
+        ratioY: 0.20,
         contentTtl: 4 * 1000,
         hideDelay: 200
     },
@@ -41,6 +46,7 @@ enyo.kind({
     create: function(){
         this.inherited( arguments );
         this.previewChanged();
+        this.previewSizeChanged();
     },
 
     initComponents: function(){
@@ -59,9 +65,26 @@ enyo.kind({
    	},
 
     previewChanged: function(){
-        this.getPreview() === rc.Scroller.THUMB || !this.getPreview()
+        this.getPreview() === rc.Scroller.THUMB
             ? this.disablePreview()
             : this.enablePreview();
+    },
+
+    previewSizeChanged: function(){
+        switch ( this.getPreviewSize() ){
+            case rc.Scroller.SIZE_DEFAULT:
+                this.setRatioX( 0.2 );
+                this.setRatioY( 0.2 );
+                break;
+            case rc.Scroller.SIZE_5_20:
+                this.setRatioX( 0.05 );
+                this.setRatioY( 0.2 );
+                break;
+            case rc.Scroller.SIZE_15_15:
+                this.setRatioX( 0.15 );
+                this.setRatioY( 0.15 );
+                break;
+        }
     },
 
     enablePreview: function(){
@@ -126,7 +149,7 @@ enyo.kind({
         });
 
         var content = this.$.client.node.innerHTML,
-            transform = 'scale(' + this.getRatio() + ')',
+            transform = 'scale(' + this.getRatioX() + ',' + this.getRatioY() + ')',
             style = this.$.previewContent.node.style;
 
         style.OTransform = transform;
@@ -141,15 +164,15 @@ enyo.kind({
             preview = this.getPreview(),
             statics = rc.Scroller,
             offset = 15,
-            width = this.clientBounds.width * this.getRatio(),
+            width = this.clientBounds.width * this.getRatioX(),
             previewBounds = {
                 top: offset,
                 width: width,
-                height: this.clientBounds.height * this.getRatio()
+                height: this.clientBounds.height * this.getRatioY()
             },
             viewportBounds = {
-                top: this.$.client.getScrollTop() * this.getRatio(),
-                height: this.clientBounds.clientHeight * this.getRatio()
+                top: this.$.client.getScrollTop() * this.getRatioY(),
+                height: this.clientBounds.clientHeight * this.getRatioY()
             };
 
         switch ( preview ){
@@ -187,7 +210,7 @@ enyo.kind({
 
     calculateScrollPosition: function(){
         var viewportBounds = {
-                top: this.$.client.getScrollTop() * this.getRatio()
+                top: this.$.client.getScrollTop() * this.getRatioY()
             },
             previewBounds,
             preview = this.getPreview(),
@@ -195,7 +218,7 @@ enyo.kind({
 
         switch ( preview ){
             case statics.VIEWPORT_MOVING:
-                var viewportHeight = this.clientBounds.clientHeight * this.getRatio(),
+                var viewportHeight = this.clientBounds.clientHeight * this.getRatioY(),
                     centerPosition = Math.round( (this.clientBounds.clientHeight - viewportHeight) / 2 );
                 previewBounds = {
                     top: centerPosition - viewportBounds.top
@@ -214,41 +237,5 @@ enyo.kind({
 
     isScrolling: function(){
         return !!this.$.preview.getShowing();
-    }
-});
-
-
-
-
-// TODO: хорошенько обдумать эту гомосятину, а пока заговнокодить в класса rc.Scroller
-enyo.kind({
-    name: 'rc.ScrollerAnimator',
-    kind: 'Object',
-    published: {
-        ratio: 0.2,
-        scroller: null
-    },
-
-    constructor: function( scroller ){
-        this.inherited( arguments );
-        this.setScroller( scroller );
-    },
-
-    getScrollTop: function(){
-        return this.scroller.$.client.getScrollTop();
-    },
-
-    calculateStartPosition: function(){
-        var clientBounds = this.scroller.clientBounds;
-        return {
-            previewBounds: {
-                width:  clientBounds.width * this.getRatio(),
-                height: clientBounds.height * this.getRatio()
-            },
-            viewportBounds: {
-                top: this.getScrollTop() * this.getRatio(),
-                height: clientBounds.clientHeight * this.getRatio()
-            }
-        }
     }
 });

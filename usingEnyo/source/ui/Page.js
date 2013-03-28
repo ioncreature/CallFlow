@@ -15,6 +15,7 @@ enyo.kind({
         nextButtonCaption: loc.next,
         pageData: null,
         preview: false,
+        previewSize: false,
         isRoot: false
     },
 
@@ -83,6 +84,15 @@ enyo.kind({
     previewChanged: function(){
         var preview = this.getPreview();
         preview && this.$.client.setPreview( preview );
+    },
+
+    previewSizeChanged: function(){
+        var preview = this.getPreview(),
+            previewSize = this.getPreviewSize();
+        if ( preview && previewSize ){
+            this.$.client.setPreview( preview );
+            this.$.client.setPreviewSize( previewSize );
+        }
     },
 
     isRootChanged: function(){
