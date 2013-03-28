@@ -3,7 +3,6 @@
  * March 2013
  */
 
-
 .ui-main-menu {
     min-width: @rc-width-main-menu;
     background-color: @rc-color-main-menu-item;
@@ -30,7 +29,6 @@
 
 .ui-main-menu-item {
     @icon-size: 50px;
-
     position: relative;
     color: @rc-color-main-menu;
     border-top: 1px solid lighten(@rc-color-main-menu-item, 10%);
@@ -41,12 +39,14 @@
 
     &.active {
         color: @rc-color-hint;
+        border-top: 1px solid lighten(@rc-color-main-menu-item, 15%);
+        background-color: lighten(@rc-color-main-menu-item, 5%);
     }
 
     .ui-main-menu-item-icon {
         position: absolute;
         top: 50%;
-        left: 0;
+        left: 3px;
         margin-top: -( @icon-size ) / 2;
         width: @icon-size;
         height: @icon-size;
@@ -95,4 +95,3 @@
         border-radius: 10px;
     }
 }
-

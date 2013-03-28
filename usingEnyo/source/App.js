@@ -10,21 +10,21 @@ enyo.kind({
     arrangerKind: 'CollapsingArranger',
 
     components: [
-        {name: 'menuContainer', kind: 'Scroller', thumb: false, classes: 'ui-main-menu', components: [
+        {name: 'menu', kind: 'Scroller', thumb: false, classes: 'ui-main-menu', ontap: 'menuTapped', components: [
             {classes: 'ui-main-menu-header ui-main-menu-logo'},
-            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-dialer', caption: loc.App.dialer},
-            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-activity-log', caption: loc.App.activityLog, value: 24},
-            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-contacts', caption: loc.App.contacts},
-            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-favorites', caption: loc.App.favorites},
-            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-messages', caption: loc.App.messages, value: 2},
-            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-conference', caption: loc.App.conference},
+            {page: 'Dialer', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-dialer', caption: loc.App.dialer},
+            {page: 'ActivityLog', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-activity-log', caption: loc.App.activityLog, value: 24},
+            {page: 'Contacts', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-contacts', caption: loc.App.contacts},
+            {page: 'Favorites', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-favorites', caption: loc.App.favorites},
+            {page: 'Messages', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-messages', caption: loc.App.messages, value: 2},
+            {page: 'Conference', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-conference', caption: loc.App.conference},
             {classes: 'ui-main-menu-header', content: loc.App.accountSettings},
-            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-user-info', caption: loc.App.userInfo},
-            {kind: 'rc.MainMenuItem', classes: 'active', icon: 'ui-main-menu-call-flow', caption: loc.App.callFlow},
-            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-fax', caption: loc.App.fax},
+            {page: 'UserInfo', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-user-info', caption: loc.App.userInfo},
+            {page: 'CallFlow', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-call-flow', caption: loc.App.callFlow},
+            {page: 'Fax', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-fax', caption: loc.App.fax},
             {classes: 'ui-main-menu-header', content: loc.App.applicationSettings},
-            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-general', caption: loc.App.general},
-            {kind: 'rc.MainMenuItem', icon: 'ui-main-menu-audio', caption: loc.App.audio}
+            {page: 'General', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-general', caption: loc.App.general},
+            {page: 'Audio', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-audio', caption: loc.App.audio}
         ]},
         {name: 'pages', classes: 'ui-app-pages', kind: 'Panels', fit: false, draggable: false, components: [
             {kind: 'rc.page.UserSettings', name: 'UserSettings'},
@@ -37,14 +37,31 @@ enyo.kind({
     ],
 
     create: function(){
+        this.pageStack = [];
         this.inherited( arguments );
+
         App.on( 'goBack', this.goBack, this );
         App.on( 'goToNowhere', this.goToNowhere, this );
         App.on( 'goTo', this.goTo, this );
+        App.on( 'goToNowhere', this.activateMenuItem, this );
+        App.on( 'goTo', this.activateMenuItem, this );
 
-        var i = 0;
-        this.pageStack = [i];
-        this.$.pages.children[i].doOpen();
+        App.goTo( 'UserSettings' );
+    },
+
+    menuItemTap: function( inSender ){
+        inSender.page && this.goTo({ pageName: inSender.page });
+    },
+
+    activateMenuItem: function( options ){
+        var pageName = options.pageName;
+        this.$.menu.children.forEach( function( item ){
+            if ( item.page === pageName  ){
+                this.currentMenuItem && this.currentMenuItem.removeClass( 'active' );
+                this.currentMenuItem = item;
+                item.addClass( 'active' );
+            }
+        }, this );
     },
 
     goBack: function(){
