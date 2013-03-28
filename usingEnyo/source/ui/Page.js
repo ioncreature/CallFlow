@@ -14,7 +14,8 @@ enyo.kind({
         caption: '',
         nextButtonCaption: loc.next,
         pageData: null,
-        preview: false
+        preview: false,
+        isRoot: false
     },
 
     events: {
@@ -29,7 +30,9 @@ enyo.kind({
     ],
 
     doBack: function(){
-        App.back();
+        this.getIsRoot()
+            ? App.goToMenu()
+            : App.back();
     },
 
     doNext: function(){},
@@ -41,6 +44,7 @@ enyo.kind({
         this.captionChanged();
         this.nextButtonCaptionChanged();
         this.previewChanged();
+        this.isRootChanged();
     },
 
     initComponents: function(){
@@ -79,5 +83,12 @@ enyo.kind({
     previewChanged: function(){
         var preview = this.getPreview();
         preview && this.$.client.setPreview( preview );
+    },
+
+    isRootChanged: function(){
+        this.$.nav.setBackType( this.getIsRoot()
+            ? rc.NavToolbar.MENU
+            : rc.NavToolbar.BACK
+        );
     }
 });

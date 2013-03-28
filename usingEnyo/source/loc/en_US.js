@@ -9,11 +9,14 @@ var loc = {
         avatar: 'assets/images/avatar.jpg'
     },
 
+    back: 'Back',
     next: 'Next',
     save: 'Save',
     edit: 'Edit',
     done: 'Done',
+    menu: 'Menu',
     test: 'Test',
+
 
     App: {
         dialer: 'Dialer',

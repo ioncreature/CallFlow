@@ -12,7 +12,13 @@ enyo.kind({
         showBack: true,
         showNext: false,
         caption: 'This Is Caption',
-        nextButtonCaption: loc.next
+        nextButtonCaption: loc.next,
+        backType: 1
+    },
+
+    statics: {
+        BACK: 1,
+        MENU: 2
     },
 
     events: {
@@ -21,9 +27,9 @@ enyo.kind({
     },
 
     components: [
-        { name: 'back', kind: onyx.Button, content: 'Back', ontap: 'backTapped', classes: 'ui-nav-toolbar-button' },
+        { name: 'back', kind: onyx.Button, ontap: 'backTapped', classes: 'ui-nav-toolbar-button' },
         { name: 'caption', fit: true, classes: 'ui-nav-toolbar-caption' },
-        { name: 'next', kind: onyx.Button, content: 'Next', ontap: 'nextTapped', classes: 'ui-nav-toolbar-button' }
+        { name: 'next', kind: onyx.Button, ontap: 'nextTapped', classes: 'ui-nav-toolbar-button' }
     ],
 
     backTapped: function(){
@@ -40,6 +46,7 @@ enyo.kind({
         this.showNextChanged();
         this.captionChanged();
         this.nextButtonCaptionChanged();
+        this.backTypeChanged();
     },
 
     showBackChanged: function(){
@@ -56,5 +63,13 @@ enyo.kind({
 
     nextButtonCaptionChanged: function(){
         this.$.next.setContent( this.getNextButtonCaption() );
+    },
+
+    backTypeChanged: function(){
+        var type = this.getBackType();
+        if ( type === rc.NavToolbar.BACK )
+            this.$.back.setContent( loc.back );
+        else
+            this.$.back.setContent( loc.menu );
     }
 });
