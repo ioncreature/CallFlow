@@ -31,7 +31,8 @@ var loc = {
         fax: 'Fax',
         applicationSettings: 'Application Settings',
         general: 'General',
-        audio: 'Audio'
+        audio: 'Audio',
+        dev: 'Dev'
     },
 
     CallFlow: {
@@ -125,5 +126,9 @@ var loc = {
 
     RingPhones: {
         caption: 'Ring My Phones'
+    },
+
+    Dev: {
+        caption: 'Dev options'
     }
 };

@@ -24,7 +24,8 @@ enyo.kind({
             {page: 'Fax', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-fax', caption: loc.App.fax},
             {classes: 'ui-main-menu-header', content: loc.App.applicationSettings},
             {page: 'General', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-general', caption: loc.App.general},
-            {page: 'Audio', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-audio', caption: loc.App.audio}
+            {page: 'Audio', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-audio', caption: loc.App.audio},
+            {page: 'Dev', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-dev', caption: loc.App.dev}
         ]},
         {name: 'pages', classes: 'ui-app-pages', kind: 'Panels', fit: false, draggable: false, components: [
             {kind: 'rc.page.CallFlow', name: 'CallFlow'},
@@ -34,7 +35,8 @@ enyo.kind({
             {kind: 'rc.page.GreetCaller', name: 'GreetCaller'},
             {kind: 'rc.page.UnderConstruction', name: 'UnderConstruction'},
             {kind: 'rc.page.AddRule', name: 'AddRule'},
-            {kind: 'rc.page.RingPhones', name: 'RingPhones'}
+            {kind: 'rc.page.RingPhones', name: 'RingPhones'},
+            {kind: 'rc.page.Dev', name: 'Dev'}
         ]}
     ],
 
@@ -142,6 +144,19 @@ enyo.kind({
             this.listeners[eventName] && this.listeners[eventName].forEach( function( cb ){
                 cb( data );
             });
+        },
+
+        /**
+         * Config storage
+         */
+        config: {},
+
+        set: function( key, value ){
+            this.config[key] = value;
+        },
+
+        get: function( key ){
+            return this.config[key];
         },
 
         /**

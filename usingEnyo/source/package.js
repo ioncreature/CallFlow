@@ -29,6 +29,7 @@ enyo.depends(
     'ui/AudioPlayer.js',
     'ui/Tabs.js',
 
+    'page/Dev.js',
     'page/UserInfo.js',
     'page/Fax.js',
     'page/CallFlow.js',

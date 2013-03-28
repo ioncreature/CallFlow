@@ -12,7 +12,8 @@ enyo.kind({
     published: {
         active: false,
         caption: '',
-        description: ''
+        description: '',
+        value: undefined
     },
 
     components: [
