@@ -52,7 +52,6 @@ enyo.kind({
             button = this.$[buttonName];
         if ( !button.getActive() )
             button.setActive( true );
-        this.activateCallFLowButton( buttonName );
     },
 
     pageOpen: function(){

@@ -5,8 +5,9 @@
 
 
 enyo.kind({
-    name: 'rc.Fax',
-    kind: 'FittableRows',
+    name: 'rc.page.Fax',
+    kind: 'rc.Page',
+    caption: loc.Fax.caption,
     style: 'margin-bottom: 20px;',
 
     components: [

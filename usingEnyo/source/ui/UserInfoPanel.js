@@ -4,29 +4,62 @@
  */
 
 enyo.kind({
-    kind: enyo.FittableRows,
+    kind: 'Control',
     name: 'rc.UserInfoPanel',
     classes: 'ui-user-info-panel',
 
-    components: [
-        {kind: 'rc.UserInfo', ontap: 'goToNowhere', avatarUrl: loc.img.avatar, data: {
-            name: 'Vlad Vendrow',
-            extension: 'ext. 101',
-            company: 'RingCentral, Inc.',
-            post: 'CTO',
-            email: 'vladv@ringcentral.com'
-        }},
-        {kind: 'rc.NavButton', ontap: 'goToNowhere', caption: loc.UserInfoPanel.numbers, description: ['(650) 472-4080', '(800) 513-1320'] },
-        {kind: 'rc.NavButton', ontap: 'goToNowhere', caption: loc.UserInfoPanel.phonesAndPresence},
-        {kind: 'rc.NavButton', ontap: 'goToCallerId', caption: loc.UserInfoPanel.callerId, description: 'Vlad Vendrow'},
-        {kind: 'rc.NavButton', ontap: 'goToNowhere', caption: loc.UserInfoPanel.musicOnHold}
-    ],
-
-    goToNowhere: function(){
-        App.goToNowhere();
+    published: {
+        avatarUrl: '',
+        data: null
     },
 
-    goToCallerId: function(){
-        App.goTo( 'CallerId' );
+    components: [
+        {classes: 'ui-user-info-panel-left', components: [
+            {name: 'avatar', tag: 'img', content: ''}
+        ]},
+        {classes: 'ui-user-info-panel-right', components: [
+            {name: 'name', classes: 'ui-user-info-panel-name'},
+            {name: 'extension', classes: 'ui-user-info-panel-extension'},
+            {name: 'company', classes: 'ui-user-info-panel-company'},
+            {name: 'post', classes: 'ui-user-info-panel-post'},
+            {name: 'email', classes: 'ui-user-info-panel-email'}
+        ]},
+        {classes: 'ui-icon-next'}
+    ],
+
+    create: function(){
+        this.inherited( arguments );
+        this.avatarUrlChanged();
+        this.dataChanged();
+    },
+
+    avatarUrlChanged: function(){
+        var url = this.getAvatarUrl();
+        if ( url )
+            this.$.avatar.setAttribute( 'src', url );
+        else
+            this.$.avatar.hide();
+    },
+
+    dataChanged: function(){
+        var data = this.getData(),
+            dObj;
+
+        if ( !data )
+            dObj = {
+                name: 'ololo',
+                extension: 'ololo',
+                company: 'ololo',
+                post: 'ololo',
+                email: 'ololo'
+            };
+        else
+            dObj = data;
+
+        this.$.name.setContent( dObj.name );
+        this.$.extension.setContent( dObj.extension );
+        this.$.company.setContent( dObj.company );
+        this.$.post.setContent( dObj.post );
+        this.$.email.setContent( dObj.email );
     }
 });

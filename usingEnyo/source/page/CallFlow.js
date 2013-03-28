@@ -4,18 +4,13 @@
  */
 
 enyo.kind({
-    name: 'rc.CallFlow',
-    kind: enyo.Control,
+    name: 'rc.page.CallFlow',
+    kind: 'rc.Page',
     classes: 'ui-call-flow',
-
-    events: {
-        onBelowTop: '',
-        onTop: ''
-    },
+    caption: loc.CallFlow.caption,
 
     handlers: {
-        onScrollStart: 'scrollStart',
-        onScrollStop: 'checkScroll'
+        onOpen: 'pageOpen'
     },
 
     components: [
@@ -203,7 +198,7 @@ enyo.kind({
 
     selectLastRule: function(){
         var rules = this.$.rules,
-            lastChild = rules.children[rules.children.length -1 ];
+            lastChild = rules.children[rules.children.length - 1];
         this.$.rules.onItemTap( lastChild );
     },
 
@@ -223,20 +218,8 @@ enyo.kind({
         });
     },
 
-    scrollStart: function(){
-        this.doBelowTop();
-    },
-
-    scrollStop: function(){
-        this.doTop();
-    },
-
     pageOpen: function(){
+        this.redrawItems();
         this.selectLastRule();
-    },
-
-    checkScroll: function(){
-        if ( this.getScrollTop() == 0 )
-            this.doTop();
     }
 });

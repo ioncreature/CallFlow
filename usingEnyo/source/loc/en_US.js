@@ -32,6 +32,7 @@ var loc = {
     },
 
     CallFlow: {
+        caption: 'Call Flow',
         blockCallers: 'Block Callers',
         answeringRules: 'Answering Rules',
         answeringRulesDesc: 'System behavior based on time of the day and day of the week.',
@@ -64,6 +65,14 @@ var loc = {
         addCustomRule: 'Add Custom Rule',
         showActive: 'Show',
         showAll: 'Edit'
+    },
+
+    Fax: {
+        caption: 'Fax'
+    },
+
+    UserInfo: {
+        caption: 'User Info'
     },
 
     UserInfoPanel: {

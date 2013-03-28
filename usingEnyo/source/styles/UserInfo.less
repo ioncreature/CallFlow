@@ -3,9 +3,13 @@
  * February 2013
  */
 
-/* User Info styles */
+/* Page styles */
 
-.ui-user-info {
+.ui-user-info {}
+
+/* Panel styles */
+
+.ui-user-info-panel {
     position: relative;
     margin: 20px 10px 20px 10px;
     height: 89px;
@@ -18,34 +22,31 @@
     line-height: @rc-font-size-medium * 1.3;
 }
 
-.ui-user-info img {
+.ui-user-info-panel img {
     width: 60px;
     height: 60px;
     border-radius: 5px;
 }
 
-.ui-user-info-left,
-.ui-user-info-right {
+.ui-user-info-panel-left,
+.ui-user-info-panel-right {
     float: left;
-    padding-right: 14px;
+    padding-right: @rc-padding-big;
 }
 
-.ui-user-info-name,
-.ui-user-info-extension {
+.ui-user-info-panel-name,
+.ui-user-info-panel-extension {
     font-weight: bold;
     display: inline-block;
     margin-right: 7px;
 }
-.ui-user-info-name::after {
+.ui-user-info-panel-name::after {
     content: ', '
 }
-.ui-user-info-extension,
-.ui-user-info-company {
+.ui-user-info-panel-extension,
+.ui-user-info-panel-company {
     color: @rc-color-text;
 }
-.ui-user-info-post {}
-.ui-user-info-email {}
+.ui-user-info-panel-post {}
+.ui-user-info-panel-email {}
 
-/* Panel styles */
-
-.ui-user-info-panel {}

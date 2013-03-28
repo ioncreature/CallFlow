@@ -12,22 +12,24 @@ enyo.kind({
     components: [
         {name: 'menu', kind: 'Scroller', thumb: false, classes: 'ui-main-menu', ontap: 'menuTapped', components: [
             {classes: 'ui-main-menu-header ui-main-menu-logo'},
-            {page: 'Dialer', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-dialer', caption: loc.App.dialer},
-            {page: 'ActivityLog', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-activity-log', caption: loc.App.activityLog, value: 24},
-            {page: 'Contacts', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-contacts', caption: loc.App.contacts},
-            {page: 'Favorites', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-favorites', caption: loc.App.favorites},
-            {page: 'Messages', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-messages', caption: loc.App.messages, value: 2},
-            {page: 'Conference', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-conference', caption: loc.App.conference},
+            {page: 'UnderConstruction', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-dialer', caption: loc.App.dialer},
+            {page: 'UnderConstruction', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-activity-log', caption: loc.App.activityLog, value: 24},
+            {page: 'UnderConstruction', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-contacts', caption: loc.App.contacts},
+            {page: 'UnderConstruction', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-favorites', caption: loc.App.favorites},
+            {page: 'UnderConstruction', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-messages', caption: loc.App.messages, value: 2},
+            {page: 'UnderConstruction', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-conference', caption: loc.App.conference},
             {classes: 'ui-main-menu-header', content: loc.App.accountSettings},
             {page: 'UserInfo', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-user-info', caption: loc.App.userInfo},
             {page: 'CallFlow', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-call-flow', caption: loc.App.callFlow},
             {page: 'Fax', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-fax', caption: loc.App.fax},
             {classes: 'ui-main-menu-header', content: loc.App.applicationSettings},
-            {page: 'General', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-general', caption: loc.App.general},
-            {page: 'Audio', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-audio', caption: loc.App.audio}
+            {page: 'UnderConstruction', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-general', caption: loc.App.general},
+            {page: 'UnderConstruction', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-audio', caption: loc.App.audio}
         ]},
         {name: 'pages', classes: 'ui-app-pages', kind: 'Panels', fit: false, draggable: false, components: [
-            {kind: 'rc.page.UserSettings', name: 'UserSettings'},
+            {kind: 'rc.page.CallFlow', name: 'CallFlow'},
+            {kind: 'rc.page.UserInfo', name: 'UserInfo'},
+            {kind: 'rc.page.Fax', name: 'Fax'},
             {kind: 'rc.page.CallerId', name: 'CallerId'},
             {kind: 'rc.page.GreetCaller', name: 'GreetCaller'},
             {kind: 'rc.page.UnderConstruction', name: 'UnderConstruction'},
@@ -41,22 +43,20 @@ enyo.kind({
         this.inherited( arguments );
 
         App.on( 'goBack', this.goBack, this );
-        App.on( 'goToNowhere', this.goToNowhere, this );
         App.on( 'goTo', this.goTo, this );
-        App.on( 'goToNowhere', this.activateMenuItem, this );
         App.on( 'goTo', this.activateMenuItem, this );
 
-        App.goTo( 'UserSettings' );
+        App.goTo( 'CallFlow' );
     },
 
     menuItemTap: function( inSender ){
-        inSender.page && this.goTo({ pageName: inSender.page });
+        inSender.page && App.goTo( inSender.page );
     },
 
     activateMenuItem: function( options ){
         var pageName = options.pageName;
-        this.$.menu.children.forEach( function( item ){
-            if ( item.page === pageName  ){
+        this.$.menu.getControls().forEach( function( item ){
+            if ( item.page === pageName ){
                 this.currentMenuItem && this.currentMenuItem.removeClass( 'active' );
                 this.currentMenuItem = item;
                 item.addClass( 'active' );
@@ -73,10 +73,6 @@ enyo.kind({
             pages.setIndex( i );
             pages.children[i].doOpen();
         }
-    },
-
-    goToNowhere: function(){
-        this.goTo({ pageName: 'UnderConstruction' });
     },
 
     /**
@@ -134,7 +130,7 @@ enyo.kind({
         },
 
         goToNowhere: function(){
-            this.trigger( 'goToNowhere' );
+            App.goTo( 'UnderConstruction' );
         },
 
         goTo: function( pageName, data ){
