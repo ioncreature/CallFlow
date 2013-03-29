@@ -130,7 +130,6 @@ enyo.kind({
         this.cancelHide();
         this.makePreviewContent();
         this.calculateStartPosition( event );
-        this.$.preview.show();
     },
 
     handleScroll: function(){
@@ -180,6 +179,13 @@ enyo.kind({
     },
 
     calculateStartPosition: function( event ){
+        if ( this.isPreviewContentShort() ){
+            this.$.preview.hide();
+            return;
+        }
+        else
+            this.$.preview.show();
+
         var x = event.originator.mx,
             y = event.originator.my,
             preview = this.getPreview(),
@@ -235,6 +241,9 @@ enyo.kind({
     },
 
     calculateScrollPosition: function(){
+        if ( this.isPreviewContentShort() )
+            return;
+
         var viewportBounds = {
                 top: this.$.client.getScrollTop() * this.getRatioY()
             },
@@ -254,6 +263,10 @@ enyo.kind({
 
         this.$.previewViewport.setBounds( viewportBounds );
         previewBounds && this.$.preview.setBounds( previewBounds );
+    },
+
+    isPreviewContentShort: function(){
+        return this.clientBounds.height <= this.clientBounds.clientHeight;
     },
 
     _recalculateYRatio: function(){
