@@ -127,7 +127,9 @@ enyo.kind({
         /**
          * Event bus interface
          */
+
         listeners: {},
+
         on: function( eventName, callback, context ){
             var listeners = this.listeners;
             if ( this.listeners[eventName] )
@@ -152,6 +154,7 @@ enyo.kind({
         /**
          * Config storage
          */
+
         config: {},
 
         set: function( key, value ){
@@ -163,8 +166,9 @@ enyo.kind({
         },
 
         /**
-         * Helpers methods
+         * Navigation methods
          */
+
         goTo: function( pageName, data ){
             this.trigger( 'goTo', {pageName: pageName, data: data} );
         },

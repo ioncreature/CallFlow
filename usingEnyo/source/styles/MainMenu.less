@@ -9,8 +9,8 @@
 }
 
 .ui-main-menu-header {
-    padding: @rc-padding @rc-padding-bigger;
-    font-size: @rc-font-size-biggest;
+    padding: @rc-padding @rc-padding-big;
+    font-size: @rc-font-size-bigger;
     font-weight: bold;
     color: @rc-color-main-menu;
     border-top: 1px solid darken(@rc-color-main-menu-item, 10%);
@@ -28,14 +28,14 @@
 }
 
 .ui-main-menu-item {
-    @icon-size: 50px;
+    @icon-size: 41px;
     position: relative;
     color: @rc-color-main-menu;
     border-top: 1px solid lighten(@rc-color-main-menu-item, 10%);
     border-bottom: 1px solid darken(@rc-color-main-menu-item, 10%);
     background-color: @rc-color-main-menu-item;
-    padding: @rc-padding-big @rc-padding-big @rc-padding-big (@icon-size + @rc-padding);
-    font-size: @rc-font-size-biggest;
+    padding: @rc-padding @rc-padding @rc-padding (@icon-size + @rc-padding);
+    font-size: @rc-font-size-bigger;
 
     &.active {
         color: @rc-color-hint;
