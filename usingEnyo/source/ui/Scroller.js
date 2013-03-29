@@ -258,8 +258,9 @@ enyo.kind({
 
     _recalculateYRatio: function(){
         if ( this.getPreview() === rc.Scroller.VIEWPORT_STRETCHED ){
-            var viewport = this.clientBounds.clientHeight - this.getBordersWidth() - 2 * this.getOffset();
-            this.setRatioY( viewport / this.clientBounds.height );
+            var viewport = this.clientBounds.clientHeight - this.getBordersWidth() - 2 * this.getOffset(),
+                ratio = viewport / this.clientBounds.height;
+            this.setRatioY( ratio > 0.35 ? 0.35 : ratio );
         }
     },
 
