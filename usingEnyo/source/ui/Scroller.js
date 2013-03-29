@@ -72,6 +72,7 @@ enyo.kind({
         this.getPreview() === rc.Scroller.THUMB
             ? this.disablePreview()
             : this.enablePreview();
+        this.previewSizeChanged();
     },
 
     previewSizeChanged: function(){
