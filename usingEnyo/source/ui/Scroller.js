@@ -15,9 +15,11 @@ enyo.kind({
         VIEWPORT_LEFT: 3,
         VIEWPORT_RIGHT: 4,
         VIEWPORT_MOVING: 5,
+        VIEWPORT_STRETCHED: 6,
         SIZE_DEFAULT: -1,
-        SIZE_5_20: 7,
-        SIZE_15_15: 8
+        SIZE_5_20: 11,
+        SIZE_10_20: 12,
+        SIZE_15_15: 13
     },
 
     published: {
@@ -26,7 +28,9 @@ enyo.kind({
         ratioX: 0.20,
         ratioY: 0.20,
         contentTtl: 4 * 1000,
-        hideDelay: 200
+        hideDelay: 200,
+        offset: 4,
+        bordersWidth: 4
     },
 
     handlers: {
@@ -78,6 +82,10 @@ enyo.kind({
                 break;
             case rc.Scroller.SIZE_5_20:
                 this.setRatioX( 0.05 );
+                this.setRatioY( 0.2 );
+                break;
+            case rc.Scroller.SIZE_10_20:
+                this.setRatioX( 0.1 );
                 this.setRatioY( 0.2 );
                 break;
             case rc.Scroller.SIZE_15_15:
@@ -148,6 +156,8 @@ enyo.kind({
             width: this.clientBounds.width
         });
 
+        this._recalculateYRatio();
+
         var content = this.$.client.node.innerHTML,
             transform = 'scale(' + this.getRatioX() + ',' + this.getRatioY() + ')',
             style = this.$.previewContent.node.style;
@@ -163,7 +173,8 @@ enyo.kind({
             y = event.originator.my,
             preview = this.getPreview(),
             statics = rc.Scroller,
-            offset = 15,
+            offset = this.getOffset(),
+            bordersWidth = this.getBordersWidth(),
             width = this.clientBounds.width * this.getRatioX(),
             previewBounds = {
                 top: offset,
@@ -179,8 +190,12 @@ enyo.kind({
             case statics.VIEWPORT_LEFT:
                 previewBounds.left = offset;
                 break;
+            case statics.VIEWPORT_STRETCHED:
+                this._recalculateYRatio();
+                previewBounds.left = this.clientBounds.width - width - offset - bordersWidth;
+                break;
             case statics.VIEWPORT_RIGHT:
-                previewBounds.left = this.clientBounds.width - width - offset;
+                previewBounds.left = this.clientBounds.width - width - offset - bordersWidth;
                 break;
             case statics.VIEWPORT_MOVING:
                 previewBounds.left = this.clientBounds.width - width - offset;
@@ -190,7 +205,7 @@ enyo.kind({
             case statics.VIEWPORT_UNDER_FINGER:
                 if ( !this.isScrolling() ){
                     previewBounds.left = offset + width + x > this.clientBounds.width
-                        ? x - offset - width
+                        ? x - offset - width - bordersWidth
                         : x + offset;
                 }
                 previewBounds.top = y + offset;
@@ -228,6 +243,13 @@ enyo.kind({
 
         this.$.previewViewport.setBounds( viewportBounds );
         previewBounds && this.$.preview.setBounds( previewBounds );
+    },
+
+    _recalculateYRatio: function(){
+        if ( this.getPreview() === rc.Scroller.VIEWPORT_STRETCHED ){
+            var viewport = this.clientBounds.clientHeight - this.getBordersWidth() - 2 * this.getOffset();
+            this.setRatioY( viewport / this.clientBounds.height );
+        }
     },
 
     hidePreview: function(){

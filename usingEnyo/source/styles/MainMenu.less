@@ -66,8 +66,22 @@
     &.active .ui-main-menu-item-icon.ui-main-menu-messages { background-position: right -(4 * @icon-size); }
     .ui-main-menu-item-icon.ui-main-menu-conference { background-position: left -(5 * @icon-size); }
     &.active .ui-main-menu-item-icon.ui-main-menu-conference { background-position: right -(5 * @icon-size); }
+
+    .ui-main-menu-item-icon.ui-main-menu-user-info {
+        @icon-size: 24px;
+        background: transparent url(@rc-images-avatar) center center no-repeat;
+        background-size: 100% auto;
+        border-radius: 3px;
+        background-clip: padding-box;
+        margin-top: -( @icon-size ) / 2;
+        width: @icon-size;
+        height: @icon-size;
+        left: 10px;
+    }
+    /*
     .ui-main-menu-item-icon.ui-main-menu-user-info { background-position: left -(6 * @icon-size); }
     &.active .ui-main-menu-item-icon.ui-main-menu-user-info { background-position: right -(6 * @icon-size); }
+    */
     .ui-main-menu-item-icon.ui-main-menu-call-flow { background-position: left -(7 * @icon-size); }
     &.active .ui-main-menu-item-icon.ui-main-menu-call-flow { background-position: right -(7 * @icon-size); }
     .ui-main-menu-item-icon.ui-main-menu-fax { background-position: left -(8 * @icon-size); }

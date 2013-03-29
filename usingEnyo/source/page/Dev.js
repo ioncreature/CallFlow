@@ -15,6 +15,7 @@ enyo.kind({
             {caption: 'Left fixed', value: rc.Scroller.VIEWPORT_LEFT},
             {caption: 'Right fixed', active: true, value: rc.Scroller.VIEWPORT_RIGHT},
             {caption: 'Fixed viewport (right)', value: rc.Scroller.VIEWPORT_MOVING},
+            {caption: 'Stretch to height', value: rc.Scroller.VIEWPORT_STRETCHED},
             {caption: 'Finger X position', value: rc.Scroller.VIEWPORT_NEAR_FINGER},
             {caption: 'Finger X & Y position', value: rc.Scroller.VIEWPORT_UNDER_FINGER}
         ]},
@@ -22,6 +23,7 @@ enyo.kind({
         {name: 'scrollSize', kind: 'rc.RadioList', onActivate: 'setScrollSize', components: [
             {caption: '20% x 20% (default)', active: true, value: rc.Scroller.SIZE_DEFAULT},
             {caption: '5% x 20%', value: rc.Scroller.SIZE_5_20},
+            {caption: '10% x 20%', value: rc.Scroller.SIZE_10_20},
             {caption: '15% x 15%', value: rc.Scroller.SIZE_15_15}
         ]}
     ],
