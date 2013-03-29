@@ -19,7 +19,8 @@ enyo.kind({
         SIZE_DEFAULT: -1,
         SIZE_5_20: 11,
         SIZE_10_20: 12,
-        SIZE_15_15: 13
+        SIZE_15_15: 13,
+        SIZE_15_20: 14
     },
 
     published: {
@@ -93,6 +94,11 @@ enyo.kind({
                 this.setRatioX( 0.15 );
                 this.setRatioY( 0.15 );
                 break;
+            case rc.Scroller.SIZE_15_20:
+                this.setRatioX( 0.15 );
+                this.setRatioY( 0.20 );
+                break;
+
         }
     },
 

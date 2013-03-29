@@ -22,9 +22,10 @@ enyo.kind({
         {classes: 'ui-header-left', content: 'Preview Size'},
         {name: 'scrollSize', kind: 'rc.RadioList', onActivate: 'setScrollSize', components: [
             {caption: '20% x 20% (default)', active: true, value: rc.Scroller.SIZE_DEFAULT},
-            {caption: '5% x 20%', value: rc.Scroller.SIZE_5_20},
+            {caption: '15% x 20%', value: rc.Scroller.SIZE_15_20},
+            {caption: '15% x 15%', value: rc.Scroller.SIZE_15_15},
             {caption: '10% x 20%', value: rc.Scroller.SIZE_10_20},
-            {caption: '15% x 15%', value: rc.Scroller.SIZE_15_15}
+            {caption: '5% x 20%', value: rc.Scroller.SIZE_5_20}
         ]}
     ],
 
