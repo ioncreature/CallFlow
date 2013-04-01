@@ -74,7 +74,7 @@ enyo.kind({
         }
         else {
             this.$.back.addClass( menuClass );
-            this.$.back.setContent( '' );
+            this.$.back.setContent( loc.menu );
         }
     }
 });

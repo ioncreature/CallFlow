@@ -15,7 +15,7 @@
     .onyx-button.active, .onyx-button.pressed {
     	background-image: none;
     	background-position: center center;
-    	border-top: 1px solid @rc-color-border;
+    	border-top: 2px solid @rc-color-border;
     	box-shadow: none;
     }
 
@@ -46,11 +46,12 @@
         margin: 0;
         padding: 5px 12px 5px 12px;
         &.ui-nav-toolbar-menu {
+            color: transparent;
             background: transparent url(@rc-images-button-menu) center center no-repeat;
             background-size: 85% 60%;
             &.active, &.pressed, &:active:hover:not([disabled]) {
                 background-image: url(@rc-images-button-menu);
-                background-size: 85% 54%;
+                background-size: 85% 52%;
             }
         }
     }

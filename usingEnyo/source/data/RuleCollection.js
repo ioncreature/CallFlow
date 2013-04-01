@@ -5,7 +5,6 @@
 
 
 enyo.kind({
-
     kind: 'rc.Collection',
     name: 'rc.data.RuleCollection',
 

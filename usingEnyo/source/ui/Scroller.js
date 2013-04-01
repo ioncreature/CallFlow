@@ -30,7 +30,7 @@ enyo.kind({
         ratioX: 0.20,
         ratioY: 0.20,
         contentTtl: 4 * 1000,
-        hideDelay: 200,
+        hideDelay: 300,
         offset: 4,
         bordersWidth: 4
     },
