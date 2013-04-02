@@ -73,6 +73,13 @@ describe( 'rc.Model', function(){
     });
 
 
+    it( 'should tells changed model or not', function(){
+        expect( model.isChanged() ).toBe( false );
+        model.set( 'test', 'piu' );
+        expect( model.isChanged() ).toBe( true );
+    });
+
+
     it( 'should reset model to default state', function(){
         model.set( toSet );
         model.set( 'test', false );
