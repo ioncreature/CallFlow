@@ -4,7 +4,6 @@
  */
 
 enyo.kind({
-
     name: 'rc.data.RuleModel',
     kind: 'rc.Model',
 

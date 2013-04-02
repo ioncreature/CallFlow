@@ -24,7 +24,7 @@ describe( 'rc.Observable', function(){
 
         it( 'should fire callback once', function(){
             expect( obj.fn ).toHaveBeenCalled();
-            expect( obj.fn.calls.length ).toEqual( 1 );
+            expect( obj.fn.callCount ).toBe( 1 );
         });
 
 
@@ -33,31 +33,31 @@ describe( 'rc.Observable', function(){
             obs.trigger( 'test' );
 
             expect( obj.fn ).toHaveBeenCalled();
-            expect( obj.fn.calls.length ).toEqual( 1 );
+            expect( obj.fn.callCount ).toBe( 1 );
         });
 
 
         it( 'should fire callback with specified parameter', function(){
-            expect( obj.fn.calls[0].args[0] ).toEqual( 1 );
+            expect( obj.fn.calls[0].args[0] ).toBe( 1 );
         });
 
 
         it( 'should run callback second time', function(){
             obs.trigger( 'test' );
-            expect( obj.fn.calls.length ).toEqual( 2 );
+            expect( obj.fn.callCount ).toBe( 2 );
         });
 
 
         it( 'should not fire on different event', function(){
             obs.trigger( 'wrongEventName', 2 );
-            expect( obj.fn.calls.length ).toEqual( 1 );
+            expect( obj.fn.callCount ).toBe( 1 );
         });
 
 
         it( 'should not fire after reset', function(){
             obs.reset();
             obs.trigger( 'test' );
-            expect( obj.fn.calls.length ).toEqual( 1 );
+            expect( obj.fn.callCount ).toBe( 1 );
         });
     });
 
@@ -78,8 +78,8 @@ describe( 'rc.Observable', function(){
             obs.on( 'test', obj.fn2 );
             obs.trigger( 'test' );
 
-            expect( obj.fn.calls.length ).toEqual( 1 );
-            expect( obj.fn2.calls.length ).toEqual( 1 );
+            expect( obj.fn.callCount ).toBe( 1 );
+            expect( obj.fn2.callCount ).toBe( 1 );
         });
 
 
@@ -89,8 +89,8 @@ describe( 'rc.Observable', function(){
             handler.remove();
             obs.trigger( 'test' );
 
-            expect( obj.fn.calls.length ).toEqual( 0 );
-            expect( obj.fn2.calls.length ).toEqual( 1 );
+            expect( obj.fn.callCount ).toBe( 0 );
+            expect( obj.fn2.callCount ).toBe( 1 );
         });
 
 
@@ -100,8 +100,8 @@ describe( 'rc.Observable', function(){
             obs.reset();
             obs.trigger( 'test' );
 
-            expect( obj.fn.calls.length ).toEqual( 0 );
-            expect( obj.fn2.calls.length ).toEqual( 0 );
+            expect( obj.fn.callCount ).toBe( 0 );
+            expect( obj.fn2.callCount ).toBe( 0 );
         });
     });
 });

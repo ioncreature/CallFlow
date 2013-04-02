@@ -29,13 +29,14 @@ enyo.kind({
      * @param {boolean} options.silent
      */
     set: function( key, val, options ){
-        if ( arguments.length == 1 && arguments[0] instanceof Object ){
-            var values = arguments[0];
+        if ( key instanceof Object ){
+            var values = arguments[0],
+                opts = arguments[1];
             Object.keys( values ).forEach( function( key ){
-                this.setValue( key, values[key], options );
+                this.setValue( key, values[key], opts );
             }, this );
         }
-        else if ( arguments.length == 2 )
+        else if ( typeof key == 'string' )
             this.setValue.apply( this, arguments );
         else
             throw new TypeError( 'Arguments does not match function signature' );
@@ -51,29 +52,39 @@ enyo.kind({
     },
 
     /**
-     * @param {String[]|String} key
+     * @param {string[]|string} keys
      */
-    get: function( key ){
-        if ( typeof key == 'string' )
-            return this.attr[key];
+    get: function( keys ){
+        return typeof keys == 'string'
+            ? this.getValue( keys )
+            : this.getSubset( keys );
+    },
 
-        var k,
-            res = {};
+    getValue: function( key ){
+        return this.attr[key];
+    },
 
-        for ( k in key ) if ( key.hasOwnProperty(k) )
-            res[k] = this.attr[k];
+    /**
+     * @param {string[]} keys
+     */
+    getSubset: function( keys ){
+        var res = {};
+
+        keys.forEach( function( key ){
+            res[key] = this.getValue( key );
+        }, this );
         return res;
     },
 
     reset: function( options ){
-        this.attr = enyo.mixin( this.initAttrs );
+        this.attr = enyo.mixin( {}, this.initAttrs );
         this.changed = {};
         if ( !(options && options.silent === true) )
             this.trigger( 'reset', this );
     },
 
     /**
-     * @param {?string} key
+     * @param {string?} key
      */
     isChanged: function( key ){
         if ( key )

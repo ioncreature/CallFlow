@@ -4,6 +4,7 @@
     <title>Jasmine Spec Runner</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
+    <!-- JASMINE -->
     <link rel="stylesheet" type="text/css" href="../lib/jasmine/lib/jasmine-core/jasmine.css">
     <script src="../lib/jasmine/lib/jasmine-core/jasmine.js"></script>
     <script src="../lib/jasmine/lib/jasmine-core/jasmine-html.js"></script>
@@ -11,6 +12,7 @@
 
     <!-- TESTS -->
     <script src="core/Observable.js"></script>
+    <script src="core/Model.js"></script>
 
 
     <!-- SOURCES -->
@@ -18,13 +20,14 @@
     <script src="../enyo/enyo.js"></script>
     <script src="../source/package.js" type="text/javascript"></script>
 
+
+    <!-- RUN TESTS -->
     <script type="text/javascript">
         (function(){
             var jasmineEnv = jasmine.getEnv();
             jasmineEnv.updateInterval = 1000;
 
             var trivialReporter = new jasmine.TrivialReporter();
-
             jasmineEnv.addReporter( trivialReporter );
 
             jasmineEnv.specFilter = function( spec ){
@@ -32,18 +35,14 @@
             };
 
             var currentWindowOnload = window.onload;
-
             window.onload = function(){
-                if ( currentWindowOnload ){
-                    currentWindowOnload();
-                }
+                currentWindowOnload && currentWindowOnload();
                 execJasmine();
             };
 
             function execJasmine(){
                 jasmineEnv.execute();
             }
-
         })();
     </script>
 </head>
