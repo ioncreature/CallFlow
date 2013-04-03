@@ -10,6 +10,7 @@ enyo.depends(
     'core',
     'data',
 
+    'ui/Button.js',
     'ui/NavToolbar.js',
     'ui/ColumnsLayout.js',
     'ui/VerticalGroup.js',
@@ -22,6 +23,8 @@ enyo.depends(
     'ui/EditableList.js',
     'ui/ToggleButton.js',
     'ui/Notifications.js',
+    'ui/PhoneItem.js',
+    'ui/PhoneGroup.js',
     'ui/PhonesContainer.js',
     'ui/UserInfoPanel.js',
     'ui/CallFlowItem.js',

@@ -1,12 +1,12 @@
 /**
  * @author Marenin Alexander
- * February 2013
+ * April 2013
  */
 
 enyo.kind({
     kind: 'rc.Collection',
-    name: 'rc.data.RuleCollection',
+    name: 'rc.data.PhoneCollection',
 
-    model: rc.data.RuleModel,
+    model: rc.data.PhoneModel,
     idField: 'id'
 });

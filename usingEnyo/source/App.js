@@ -8,6 +8,7 @@ enyo.kind({
     classes: 'enyo-fit ui-app',
     kind: 'Panels',
     arrangerKind: 'CollapsingArranger',
+    indexPage: 'RingPhones',
 
     components: [
         {name: 'menu', kind: 'Scroller', thumb: false, classes: 'ui-main-menu', ontap: 'menuTapped', components: [
@@ -49,7 +50,7 @@ enyo.kind({
         App.on( 'goTo', this.activateMenuItem, this );
         App.on( 'goToMenu', this.showMenu, this );
 
-        App.goTo( 'CallFlow' );
+        App.goTo( this.indexPage );
     },
 
     menuItemTap: function( inSender ){

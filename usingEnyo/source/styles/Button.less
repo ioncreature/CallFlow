@@ -1,0 +1,22 @@
+/**
+ * @author Marenin Alexander 
+ * April 2013
+ */
+
+.ui-button {
+    border: 1px solid @rc-color-main;
+    border-radius: @rc-border-radius-small;
+    background-color: @rc-color-bg-light;
+    margin: @rc-margin-input;
+    color: @rc-color-main;
+    font-weight: bold;
+    padding: @rc-padding-button;
+
+    &.active,
+    &.pressed,
+    &:active:hover:not([disabled]) {
+        background-position: top left;
+        background-size: 100%;
+        .ui-gradient( top, @rc-color-main, white );
+    }
+}

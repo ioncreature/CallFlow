@@ -3,6 +3,7 @@
  * February 2013
  */
 
+@import 'Button';
 @import 'NavButton';
 @import 'NavToolbar';
 @import 'VerticalGroup';
@@ -13,6 +14,7 @@
 @import 'RadioList';
 @import 'Notifications';
 @import 'Tabs';
+@import 'Phone';
 @import 'Panels';
 @import 'PhoneContainer';
 @import 'AddRule';
@@ -35,6 +37,14 @@ body {
     box-shadow: @arguments;
     -moz-box-shadow: @arguments;
     -webkit-box-shadow: @arguments;
+}
+
+.ui-gradient( @direction: top bottom, @start: @rc-color-main, @end: white ){
+    background-image: -webkit-linear-gradient(@direction, @start 0%, @end 100%); /* Chrome10+,Safari5.1+ */
+    background-image:    -moz-linear-gradient(@direction, @start 0%, @end 100%); /* FF3.6+ */
+    background-image:     -ms-linear-gradient(@direction, @start 0%, @end 100%); /* IE9+ */
+    background-image:      -o-linear-gradient(@direction, @start 0%, @end 100%); /* Opera 11.10+ */
+    background-image:         linear-gradient(@direction, @start 0%, @end 100%); /* W3C */
 }
 
 .ui-placeholder (
@@ -122,17 +132,6 @@ body {
     font-weight: bold;
     font-family: @rc-font-family;
     .ui-placeholder;
-}
-
-.ui-button {
-    border: 1px solid @rc-color-main;
-    border-radius: @rc-border-radius-small;
-    background-color: @rc-color-bg-light;
-    background-image: none;
-    margin: @rc-margin-input;
-    color: @rc-color-main;
-    font-weight: bold;
-    padding: @rc-padding-button;
 }
 
 .ui-icon-next {

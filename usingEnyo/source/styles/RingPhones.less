@@ -2,3 +2,20 @@
  * @author Marenin Alexander 
  * March 2013
  */
+
+.ui-ring-phones-toolbar {
+    margin-top: @rc-margin;
+
+    .ui-button {
+        margin-right: 0;
+        font-size: @rc-font-size-small;
+    }
+
+    .ui-ring-phones-up,
+    .ui-ring-phones-down {
+        &.disabled {
+            color: @rc-color-inactive;
+        }
+    }
+}
+

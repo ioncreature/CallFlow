@@ -125,7 +125,9 @@ var loc = {
     },
 
     RingPhones: {
-        caption: 'Ring My Phones'
+        caption: 'Ring My Phones',
+        split: 'Split Group',
+        join: 'Ring as Group'
     },
 
     Dev: {

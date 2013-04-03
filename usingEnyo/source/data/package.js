@@ -5,5 +5,7 @@
 
 enyo.depends(
     'RuleModel.js',
-    'RuleCollection.js'
+    'RuleCollection.js',
+    'PhoneModel.js',
+    'PhoneCollection.js'
 );

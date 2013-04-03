@@ -8,6 +8,8 @@ enyo.kind({
     kind: 'rc.VerticalGroup',
     name: 'rc.RadioList',
     classes: 'ui-radio-list',
+    defaultKind: 'rc.RadioListItem',
+    activeChild: null,
 
     published: {
         collection: null,
@@ -25,10 +27,6 @@ enyo.kind({
     handlers: {
         ontap: 'onItemTap'
     },
-
-    itemKind: 'rc.RadioListItem',
-    defaultKind: 'rc.RadioListItem',
-    activeChild: null,
 
     create: function(){
         this.bindings = [];
@@ -54,7 +52,7 @@ enyo.kind({
     createComponentByModel: function( model ){
         var adapter = this.getAdapter() || this.defaultAdapter,
             defaults = {
-                kind: this.itemKind,
+                kind: this.defaultKind,
                 ontap: 'onItemTap'
             },
             names = this.getWatchedNames();

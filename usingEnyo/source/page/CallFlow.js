@@ -37,8 +37,8 @@ enyo.kind({
                     components: [
                         {name: 'rules', kind: 'rc.RadioList', classes: 'compact show-ruler'},
                         {classes: 'ui-call-flow-rule-buttons', controlClasses: 'ui-button', components: [
-                            {name: 'addCustomRule', kind: 'onyx.Button', ontap: 'addCustomRule', content: loc.CallFlow.addCustomRule },
-                            {name: 'addAfterHours', kind: 'onyx.Button', ontap: 'addAfterHours', content: loc.CallFlow.addAfterHours }
+                            {name: 'addCustomRule', kind: 'rc.Button', ontap: 'addCustomRule', content: loc.CallFlow.addCustomRule },
+                            {name: 'addAfterHours', kind: 'rc.Button', ontap: 'addAfterHours', content: loc.CallFlow.addAfterHours }
                         ]}
                     ]
                 },
@@ -102,6 +102,7 @@ enyo.kind({
                     onButtonTap: 'goToRingPhones',
                     caption: loc.CallFlow.ringMyPhones,
                     description: loc.CallFlow.ringMyPhonesDesc,
+                    classes: 'ui-call-flow-ring-phones',
                     components: [
                         {kind: 'rc.PhonesContainer'}
                     ]
