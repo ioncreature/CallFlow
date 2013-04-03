@@ -54,7 +54,7 @@ describe( 'rc.Collection', function(){
     });
 
 
-    it( 'should add multiple collections', function(){
+    it( 'should add multiple models', function(){
         coll.add([
             {id: 5},
             {id: 6}
