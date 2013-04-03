@@ -1,6 +1,6 @@
 /**
  * @author Marenin Alexander
- * March 2013
+ * April 2013
  */
 
 describe( 'rc.Observable', function(){

@@ -7,12 +7,14 @@
     <!-- JASMINE -->
     <link rel="stylesheet" type="text/css" href="../lib/jasmine/lib/jasmine-core/jasmine.css">
     <script src="../lib/jasmine/lib/jasmine-core/jasmine.js"></script>
+    <script src="../lib/jasmine/src/console/ConsoleReporter.js"></script>
     <script src="../lib/jasmine/lib/jasmine-core/jasmine-html.js"></script>
 
 
     <!-- TESTS -->
     <script src="core/Observable.js"></script>
     <script src="core/Model.js"></script>
+    <script src="core/Collection.js"></script>
 
 
     <!-- SOURCES -->
@@ -28,7 +30,8 @@
             jasmineEnv.updateInterval = 1000;
 
             var trivialReporter = new jasmine.TrivialReporter();
-            jasmineEnv.addReporter( trivialReporter );
+            jasmineEnv.addReporter( new jasmine.TrivialReporter() );
+            jasmineEnv.addReporter( new jasmine.ConsoleReporter(console.log.bind(console)) );
 
             jasmineEnv.specFilter = function( spec ){
                 return trivialReporter.specFilter( spec );

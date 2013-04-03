@@ -10,12 +10,14 @@ enyo.kind({
     models: null,
     model: null,
     idField: null,
+    index: null,
 
     constructor: function( options ){
         this.models = [];
-        this.model = this.model || options.model || rc.Model;
-        this.idField = options.idField;
+        this.model = options.model || this.model || rc.Model;
+        this.idField = options.idField || this.idField;
         this.inherited( arguments );
+        this.index = {};
         this.add( options.models || [], {silent: true} );
     },
 
@@ -34,8 +36,12 @@ enyo.kind({
     },
 
     addModel: function( model, options ){
-        var newModel = model instanceof this.model ? model : new this.model( model );
+        var newModel = model instanceof this.model ? model : new this.model( model ),
+            id = newModel.get( this.idField );
+
         this.models.push( newModel );
+        if ( id !== undefined )
+            this.index[id] = newModel;
         if ( !(options && options.silent === true) )
             this.trigger( 'add', newModel );
     },
@@ -52,7 +58,7 @@ enyo.kind({
             }, this );
         }
         else
-            this.removeModel();
+            this.removeModel( models );
     },
 
     removeModel: function( model, options ){
@@ -65,7 +71,8 @@ enyo.kind({
     },
 
     removeById: function( id, options ){
-        var idField = this.id;
+        var idField = this.idField;
+
         this.models.some( function( model, i ){
             if ( model.get(idField) === id ){
                 this.removeByIndex( i, options );
@@ -75,13 +82,22 @@ enyo.kind({
     },
 
     removeByIndex: function( i, options ){
+        var id = this.models[i].get( this.idField );
         delete this.models[i];
+        id && delete this.index[id];
+
         if ( !(options && options.silent === true) )
             this.trigger( 'remove', this );
     },
 
     getItems: function(){
-        return this.models;
+        return this.models.filter( function( model ){
+            return !!model;
+        });
+    },
+
+    getById: function( id ){
+        return this.index[id];
     },
 
     forEach: function(){
@@ -97,7 +113,7 @@ enyo.kind({
     },
 
     filter: function(){
-        return this.models.every.apply( this.models, arguments );
+        return this.models.filter.apply( this.models, arguments );
     },
 
     map: function(){
