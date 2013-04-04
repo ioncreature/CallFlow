@@ -127,7 +127,9 @@ var loc = {
     RingPhones: {
         caption: 'Ring My Phones',
         split: 'Split Group',
-        join: 'Ring as Group'
+        join: 'Ring as Group',
+        ringExistingPhoneNumbers: 'Ring my existing phone numbers',
+        forward: 'Forward to other user\'s phones'
     },
 
     Dev: {

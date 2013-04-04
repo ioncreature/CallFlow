@@ -7,6 +7,7 @@ enyo.kind({
     kind: enyo.Control,
     name: 'rc.NavButton',
     classes: 'ui-nav-button',
+    stretchClass: 'ui-nav-button-stretch',
 
     published: {
         caption: '',
@@ -28,13 +29,20 @@ enyo.kind({
 
     descriptionChanged: function(){
         var desc = this.getDescription(),
-            res;
-        if ( desc instanceof Array )
-            res = desc.join( '<br />' );
-        else
-            res = '' + desc;
+            res = desc instanceof Array
+                ? desc.join( '<br />' )
+                : String( desc );
 
         this.$.description.setContent( res );
+
+        if ( res ){
+            this.$.caption.removeClass( this.stretchClass );
+            this.$.description.show();
+        }
+        else {
+            this.$.caption.addClass( this.stretchClass );
+            this.$.description.hide();
+        }
     },
 
     captionChanged: function(){

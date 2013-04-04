@@ -16,6 +16,8 @@ enyo.kind({
             {name: 'split', content: loc.RingPhones.split, kind: 'rc.Button'},
             {name: 'join', content: loc.RingPhones.join, kind: 'rc.Button'}
         ]},
-        {kind: 'rc.PhonesContainer'}
+        {kind: 'rc.PhonesContainer'},
+        {kind: 'rc.NavButton', caption: loc.RingPhones.ringExistingPhoneNumbers},
+        {kind: 'rc.NavButton', caption: loc.RingPhones.forward}
     ]
 });
