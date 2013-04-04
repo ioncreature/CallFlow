@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+]>
+<svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="10.13px" height="6.783px"
+	 viewBox="0 0 10.13 6.783" style="enable-background:new 0 0 10.13 6.783;" xml:space="preserve">
+<style type="text/css">
+<![CDATA[
+	.st0{fill:#FFFFFF;}
+]]>
+</style>
+<metadata>
+	<sfw  xmlns="&ns_sfw;">
+		<slices></slices>
+		<sliceSourceBounds  y="-300.312" x="415.01" width="10.13" height="6.782" bottomLeftOrigin="true"></sliceSourceBounds>
+	</sfw>
+</metadata>
+<g>
+	<path class="st0" d="M10.13,6.113c0,0.37-0.299,0.67-0.67,0.67H2.802c-0.369,0-0.668-0.3-0.668-0.67
+		c0-0.369,0.299-0.667,0.668-0.667H9.46C9.832,5.445,10.13,5.744,10.13,6.113"/>
+	<path class="st0" d="M10.13,3.391c0,0.369-0.299,0.668-0.67,0.668H2.802c-0.369,0-0.668-0.299-0.668-0.668
+		c0-0.369,0.299-0.668,0.668-0.668H9.46C9.832,2.723,10.13,3.022,10.13,3.391"/>
+	<path class="st0" d="M10.13,0.668c0,0.37-0.299,0.668-0.67,0.668H2.802c-0.369,0-0.668-0.298-0.668-0.668
+		C2.134,0.3,2.433,0,2.802,0H9.46C9.832,0,10.13,0.3,10.13,0.668"/>
+	<circle class="st0" cx="0.668" cy="0.668" r="0.668"/>
+	<circle class="st0" cx="0.668" cy="3.391" r="0.668"/>
+	<circle class="st0" cx="0.668" cy="6.114" r="0.668"/>
+</g>
+</svg>
