@@ -18,10 +18,10 @@ enyo.kind({
     },
 
     components: [
-        {classes: 'ui-phone-group-radio-container', ontap: 'doRadioTap', components: [
+        {classes: 'ui-phone-group-radio-container', ontap: 'handleRadioTap', components: [
             {name: 'radio', classes: 'ui-phone-group-radio'}
         ]},
-        {name: 'items', classes: 'ui-phone-group-items',fit: true},
+        {name: 'items', classes: 'ui-phone-group-items', fit: true},
         {classes: 'ui-phone-group-next-icon'},
         {name: 'rings', classes: 'ui-phone-group-rings', components: [
             {name: 'count', classes: 'ui-phone-group-rings-count', content: 5},
@@ -57,7 +57,9 @@ enyo.kind({
             this.$.radio.removeClass( 'active' );
     },
 
-    doRadioTap: function(){
+    handleRadioTap: function(){
         this.setActive( !this.getActive() );
+        this.log( 'event' );
+        this.doRadioTap( this );
     }
 });

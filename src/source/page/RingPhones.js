@@ -10,7 +10,8 @@ enyo.kind({
     caption: loc.RingPhones.caption,
 
     handlers: {
-        onOpen: 'pageOpen'
+        onOpen: 'pageOpen',
+        onRadioTap: 'handleToolbar'
     },
 
     published: {
@@ -43,9 +44,7 @@ enyo.kind({
             collection.forEach( function( group ){
                 container.createComponent({
                     kind: rc.PhoneGroup,
-                    collection: group,
-                    onRadioTap: this.goToNowhere.bind( this ),
-                    ontap: 'goToNowhere'
+                    collection: group
                 });
             }, this );
         }
@@ -61,6 +60,11 @@ enyo.kind({
 
     loadCollection: function(){
         return this._getMockCollection();
+    },
+
+    handleToolbar: function(){
+        this.log( 'fired' );
+        return true;
     },
 
     goToNowhere: function(){
