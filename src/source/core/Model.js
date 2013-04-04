@@ -91,5 +91,12 @@ enyo.kind({
             return this.changed[key] === true;
         else
             return Object.keys( this.changed ).some( this.isChanged, this );
+    },
+
+    /**
+     * @override
+     */
+    save: function(){
+        this.changed = {};
     }
 });

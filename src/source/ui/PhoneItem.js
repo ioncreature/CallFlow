@@ -26,37 +26,39 @@ enyo.kind({
     },
 
     destroy: function(){
-        this.removeHandlers();
+        this.removeBindings();
         this.inherited( arguments );
     },
 
     modelChanged: function(){
         var model = this.getModel();
         if ( model ){
-            this.removeHandlers();
-            this.addHandler( model.on('name', this.setName, this) );
-            this.addHandler( model.on('number', this.setNumber, this) );
+            this.removeBindings();
+            this.setName( model.get('name') );
+            this.setNumber( model.get('number') );
+            this.addBinding( model.on('name', this.setName, this) );
+            this.addBinding( model.on('number', this.setNumber, this) );
         }
     },
 
     nameChanged: function(){
-        !this.getModel() && this.$.name.setContent( this.getName() );
+        this.$.name.setContent( this.getName() );
     },
 
     numberChanged: function(){
-        !this.getModel() && this.$.number.setContent( this.getNumber() );
+        this.$.number.setContent( this.getNumber() );
     },
 
-    addHandler: function( handler ){
-        if ( this.handlers )
-            this.handlers.push( handler );
+    addBinding: function( handler ){
+        if ( this.bindings )
+            this.bindings.push( handler );
         else
-            this.handlers = [handler];
+            this.bindings = [handler];
     },
 
-    removeHandlers: function(){
-        if ( this.handlers )
-            while ( this.handlers.length )
-                this.handlers.pop().remove();
+    removeBindings: function(){
+        if ( this.bindings )
+            while ( this.bindings.length )
+                this.bindings.pop().remove();
     }
 });

@@ -5,30 +5,59 @@
 
 enyo.kind({
     name: 'rc.PhoneGroup',
-    kind: 'FittableRows',
     classes: 'ui-phone-group',
-    defaultKind: 'rc.PhoneItem',
+    itemKind: 'rc.PhoneItem',
 
     published: {
-        collection: null
+        collection: null,
+        active: false
     },
 
-    groupTools: [
-        {name: 'nav', kind: 'rc.NavToolbar', onBack: 'doBack', onNext: 'doNext'},
-        {name: 'client', fit: true, kind: 'rc.Scroller'}
+    events: {
+        onRadioTap: ''
+    },
+
+    components: [
+        {classes: 'ui-phone-group-radio-container', ontap: 'doRadioTap', components: [
+            {name: 'radio', classes: 'ui-phone-group-radio'}
+        ]},
+        {name: 'items', classes: 'ui-phone-group-items',fit: true},
+        {classes: 'ui-phone-group-next-icon'},
+        {name: 'rings', classes: 'ui-phone-group-rings', components: [
+            {name: 'count', classes: 'ui-phone-group-rings-count', content: 5},
+            {classes: 'ui-phone-group-rings-caption', content: loc.PhoneGroup.rings}
+        ]}
     ],
 
     create: function(){
         this.inherited( arguments );
         this.collectionChanged();
-    },
-
-    initComponents: function(){
-        this.createChrome( this.groupTools );
-        this.inherited( arguments );
+        this.activeChanged();
     },
 
     collectionChanged: function(){
-        // bla bla bla
+        var collection = this.getCollection(),
+            list = this.$.items;
+
+        list.destroyComponents();
+        collection.forEach( function( model ){
+            list.createComponent({
+                kind: this.itemKind,
+                model: model
+            });
+        }, this );
+
+        this.$.count.setContent( collection.get('rings') );
+    },
+
+    activeChanged: function(){
+        if ( this.getActive() )
+            this.$.radio.addClass( 'active' );
+        else
+            this.$.radio.removeClass( 'active' );
+    },
+
+    doRadioTap: function(){
+        this.setActive( !this.getActive() );
     }
 });

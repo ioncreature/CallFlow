@@ -3,6 +3,92 @@
  * March 2013
  */
 
-.ui-phone-group {}
+.ui-phone-group {
+    position: relative;
+    margin: @rc-margin-big @rc-margin;
+    padding: 0;
+    border: @rc-border-width solid @rc-color-main;
+    border-radius: @rc-border-radius;
+    background-color: @rc-color-main;
+    overflow: hidden;
+    &.inactive {
+        background-color: @rc-color-inactive;
+    }
+}
 
-.ui-phone-item {}
+.ui-phone-group-items {
+    background-color: @rc-color-bg-light;
+    padding-left: 60px;
+    margin-right: 50px;
+    min-height: 40px;
+    border-bottom-right-radius: @rc-border-radius;
+    border-top-right-radius: @rc-border-radius;
+}
+
+.ui-phone-item {
+    padding: @rc-padding 0;
+    font-size: @rc-font-size-medium;
+    font-weight: bold;
+}
+
+.ui-phone-item-name {
+    color: @rc-color-main;
+}
+
+.ui-phone-group-radio-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    min-height: 100%;
+    border-right: @rc-border-width solid @rc-color-main;
+}
+
+.ui-phone-group-radio {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    border: @rc-border-width solid @rc-color-main;
+    border-radius: 100%;
+    background-color: @rc-color-bg;
+    &.active {
+        background-color: @rc-color-main;
+    }
+}
+
+.ui-phone-group-next-icon {
+    position: absolute;
+    top: 50%;
+    right: 56px;
+    margin-top: -8px;
+    width: 16px;
+    height: 16px;
+    background: transparent url(@rc-images-button-arrow-right) center center no-repeat;
+    background-size: auto 100%;
+}
+
+.ui-phone-group-rings {
+    @height: @rc-font-size-biggest + @rc-font-size-medium;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    margin-top: -(@height / 2);
+    width: 45px;
+    height: @height;
+    color: @rc-color-active;
+    text-align: center;
+}
+
+.ui-phone-group-rings-count {
+    font-size: @rc-font-size-biggest;
+    line-height: @rc-font-size-biggest;
+    font-weight: bold;
+}
+
+.ui-phone-group-rings-caption {
+    font-size: @rc-font-size-medium;
+    line-height: @rc-font-size-medium;
+}

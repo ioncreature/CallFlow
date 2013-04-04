@@ -134,5 +134,10 @@ var loc = {
 
     Dev: {
         caption: 'Dev options'
+    },
+
+    PhoneGroup: {
+        rings: 'rings',
+        off: 'off'
     }
 };

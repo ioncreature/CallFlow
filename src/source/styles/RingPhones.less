@@ -8,14 +8,30 @@
 
     .ui-button {
         margin-right: 0;
-        font-size: @rc-font-size-small;
+        font-size: @rc-font-size-medium;
+        line-height: @rc-font-size-medium;
     }
 
+    .ui-ring-phones-up {
+        background-image: url(@rc-images-button-vertical-arrow-up);
+    }
+    .ui-ring-phones-down {
+        background-image: url(@rc-images-button-vertical-arrow-down);
+    }
     .ui-ring-phones-up,
     .ui-ring-phones-down {
+        width: 32px;
+        background-position: top center;
+        background-repeat: no-repeat;
+        background-size: 100% 200%;
         &.disabled {
+            background-position: bottom center;
             color: @rc-color-inactive;
         }
     }
+}
+
+.ui-ring-phones-list {
+    margin: @rc-margin-big 0 2 * @rc-margin-big 0;
 }
 
