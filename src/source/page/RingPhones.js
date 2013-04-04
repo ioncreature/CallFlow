@@ -17,7 +17,11 @@ enyo.kind({
             {name: 'join', content: loc.RingPhones.join, kind: 'rc.Button'}
         ]},
         {kind: 'rc.PhonesContainer'},
-        {kind: 'rc.NavButton', caption: loc.RingPhones.ringExistingPhoneNumbers},
-        {kind: 'rc.NavButton', caption: loc.RingPhones.forward}
-    ]
+        {kind: 'rc.NavButton', ontap: 'goToNowhere', caption: loc.RingPhones.ringExistingPhoneNumbers},
+        {kind: 'rc.NavButton', ontap: 'goToNowhere', caption: loc.RingPhones.forward}
+    ],
+
+    goToNowhere: function(){
+        App.goToNowhere();
+    }
 });
