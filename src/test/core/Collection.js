@@ -93,4 +93,12 @@ describe( 'rc.Collection', function(){
 
         expect( superColl.getById(1) instanceof TestCollection ).toBe( true );
     });
+
+
+    it( 'should throw exception if added wrong type model', function(){
+        function addWrongModel(){
+            superColl.add( model );
+        }
+        expect( addWrongModel ).toThrow();
+    });
 });

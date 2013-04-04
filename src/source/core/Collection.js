@@ -37,12 +37,23 @@ enyo.kind({
     },
 
     addModel: function( model, options ){
-        var newModel = model instanceof this.model ? model : new this.model( model ),
-            id = newModel.get( this.idField );
+        var newModel,
+            id;
 
+        if ( model instanceof rc.Model )
+            if ( model instanceof this.model )
+                newModel = model;
+            else
+                throw new TypeError( 'Wrong model type' );
+        else
+            newModel = new this.model( model );
+
+        id = newModel.get( this.idField );
         this.models.push( newModel );
+
         if ( id !== undefined )
             this.index[id] = newModel;
+
         if ( !(options && options.silent === true) )
             this.trigger( 'add', newModel );
     },
