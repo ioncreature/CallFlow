@@ -134,7 +134,7 @@ enyo.kind({
     },
 
     loadRules: function( callback ){
-        this.rules = new rc.data.RuleCollection({ models: this._createRuleModels() });
+        this.rules = new rc.data.RuleCollection( {}, { models: this._createRuleModels() });
         callback.call( this, this.rules );
     },
 

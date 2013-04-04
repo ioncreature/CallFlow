@@ -4,10 +4,12 @@
  */
 
 describe( 'rc.Collection', function(){
-    var coll,
+    var superColl,
+        coll,
         model,
         TestCollection,
         TestModel,
+        SuperCollection,
         obj = {};
 
 
@@ -21,13 +23,23 @@ describe( 'rc.Collection', function(){
         TestCollection = enyo.kind({
             kind: 'rc.Collection',
             idField: 'id',
-            model: TestModel
+            model: TestModel,
+            defaults: {
+                piu: false
+            }
         });
-        coll = new TestCollection({ models: [
+        SuperCollection = enyo.kind({
+            kind: 'rc.Collection',
+            idField: 'id',
+            model: TestCollection
+        });
+        superColl = new SuperCollection();
+        coll = new TestCollection();
+        coll.add([
             {id: 1},
             {id: 2},
             {id: 3, test: false}
-        ]});
+        ]);
         model = new TestModel({ id: 4 });
 
         obj.fn = function(){};
@@ -46,7 +58,7 @@ describe( 'rc.Collection', function(){
 
     it( 'should remove model and fire callback', function(){
         coll.on( 'remove', obj.fn );
-        coll.add( model );
+        coll.add( model, {silent: true} );
         coll.remove( model );
 
         expect( obj.fn ).toHaveBeenCalled();
@@ -73,5 +85,12 @@ describe( 'rc.Collection', function(){
         expect( list.length ).toBe( 2 );
         coll.remove( list );
         expect( coll.getItems().length ).toBe( 1 );
+    });
+
+
+    it( 'should add collection into collection', function(){
+        superColl.add( {id: 1} );
+
+        expect( superColl.getById(1) instanceof TestCollection ).toBe( true );
     });
 });

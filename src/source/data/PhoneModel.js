@@ -9,7 +9,6 @@ enyo.kind({
 
     defaults: {
         name: '',
-        number: '',
-        groupId: null
+        number: false
     }
 });

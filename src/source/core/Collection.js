@@ -5,20 +5,21 @@
 
 enyo.kind({
     name: 'rc.Collection',
-    kind: 'rc.Observable',
+    kind: 'rc.Model',
 
     models: null,
     model: null,
     idField: null,
     index: null,
 
-    constructor: function( options ){
+    constructor: function( attributes, options ){
+        this.inherited( arguments );
         this.models = [];
-        this.model = options.model || this.model || rc.Model;
-        this.idField = options.idField || this.idField;
+        this.model = options && options.model || this.model || rc.Model;
+        this.idField = options && options.idField || this.idField;
         this.inherited( arguments );
         this.index = {};
-        this.add( options.models || [], {silent: true} );
+        this.add( options && options.models || [], {silent: true} );
     },
 
     /**
