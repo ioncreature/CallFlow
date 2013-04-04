@@ -3,3 +3,4 @@ usingEnyo/lib/
 usingEnyo/lib
 usingEnyo/deploy
 usingEnyo/build
+*.DS_Store
