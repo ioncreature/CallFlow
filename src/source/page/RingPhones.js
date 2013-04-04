@@ -89,7 +89,7 @@ enyo.kind({
                 new Class( {id: 4, rings: 3}, {models: [
                     {id: 6, name: 'Unassigned Cisco SPA-5', number: '(674) 345-4572'}
                 ]}),
-                new Class( {id: 5, rings: false}, {models: [
+                new Class( {id: 5, rings: 4, disabled: true}, {models: [
                     {id: 6, name: 'Marta\'s room', number: '(452) 345-4077'}
                 ]})
             ]

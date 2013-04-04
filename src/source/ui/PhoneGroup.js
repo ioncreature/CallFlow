@@ -10,7 +10,8 @@ enyo.kind({
 
     published: {
         collection: null,
-        active: false
+        active: false,
+        disabled: false
     },
 
     events: {
@@ -33,6 +34,7 @@ enyo.kind({
         this.inherited( arguments );
         this.collectionChanged();
         this.activeChanged();
+        this.disabledChanged();
     },
 
     collectionChanged: function(){
@@ -48,6 +50,7 @@ enyo.kind({
         }, this );
 
         this.$.count.setContent( collection.get('rings') );
+        this.setDisabled( collection.get('disabled') );
     },
 
     activeChanged: function(){
@@ -55,6 +58,13 @@ enyo.kind({
             this.$.radio.addClass( 'active' );
         else
             this.$.radio.removeClass( 'active' );
+    },
+
+    disabledChanged: function(){
+        if ( this.getDisabled() )
+            this.addClass( 'disabled' );
+        else
+            this.removeClass( 'disabled' );
     },
 
     handleRadioTap: function(){

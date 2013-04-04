@@ -11,8 +11,19 @@
     border-radius: @rc-border-radius;
     background-color: @rc-color-main;
     overflow: hidden;
-    &.inactive {
+    &.disabled {
         background-color: @rc-color-inactive;
+        border-width: 0;
+        .ui-phone-group-items {
+            border: @rc-border-width solid @rc-color-main;
+        }
+        .ui-phone-group-radio-container {
+            display: none;
+        }
+        .ui-phone-group-items {
+            padding-left: 10px;
+            border-radius: @rc-border-radius;
+        }
     }
 }
 

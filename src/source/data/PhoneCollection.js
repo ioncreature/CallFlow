@@ -8,5 +8,10 @@ enyo.kind({
     name: 'rc.data.PhoneCollection',
 
     model: rc.data.PhoneModel,
-    idField: 'id'
+    idField: 'id',
+
+    defaults: {
+        disabled: false,
+        rings: 5
+    }
 });
