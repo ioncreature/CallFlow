@@ -19,10 +19,10 @@ enyo.kind({
 
     components: [
         {kind: 'FittableColumns', classes: 'ui-ring-phones-toolbar', components: [
-            {name: 'up', disabled: true, kind: 'rc.Button', classes: 'ui-ring-phones-up'},
-            {name: 'down', disabled: true, kind: 'rc.Button', classes: 'ui-ring-phones-down'},
-            {name: 'split', disabled: true,  kind: 'rc.Button', content: loc.RingPhones.split},
-            {name: 'join', disabled: true, kind: 'rc.Button', content: loc.RingPhones.join}
+            {name: 'up', disabled: true, kind: 'rc.Button', ontap: 'moveUp', classes: 'ui-ring-phones-up'},
+            {name: 'down', disabled: true, kind: 'rc.Button', ontap: 'moveDown', classes: 'ui-ring-phones-down'},
+            {name: 'split', disabled: true,  kind: 'rc.Button', ontap: 'splitGroups', content: loc.RingPhones.split},
+            {name: 'join', disabled: true, kind: 'rc.Button', ontap: 'join', content: loc.RingPhones.join}
         ]},
         {
             name: 'phones',
@@ -45,7 +45,8 @@ enyo.kind({
     },
 
     pageOpen: function(){
-        this.setPhonesCollection( this.loadCollection() );
+        if ( !this.getPhonesCollection() )
+            this.setPhonesCollection( this.loadCollection() );
     },
 
     loadCollection: function(){
@@ -64,6 +65,22 @@ enyo.kind({
         this.$.down.setDisabled( phones.isLastSelected() || !count );
         this.$.join.setDisabled( count <= 1 );
         this.$.split.setDisabled( !haveLongGroup );
+    },
+
+    moveUp: function(){
+        this.log( '-' );
+    },
+
+    moveDown: function(){
+        this.log( '-' );
+    },
+
+    splitGroups: function(){
+        this.log( '-' );
+    },
+
+    join: function(){
+        this.log( '-' );
     },
 
     goToNowhere: function(){
