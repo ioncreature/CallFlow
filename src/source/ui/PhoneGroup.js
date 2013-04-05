@@ -69,7 +69,7 @@ enyo.kind({
 
     handleRadioTap: function(){
         this.setActive( !this.getActive() );
-        this.log( 'event' );
         this.doRadioTap( this );
+        return true;
     }
 });

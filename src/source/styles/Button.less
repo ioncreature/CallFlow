@@ -12,6 +12,12 @@
     font-weight: bold;
     padding: @rc-padding-button;
 
+    &.disabled,
+    &[disabled] {
+        color: @rc-color-inactive;
+        border-color: @rc-color-inactive;
+    }
+
     &.active,
     &.pressed,
     &:active:hover:not([disabled]) {

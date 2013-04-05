@@ -66,6 +66,14 @@ describe( 'rc.Collection', function(){
     });
 
 
+    it( 'should remove model by id', function(){
+        expect( coll.getById(1) ).toBeTruthy();
+
+        coll.removeById( 1 );
+        expect( coll.getById(1) ).toBeUndefined();
+    });
+
+
     it( 'should add multiple models', function(){
         coll.add([
             {id: 5},
@@ -100,5 +108,22 @@ describe( 'rc.Collection', function(){
             superColl.add( model );
         }
         expect( addWrongModel ).toThrow();
+    });
+
+
+    it( 'should return correct quantity of models', function(){
+        expect( coll.getQuantity() ).toBe( 3 );
+
+        coll.removeById( 1 );
+        expect( coll.getQuantity() ).toBe( 2 );
+
+        coll.removeById( 2 );
+        expect( coll.getQuantity() ).toBe( 1 );
+
+        coll.removeById( 3 );
+        expect( coll.getQuantity() ).toBe( 0 );
+
+        coll.add({ id: 4 });
+        expect( coll.getQuantity() ).toBe( 1 );
     });
 });

@@ -112,6 +112,10 @@ enyo.kind({
         return this.index[id];
     },
 
+    getQuantity: function(){
+        return this.getItems().length;
+    },
+
     forEach: function(){
         return this.models.forEach.apply( this.models, arguments );
     },

@@ -10,8 +10,7 @@ enyo.kind({
     caption: loc.RingPhones.caption,
 
     handlers: {
-        onOpen: 'pageOpen',
-        onRadioTap: 'handleToolbar'
+        onOpen: 'pageOpen'
     },
 
     published: {
@@ -20,42 +19,33 @@ enyo.kind({
 
     components: [
         {kind: 'FittableColumns', classes: 'ui-ring-phones-toolbar', components: [
-            {name: 'up', kind: 'rc.Button', classes: 'ui-ring-phones-up'},
+            {name: 'up', disabled: true, kind: 'rc.Button', classes: 'ui-ring-phones-up'},
             {name: 'down', disabled: true, kind: 'rc.Button', classes: 'ui-ring-phones-down'},
-            {name: 'split', content: loc.RingPhones.split, kind: 'rc.Button'},
-            {name: 'join', content: loc.RingPhones.join, kind: 'rc.Button'}
+            {name: 'split', disabled: true,  kind: 'rc.Button', content: loc.RingPhones.split},
+            {name: 'join', disabled: true, kind: 'rc.Button', content: loc.RingPhones.join}
         ]},
-        {name: 'phones', classes: 'ui-ring-phones-list'},
+        {
+            name: 'phones',
+            kind: 'rc.PhoneGroups',
+            classes: 'ui-ring-phones-list',
+            onItemTap: 'goToNowhere',
+            onItemRadioTap: 'handleToolbar'
+        },
         {kind: 'rc.NavButton', ontap: 'goToNowhere', caption: loc.RingPhones.ringExistingPhoneNumbers},
         {kind: 'rc.NavButton', ontap: 'goToNowhere', caption: loc.RingPhones.forward}
     ],
 
     create: function(){
         this.inherited( arguments );
-        this.phonesCollectionChanged();
     },
 
     phonesCollectionChanged: function(){
-        var container = this.$.phones,
-            collection = this.getPhonesCollection();
-
-        if ( collection ){
-            container.destroyComponents();
-            collection.forEach( function( group ){
-                container.createComponent({
-                    kind: rc.PhoneGroup,
-                    collection: group
-                });
-            }, this );
-        }
+        var collection = this.getPhonesCollection();
+        collection && this.$.phones.setCollection( collection );
     },
 
     pageOpen: function(){
-        var pageData = this.getPageData();
-        this.setPhonesCollection( pageData && pageData.phones
-            ? pageData.phones
-            : this.loadCollection()
-        );
+        this.setPhonesCollection( this.loadCollection() );
     },
 
     loadCollection: function(){
@@ -63,8 +53,17 @@ enyo.kind({
     },
 
     handleToolbar: function(){
-        this.log( 'fired' );
-        return true;
+        var phones = this.$.phones,
+            colls = phones.getSelectedCollections(),
+            count = colls.length,
+            haveLongGroup = colls.some( function( coll ){
+                return coll.getQuantity() > 1
+            });
+
+        this.$.up.setDisabled( phones.isFirstSelected() || !count );
+        this.$.down.setDisabled( phones.isLastSelected() || !count );
+        this.$.join.setDisabled( count <= 1 );
+        this.$.split.setDisabled( !haveLongGroup );
     },
 
     goToNowhere: function(){
