@@ -28,7 +28,7 @@ enyo.kind({
             name: 'phones',
             kind: 'rc.PhoneGroups',
             classes: 'ui-ring-phones-list',
-            onItemTap: 'goToNowhere',
+            onItemTap: 'goToGroupSettings',
             onItemRadioTap: 'handleToolbar'
         },
         {kind: 'rc.NavButton', ontap: 'goToNowhere', caption: loc.RingPhones.ringExistingPhoneNumbers},
@@ -81,6 +81,10 @@ enyo.kind({
 
     join: function(){
         this.log( '-' );
+    },
+
+    goToGroupSettings: function( sender, event ){
+        App.goTo( 'PhoneGroupSettings', event.collection );
     },
 
     goToNowhere: function(){

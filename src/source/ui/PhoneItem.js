@@ -5,6 +5,7 @@
 
 enyo.kind({
     name: 'rc.PhoneItem',
+    kind: 'rc.Control',
     classes: 'ui-phone-item',
 
     published: {
@@ -47,18 +48,5 @@ enyo.kind({
 
     numberChanged: function(){
         this.$.number.setContent( this.getNumber() );
-    },
-
-    addBinding: function( handler ){
-        if ( this.bindings )
-            this.bindings.push( handler );
-        else
-            this.bindings = [handler];
-    },
-
-    removeBindings: function(){
-        if ( this.bindings )
-            while ( this.bindings.length )
-                this.bindings.pop().remove();
     }
 });

@@ -10,6 +10,7 @@ enyo.depends(
     'core',
     'data',
 
+    'ui/Control.js',
     'ui/Button.js',
     'ui/NavToolbar.js',
     'ui/ColumnsLayout.js',
@@ -43,6 +44,7 @@ enyo.depends(
     'page/UserSettings.js',
     'page/AddRule.js',
     'page/RingPhones.js',
+    'page/PhoneGroupSettings.js',
 
 	'App.js'
 );

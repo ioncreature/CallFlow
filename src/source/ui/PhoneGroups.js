@@ -5,6 +5,7 @@
 
 enyo.kind({
     name: 'rc.PhoneGroups',
+    kind: 'rc.Control',
     classes: 'ui-phone-groups',
     defaultKind: 'rc.PhoneGroup',
 
@@ -31,12 +32,20 @@ enyo.kind({
                 this.createComponent({
                     kind: this.defaultKind,
                     collection: group,
-                    onRadioTap: 'doItemRadioTap',
-                    ontap: 'doItemTap'
+                    onRadioTap: 'itemRadioTap',
+                    ontap: 'itemTap'
                 });
             }, this );
             this.render();
         }
+    },
+
+    itemRadioTap: function( sender ){
+        this.doItemRadioTap({ collection: sender.collection });
+    },
+
+    itemTap: function( sender ){
+        this.doItemTap({ collection: sender.collection });
     },
 
     /**

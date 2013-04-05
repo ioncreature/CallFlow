@@ -26,6 +26,10 @@ enyo.kind({
         this.captionChanged();
     },
 
+    toggleChanged: function(){
+        this.setValue( this.$.toggle.getValue() );
+    },
+
     captionChanged: function(){
         this.$.caption.setContent( this.getCaption() );
     },

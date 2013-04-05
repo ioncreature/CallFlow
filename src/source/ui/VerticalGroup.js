@@ -4,7 +4,7 @@
  */
 
 enyo.kind({
-    kind: enyo.Control,
+    kind: 'rc.Control',
     name: 'rc.VerticalGroup',
     classes: 'ui-vertical-group',
 

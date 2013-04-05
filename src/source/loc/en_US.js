@@ -139,5 +139,12 @@ var loc = {
     PhoneGroup: {
         rings: 'rings',
         off: 'off'
+    },
+
+    PhoneGroupSettings: {
+        caption: 'Phone Group',
+        groupWillRing: 'Group will ring:',
+        status: 'Status',
+        ringsIncorrect: 'Rings count is incorrect'
     }
 };

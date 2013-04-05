@@ -5,13 +5,15 @@
 
 enyo.kind({
     name: 'rc.PhoneGroup',
+    kind: 'rc.Control',
     classes: 'ui-phone-group',
     itemKind: 'rc.PhoneItem',
 
     published: {
         collection: null,
         active: false,
-        disabled: false
+        disabled: false,
+        rings: 0
     },
 
     events: {
@@ -35,22 +37,23 @@ enyo.kind({
         this.collectionChanged();
         this.activeChanged();
         this.disabledChanged();
+        this.ringsChanged();
     },
 
     collectionChanged: function(){
-        var collection = this.getCollection(),
+        var coll = this.getCollection(),
             list = this.$.items;
 
         list.destroyComponents();
-        collection.forEach( function( model ){
+        coll.forEach( function( model ){
             list.createComponent({
                 kind: this.itemKind,
                 model: model
             });
         }, this );
 
-        this.$.count.setContent( collection.get('rings') );
-        this.setDisabled( collection.get('disabled') );
+        this.addBinding( coll.on('rings', this.setRings, this) );
+        this.addBinding( coll.on('disabled', this.setDisabled, this) );
     },
 
     activeChanged: function(){
@@ -61,10 +64,15 @@ enyo.kind({
     },
 
     disabledChanged: function(){
+        this.setDisabled( this.getCollection().get('disabled') );
         if ( this.getDisabled() )
             this.addClass( 'disabled' );
         else
             this.removeClass( 'disabled' );
+    },
+
+    ringsChanged: function(){
+        this.$.count.setContent( this.getCollection().get('rings') );
     },
 
     handleRadioTap: function(){

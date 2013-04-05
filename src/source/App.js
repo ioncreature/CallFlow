@@ -8,7 +8,7 @@ enyo.kind({
     classes: 'enyo-fit ui-app',
     kind: 'Panels',
     arrangerKind: 'CollapsingArranger',
-    indexPage: 'CallFlow',
+    indexPage: 'RingPhones',
 
     components: [
         {name: 'menu', kind: 'Scroller', thumb: false, touch: true, classes: 'ui-main-menu', ontap: 'menuTapped', components: [
@@ -37,6 +37,7 @@ enyo.kind({
             {kind: 'rc.page.UnderConstruction', name: 'UnderConstruction'},
             {kind: 'rc.page.AddRule', name: 'AddRule'},
             {kind: 'rc.page.RingPhones', name: 'RingPhones'},
+            {kind: 'rc.page.PhoneGroupSettings', name: 'PhoneGroupSettings'},
             {kind: 'rc.page.Dev', name: 'Dev'}
         ]}
     ],
