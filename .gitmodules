@@ -1,0 +1,12 @@
+[submodule "src/lib/layout"]
+	path = src/lib/layout
+	url = https://github.com/enyojs/layout.git
+[submodule "src/lib/onyx"]
+	path = src/lib/onyx
+	url = https://github.com/enyojs/onyx.git
+[submodule "src/enyo"]
+	path = src/enyo
+	url = https://github.com/enyojs/enyo.git
+[submodule "src/lib/jasmine"]
+	path = src/lib/jasmine
+	url = https://github.com/pivotal/jasmine.git
