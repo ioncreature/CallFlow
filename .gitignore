@@ -1,6 +1,6 @@
 .idea
-usingEnyo/lib/
-usingEnyo/lib
-usingEnyo/deploy
-usingEnyo/build
+src/lib
+src/enyo
+src/deploy
+src/build
 *.DS_Store
