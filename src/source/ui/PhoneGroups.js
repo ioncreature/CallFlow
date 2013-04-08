@@ -83,32 +83,61 @@ enyo.kind({
     },
 
     moveUpSelected: function(){
+        this._move( -1 );
+    },
+
+    moveDownSelected: function(){
+        this._move( 1 );
+    },
+
+    _move: function( n ){
         var items = this.getSelectedItems(),
             i,
-            n = -1,
             itemIndices = this._getItemsIndices( items ),
             newIndices = [],
             newIndex,
             prevIndex,
-            children = this.children;
+            nextIndex,
+            children = this.children,
+            lastIndex = children.length - 1;
 
-        if ( items.length == 0 )
+        if ( items.length == 0 || n === 0 )
             return false;
 
-        for ( i = 0; i < items.length; i++ ){
-            newIndex = itemIndices[i] + n;
-            prevIndex = i > 0 && newIndices[i-1];
+        if ( n < 0 ){
+            for ( i = 0; i < items.length; i++ ){
+                newIndex = itemIndices[i] + n;
+                prevIndex = i > 0 && newIndices[i-1];
 
-            if ( i > 0 && prevIndex >= newIndex )
-                newIndices[i] = prevIndex + 1;
-            else
-                newIndices[i] = newIndex > 0 ? newIndex : 0;
+                if ( i > 0 && prevIndex >= newIndex )
+                    newIndices[i] = prevIndex + 1;
+                else
+                    newIndices[i] = newIndex > 0 ? newIndex : 0;
+            }
+
+            for ( i = items.length - 1; i >= 0; i-- )
+                this.getCollection().swap( children[itemIndices[i]].getCollection(), children[newIndices[i]].getCollection() );
+        }
+        else {
+            var last = items.length - 1;
+            for ( i = last; i >= 0; i-- ){
+                newIndex = itemIndices[i] + n;
+                nextIndex = i < last && newIndices[i+1];
+
+                if ( i < last && newIndex >= nextIndex )
+                    newIndices[i] = nextIndex - 1;
+                else
+                    newIndices[i] = newIndex > lastIndex ? lastIndex : newIndex;
+            }
+
+            for ( i = 0; i < items.length; i++ )
+                this.getCollection().swap( children[itemIndices[i]].getCollection(), children[newIndices[i]].getCollection() );
         }
 
-        for ( i = items.length - 1; i >= 0; i-- ){
-            this.getCollection().swap( children[itemIndices[i]].getCollection(), children[newIndices[i]].getCollection() );
-        }
         this.render();
+
+        for ( i = 0; i < newIndices.length; i++ )
+            children[newIndices[i]].setActive( true );
     },
 
     _getItemsIndices: function( items ){

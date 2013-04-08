@@ -61,20 +61,18 @@ enyo.kind({
                 return coll.getQuantity() > 1
             });
 
-        this.$.up.setDisabled( phones.isFirstSelected() || !count );
-//        this.$.down.setDisabled( phones.isLastSelected() || !count );
-        this.$.down.setDisabled( false );
+        this.$.up.setDisabled( !count );
+        this.$.down.setDisabled( !count );
         this.$.join.setDisabled( count <= 1 );
         this.$.split.setDisabled( !haveLongGroup );
     },
 
     moveUp: function(){
         this.$.phones.moveUpSelected();
-        this.log( 'piu' );
     },
 
     moveDown: function(){
-        this.log( '-' );
+        this.$.phones.moveDownSelected();
     },
 
     splitGroups: function(){

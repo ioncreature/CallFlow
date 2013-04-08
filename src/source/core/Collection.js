@@ -152,25 +152,18 @@ enyo.kind({
      * @param {rc.Model} b
      */
     swap: function( a, b ){
-        var tmp,
-            aIndex,
-            bIndex;
+        var aIndex = this.models.indexOf( a ),
+            bIndex = this.models.indexOf( b );
 
-        this.models.forEach( function( model, index ){
-            if ( a === model )
-                aIndex = index;
-            else if ( b === model )
-                bIndex = index;
-        });
+        this._swapByIndex( aIndex, bIndex );
+    },
 
-        if ( aIndex === bIndex ){
-            return false;
-        }
-        else {
-            tmp = this.models[aIndex];
-            this.models[aIndex] = this.models[bIndex];
-            this.models[bIndex] = tmp;
-            return true;
-        }
+    _swapByIndex: function( aIndex, bIndex ){
+        if ( aIndex == undefined || bIndex == undefined || aIndex === bIndex || aIndex < 0 || bIndex < 0 )
+            return;
+
+        var tmp = this.models[aIndex];
+        this.models[aIndex] = this.models[bIndex];
+        this.models[bIndex] = tmp;
     }
 });

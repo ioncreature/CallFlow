@@ -135,4 +135,13 @@ describe( 'rc.Collection', function(){
         expect( coll.models[0].get('id') ).toBe( 2 );
         expect( coll.models[1].get('id') ).toBe( 1 );
     });
+
+
+    it( 'should not swap elements (edge cases)', function(){
+        coll.swap( coll.getById(1), coll.getById(1) );
+        expect( coll.models[0].get('id') ).toBe( 1 );
+
+        coll.swap( coll.getById(3), coll.getById(3) );
+        expect( coll.models[2].get('id') ).toBe( 3 );
+    });
 });
