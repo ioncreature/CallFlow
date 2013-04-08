@@ -145,5 +145,26 @@ enyo.kind({
 
     destroy: function(){
         this.index.destroy();
+    },
+
+    /**
+     * @param {rc.Model} a
+     * @param {rc.Model} b
+     */
+    swap: function( a, b ){
+        var tmp,
+            aIndex,
+            bIndex;
+
+        this.models.forEach( function( model, index ){
+            if ( a === model )
+                aIndex = index;
+            else if ( b === model )
+                bIndex = index;
+        });
+
+        tmp = this.models[aIndex];
+        this.models[aIndex] = this.models[bIndex];
+        this.models[bIndex] = tmp;
     }
 });

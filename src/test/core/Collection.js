@@ -126,4 +126,13 @@ describe( 'rc.Collection', function(){
         coll.add({ id: 4 });
         expect( coll.getQuantity() ).toBe( 1 );
     });
+
+
+    it( 'should swap elements', function(){
+        expect( coll.models[0].get('id') ).toBe( 1 );
+        expect( coll.models[1].get('id') ).toBe( 2 );
+        coll.swap( coll.getById(1), coll.getById(2) );
+        expect( coll.models[0].get('id') ).toBe( 2 );
+        expect( coll.models[1].get('id') ).toBe( 1 );
+    });
 });

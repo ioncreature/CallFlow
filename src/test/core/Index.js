@@ -40,4 +40,12 @@ describe( 'rc.Index', function(){
         i.remove( 'b' );
         expect( i.getLength() ).toBe( 0 );
     });
+
+    it( 'should reset index', function(){
+        i.add( 'a', 1 );
+        i.add( 'b', 2 );
+        i.add( 'c', 3 );
+        i.reset();
+        expect( i.getLength() ).toBe( 0 );
+    });
 });

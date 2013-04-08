@@ -76,5 +76,50 @@ enyo.kind({
 
     isItemActive: function( item ){
         return item.getActive() && !item.getDisabled();
+    },
+
+
+    moveUpSelected: function(){
+        var items = this.getSelectedItems(),
+            i,
+            n = -1,
+            itemIndices = this._getItemsIndices( items ),
+            newIndices = [],
+            currIndex,
+            newIndex,
+            prevIndex;
+
+        if ( items.length == 0 )
+            return false;
+
+        for ( i = 0; i < items.length; i++ ){
+            currIndex = itemIndices[i];
+            newIndex = currIndex + n;
+            prevIndex = i > 0 && newIndices[i-1];
+
+            if ( i > 0 && prevIndex >= newIndex )
+                newIndices[i] = prevIndex + 1;
+            else
+                newIndices[i] = newIndex > 0 ? newIndex : 0;
+        }
+        return true;
+    },
+
+    swap: function( a, b ){
+        var temp = a.node,
+            aPrev = a.previousSibling;//jsfiddle.net/tRUS5/5/
+    },
+
+    _getItemsIndices: function( items ){
+        var itemIndices = [],
+            curr = 0;
+        this.children.forEach( function( item, index ){
+            if ( item === items[curr] ){
+                itemIndices[curr] = index;
+                curr ++;
+            }
+        });
+        return itemIndices;
     }
+
 });
