@@ -163,8 +163,14 @@ enyo.kind({
                 bIndex = index;
         });
 
-        tmp = this.models[aIndex];
-        this.models[aIndex] = this.models[bIndex];
-        this.models[bIndex] = tmp;
+        if ( aIndex === bIndex ){
+            return false;
+        }
+        else {
+            tmp = this.models[aIndex];
+            this.models[aIndex] = this.models[bIndex];
+            this.models[bIndex] = tmp;
+            return true;
+        }
     }
 });

@@ -24,6 +24,10 @@ enyo.kind({
     },
 
     collectionChanged: function(){
+        this.render();
+    },
+
+    render: function(){
         var collection = this.getCollection();
 
         if ( collection ){
@@ -36,8 +40,8 @@ enyo.kind({
                     ontap: 'itemTap'
                 });
             }, this );
-            this.render();
         }
+        this.inherited( arguments );
     },
 
     itemRadioTap: function( sender ){
@@ -78,23 +82,21 @@ enyo.kind({
         return item.getActive() && !item.getDisabled();
     },
 
-
     moveUpSelected: function(){
         var items = this.getSelectedItems(),
             i,
             n = -1,
             itemIndices = this._getItemsIndices( items ),
             newIndices = [],
-            currIndex,
             newIndex,
-            prevIndex;
+            prevIndex,
+            children = this.children;
 
         if ( items.length == 0 )
             return false;
 
         for ( i = 0; i < items.length; i++ ){
-            currIndex = itemIndices[i];
-            newIndex = currIndex + n;
+            newIndex = itemIndices[i] + n;
             prevIndex = i > 0 && newIndices[i-1];
 
             if ( i > 0 && prevIndex >= newIndex )
@@ -102,12 +104,11 @@ enyo.kind({
             else
                 newIndices[i] = newIndex > 0 ? newIndex : 0;
         }
-        return true;
-    },
 
-    swap: function( a, b ){
-        var temp = a.node,
-            aPrev = a.previousSibling;//jsfiddle.net/tRUS5/5/
+        for ( i = items.length - 1; i >= 0; i-- ){
+            this.getCollection().swap( children[itemIndices[i]].getCollection(), children[newIndices[i]].getCollection() );
+        }
+        this.render();
     },
 
     _getItemsIndices: function( items ){
@@ -121,5 +122,4 @@ enyo.kind({
         });
         return itemIndices;
     }
-
 });

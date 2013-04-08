@@ -41,6 +41,7 @@ describe( 'rc.Index', function(){
         expect( i.getLength() ).toBe( 0 );
     });
 
+
     it( 'should reset index', function(){
         i.add( 'a', 1 );
         i.add( 'b', 2 );

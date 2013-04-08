@@ -62,13 +62,15 @@ enyo.kind({
             });
 
         this.$.up.setDisabled( phones.isFirstSelected() || !count );
-        this.$.down.setDisabled( phones.isLastSelected() || !count );
+//        this.$.down.setDisabled( phones.isLastSelected() || !count );
+        this.$.down.setDisabled( false );
         this.$.join.setDisabled( count <= 1 );
         this.$.split.setDisabled( !haveLongGroup );
     },
 
     moveUp: function(){
-        this.log( '-' );
+        this.$.phones.moveUpSelected();
+        this.log( 'piu' );
     },
 
     moveDown: function(){
