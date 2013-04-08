@@ -5,6 +5,7 @@
 
 enyo.depends(
     'Observable.js',
+    'Index.js',
     'Model.js',
     'Collection.js'
 );

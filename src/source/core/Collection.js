@@ -18,7 +18,7 @@ enyo.kind({
         this.model = options && options.model || this.model || rc.Model;
         this.idField = options && options.idField || this.idField;
         this.inherited( arguments );
-        this.index = {};
+        this.index = new rc.Index();
         this.add( options && options.models || [], {silent: true} );
     },
 
@@ -52,7 +52,7 @@ enyo.kind({
         this.models.push( newModel );
 
         if ( id !== undefined )
-            this.index[id] = newModel;
+            this.index.add( id, newModel );
 
         if ( !(options && options.silent === true) )
             this.trigger( 'add', newModel );
@@ -96,7 +96,7 @@ enyo.kind({
     removeByIndex: function( i, options ){
         var id = this.models[i].get( this.idField );
         delete this.models[i];
-        id && delete this.index[id];
+        this.index.remove( id );
 
         if ( !(options && options.silent === true) )
             this.trigger( 'remove', this );
@@ -109,11 +109,18 @@ enyo.kind({
     },
 
     getById: function( id ){
-        return this.index[id];
+        return this.index.get( id );
     },
 
     getQuantity: function(){
         return this.getItems().length;
+    },
+
+    _recalculateIndexes: function(){
+        this.index.reset();
+        this.model.forEach( function( model ){
+            this.index.add( model.get('id'), model );
+        }, this );
     },
 
     forEach: function(){
@@ -134,5 +141,9 @@ enyo.kind({
 
     map: function(){
         return this.models.map.apply( this.models, arguments );
+    },
+
+    destroy: function(){
+        this.index.destroy();
     }
 });
