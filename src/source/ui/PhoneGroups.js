@@ -97,7 +97,19 @@ enyo.kind({
         }
     },
 
-    splitSelected: function(){},
+    splitSelected: function(){
+        var collections = this.getSelectedCollections();
+
+        collections
+            .filter( function( coll ){
+                return coll.getQuantity() > 1;
+            })
+            .forEach( function( coll ){
+                var list = coll.split();
+                this.getCollection().replace( coll, list );
+            }, this );
+        this.render();
+    },
 
     _move: function( n ){
         var items = this.getSelectedItems(),

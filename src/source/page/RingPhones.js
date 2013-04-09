@@ -35,10 +35,6 @@ enyo.kind({
         {kind: 'rc.NavButton', ontap: 'goToNowhere', caption: loc.RingPhones.forward}
     ],
 
-    create: function(){
-        this.inherited( arguments );
-    },
-
     phonesCollectionChanged: function(){
         var collection = this.getPhonesCollection();
         collection && this.$.phones.setCollection( collection );
@@ -76,7 +72,7 @@ enyo.kind({
     },
 
     splitGroups: function(){
-        this.log( '-' );
+        this.$.phones.splitSelected();
     },
 
     join: function(){

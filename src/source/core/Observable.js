@@ -29,7 +29,11 @@ enyo.kind({
         };
     },
 
-    trigger: function( event ){
+    /**
+     * @param {string} event
+     * @param {...[*]} arg
+     */
+    trigger: function( event, arg ){
         var queue = this.handlers[event],
             args = Array.prototype.slice.call( arguments, 1 );
 

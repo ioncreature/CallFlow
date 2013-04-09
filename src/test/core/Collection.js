@@ -43,7 +43,9 @@ describe( 'rc.Collection', function(){
         model = new TestModel({ id: 4 });
 
         obj.fn = function(){};
+        obj.fn2 = function(){};
         spyOn( obj, 'fn' );
+        spyOn( obj, 'fn2' );
 
         coll.on( 'add', obj.fn );
     });
@@ -143,5 +145,41 @@ describe( 'rc.Collection', function(){
 
         coll.swap( coll.getById(3), coll.getById(3) );
         expect( coll.models[2].get('id') ).toBe( 3 );
+    });
+
+
+    it( 'should replace model with another model and fire callbacks', function(){
+        var whatReplace = coll.getById( 2 );
+
+        coll.on( 'remove', obj.fn2 );
+        coll.replace( whatReplace, model );
+
+        expect( coll.getById(2) ).toBeUndefined();
+        expect( coll.getById(model.get('id')) ).toBe( model );
+        expect( obj.fn ).toHaveBeenCalled();
+        expect( obj.fn2 ).toHaveBeenCalled();
+    });
+
+
+    it( 'should replace model with many models', function(){
+        var whatReplace = coll.getById( 2 ),
+            models = [ {id: 10}, {id: 11}, {id: 12} ];
+
+        coll.replace( whatReplace, models );
+
+        expect( coll.getById(2) ).toBeUndefined();
+        expect( coll.getById(10) instanceof TestModel ).toBeTruthy();
+        expect( coll.getById(11) instanceof TestModel ).toBeTruthy();
+        expect( coll.getById(12) instanceof TestModel ).toBeTruthy();
+        expect( obj.fn.callCount ).toBe( 3 );
+    });
+
+
+    it( 'should split each model to separate collection', function(){
+        var colls = coll.split();
+
+        expect( colls[0].getItems().length ).toBe( 1 );
+        expect( colls[1].getItems().length ).toBe( 1 );
+        expect( colls[2].getItems().length ).toBe( 1 );
     });
 });

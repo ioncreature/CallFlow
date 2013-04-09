@@ -49,13 +49,25 @@ enyo.kind({
             newModel = new this.model( model );
 
         id = newModel.get( this.idField );
-        this.models.push( newModel );
+        if ( options && options.hasOwnProperty('index') )
+            this.models.splice( options.index, 0, newModel );
+        else
+            this.models.push( newModel );
 
         if ( id !== undefined )
             this.index.add( id, newModel );
 
-        if ( !(options && options.silent === true) )
-            this.trigger( 'add', newModel );
+        this.triggerEvent( options, 'add', newModel );
+    },
+
+    replace: function( whatReplace, newModels, options ){
+        var index = this.models.indexOf( whatReplace );
+        if ( index > -1 ){
+            this.removeByIndex( index );
+            Array.prototype.concat(newModels).forEach( function( model, i ){
+                this.addModel( model, enyo.mixin({index: index + i}, options) );
+            }, this );
+        }
     },
 
     /**
@@ -97,9 +109,15 @@ enyo.kind({
         var id = this.models[i].get( this.idField );
         delete this.models[i];
         this.index.remove( id );
+        this.triggerEvent( options, 'remove', this );
+    },
 
-        if ( !(options && options.silent === true) )
-            this.trigger( 'remove', this );
+    split: function(){
+        return this.models.map( function( model ){
+            var coll = new (Object.getPrototypeOf( this ).ctor);
+            coll.add( model );
+            return coll;
+        }, this );
     },
 
     getItems: function(){

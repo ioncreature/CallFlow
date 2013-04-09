@@ -46,18 +46,20 @@ enyo.kind({
         if ( this.attr[key] !== value ){
             this.changed[key] = true;
             this.attr[key] = value;
-            if ( !(options && options.silent) )
-                this.trigger( key, value );
+            this.triggerEvent( options, key, value );
         }
     },
 
     /**
-     * @param {string[]|string} keys
+     * @param {string[]|string?} keys
      */
     get: function( keys ){
-        return typeof keys == 'string'
-            ? this.getValue( keys )
-            : this.getSubset( keys );
+        if ( !keys )
+            return enyo.mixin( {}, this.attr );
+        else if ( typeof keys == 'string' )
+            return this.getValue( keys );
+        else
+            return this.getSubset( keys );
     },
 
     getValue: function( key ){
@@ -79,8 +81,7 @@ enyo.kind({
     reset: function( options ){
         this.attr = enyo.mixin( {}, this.initAttrs );
         this.changed = {};
-        if ( !(options && options.silent === true) )
-            this.trigger( 'reset', this );
+        this.triggerEvent( options, 'reset', this );
     },
 
     /**
@@ -98,5 +99,15 @@ enyo.kind({
      */
     save: function(){
         this.changed = {};
+    },
+
+    /**
+     * @param {Object} options
+     * @param {string} event
+     * @param {...[*]} arg
+     */
+    triggerEvent: function( options, event, arg ){
+        if ( !(options && options.silent === true) )
+            this.trigger.apply( this, [event].concat(Array.prototype.slice.call(arguments, 2)) );
     }
 });
