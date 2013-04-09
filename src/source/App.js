@@ -8,7 +8,7 @@ enyo.kind({
     classes: 'enyo-fit ui-app',
     kind: 'Panels',
     arrangerKind: 'CollapsingArranger',
-    indexPage: 'RingPhones',
+    indexPage: 'CallFlow',
 
     components: [
         {name: 'menu', kind: 'Scroller', thumb: false, touch: true, classes: 'ui-main-menu', ontap: 'menuTapped', components: [
