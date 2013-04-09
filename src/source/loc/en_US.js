@@ -15,6 +15,7 @@ var loc = {
     edit: 'Edit',
     done: 'Done',
     menu: 'Menu',
+    cancel: 'Cancel',
     test: 'Test',
 
 
@@ -145,6 +146,7 @@ var loc = {
         caption: 'Phone Group',
         groupWillRing: 'Group will ring:',
         status: 'Status',
-        ringsIncorrect: 'Rings count is incorrect'
+        ringsIncorrect: 'Rings count is incorrect',
+        removeFromGroup: 'Remove from group'
     }
 };

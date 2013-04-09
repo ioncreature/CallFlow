@@ -11,7 +11,8 @@ enyo.kind({
     published: {
         model: null,
         name: '',
-        number: ''
+        number: '',
+        enabled: true
     },
 
     components: [
@@ -23,6 +24,7 @@ enyo.kind({
         this.inherited( arguments );
         this.nameChanged();
         this.numberChanged();
+        this.enabledChanged();
         this.modelChanged();
     },
 
@@ -37,8 +39,10 @@ enyo.kind({
             this.removeBindings();
             this.setName( model.get('name') );
             this.setNumber( model.get('number') );
+//            this.setEnabled( model.get('enabled') );
             this.addBinding( model.on('name', this.setName, this) );
             this.addBinding( model.on('number', this.setNumber, this) );
+//            this.addBinding( model.on('enabled', this.setEnabled, this) );
         }
     },
 
@@ -48,5 +52,12 @@ enyo.kind({
 
     numberChanged: function(){
         this.$.number.setContent( this.getNumber() );
+    },
+
+    enabledChanged: function(){
+        if ( this.getEnabled() )
+            this.removeClass( 'disabled' );
+        else
+            this.addClass( 'disabled' );
     }
 });

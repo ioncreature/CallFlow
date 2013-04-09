@@ -13,6 +13,7 @@ enyo.kind({
         showNext: false,
         caption: '',
         nextButtonCaption: loc.next,
+        backButtonCaption: loc.back,
         backType: 1
     },
 
@@ -46,6 +47,7 @@ enyo.kind({
         this.showNextChanged();
         this.captionChanged();
         this.nextButtonCaptionChanged();
+        this.backButtonCaptionChanged();
         this.backTypeChanged();
     },
 
@@ -65,11 +67,15 @@ enyo.kind({
         this.$.next.setContent( this.getNextButtonCaption() );
     },
 
+    backButtonCaptionChanged: function(){
+        this.$.back.setContent( this.getBackButtonCaption() );
+    },
+
     backTypeChanged: function(){
         var type = this.getBackType(),
             menuClass = 'ui-nav-toolbar-menu';
         if ( type === rc.NavToolbar.BACK ){
-            this.$.back.setContent( loc.back );
+            this.$.back.setContent( loc.cancel );
             this.$.back.removeClass( menuClass );
         }
         else {

@@ -23,6 +23,7 @@ enyo.depends(
     'ui/Panels.js',
     'ui/EditableList.js',
     'ui/ToggleButton.js',
+    'ui/Switch.js',
     'ui/Notifications.js',
     'ui/PhoneItem.js',
     'ui/PhoneGroup.js',

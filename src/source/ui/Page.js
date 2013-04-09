@@ -13,6 +13,7 @@ enyo.kind({
         showNext: false,
         caption: '',
         nextButtonCaption: loc.next,
+        backButtonCaption: loc.cancel,
         pageData: null,
         preview: false,
         previewSize: false,
@@ -44,6 +45,7 @@ enyo.kind({
         this.showNextChanged();
         this.captionChanged();
         this.nextButtonCaptionChanged();
+        this.backButtonCaptionChanged();
         this.previewChanged();
         this.isRootChanged();
     },
@@ -79,6 +81,10 @@ enyo.kind({
 
     nextButtonCaptionChanged: function(){
         this.$.nav.setNextButtonCaption( this.getNextButtonCaption() );
+    },
+
+    backButtonCaptionChanged: function(){
+        this.$.nav.setBackButtonCaption( this.getBackButtonCaption() );
     },
 
     previewChanged: function(){

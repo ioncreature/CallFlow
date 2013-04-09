@@ -6,5 +6,26 @@
 .ui-phone-group-settings {}
 
 .ui-phone-group-settings-list {
-    margin: @rc-margin;
+    margin: @rc-margin-big @rc-margin;
+}
+
+.ui-phone-group-settings-item {
+
+}
+
+.ui-phone-group-settings-item-name {
+    color: @rc-color-main;
+    font-size: @rc-font-size-bigger;
+}
+
+.ui-phone-group-settings-item-number {
+    font-size: @rc-font-size-bigger;
+    margin-bottom: @rc-margin;
+}
+
+.ui-phone-group-settings-item-line {
+    overflow: hidden;
+    & > :last-child {
+        float: right;
+    }
 }

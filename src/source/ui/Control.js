@@ -18,5 +18,10 @@ enyo.kind({
         if ( this.bindings )
             while ( this.bindings.length )
                 this.bindings.pop().remove();
+    },
+
+    destroy: function(){
+        this.removeBindings();
+        this.inherited( arguments );
     }
 });

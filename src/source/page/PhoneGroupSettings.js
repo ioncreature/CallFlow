@@ -13,7 +13,8 @@ enyo.kind({
 
     handlers: {
         onOpen: 'pageOpen',
-        onNext: 'save'
+        onNext: 'save',
+        onRemoveTap: 'removeTap'
     },
 
     components: [
@@ -21,7 +22,6 @@ enyo.kind({
         {kind: 'onyx.InputDecorator', classes: 'ui-text-input ui-block', components: [
             {name: 'rings', kind: 'onyx.Input'}
         ]},
-        {name: 'status', kind: 'rc.ToggleButton', caption: loc.PhoneGroupSettings.status},
         {name: 'list', classes: 'ui-phone-group-settings-list'}
     ],
 
@@ -30,12 +30,11 @@ enyo.kind({
             list = this.$.list;
 
         this.$.rings.setValue( collection.get('rings') );
-        this.$.status.setValue( !collection.get('disabled') );
 
         list.destroyComponents();
         collection.forEach( function( model ){
             list.createComponent({
-                kind: 'rc.PhoneItem',
+                kind: 'rc.page.PhoneGroupSettingsItem',
                 model: model
             });
         });
@@ -44,15 +43,64 @@ enyo.kind({
 
     save: function(){
         var collection = this.getPageData(),
-            rings = Number( this.$.rings.getValue() ),
-            disabled = !this.$.status.getValue();
+            rings = Number( this.$.rings.getValue() );
 
         if ( rings > 0 && rings < 10 ){
             collection.set( 'rings', rings );
-            collection.set( 'disabled', disabled );
+            collection.set( 'disabled', collection.every( function( model ){
+                return !model.get( 'enabled' );
+            }));
             App.back();
         }
         else
             alert( loc.PhoneGroupSettings.ringsIncorrect );
+    },
+
+    removeTap: function(){
+        this.log( 'piu' );
+    }
+});
+
+
+enyo.kind({
+    name: 'rc.page.PhoneGroupSettingsItem',
+    classes: 'ui-phone-group-settings-item',
+
+    published: {
+        model: null
+    },
+
+    events: {
+        onRemoveTap: ''
+    },
+
+    components: [
+        {name: 'name', classes: 'ui-phone-group-settings-item-name'},
+        {name: 'number', classes: 'ui-phone-group-settings-item-number'},
+        {classes: 'ui-phone-group-settings-item-line', components: [
+            {name: 'status', ontap: 'switchStatus', kind: 'rc.Switch', caption: loc.PhoneGroupSettings.status, classes: 'ui-phone-group-settings-item-status'},
+            {name: 'remove', ontap: 'removeTap', kind: 'rc.Button', content: loc.PhoneGroupSettings.removeFromGroup, classes: 'ui-phone-group-settings-item-remove'}
+        ]}
+    ],
+
+    create: function(){
+        this.inherited( arguments );
+        this.modelChanged();
+    },
+
+    modelChanged: function(){
+        var model = this.getModel();
+        this.$.name.setContent( model.get('name') );
+        this.$.number.setContent( model.get('number') );
+        this.$.status.setValue( model.get('enabled') );
+    },
+
+    removeTap: function(){
+        this.doRemoveTap({ model: this.getModel() });
+    },
+
+    switchStatus: function(){
+        var model = this.getModel();
+        model.set( 'enabled', !model.get('enabled') );
     }
 });

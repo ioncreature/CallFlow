@@ -9,6 +9,7 @@ enyo.kind({
 
     defaults: {
         name: '',
-        number: false
+        number: false,
+        enabled: true
     }
 });
