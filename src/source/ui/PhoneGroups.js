@@ -61,14 +61,6 @@ enyo.kind({
         });
     },
 
-    isFirstSelected: function(){
-        return this.isItemActive( this.children[0] );
-    },
-
-    isLastSelected: function(){
-        return this.isItemActive( this.children[this.children.length - 1] );
-    },
-
     /**
      * @returns {Array}
      */
@@ -89,6 +81,23 @@ enyo.kind({
     moveDownSelected: function(){
         this._move( 1 );
     },
+
+    joinSelected: function(){
+        var collections = this.getSelectedCollections(),
+            count = collections.length,
+            control = this;
+
+        if ( count > 1 ){
+            collections.reduce( function( previous, current ){
+                previous.add( current.getItems() );
+                control.getCollection().remove( current );
+                return previous;
+            });
+            this.render();
+        }
+    },
+
+    splitSelected: function(){},
 
     _move: function( n ){
         var items = this.getSelectedItems(),
@@ -135,9 +144,7 @@ enyo.kind({
         }
 
         this.render();
-
-        for ( i = 0; i < newIndices.length; i++ )
-            children[newIndices[i]].setActive( true );
+        this._setItemsActive( newIndices );
     },
 
     _getItemsIndices: function( items ){
@@ -150,5 +157,10 @@ enyo.kind({
             }
         });
         return itemIndices;
+    },
+
+    _setItemsActive: function( itemsIndices ){
+        for ( var i = 0; i < itemsIndices.length; i++ )
+            this.children[itemsIndices[i]].setActive( true );
     }
 });

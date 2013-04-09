@@ -80,7 +80,7 @@ enyo.kind({
     },
 
     join: function(){
-        this.log( '-' );
+        this.$.phones.joinSelected();
     },
 
     goToGroupSettings: function( sender, event ){

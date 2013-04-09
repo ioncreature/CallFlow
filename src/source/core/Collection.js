@@ -116,13 +116,6 @@ enyo.kind({
         return this.getItems().length;
     },
 
-    _recalculateIndexes: function(){
-        this.index.reset();
-        this.model.forEach( function( model ){
-            this.index.add( model.get('id'), model );
-        }, this );
-    },
-
     forEach: function(){
         return this.models.forEach.apply( this.models, arguments );
     },
@@ -165,5 +158,12 @@ enyo.kind({
         var tmp = this.models[aIndex];
         this.models[aIndex] = this.models[bIndex];
         this.models[bIndex] = tmp;
+    },
+
+    _recalculateIndexes: function(){
+        this.index.reset();
+        this.model.forEach( function( model ){
+            this.index.add( model.get('id'), model );
+        }, this );
     }
 });
