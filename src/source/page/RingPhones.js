@@ -8,9 +8,12 @@ enyo.kind({
     kind: 'rc.Page',
     classes: 'ui-ring-phones',
     caption: loc.RingPhones.caption,
+    showNext: true,
+    nextButtonCaption: loc.save,
 
     handlers: {
-        onOpen: 'pageOpen'
+        onOpen: 'pageOpen',
+        onNext: 'goBack'
     },
 
     published: {
@@ -43,6 +46,10 @@ enyo.kind({
     pageOpen: function(){
         if ( !this.getPhonesCollection() )
             this.setPhonesCollection( this.loadCollection() );
+    },
+
+    goBack: function(){
+        App.back();
     },
 
     loadCollection: function(){
