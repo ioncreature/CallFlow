@@ -9,11 +9,10 @@ enyo.kind({
     kind: enyo.Object,
     handlers: null,
 
-    constructor: function(){
-        this.reset();
-    },
-
     on: function( name, callback, context ){
+        if ( !this.handlers )
+            this.resetHandlers();
+
         var handlers = this.handlers,
             cb = callback.bind( context || null );
         if ( handlers[name] )
@@ -43,7 +42,7 @@ enyo.kind({
             }, this );
     },
 
-    reset: function(){
+    resetHandlers: function(){
         this.handlers = {};
     }
 });

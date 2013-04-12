@@ -55,7 +55,7 @@ describe( 'rc.Observable', function(){
 
 
         it( 'should not fire after reset', function(){
-            obs.reset();
+            obs.resetHandlers();
             obs.trigger( 'test' );
             expect( obj.fn.callCount ).toBe( 1 );
         });
@@ -97,7 +97,7 @@ describe( 'rc.Observable', function(){
         it( 'should not fire any callbacks after reset', function(){
             obs.on( 'test', obj.fn );
             obs.on( 'test', obj.fn2 );
-            obs.reset();
+            obs.resetHandlers();
             obs.trigger( 'test' );
 
             expect( obj.fn.callCount ).toBe( 0 );

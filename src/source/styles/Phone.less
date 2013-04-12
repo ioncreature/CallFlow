@@ -25,6 +25,12 @@
             border-radius: @rc-border-radius;
         }
     }
+    &:not(.disabled) .ui-phone-item.disabled {
+        .ui-phone-item-number,
+        .ui-phone-item-name {
+            color: @rc-color-inactive;
+        }
+    }
 }
 
 .ui-phone-group-items {
@@ -40,12 +46,6 @@
     padding: @rc-padding 0;
     font-size: @rc-font-size-medium;
     font-weight: bold;
-    &.disabled {
-        & > .ui-phone-item-number,
-        & > .ui-phone-item-name {
-            color: @rc-color-inactive;
-        }
-    }
 }
 
 .ui-phone-item-name {

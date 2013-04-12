@@ -47,9 +47,7 @@ enyo.kind({
 
         if ( rings > 0 && rings < 10 ){
             collection.set( 'rings', rings );
-            collection.set( 'disabled', collection.every( function( model ){
-                return !model.get( 'enabled' );
-            }));
+            collection.updateDisabled();
             App.back();
         }
         else
@@ -62,12 +60,16 @@ enyo.kind({
 });
 
 
+/**
+ * Page specific ui element
+ */
 enyo.kind({
     name: 'rc.page.PhoneGroupSettingsItem',
     classes: 'ui-phone-group-settings-item',
 
     published: {
-        model: null
+        model: null,
+        showRemoveButton: true
     },
 
     events: {
@@ -86,6 +88,7 @@ enyo.kind({
     create: function(){
         this.inherited( arguments );
         this.modelChanged();
+        this.showRemoveButtonChanged();
     },
 
     modelChanged: function(){
@@ -93,6 +96,10 @@ enyo.kind({
         this.$.name.setContent( model.get('name') );
         this.$.number.setContent( model.get('number') );
         this.$.status.setValue( model.get('enabled') );
+    },
+
+    showRemoveButtonChanged: function(){
+        this.$.remove.setShowing( this.getShowRemoveButtonChanged() );
     },
 
     removeTap: function(){

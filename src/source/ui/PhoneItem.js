@@ -39,10 +39,10 @@ enyo.kind({
             this.removeBindings();
             this.setName( model.get('name') );
             this.setNumber( model.get('number') );
-//            this.setEnabled( model.get('enabled') );
+            this.setEnabled( model.get('enabled') );
             this.addBinding( model.on('name', this.setName, this) );
             this.addBinding( model.on('number', this.setNumber, this) );
-//            this.addBinding( model.on('enabled', this.setEnabled, this) );
+            this.addBinding( model.on('enabled', this.setEnabled, this) );
         }
     },
 

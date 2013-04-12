@@ -14,12 +14,13 @@ enyo.kind({
     handlers: null,
 
     constructor: function( attributes, options ){
+        this.inherited( arguments );
         this.changed = {};
         this.handlers = {};
         this.defaults = enyo.mixin( options && options.defaults || {}, this.defaults );
         this.attr = enyo.mixin( enyo.mixin({}, this.defaults), attributes || {} );
         this.initAttrs = enyo.mixin( {}, this.attr );
-        this.inherited( arguments );
+        this.create && this.create();
     },
 
     /**

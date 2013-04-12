@@ -13,13 +13,12 @@ enyo.kind({
     index: null,
 
     constructor: function( attributes, options ){
-        this.inherited( arguments );
         this.models = [];
         this.model = options && options.model || this.model || rc.Model;
         this.idField = options && options.idField || this.idField;
-        this.inherited( arguments );
         this.index = new rc.Index();
         this.add( options && options.models || [], {silent: true} );
+        this.inherited( arguments );
     },
 
     /**
