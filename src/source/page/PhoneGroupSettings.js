@@ -19,8 +19,19 @@ enyo.kind({
 
     components: [
         {classes: 'ui-label', content: loc.PhoneGroupSettings.groupWillRing},
-        {kind: 'onyx.InputDecorator', classes: 'ui-text-input ui-block', components: [
-            {name: 'rings', kind: 'onyx.Input'}
+        {classes: 'ui-phone-group-settings-select', kind: 'onyx.PickerDecorator', components: [
+            {},
+            {name: 'rings', classes: 'ui-phone-group-settings-picker', kind: 'onyx.Picker', onSelect: 'itemSelected', components: [
+                {name: 'r1', content: '1 ring', value: 1, active: true},
+                {name: 'r2', content: '2 rings', value: 2},
+                {name: 'r3', content: '3 rings', value: 3},
+                {name: 'r4', content: '4 rings', value: 4},
+                {name: 'r5', content: '5 rings', value: 5},
+                {name: 'r6', content: '6 rings', value: 6},
+                {name: 'r7', content: '7 rings', value: 7},
+                {name: 'r8', content: '8 rings', value: 8},
+                {name: 'r9', content: '9 rings', value: 9}
+            ]}
         ]},
         {name: 'list', classes: 'ui-phone-group-settings-list'}
     ],
@@ -28,7 +39,7 @@ enyo.kind({
     pageOpen: function(){
         var collection = this.getPageData().collection;
 
-        this.$.rings.setValue( collection.get('rings') );
+        this.$.rings.setSelected( this.$['r' + collection.get('rings')] );
         this.redrawList();
     },
 
@@ -51,7 +62,7 @@ enyo.kind({
 
     save: function(){
         var collection = this.getPageData().collection,
-            rings = Number( this.$.rings.getValue() );
+            rings = Number( this.$.rings.getSelected().value );
 
         if ( rings > 0 && rings < 10 ){
             collection.set( 'rings', rings );
