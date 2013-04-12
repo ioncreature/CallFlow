@@ -28,9 +28,9 @@ enyo.kind({
     },
 
     components: [
-        { name: 'back', kind: onyx.Button, ontap: 'backTapped', classes: 'ui-nav-toolbar-button', allowHtml: true },
-        { name: 'caption', fit: true, classes: 'ui-nav-toolbar-caption' },
-        { name: 'next', kind: onyx.Button, ontap: 'nextTapped', classes: 'ui-nav-toolbar-button' }
+        {name: 'back', kind: onyx.Button, ontap: 'backTapped', classes: 'ui-nav-toolbar-button', allowHtml: true},
+        {name: 'caption', fit: true, classes: 'ui-nav-toolbar-caption'},
+        {name: 'next', kind: onyx.Button, ontap: 'nextTapped', classes: 'ui-nav-toolbar-button'}
     ],
 
     backTapped: function(){

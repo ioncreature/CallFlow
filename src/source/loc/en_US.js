@@ -17,6 +17,8 @@ var loc = {
     menu: 'Menu',
     cancel: 'Cancel',
     test: 'Test',
+    on: 'On',
+    off: 'Off',
 
 
     App: {

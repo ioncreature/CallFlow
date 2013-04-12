@@ -18,7 +18,7 @@ enyo.kind({
     },
 
     components: [
-        {classes: 'ui-header-left', content: loc.PhoneGroupSettings.groupWillRing},
+        {classes: 'ui-label', content: loc.PhoneGroupSettings.groupWillRing},
         {kind: 'onyx.InputDecorator', classes: 'ui-text-input ui-block', components: [
             {name: 'rings', kind: 'onyx.Input'}
         ]},
@@ -26,16 +26,24 @@ enyo.kind({
     ],
 
     pageOpen: function(){
-        var collection = this.getPageData(),
-            list = this.$.list;
+        var collection = this.getPageData();
 
         this.$.rings.setValue( collection.get('rings') );
+        this.redrawList();
+    },
+
+    redrawList: function(){
+        var collection = this.getPageData(),
+            list = this.$.list,
+            length;
 
         list.destroyComponents();
+        length = collection.getQuantity();
         collection.forEach( function( model ){
             list.createComponent({
                 kind: 'rc.page.PhoneGroupSettingsItem',
-                model: model
+                model: model,
+                showRemoveButton: length > 1
             });
         });
         this.render();
@@ -99,7 +107,7 @@ enyo.kind({
     },
 
     showRemoveButtonChanged: function(){
-        this.$.remove.setShowing( this.getShowRemoveButtonChanged() );
+        this.$.remove.setShowing( this.getShowRemoveButton() );
     },
 
     removeTap: function(){

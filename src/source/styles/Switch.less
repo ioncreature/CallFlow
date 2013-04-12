@@ -1,0 +1,62 @@
+/**
+ * @author Marenin Alexander 
+ * April 2013
+ */
+
+.ui-switch {
+    @height: 35px;
+    &.onyx-toggle-button {
+        box-sizing: border-box;
+        display: inline-block;
+        height: @height + 2 * @rc-border-width;
+        line-height: @height;
+        min-width: 2 * @height;
+        vertical-align: middle;
+        text-align: center;
+        border-radius: @rc-border-radius-small;
+        border: @rc-border-width solid @rc-color-main;
+        box-shadow: none;
+        background: @rc-color-main;
+        background-size: auto 100%;
+        color: @rc-color-active;
+        font-weight: normal;
+        font-size: @rc-font-size-medium;
+        text-transform: none;
+        background-clip: border-box;
+        overflow: hidden;
+    }
+
+    &.onyx-toggle-button.off {
+        background-color: @rc-color-bg-light !important;
+        color: @rc-color-main;
+    }
+
+    & .onyx-toggle-button-knob {
+        display: inline-block;
+        width: @height;
+        height: @height;
+        margin: 0;
+        border-radius: 0;
+        background: @rc-color-bg-light;
+        background-size: auto 100%;
+    }
+    &.onyx-toggle-button.off > .onyx-toggle-button-knob {
+        background: @rc-color-main;
+    }
+
+    &.onyx-toggle-button .onyx-toggle-button-knob {
+        box-shadow: none;
+        float: right;
+    }
+
+    &.onyx-toggle-button.off .onyx-toggle-button-knob {
+        box-shadow: none;
+        float: left;
+    }
+
+    &.onyx-toggle-content {
+        min-width: @height;
+        padding: 0 6px;
+    }
+
+}
