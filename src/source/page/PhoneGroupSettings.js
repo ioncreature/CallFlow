@@ -26,14 +26,14 @@ enyo.kind({
     ],
 
     pageOpen: function(){
-        var collection = this.getPageData();
+        var collection = this.getPageData().collection;
 
         this.$.rings.setValue( collection.get('rings') );
         this.redrawList();
     },
 
     redrawList: function(){
-        var collection = this.getPageData(),
+        var collection = this.getPageData().collection,
             list = this.$.list,
             length;
 
@@ -50,7 +50,7 @@ enyo.kind({
     },
 
     save: function(){
-        var collection = this.getPageData(),
+        var collection = this.getPageData().collection,
             rings = Number( this.$.rings.getValue() );
 
         if ( rings > 0 && rings < 10 ){
@@ -62,8 +62,15 @@ enyo.kind({
             alert( loc.PhoneGroupSettings.ringsIncorrect );
     },
 
-    removeTap: function(){
-        this.log( 'piu' );
+    removeTap: function( sender, event ){
+        var all = this.getPageData().all,
+            collection = this.getPageData().collection,
+            model = event.model,
+            newColl = collection.split( model );
+
+        collection.remove( model );
+        all.add( newColl );
+        this.redrawList();
     }
 });
 

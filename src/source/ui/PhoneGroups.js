@@ -24,7 +24,9 @@ enyo.kind({
     },
 
     collectionChanged: function(){
+        var collection = this.getCollection();
         this.render();
+        collection && this.addBinding( collection.on('add', this.render, this) );
     },
 
     render: function(){

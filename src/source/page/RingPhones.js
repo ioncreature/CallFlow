@@ -87,7 +87,10 @@ enyo.kind({
     },
 
     goToGroupSettings: function( sender, event ){
-        App.goTo( 'PhoneGroupSettings', event.collection );
+        App.goTo( 'PhoneGroupSettings', {
+            collection: event.collection,
+            all: this.getPhonesCollection()
+        });
     },
 
     goToNowhere: function(){

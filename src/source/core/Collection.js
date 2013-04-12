@@ -111,8 +111,9 @@ enyo.kind({
         this.triggerEvent( options, 'remove', this );
     },
 
-    split: function(){
-        return this.models.map( function( model ){
+    split: function( model ){
+        var list = model ? [model] : this.models;
+        return list.map( function( model ){
             var coll = new (Object.getPrototypeOf( this ).ctor);
             coll.add( model );
             return coll;
