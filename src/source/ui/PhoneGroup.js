@@ -13,6 +13,7 @@ enyo.kind({
         collection: null,
         active: false,
         disabled: false,
+        readOnly: false,
         rings: 0
     },
 
@@ -21,7 +22,7 @@ enyo.kind({
     },
 
     components: [
-        {classes: 'ui-phone-group-radio-container', ontap: 'handleRadioTap', components: [
+        {name: 'radioContainer', classes: 'ui-phone-group-radio-container', ontap: 'handleRadioTap', components: [
             {name: 'radio', classes: 'ui-phone-group-radio'}
         ]},
         {name: 'items', classes: 'ui-phone-group-items', fit: true},
@@ -38,6 +39,7 @@ enyo.kind({
         this.activeChanged();
         this.disabledChanged();
         this.ringsChanged();
+        this.readOnlyChanged();
     },
 
     collectionChanged: function(){
@@ -73,6 +75,14 @@ enyo.kind({
 
     ringsChanged: function(){
         this.$.count.setContent( this.getCollection().get('rings') );
+    },
+
+    readOnlyChanged: function(){
+        this.log( this.name + this.readOnly );
+        if ( this.getReadOnly() )
+            this.addClass( 'readOnly' );
+        else
+            this.removeClass( 'readOnly' );
     },
 
     handleRadioTap: function(){

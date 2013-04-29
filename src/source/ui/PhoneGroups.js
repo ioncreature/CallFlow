@@ -10,7 +10,8 @@ enyo.kind({
     defaultKind: 'rc.PhoneGroup',
 
     published: {
-        collection: null
+        collection: null,
+        readOnly: false
     },
 
     events: {
@@ -21,12 +22,20 @@ enyo.kind({
     create: function(){
         this.inherited( arguments );
         this.collectionChanged();
+        this.readOnlyChanged();
     },
 
     collectionChanged: function(){
         var collection = this.getCollection();
         this.render();
         collection && this.addBinding( collection.on('add', this.render, this) );
+    },
+
+    readOnlyChanged: function(){
+        var readOnly = this.getReadOnly();
+        this.children.forEach( function( item ){
+            item.setReadOnly( readOnly );
+        });
     },
 
     render: function(){
@@ -39,7 +48,8 @@ enyo.kind({
                     kind: this.defaultKind,
                     collection: group,
                     onRadioTap: 'itemRadioTap',
-                    ontap: 'itemTap'
+                    ontap: 'itemTap',
+                    readOnly: this.getReadOnly()
                 });
             }, this );
         }

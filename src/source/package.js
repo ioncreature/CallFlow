@@ -28,7 +28,6 @@ enyo.depends(
     'ui/PhoneItem.js',
     'ui/PhoneGroup.js',
     'ui/PhoneGroups.js',
-    'ui/PhonesContainer.js',
     'ui/UserInfoPanel.js',
     'ui/CallFlowItem.js',
     'ui/Page.js',

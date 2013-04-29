@@ -77,14 +77,21 @@ enyo.kind({
         }, this );
     },
 
-    goBack: function(){
+    goBack: function( data ){
         var pages = this.$.pages,
+            page,
+            pageData,
             i;
+
         if ( this.pageStack.length > 1 ){
             this.pageStack.pop();
             i = this.pageStack[this.pageStack.length - 1];
             pages.setIndex( i );
-            pages.children[i].doOpen();
+
+            page = pages.children[i];
+            pageData = page.getPageData();
+            page.setPageData( enyo.mixin(typeof pageData == 'object' ? pageData : {}, data) );
+            page.doOpen();
             this.hideMenu();
         }
     },
@@ -111,7 +118,7 @@ enyo.kind({
                 page.setIsRoot( isRootPage );
                 page.setPreview( App.get('scrollType') );
                 page.setPreviewSize( App.get('scrollSize') );
-                page.setPageData && page.setPageData( data );
+                page.setPageData( data );
                 page.doOpen();
                 this.hideMenu();
                 return true;
@@ -175,8 +182,8 @@ enyo.kind({
             this.trigger( 'goTo', {pageName: pageName, data: data} );
         },
 
-        back: function(){
-            this.trigger( 'goBack' );
+        back: function( data ){
+            this.trigger( 'goBack', data );
         },
 
         goToNowhere: function(){

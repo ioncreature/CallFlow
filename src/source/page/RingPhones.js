@@ -44,16 +44,15 @@ enyo.kind({
     },
 
     pageOpen: function(){
-        if ( !this.getPhonesCollection() )
-            this.setPhonesCollection( this.loadCollection() );
+        var data = this.getPageData();
+        if ( !data.collection )
+            throw new Error( 'Collection is undefined' );
+
+        this.setPhonesCollection( data.collection );
     },
 
     goBack: function(){
         App.back();
-    },
-
-    loadCollection: function(){
-        return this._getMockCollection();
     },
 
     handleToolbar: function(){
@@ -95,30 +94,5 @@ enyo.kind({
 
     goToNowhere: function(){
         App.goToNowhere();
-    },
-
-    _getMockCollection: function(){
-        var Class = rc.data.PhoneCollection;
-        return new Class({}, {
-            model: Class,
-            models: [
-                new Class( {id: 1, rings: 5}, {models: [
-                    {id: 1, name: 'Office desk phone', number: '(452) 345-6343'}
-                ]}),
-                new Class( {id: 2, rings: 3}, {models: [
-                    {id: 2, name: 'John\'s room', number: '(452) 345-6345'}
-                ]}),
-                new Class( {id: 3, rings: 4}, {models: [
-                    {id: 4, name: 'Mobile', number: '(674) 345-4572'},
-                    {id: 5, name: 'Home', number: '(452) 433-3435'}
-                ]}),
-                new Class( {id: 4, rings: 3}, {models: [
-                    {id: 6, name: 'Unassigned Cisco SPA-5', number: '(674) 345-4572'}
-                ]}),
-                new Class( {id: 5, rings: 4}, {models: [
-                    {id: 6, name: 'Marta\'s room', number: '(452) 345-4077', enabled: false}
-                ]})
-            ]
-        });
     }
 });

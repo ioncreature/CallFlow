@@ -37,6 +37,8 @@ enyo.kind({
             ringPhonesActive: false,
             voicemailActive: true
         });
-        App.back();
+        App.back({
+            newRuleAdded: true
+        });
     }
 });

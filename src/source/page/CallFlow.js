@@ -104,7 +104,7 @@ enyo.kind({
                     description: loc.CallFlow.ringMyPhonesDesc,
                     classes: 'ui-call-flow-ring-phones',
                     components: [
-                        {kind: 'rc.PhonesContainer'}
+                        {name: 'phones', kind: 'rc.PhoneGroups', onItemTap: 'goToRingPhones', readOnly: true}
                     ]
                 },
                 {
@@ -131,11 +131,57 @@ enyo.kind({
     create: function(){
         this.inherited( arguments );
         this.loadRules( this.renderRules );
+        this.loadPhones( this.renderPhones )
     },
 
     loadRules: function( callback ){
         this.rules = new rc.data.RuleCollection( {}, { models: this._createRuleModels() });
         callback.call( this, this.rules );
+    },
+
+    loadPhones: function( callback ){
+        this.phones = this._getMockPhonesCollection();
+        callback.call( this );
+    },
+
+    renderPhones: function(){
+        this.$.phones.setCollection( this.phones );
+    },
+
+    pageOpen: function(){
+        var data = this.getPageData();
+
+        this.redrawItems();
+        if ( data && data.newRuleAdded ){
+            this.selectLastRule();
+            delete data.newRuleAdded;
+        }
+        this.$.phones.render();
+    },
+
+    _getMockPhonesCollection: function(){
+        var Class = rc.data.PhoneCollection;
+        return new Class({}, {
+            model: Class,
+            models: [
+                new Class( {id: 1, rings: 5}, {models: [
+                    {id: 1, name: 'Office desk phone', number: '(452) 345-6343'}
+                ]}),
+                new Class( {id: 2, rings: 3}, {models: [
+                    {id: 2, name: 'John\'s room', number: '(452) 345-6345'}
+                ]}),
+                new Class( {id: 3, rings: 4}, {models: [
+                    {id: 4, name: 'Mobile', number: '(674) 345-4572'},
+                    {id: 5, name: 'Home', number: '(452) 433-3435'}
+                ]}),
+                new Class( {id: 4, rings: 3}, {models: [
+                    {id: 6, name: 'Unassigned Cisco SPA-5', number: '(674) 345-4572'}
+                ]}),
+                new Class( {id: 5, rings: 4}, {models: [
+                    {id: 6, name: 'Marta\'s room', number: '(452) 345-4077', enabled: false}
+                ]})
+            ]
+        });
     },
 
     _createRuleModels: function(){
@@ -215,12 +261,7 @@ enyo.kind({
 
     goToRingPhones: function(){
         App.goTo( 'RingPhones', {
-            model: this.$.rules.getActiveItem().model
+            collection: this.phones
         });
-    },
-
-    pageOpen: function(){
-        this.redrawItems();
-        this.selectLastRule();
     }
 });
