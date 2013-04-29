@@ -7,7 +7,6 @@ enyo.kind({
     name: 'rc.page.GreetCaller',
     kind: 'rc.Page',
     caption: loc.GreetCaller.caption,
-    nextButtonCaption: loc.save,
     showNext: true,
 
     handlers: {

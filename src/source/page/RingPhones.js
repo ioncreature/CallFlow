@@ -9,7 +9,6 @@ enyo.kind({
     classes: 'ui-ring-phones',
     caption: loc.RingPhones.caption,
     showNext: true,
-    nextButtonCaption: loc.save,
 
     handlers: {
         onOpen: 'pageOpen',

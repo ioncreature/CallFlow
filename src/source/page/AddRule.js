@@ -7,7 +7,6 @@ enyo.kind({
     name: 'rc.page.AddRule',
     kind: 'rc.Page',
     classes: 'ui-add-rule',
-    nextButtonCaption: loc.save,
     showNext: true,
     caption: loc.AddRule.caption,
 

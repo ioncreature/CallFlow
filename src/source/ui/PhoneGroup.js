@@ -78,7 +78,6 @@ enyo.kind({
     },
 
     readOnlyChanged: function(){
-        this.log( this.name + this.readOnly );
         if ( this.getReadOnly() )
             this.addClass( 'readOnly' );
         else

@@ -8,7 +8,6 @@ enyo.kind({
     kind: 'rc.Page',
     caption: loc.UserSettings.caption,
     scrollable: false,
-    nextButtonCaption: loc.test + 0,
     showNext: true,
     preview: rc.Scroller.THUMB,
 

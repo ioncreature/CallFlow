@@ -12,14 +12,16 @@ enyo.kind({
         showBack: true,
         showNext: false,
         caption: '',
-        nextButtonCaption: loc.next,
-        backButtonCaption: loc.back,
-        backType: 1
+        backType: 1, //rc.NavToolbar.CANCEL
+        nextType: 2  //rc.NavToolbar.DONE
     },
 
     statics: {
-        BACK: 1,
-        MENU: 2
+        CANCEL: 1,
+        DONE: 2,
+        BACK: 3,
+        NEXT: 4,
+        MENU: 5
     },
 
     events: {
@@ -46,9 +48,8 @@ enyo.kind({
         this.showBackChanged();
         this.showNextChanged();
         this.captionChanged();
-        this.nextButtonCaptionChanged();
-        this.backButtonCaptionChanged();
         this.backTypeChanged();
+        this.nextTypeChanged();
     },
 
     showBackChanged: function(){
@@ -63,24 +64,36 @@ enyo.kind({
         this.$.caption.setContent( this.getCaption() );
     },
 
-    nextButtonCaptionChanged: function(){
-        this.$.next.setContent( this.getNextButtonCaption() );
+    backTypeChanged: function( oldType ){
+        var oldClass = this._getButtonClassName( oldType ),
+            newClass = this._getButtonClassName( this.getBackType() );
+
+        this.$.back.removeClass( oldClass );
+        this.$.back.addClass( newClass );
     },
 
-    backButtonCaptionChanged: function(){
-        this.$.back.setContent( this.getBackButtonCaption() );
+    nextTypeChanged: function( oldType ){
+        var oldClass = this._getButtonClassName( oldType ),
+            newClass = this._getButtonClassName( this.getNextType() );
+
+        this.$.next.removeClass( oldClass );
+        this.$.next.addClass( newClass );
     },
 
-    backTypeChanged: function(){
-        var type = this.getBackType(),
-            menuClass = 'ui-nav-toolbar-menu';
-        if ( type === rc.NavToolbar.BACK ){
-            this.$.back.setContent( loc.cancel );
-            this.$.back.removeClass( menuClass );
-        }
-        else {
-            this.$.back.addClass( menuClass );
-            this.$.back.setContent( loc.menu );
+    _getButtonClassName: function( buttonType ){
+        var s = rc.NavToolbar;
+        switch ( buttonType ){
+            case s.CANCEL:
+                return 'ui-nav-toolbar-cancel';
+            case s.DONE:
+                return 'ui-nav-toolbar-done';
+            case s.BACK:
+                return 'ui-nav-toolbar-back';
+            case s.NEXT:
+                return 'ui-nav-toolbar-next';
+            case s.MENU:
+            default:
+                return 'ui-nav-toolbar-menu';
         }
     }
 });

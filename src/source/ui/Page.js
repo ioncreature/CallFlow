@@ -12,11 +12,11 @@ enyo.kind({
         showBack: true,
         showNext: false,
         caption: '',
-        nextButtonCaption: loc.next,
-        backButtonCaption: loc.cancel,
         pageData: null,
         preview: false,
         previewSize: false,
+        backButtonType: rc.NavToolbar.CANCEL,
+        nextButtonType: rc.NavToolbar.DONE,
         isRoot: false
     },
 
@@ -44,10 +44,10 @@ enyo.kind({
         this.showBackChanged();
         this.showNextChanged();
         this.captionChanged();
-        this.nextButtonCaptionChanged();
-        this.backButtonCaptionChanged();
         this.previewChanged();
         this.isRootChanged();
+        this.backButtonTypeChanged();
+        this.nextButtonTypeChanged();
     },
 
     initComponents: function(){
@@ -79,14 +79,6 @@ enyo.kind({
         this.$.nav.setCaption( this.getCaption() );
     },
 
-    nextButtonCaptionChanged: function(){
-        this.$.nav.setNextButtonCaption( this.getNextButtonCaption() );
-    },
-
-    backButtonCaptionChanged: function(){
-        this.$.nav.setBackButtonCaption( this.getBackButtonCaption() );
-    },
-
     previewChanged: function(){
         var preview = this.getPreview();
         preview && this.$.client.setPreview( preview );
@@ -104,7 +96,15 @@ enyo.kind({
     isRootChanged: function(){
         this.$.nav.setBackType( this.getIsRoot()
             ? rc.NavToolbar.MENU
-            : rc.NavToolbar.BACK
+            : rc.NavToolbar.CANCEL
         );
+    },
+
+    backButtonTypeChanged: function(){
+        this.$.nav.setBackType( this.getBackButtonType() );
+    },
+
+    nextButtonTypeChanged: function(){
+        this.$.nav.setNextType( this.getNextButtonType() );
     }
 });

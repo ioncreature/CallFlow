@@ -9,7 +9,6 @@ enyo.kind({
     caption: loc.PhoneGroupSettings.caption,
     classes: 'ui-phone-group-settings',
     showNext: true,
-    nextButtonCaption: loc.done,
 
     handlers: {
         onOpen: 'pageOpen',
