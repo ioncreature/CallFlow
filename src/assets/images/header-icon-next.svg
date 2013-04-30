@@ -12,14 +12,14 @@
 ]>
 <svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="4.747px" height="7.492px"
-	 viewBox="19.306 10.54 4.747 7.492" enable-background="new 19.306 10.54 4.747 7.492" xml:space="preserve">
+	 viewBox="0 0 4.747 7.492" enable-background="new 0 0 4.747 7.492" xml:space="preserve">
 <metadata>
 	<sfw  xmlns="&ns_sfw;">
 		<slices></slices>
-		<sliceSourceBounds  height="7.492" width="4.747" y="293.158" x="426.115" bottomLeftOrigin="true"></sliceSourceBounds>
+		<sliceSourceBounds  y="293.754" x="418.126" height="7.492" width="4.748" bottomLeftOrigin="true"></sliceSourceBounds>
 	</sfw>
 </metadata>
-<path fill="#68B42E" d="M19.599,17.739c0.391,0.391,1.022,0.391,1.413,0l2.748-2.746c0.391-0.391,0.391-1.023,0-1.414l-2.748-2.746
-	c-0.194-0.195-0.45-0.293-0.707-0.293c-0.256,0-0.512,0.098-0.706,0.293c-0.392,0.391-0.392,1.023,0,1.414l2.04,2.039l-2.04,2.039
-	C19.209,16.716,19.209,17.349,19.599,17.739z"/>
+<path fill="#FFFFFF" d="M0.293,7.198c0.392,0.392,1.022,0.392,1.413,0l2.749-2.745c0.391-0.392,0.391-1.022,0-1.414L1.706,0.293
+	C1.512,0.099,1.256,0,0.999,0C0.743,0,0.487,0.099,0.293,0.293c-0.392,0.392-0.392,1.022,0,1.414l2.04,2.039l-2.04,2.039
+	C-0.097,6.176-0.097,6.81,0.293,7.198z"/>
 </svg>
