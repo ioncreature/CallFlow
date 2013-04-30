@@ -150,5 +150,9 @@ var loc = {
         status: 'Status',
         ringsIncorrect: 'Rings count is incorrect',
         removeFromGroup: 'Remove from group'
+    },
+
+    AfterHoursWizard: {
+        caption: 'After Hours Rule'
     }
 };

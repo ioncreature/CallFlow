@@ -224,23 +224,10 @@ enyo.kind({
         App.goTo( 'AddRule', {collection: this.rules} );
     },
 
-    addAfterHours: function( inSender, inEvent ){
-        this.rules.add({
-            name: 'After Hours',
-            description: '6pm - 8am',
-            greetCaller: true,
-            greetCallerActive: false,
-            screenCaller: true,
-            screenCallerActive: false,
-            connecting: true,
-            playing: false,
-            ringSoftphones: false,
-            delay: false,
-            ringPhones: false,
-            voicemail: true
+    addAfterHours: function(){
+        App.goTo( 'AfterHoursWizard', {
+            collection: this.rules
         });
-        inEvent.originator.hide();
-        this.selectLastRule();
     },
 
     selectLastRule: function(){

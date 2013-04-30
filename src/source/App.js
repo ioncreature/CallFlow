@@ -36,6 +36,7 @@ enyo.kind({
             {kind: 'rc.page.GreetCaller', name: 'GreetCaller'},
             {kind: 'rc.page.UnderConstruction', name: 'UnderConstruction'},
             {kind: 'rc.page.AddRule', name: 'AddRule'},
+            {kind: 'rc.page.AfterHoursWizard', name: 'AfterHoursWizard'},
             {kind: 'rc.page.RingPhones', name: 'RingPhones'},
             {kind: 'rc.page.PhoneGroupSettings', name: 'PhoneGroupSettings'},
             {kind: 'rc.page.Dev', name: 'Dev'}

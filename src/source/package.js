@@ -30,9 +30,12 @@ enyo.depends(
     'ui/PhoneGroups.js',
     'ui/UserInfoPanel.js',
     'ui/CallFlowItem.js',
-    'ui/Page.js',
     'ui/AudioPlayer.js',
     'ui/Tabs.js',
+    'ui/Page.js',
+    'ui/WizardStep.js',
+    'ui/WizardPage.js',
+
 
     'page/Dev.js',
     'page/UserInfo.js',
@@ -44,6 +47,7 @@ enyo.depends(
     'page/AddRule.js',
     'page/RingPhones.js',
     'page/PhoneGroupSettings.js',
+    'page/AfterHoursWizard.js',
 
 	'App.js'
 );
