@@ -41,7 +41,6 @@ enyo.depends(
     'page/UnderConstruction.js',
     'page/GreetCaller.js',
     'page/CallerId.js',
-    'page/UserSettings.js',
     'page/AddRule.js',
     'page/RingPhones.js',
     'page/PhoneGroupSettings.js',
