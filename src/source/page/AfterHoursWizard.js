@@ -14,7 +14,7 @@ enyo.kind({
             caption: loc.AfterHoursWizard.stepWorkHours,
             next: 'action',
             components: [
-                {classes: 'ui-header', content: 'Hello Earth!'}
+                {classes: 'ui-header', content: 'Hello World!'}
             ],
             onEnter: 'startEnter',
             onLeave: 'startLeave'

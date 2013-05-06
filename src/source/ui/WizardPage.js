@@ -12,13 +12,16 @@ enyo.kind({
     showNext: true,
 
     handlers: {
-        onPageOpen: 'pageOpen'
+        onOpen: 'pageOpen'
     },
 
     published: {
         currentStep: false,
         startStep: false
     },
+
+    /** @type rc.Model */
+    state: null,
 
     components: [
         {
@@ -36,12 +39,14 @@ enyo.kind({
             kind: 'Panels',
             style: 'min-height: 200px;',
             fit: true,
-            draggable: false
+            draggable: false,
+            animate: false
         }
     ],
 
     create: function(){
         this.inherited( arguments );
+        this.state = new rc.Model();
         this.renderSteps();
         this.currentStepChanged();
     },
@@ -56,28 +61,35 @@ enyo.kind({
                 stepName: step.name
             });
             this.$.steps.createComponent({
+                kind: 'rc.WizardPageStep',
                 name: step.name,
-                components: step
+                components: step.components,
+                _wizardState: this.state
             });
         }, this );
     },
 
     pageOpen: function(){
         var startStep = this.getStartStep() ? this.getStartStep() : this.getOrder()[0];
+        this.log( startStep );
         this.setCurrentStep( startStep );
     },
 
     currentStepChanged: function(){
+        var step = this.getCurrentStep(),
+            i = this.steps.indexOf( step ),
+            tabName = this.getTabName( step.name );
 
+        //if ( this.$.tabs.getActive() !== this.$[tabName] )
+        //    this.$.tabs.setActive( this.$[tabName] );
+        this.$.steps.setIndex( i );
+        this.render();
     },
 
     tabActivated: function( sender, event ){
         var tab = event.originator;
-        if ( tab.getActive() ){
-            this.log( event.originator.name );
-            var step = this.getByName( tab.stepName );
-            this.$.steps.setIndex( this.steps.indexOf(step) );
-        }
+        if ( tab.getActive() )
+            this.setCurrentStep( this.getByName(tab.stepName) );
     },
 
     getNextStep: function(){
@@ -172,5 +184,12 @@ enyo.kind({
 
 enyo.kind({
     name: 'rc.WizardPageStep',
-    kind: 'rc.Control'
+    kind: 'rc.Control',
+
+    /**
+     * @returns {rc.Model}
+     */
+    getState: function(){
+        return this._wizardState;
+    }
 });
