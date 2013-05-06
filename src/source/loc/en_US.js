@@ -153,6 +153,9 @@ var loc = {
     },
 
     AfterHoursWizard: {
-        caption: 'After Hours Rule'
+        caption: 'After Hours Rule',
+        stepWorkHours: 'Work Hours',
+        stepAction: 'Action',
+        stepSummary: 'Summary'
     }
 };

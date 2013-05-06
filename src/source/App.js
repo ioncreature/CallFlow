@@ -8,7 +8,7 @@ enyo.kind({
     classes: 'enyo-fit ui-app',
     kind: 'Panels',
     arrangerKind: 'CollapsingArranger',
-    indexPage: 'CallFlow',
+    indexPage: 'AfterHoursWizard',
 
     components: [
         {name: 'menu', kind: 'Scroller', thumb: false, touch: true, classes: 'ui-main-menu', ontap: 'menuTapped', components: [
@@ -28,7 +28,7 @@ enyo.kind({
             {page: 'Audio', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-audio', caption: loc.App.audio},
             {page: 'Dev', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-dev', caption: loc.App.dev}
         ]},
-        {name: 'pages', classes: 'ui-app-pages', kind: 'Panels', fit: false, draggable: false, components: [
+        {name: 'pages', classes: 'ui-app-pages', kind: 'Panels', draggable: false, components: [
             {kind: 'rc.page.CallFlow', name: 'CallFlow'},
             {kind: 'rc.page.UserInfo', name: 'UserInfo'},
             {kind: 'rc.page.Fax', name: 'Fax'},

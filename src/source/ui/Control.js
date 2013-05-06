@@ -9,9 +9,9 @@ enyo.kind({
 
     addBinding: function( handler ){
         if ( this.bindings )
-            this.bindings.push( handler );
+            this.bindings.push.apply( this.bindings, handler instanceof Array ? handler : [handler] );
         else
-            this.bindings = [handler];
+            this.bindings = [].concat( handler );
     },
 
     removeBindings: function(){

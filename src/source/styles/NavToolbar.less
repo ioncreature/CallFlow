@@ -27,10 +27,15 @@
     }
 
     & > .ui-nav-toolbar-caption {
-        line-height: @rc-font-size-bigger;
+        @height: 35px;
+        line-height: @height;
         font-size: @rc-font-size-bigger;
         text-align: center;
         vertical-align: baseline;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        height: @height;
     }
 
     & > .ui-nav-toolbar-button {
