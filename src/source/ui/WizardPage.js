@@ -19,8 +19,14 @@ enyo.kind({
         ICON_FAILED: 4
     },
 
+    events: {
+        onFinish: ''
+    },
+
     handlers: {
-        onOpen: 'pageOpen'
+        onOpen: 'pageOpen',
+        onBack: 'backHandler',
+        onNext: 'nextHandler'
     },
 
     published: {
@@ -28,8 +34,11 @@ enyo.kind({
         startStep: false
     },
 
-    /** @type rc.Model */
+    /** Shared state */
     state: null,
+
+    /** @type Array */
+    steps: null,
 
     components: [
         {kind: 'FittableRows', classes: 'enyo-fit', components: [
@@ -47,14 +56,14 @@ enyo.kind({
                 kind: 'Panels',
                 fit: true,
                 draggable: false,
-                animate: false
+                animate: true
             }
         ]}
     ],
 
     create: function(){
         this.inherited( arguments );
-        this.state = new rc.Model();
+        this.state = {};
         this.renderSteps();
         this.currentStepChanged();
     },
@@ -70,11 +79,10 @@ enyo.kind({
             });
             this.$.steps.createComponent({
                 kind: 'rc.WizardPageStep',
-                name: step.name,
-                components: step.components,
-                _wizardState: this.state
-            });
+                wizard: this
+            }, step );
         }, this );
+        this.steps = this.$.steps.children;
     },
 
     pageOpen: function(){
@@ -84,24 +92,44 @@ enyo.kind({
     currentStepChanged: function(){
         var step = this.getCurrentStep(),
             i = this.steps.indexOf( step ),
-            tab = this.getTabByName( step.name );
+            tab = this.getTabByName( step.name ),
+            bt = rc.NavToolbar;
 
         if ( tab && tab !== this.$.tabs.getActive() )
             this.$.tabs.setActive( tab );
         this.$.steps.setIndex( i );
 
-
-        this.setBackButtonType( this.getCurrentStep() === this.getStartStep()
-            ? rc.NavToolbar.CANCEL
-            : rc.NavToolbar.BACK
-        );
-
-        this.setNextButtonType( this.getCurrentStep() === this.getEndStep()
-            ? rc.NavToolbar.DONE
-            : rc.NavToolbar.NEXT
-        );
+        this.setBackButtonType( this.isWizardOnStart() ? bt.CANCEL : bt.BACK );
+        this.setNextButtonType( this.isWizardOnEnd() ? bt.DONE : bt.NEXT );
 
         this.render();
+    },
+
+    backHandler: function(){
+        if ( this.isWizardOnStart() )
+            App.back();
+        else
+            this.getPreviousStep().doEnter();
+    },
+
+    nextHandler: function(){
+        var current = this.getCurrentStep(),
+            result = current.doLeave && current.doLeave(),
+            nextStep;
+
+        if ( result === false )
+            return;
+        else if ( typeof result == 'string' && this.getByName(result) )
+            nextStep = this.getByName( result );
+        else
+            nextStep = this.getNextStep();
+
+        if ( this.isWizardOnEnd() ){
+            this.doFinish();
+            App.back();
+        }
+        else
+            this.setCurrentStep( nextStep );
     },
 
     tabActivated: function( sender, event ){
@@ -118,19 +146,16 @@ enyo.kind({
         return this._getStep( 'previous' );
     },
 
-    getOrder: function(){
-        return Object.keys( this.steps );
-    },
-
     _getStep: function( type ){
         var current = this.getCurrentStep(),
-            order = this.getOrder(),
-            currentIndex = order.indexOf( current );
+            currentIndex = this.steps.indexOf( current ),
+            newIndex;
 
         if ( type === 'previous' )
-            return currentIndex + 1 < order.length ? currentIndex + 1 : -1;
+            newIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : -1;
         else
-            return currentIndex - 1 >= 0 ? currentIndex - 1 : -1;
+            newIndex = currentIndex + 1 < this.steps.length ? currentIndex + 1 : -1;
+        return this.steps[newIndex];
     },
 
     getByName: function( name ){
@@ -144,6 +169,10 @@ enyo.kind({
         return this.$.tabs.$[ this.getTabName(stepName) ];
     },
 
+    getTabName: function( stepName ){
+        return 'tab' + stepName;
+    },
+
     getStartStep: function(){
         return this.getByName( 'start' );
     },
@@ -152,12 +181,20 @@ enyo.kind({
         return this.getByName( 'end' );
     },
 
-    getTabName: function( stepName ){
-        return 'tab' + stepName;
-    },
-
     setStepIcon: function( stepName, iconType ){
         this.getTabByName( stepName ).setIcon( iconType );
+    },
+
+    setStepCaption: function( stepName, caption ){
+        this.getTabByName( stepName ).setCaption( caption );
+    },
+
+    isWizardOnStart: function(){
+        return this.getCurrentStep() === this.getStartStep();
+    },
+
+    isWizardOnEnd: function(){
+        return this.getCurrentStep() === this.getEndStep();
     }
 });
 
@@ -169,7 +206,7 @@ enyo.kind({
 
     published: {
         caption: '',
-        icon: rc.WizardPage.ICON_NONE
+        icon: rc.WizardPage.ICON_UNDONE
     },
 
     components: [
@@ -217,19 +254,35 @@ enyo.kind({
     name: 'rc.WizardPageStep',
     kind: 'rc.Control',
 
-    events: {
-        onEnter: '',
-        onLeave: ''
+    published: {
+        icon: rc.WizardPage.ICON_UNDONE,
+        caption: ''
+    },
+
+    create: function(){
+        this.inherited( arguments );
+        this.iconChanged();
+        this.captionChanged();
+    },
+
+    iconChanged: function(){
+        this.wizard && this.wizard.setStepIcon( this.name, this.getIcon() );
+    },
+
+    captionChanged: function(){
+        this.wizard && this.wizard.setStepCaption( this.name, this.getCaption() );
     },
 
     /**
      * @returns {rc.Model}
      */
     getState: function(){
-        return this._wizardState;
+        return this.wizard && this.wizard.state;
     },
 
-    setIcon: function( iconType ){
-        this.parent.setStepIcon( this.stepName, iconType )
-    }
+    /** @override */
+    doLeave: function(){},
+
+    /** @override */
+    doEnter: function(){}
 });
