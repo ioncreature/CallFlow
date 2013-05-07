@@ -11,6 +11,14 @@ enyo.kind({
     nextButtonType: rc.NavToolbar.NEXT,
     showNext: true,
 
+    statics: {
+        ICON_NONE: 0,
+        ICON_UNDONE: 1,
+        ICON_DONE: 2,
+        ICON_SKIPPED: 3,
+        ICON_FAILED: 4
+    },
+
     handlers: {
         onOpen: 'pageOpen'
     },
@@ -24,24 +32,24 @@ enyo.kind({
     state: null,
 
     components: [
-        {
-            name: 'tabs',
-            kind: 'Group',
-            layoutKind: 'rc.ColumnsLayout',
-            defaultKind: 'rc.WizardPageTab',
-            highlander: true,
-            classes: 'ui-wizard-page-tabs',
-            onActivate: 'tabActivated',
-            fit: false
-        },
-        {
-            name: 'steps',
-            kind: 'Panels',
-            style: 'min-height: 200px;',
-            fit: true,
-            draggable: false,
-            animate: false
-        }
+        {kind: 'FittableRows', classes: 'enyo-fit', components: [
+            {
+                name: 'tabs',
+                kind: 'Group',
+                layoutKind: 'rc.ColumnsLayout',
+                defaultKind: 'rc.WizardPageTab',
+                highlander: true,
+                classes: 'ui-wizard-page-tabs',
+                onActivate: 'tabActivated'
+            },
+            {
+                name: 'steps',
+                kind: 'Panels',
+                fit: true,
+                draggable: false,
+                animate: false
+            }
+        ]}
     ],
 
     create: function(){
@@ -70,18 +78,17 @@ enyo.kind({
     },
 
     pageOpen: function(){
-        var startStep = this.getStartStep() ? this.getStartStep() : this.getOrder()[0];
-        this.log( startStep );
+        var startStep = this.getStartStep();
         this.setCurrentStep( startStep );
     },
 
-    currentStepChanged: function(){
+    currentStepChanged: function( old ){
         var step = this.getCurrentStep(),
             i = this.steps.indexOf( step ),
-            tabName = this.getTabName( step.name );
+            tab = this.getTabByName( step.name );
 
-        //if ( this.$.tabs.getActive() !== this.$[tabName] )
-        //    this.$.tabs.setActive( this.$[tabName] );
+        if ( tab && tab !== this.$.tabs.getActive() )
+            this.$.tabs.setActive( tab );
         this.$.steps.setIndex( i );
         this.render();
     },
@@ -122,12 +129,20 @@ enyo.kind({
         return false;
     },
 
+    getTabByName: function( stepName ){
+        return this.$.tabs.$[ this.getTabName(stepName) ];
+    },
+
     getStartStep: function(){
         return this.getByName( 'start' );
     },
 
     getTabName: function( stepName ){
         return 'tab' + stepName;
+    },
+
+    setStepIcon: function( stepName, iconType ){
+        this.getTabByName( stepName ).setIcon( iconType );
     }
 });
 
@@ -139,13 +154,7 @@ enyo.kind({
 
     published: {
         caption: '',
-        icon: 1
-    },
-
-    statics: {
-        ICON_NONE: 0,
-        ICON_ACTIVE: 1,
-        ICON_SKIPPED: 2
+        icon: rc.WizardPage.ICON_NONE
     },
 
     components: [
@@ -163,20 +172,27 @@ enyo.kind({
         this.$.caption.setContent( this.getCaption() );
     },
 
-    iconChanged: function(){
-        var t = rc.WizardPageTab;
-        switch ( this.getIcon() ){
-            case t.ICON_NONE:
-                this.$.icon.hide();
-                break;
-            case t.ICON_ACTIVE:
-                this.$.icon.show();
-                this.$.icon.removeClass( 'skipped' );
-                break;
+    iconChanged: function( old ){
+        var icon = this.$.icon;
+
+        icon.removeClass( this.getIconClassNameByType(old) );
+        icon.addClass( this.getIconClassNameByType(this.getIcon()) );
+        icon.setShowing( this.getIcon() !== rc.WizardPage.ICON_NONE );
+    },
+
+    getIconClassNameByType: function( type ){
+        var t = rc.WizardPage;
+        switch ( type ){
+            case t.ICON_DONE:
+                return 'done';
+            case t.ICON_FAILED:
+                return 'failed';
             case t.ICON_SKIPPED:
-                this.$.icon.show();
-                this.$.icon.addClass( 'skipped' );
-                break;
+                return 'skipped';
+            case t.ICON_UNDONE:
+            case t.ICON_NONE:
+            default:
+                return '';
         }
     }
 });
@@ -186,10 +202,19 @@ enyo.kind({
     name: 'rc.WizardPageStep',
     kind: 'rc.Control',
 
+    events: {
+        onEnter: '',
+        onLeave: ''
+    },
+
     /**
      * @returns {rc.Model}
      */
     getState: function(){
         return this._wizardState;
+    },
+
+    setIcon: function( iconType ){
+        this.parent.setStepIcon( this.stepName, iconType )
     }
 });

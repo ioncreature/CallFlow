@@ -79,6 +79,11 @@ enyo.kind({
         return res;
     },
 
+    resetProperty: function( property, options ){
+        this.setValue( property, this.initAttrs[property], options );
+        delete this.changed[property];
+    },
+
     reset: function( options ){
         this.attr = enyo.mixin( {}, this.initAttrs );
         this.changed = {};
@@ -100,6 +105,7 @@ enyo.kind({
      */
     save: function(){
         this.changed = {};
+        this.initAttrs = enyo.mixin( {}, this.attr );
     },
 
     /**

@@ -80,6 +80,22 @@ describe( 'rc.Model', function(){
     });
 
 
+    it( 'should reset model property to initial state', function(){
+        model.set( 'a', 10 );
+        model.save();
+        expect( model.isChanged() ).toBe( false );
+        expect( model.get('a') ).toBe( 10 );
+
+        model.set( 'a', 50 );
+        expect( model.get('a') ).toBe( 50 );
+        expect( model.isChanged() ).toBe( true );
+
+        model.resetProperty( 'a' );
+        expect( model.get('a') ).toBe( 10 );
+        expect( model.isChanged() ).toBe( false );
+    });
+
+
     it( 'should reset model to default state', function(){
         model.set( toSet );
         model.set( 'test', false );
@@ -88,5 +104,6 @@ describe( 'rc.Model', function(){
         expect( model.get('test') ).toBe( true );
         expect( model.get('a') ).toBeUndefined();
         expect( model.get('b') ).toBeUndefined();
+        expect( model.isChanged() ).toBe( false );
     });
 });
