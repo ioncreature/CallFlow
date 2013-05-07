@@ -23,7 +23,7 @@ enyo.kind({
         {
             name: 'action',
             caption: loc.AfterHoursWizard.stepAction,
-            next: 'summary',
+            next: 'end',
             components: [
                 {classes: 'ui-header', content: 'Hello Earth!'}
             ],
@@ -32,7 +32,7 @@ enyo.kind({
         },
 
         {
-            name: 'summary',
+            name: 'end',
             caption: loc.AfterHoursWizard.stepSummary,
             next: false,
             components: [

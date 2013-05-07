@@ -78,11 +78,10 @@ enyo.kind({
     },
 
     pageOpen: function(){
-        var startStep = this.getStartStep();
-        this.setCurrentStep( startStep );
+        this.setCurrentStep( this.getStartStep() );
     },
 
-    currentStepChanged: function( old ){
+    currentStepChanged: function(){
         var step = this.getCurrentStep(),
             i = this.steps.indexOf( step ),
             tab = this.getTabByName( step.name );
@@ -90,6 +89,18 @@ enyo.kind({
         if ( tab && tab !== this.$.tabs.getActive() )
             this.$.tabs.setActive( tab );
         this.$.steps.setIndex( i );
+
+
+        this.setBackButtonType( this.getCurrentStep() === this.getStartStep()
+            ? rc.NavToolbar.CANCEL
+            : rc.NavToolbar.BACK
+        );
+
+        this.setNextButtonType( this.getCurrentStep() === this.getEndStep()
+            ? rc.NavToolbar.DONE
+            : rc.NavToolbar.NEXT
+        );
+
         this.render();
     },
 
@@ -135,6 +146,10 @@ enyo.kind({
 
     getStartStep: function(){
         return this.getByName( 'start' );
+    },
+
+    getEndStep: function(){
+        return this.getByName( 'end' );
     },
 
     getTabName: function( stepName ){
