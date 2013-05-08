@@ -67,7 +67,6 @@ enyo.kind({
     },
 
     startLeave: function(){
-        this.log( 'leave' );
     },
 
     saveRule: function(){

@@ -25,8 +25,8 @@ enyo.kind({
     },
 
     events: {
-        onBack: '',
-        onNext: ''
+        onBackTap: '',
+        onNextTap: ''
     },
 
     components: [
@@ -36,11 +36,11 @@ enyo.kind({
     ],
 
     backTapped: function(){
-        this.doBack();
+        this.doBackTap();
     },
 
     nextTapped: function(){
-        this.doNext();
+        this.doNextTap();
     },
 
     create: function(){

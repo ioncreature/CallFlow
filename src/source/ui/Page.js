@@ -27,17 +27,16 @@ enyo.kind({
     },
 
     pageTools: [
-        {name: 'nav', kind: 'rc.NavToolbar', onBack: 'doBack', onNext: 'doNext'},
+        {name: 'nav', kind: 'rc.NavToolbar', onBackTap: 'handleBackTap', onNextTap: 'doNext'},
         {name: 'client', fit: true, kind: 'rc.Scroller'}
     ],
 
-    doBack: function(){
-        this.getIsRoot()
-            ? App.goToMenu()
-            : App.back();
+    handleBackTap: function(){
+        if ( !this.doBack() )
+            this.getIsRoot()
+                ? App.goToMenu()
+                : App.back();
     },
-
-    doNext: function(){},
 
     create: function(){
         this.inherited( arguments );

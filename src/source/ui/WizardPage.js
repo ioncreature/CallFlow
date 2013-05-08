@@ -85,18 +85,17 @@ enyo.kind({
     },
 
     pageOpen: function(){
-        this.setCurrentStep( this.getStartStep() );
+        this.enterToStep( this.getStartStep() );
     },
 
     currentStepChanged: function(){
         var step = this.getCurrentStep(),
-            i = this.steps.indexOf( step ),
             tab = this.getTabByName( step.name ),
             bt = rc.NavToolbar;
 
         if ( tab && tab !== this.$.tabs.getActive() )
             this.$.tabs.setActive( tab );
-        this.$.steps.setIndex( i );
+        this.$.steps.setIndex( this.steps.indexOf(step) );
 
         this.setBackButtonType( this.isWizardOnStart() ? bt.CANCEL : bt.BACK );
         this.setNextButtonType( this.isWizardOnEnd() ? bt.DONE : bt.NEXT );
@@ -104,12 +103,9 @@ enyo.kind({
         this.render();
     },
 
-    backHandler: function(){
-        if ( this.isWizardOnStart() )
-            App.back();
-        else
-            this.goBack();
-        return false;
+    backHandler: function( event, sender ){
+        this.goBack();
+        return true;
     },
 
     nextHandler: function(){
@@ -118,12 +114,20 @@ enyo.kind({
 
     goBack: function(){
         var step = this.getPreviousStep();
-        this.setCurrentStep( step );
-        this.callStepMethod( step, 'enter' );
+
+        if ( this.isWizardOnStart() )
+            App.back();
+        else {
+            this.setCurrentStep( step );
+            this.callStepMethod( step, 'enter' );
+        }
     },
 
     goNext: function(){
-        debugger;
+        this.goTo( this.getNextStep() );
+    },
+
+    goTo: function( step ){
         var current = this.getCurrentStep(),
             result = this.callStepMethod( current, 'leave' ),
             nextStep;
@@ -133,16 +137,20 @@ enyo.kind({
         else if ( typeof result == 'string' && this.getByName(result) )
             nextStep = this.getByName( result );
         else
-            nextStep = this.getNextStep();
+            nextStep = step;
 
         if ( this.isWizardOnEnd() ){
             this.doFinish();
             App.back();
         }
         else {
-            this.setCurrentStep( nextStep );
-            this.callStepMethod( nextStep, 'enter' );
+            this.enterToStep( nextStep );
         }
+    },
+
+    enterToStep: function( step ){
+        this.setCurrentStep( step );
+        this.callStepMethod( step, 'enter' );
     },
 
     tabActivated: function( sender, event ){
@@ -215,13 +223,17 @@ enyo.kind({
     },
 
     callStepMethod: function( step, methodName ){
-        var params = Array.prototype.slice.call( arguments, 2 );
+        var params = Array.prototype.slice.call( arguments, 2 ),
+            method;
 
-        if ( typeof step[methodName] == 'function' )
-            return step[methodName].apply( step, params );
+        if ( step ){
+            method = step[methodName];
+            if ( typeof method == 'function' )
+                return method.apply( step, params );
 
-        if ( typeof step[methodName] == 'string' && typeof this[methodName] == 'function' )
-            return this[methodName].apply( step, params );
+            if ( typeof method == 'string' && typeof this[method] == 'function' )
+                return this[method].apply( step, params );
+        }
 
         return undefined;
     }
