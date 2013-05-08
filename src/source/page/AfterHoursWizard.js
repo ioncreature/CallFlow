@@ -8,6 +8,10 @@ enyo.kind({
     kind: 'rc.WizardPage',
     caption: loc.AfterHoursWizard.caption,
 
+    handlers: {
+        onFinish: 'saveRule'
+    },
+
     steps: [
         {
             name: 'start',
@@ -16,8 +20,8 @@ enyo.kind({
             components: [
                 {classes: 'ui-header', content: 'Hello World!'}
             ],
-            onEnter: 'startEnter',
-            onLeave: 'startLeave'
+            enter: 'startEnter',
+            leave: 'startLeave'
         },
 
         {
@@ -27,8 +31,8 @@ enyo.kind({
             components: [
                 {classes: 'ui-header', content: 'Hello Earth!'}
             ],
-            onEnter: 'startEnter',
-            onLeave: 'startLeave'
+            enter: 'startEnter',
+            leave: 'startLeave'
         },
 
         {
@@ -38,8 +42,8 @@ enyo.kind({
             components: [
                 {classes: 'ui-header', content: 'Hello Sky!'}
             ],
-            onEnter: 'endEnter',
-            onLeave: 'endLeave'
+            enter: 'endEnter',
+            leave: 'endLeave'
         }
     ],
 
@@ -49,5 +53,23 @@ enyo.kind({
 
     startLeave: function(){
         this.log( 'leave' );
+    },
+
+    saveRule: function(){
+        this.getPageData().collection.add({
+            name: 'After Hours',
+            ruleType: rc.data.RuleModel.TYPE_AFTER_HOURS,
+            description: '6pm - 8am',
+            greetCaller: true,
+            greetCallerActive: false,
+            screenCaller: true,
+            screenCallerActive: false,
+            connecting: true,
+            playing: false,
+            ringSoftphones: false,
+            delay: false,
+            ringPhones: false,
+            voicemail: true
+        });
     }
 });

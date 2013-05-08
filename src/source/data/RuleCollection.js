@@ -8,5 +8,11 @@ enyo.kind({
     name: 'rc.data.RuleCollection',
 
     model: rc.data.RuleModel,
-    idField: 'id'
+    idField: 'id',
+
+    hasAfterHoursRule: function(){
+        return this.some( function( model ){
+            return model.isAfterHours();
+        });
+    }
 });

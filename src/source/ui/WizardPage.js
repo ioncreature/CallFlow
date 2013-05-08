@@ -65,7 +65,6 @@ enyo.kind({
         this.inherited( arguments );
         this.state = {};
         this.renderSteps();
-        this.currentStepChanged();
     },
 
     renderSteps: function(){
@@ -109,12 +108,23 @@ enyo.kind({
         if ( this.isWizardOnStart() )
             App.back();
         else
-            this.getPreviousStep().doEnter();
+            this.goBack();
+        return false;
     },
 
     nextHandler: function(){
+        this.goNext();
+    },
+
+    goBack: function(){
+        var step = this.getPreviousStep();
+        this.setCurrentStep( step );
+        this.callStepMethod( step, 'enter' );
+    },
+
+    goNext: function(){
         var current = this.getCurrentStep(),
-            result = current.doLeave && current.doLeave(),
+            result = this.callStepMethod( current, 'leave' ),
             nextStep;
 
         if ( result === false )
@@ -130,6 +140,7 @@ enyo.kind({
         }
         else
             this.setCurrentStep( nextStep );
+            this.callStepMethod( nextStep, 'enter' );
     },
 
     tabActivated: function( sender, event ){
@@ -195,6 +206,18 @@ enyo.kind({
 
     isWizardOnEnd: function(){
         return this.getCurrentStep() === this.getEndStep();
+    },
+
+    callStepMethod: function( step, methodName ){
+        var params = Array.prototype.slice.call( arguments, 2 );
+
+        if ( typeof step[methodName] == 'function' )
+            return step[methodName].apply( step, params );
+
+        if ( typeof step[methodName] == 'string' && typeof this[methodName] == 'function' )
+            return this[methodName].apply( step, params );
+
+        return undefined;
     }
 });
 
@@ -281,8 +304,8 @@ enyo.kind({
     },
 
     /** @override */
-    doLeave: function(){},
+    leave: function(){},
 
     /** @override */
-    doEnter: function(){}
+    enter: function(){}
 });
