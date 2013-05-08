@@ -66,9 +66,6 @@ enyo.kind({
         });
     },
 
-    startLeave: function(){
-    },
-
     saveRule: function(){
         var data = this.getPageData();
         data && data.collection && data.collection.add( this.getState().rule );

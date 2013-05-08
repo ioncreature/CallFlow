@@ -143,9 +143,8 @@ enyo.kind({
             this.doFinish();
             App.back();
         }
-        else {
+        else
             this.enterToStep( nextStep );
-        }
     },
 
     enterToStep: function( step ){
