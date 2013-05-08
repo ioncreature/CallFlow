@@ -157,6 +157,8 @@ enyo.kind({
             delete data.newRuleAdded;
         }
         this.$.phones.render();
+this.log( this.rules.hasAfterHoursRule() );
+        this.$.addAfterHours.setShowing( !this.rules.hasAfterHoursRule() );
     },
 
     _getMockPhonesCollection: function(){

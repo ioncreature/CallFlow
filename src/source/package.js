@@ -33,8 +33,8 @@ enyo.depends(
     'ui/AudioPlayer.js',
     'ui/Tabs.js',
     'ui/Page.js',
-    'ui/WizardStep.js',
     'ui/WizardPage.js',
+    'ui/WizardPageStep.js',
 
 
     'page/Dev.js',

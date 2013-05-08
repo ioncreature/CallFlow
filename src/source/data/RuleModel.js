@@ -40,6 +40,6 @@ enyo.kind({
     },
 
     isAfterHours: function(){
-        return this.get( 'ruleType' ) === rc.data.RuleModel;
+        return this.get( 'ruleType' ) === rc.data.RuleModel.TYPE_AFTER_HOURS;
     }
 });

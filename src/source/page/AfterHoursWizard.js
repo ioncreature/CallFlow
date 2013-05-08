@@ -48,15 +48,8 @@ enyo.kind({
     ],
 
     startEnter: function(){
-        this.log( 'enter' );
-    },
-
-    startLeave: function(){
-        this.log( 'leave' );
-    },
-
-    saveRule: function(){
-        this.getPageData().collection.add({
+        var state = this.getState();
+        state.rule = new rc.data.RuleModel({
             name: 'After Hours',
             ruleType: rc.data.RuleModel.TYPE_AFTER_HOURS,
             description: '6pm - 8am',
@@ -71,5 +64,14 @@ enyo.kind({
             ringPhones: false,
             voicemail: true
         });
+    },
+
+    startLeave: function(){
+        this.log( 'leave' );
+    },
+
+    saveRule: function(){
+        var data = this.getPageData();
+        data && data.collection && data.collection.add( this.getState().rule );
     }
 });
