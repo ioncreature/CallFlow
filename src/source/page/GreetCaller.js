@@ -66,7 +66,7 @@ enyo.kind({
                     {kind: 'onyx.Input', placeholder: loc.GreetCaller.inputPlaceholder}
                 ]},
                 {classes: 'ui-center', components: [
-                    {kind:'onyx.Button', classes: 'ui-button', content: loc.GreetCaller.callMeNow}
+                    {kind:'rc.Button', content: loc.GreetCaller.callMeNow}
                 ]}
             ]},
             {name: 'overMicrophoneContainer', components: [
