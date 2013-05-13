@@ -39,6 +39,7 @@ enyo.kind({
             name: 'end',
             caption: loc.AfterHoursWizard.stepSummary,
             next: false,
+            icon: false,
             components: [
                 {classes: 'ui-header', content: 'Hello Sky!'}
             ],

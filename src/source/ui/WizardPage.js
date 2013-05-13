@@ -12,7 +12,7 @@ enyo.kind({
     showNext: true,
 
     statics: {
-        ICON_NONE: 0,
+        ICON_NONE: false,
         ICON_UNDONE: 1,
         ICON_DONE: 2,
         ICON_SKIPPED: 3,
