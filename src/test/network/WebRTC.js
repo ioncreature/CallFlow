@@ -9,5 +9,4 @@ describe( 'rc.Collection', function(){
     beforeEach( function(){
         peer = new rc.network.WebRTC();
     });
-
 });

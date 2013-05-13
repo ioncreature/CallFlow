@@ -41,6 +41,7 @@ enyo.depends(
 
     'page/Dev.js',
     'page/UserInfo.js',
+    'page/Dialer.js',
     'page/Fax.js',
     'page/CallFlow.js',
     'page/UnderConstruction.js',

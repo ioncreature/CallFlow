@@ -8,7 +8,7 @@ enyo.kind({
     classes: 'enyo-fit ui-app',
     kind: 'Panels',
     arrangerKind: 'CollapsingArranger',
-    indexPage: 'AfterHoursWizard',
+    indexPage: 'Dialer',
 
     components: [
         {name: 'menu', kind: 'Scroller', thumb: false, touch: true, classes: 'ui-main-menu', ontap: 'menuTapped', components: [
@@ -29,6 +29,7 @@ enyo.kind({
             {page: 'Dev', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-dev', caption: loc.App.dev}
         ]},
         {name: 'pages', classes: 'ui-app-pages', kind: 'Panels', draggable: false, components: [
+            {kind: 'rc.page.Dialer', name: 'Dialer'},
             {kind: 'rc.page.CallFlow', name: 'CallFlow'},
             {kind: 'rc.page.UserInfo', name: 'UserInfo'},
             {kind: 'rc.page.Fax', name: 'Fax'},
@@ -46,6 +47,7 @@ enyo.kind({
     create: function(){
         this.pageStack = [];
         this.inherited( arguments );
+        this.initConfig();
 
         App.on( 'goBack', this.goBack, this );
         App.on( 'goTo', this.goTo, this );
@@ -53,6 +55,13 @@ enyo.kind({
         App.on( 'goToMenu', this.showMenu, this );
 
         App.goTo( this.indexPage );
+    },
+
+    initConfig: function(){
+        var cfg = typeof _config == 'object' && _config ? _config : {};
+        Object.keys( cfg ).forEach( function( key ){
+            App.set( 'key', cfg[key] );
+        });
     },
 
     menuItemTap: function( inSender ){

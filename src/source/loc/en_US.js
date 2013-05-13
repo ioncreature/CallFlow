@@ -157,5 +157,13 @@ var loc = {
         stepWorkHours: 'Work Hours',
         stepAction: 'Action',
         stepSummary: 'Summary'
+    },
+
+    Dialer: {
+        caption: 'Dialer',
+        call: 'Call',
+        phoneNumber: 'Phone Number',
+        phoneNumberPlaceholder: 'Enter Phone Number',
+        hangup: 'Hang up'
     }
 };
