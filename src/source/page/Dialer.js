@@ -36,8 +36,7 @@ enyo.kind({
         if ( this.connecting )
             this.log( 'Wait. Connection is establishing.' );
         else if ( this.calling ){
-            this.$.phoneNumber.setDisabled( false );
-            this.$.call.setContent( loc.Dialer.call );
+
             this.hangUp();
         }
         else {
@@ -45,7 +44,6 @@ enyo.kind({
             if ( !this.validateNumber(number) )
                 alert( 'Incorrect phone number' );
             else {
-                this.$.phoneNumber.setDisabled( true );
                 this.$.call.setContent( loc.Dialer.hangup );
                 this.makeCall( number );
             }
@@ -54,7 +52,7 @@ enyo.kind({
 
     hangUp: function(){
         this.log( 'hang up' );
-        this.calling = false;
+        this.setCalling( false );
     },
 
     makeCall: function( phoneIdentifier ){
@@ -69,6 +67,7 @@ enyo.kind({
                 impi: 'bob',
                 impu: 'sip:bob@example.org',
                 password: 'mysecret',
+                display_name: 'Great and Awful',
                 events_listener: {
                     events: 'started',
                     listener: function( e ){
@@ -78,21 +77,26 @@ enyo.kind({
                             video_remote: page.$.remoteVideo.node,
                             audio_remote: page.$.remoteAudio.node
                         });
-                        callSession.call( phoneIdentifier );
-                        page.log( 'connection established' );
-                        page.connecting = false;
-                        page.calling = true;
+                        try {
+                            callSession.call( phoneIdentifier );
+                            page.log( 'connection established' );
+                            page.setCalling( false );
+                            page.setConnecting( true );
+                        }
+                        catch ( e ){
+                            console.log( 'call error', e );
+                            page.setCalling( false );
+                            page.setConnecting( false );
+                        }
                     }
                 }
             });
             stack.start();
         }, page.errorBack.bind(page) );
-
-
     },
 
     errorBack: function( e ){
-        throw e;
+        console.log( 'error', e );
     },
 
     getPhoneNumber: function(){
@@ -101,5 +105,24 @@ enyo.kind({
 
     validateNumber: function( number ){
         return typeof number == 'string';
+    },
+
+    setCalling: function( calling ){
+        this.calling = !!calling;
+        this.$.phoneNumber.setDisabled( this.calling );
+        this.setButtonCaption();
+    },
+
+    setConnecting: function( connecting ){
+        this.connecting = !!connecting;
+        this.$.call.setContent( loc.Dialer.hangup );
+        this.setButtonCaption();
+    },
+
+    setButtonCaption: function(){
+        if ( this.calling || this.connecting )
+            this.$.call.setContent( loc.Dialer.hangup );
+        else
+            this.$.call.setContent( loc.Dialer.call );
     }
 });
