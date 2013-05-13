@@ -8,7 +8,7 @@ enyo.kind({
     classes: 'enyo-fit ui-app',
     kind: 'Panels',
     arrangerKind: 'CollapsingArranger',
-    indexPage: 'Dialer',
+    defaultPage: 'CallFlow',
 
     components: [
         {name: 'menu', kind: 'Scroller', thumb: false, touch: true, classes: 'ui-main-menu', ontap: 'menuTapped', components: [
@@ -54,13 +54,13 @@ enyo.kind({
         App.on( 'goTo', this.activateMenuItem, this );
         App.on( 'goToMenu', this.showMenu, this );
 
-        App.goTo( this.indexPage );
+        App.goTo( App.get('indexPage') || this.defaultPage );
     },
 
     initConfig: function(){
         var cfg = typeof _config == 'object' && _config ? _config : {};
         Object.keys( cfg ).forEach( function( key ){
-            App.set( 'key', cfg[key] );
+            App.set( key, cfg[key] );
         });
     },
 

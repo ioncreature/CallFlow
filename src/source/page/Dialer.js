@@ -15,7 +15,7 @@ enyo.kind({
             {name: 'phoneNumber', kind: 'onyx.Input', placeholder: loc.Dialer.phoneNumberPlaceholder}
         ]},
         {classes: 'ui-center', components: [
-            {name: 'call', kind:'onyx.Button', classes: 'ui-button', content: loc.Dialer.call, ontap: 'tapCallButton'}
+            {name: 'call', kind:'rc.Button', content: loc.Dialer.call, ontap: 'tapCallButton'}
         ]}
     ],
 

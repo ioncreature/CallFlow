@@ -4,7 +4,8 @@
  */
 
 var _config = {
+    indexPage: 'Dialer',
     websocket: {
-        "path": "amarenin.int.nordigy.ru:8081/presence"
+        "path": "ws://amarenin.int.nordigy.ru:8081/presence"
     }
 };

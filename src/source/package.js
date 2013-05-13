@@ -3,8 +3,9 @@ enyo.depends(
     '$lib/g11n',
 	'$lib/layout',
 	'$lib/onyx/source/TabPanels.js',
-	'$lib/onyx',	// To theme Onyx using Theme.less, change this line to $lib/onyx/source,
-	'Theme.less',	// uncomment this line, and follow the steps described in Theme.less
+	'$lib/onyx',
+	'$lib/SIPml-api.js', // SIP + WebRTC library
+	'Theme.less', // uncomment this line, and follow the steps described in Theme.less
 
 	'loc/en_US.js',
 
