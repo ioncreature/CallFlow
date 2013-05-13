@@ -4,3 +4,4 @@ src/enyo
 src/deploy
 src/build
 *.DS_Store
+*node_modules

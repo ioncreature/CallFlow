@@ -1,4 +1,5 @@
 enyo.depends(
+    'config.js',
     '$lib/g11n',
 	'$lib/layout',
 	'$lib/onyx/source/TabPanels.js',
@@ -9,6 +10,7 @@ enyo.depends(
 
     'core',
     'data',
+    'network',
 
     'ui/Control.js',
     'ui/Button.js',

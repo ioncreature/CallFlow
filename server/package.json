@@ -1,0 +1,12 @@
+{
+    "name": "CallFlowServer",
+    "author": "Alexander Marenin <great_muchacho@mail.ru>",
+    "version": "1.0.8",
+    "engines": {
+        "node": ">=0.6.10"
+    },
+    "main": "app",
+    "dependencies": {
+        "websocket": ">=1.0.8"
+    }
+}
