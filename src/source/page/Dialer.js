@@ -63,10 +63,13 @@ enyo.kind({
         SIPml.init( function( e ){
             console.log( 'init', e );
             var stack = new SIPml.Stack({
-                realm: 'example.org',
-                impi: 'bob',
-                impu: 'sip:bob@example.org',
-                password: 'mysecret',
+                realm: '192.168.23.223',
+                impi: '12052160015',
+                impu: 'sip:12052160015@192.168.23.202:5060',
+                password: '17453008',
+                enable_rtcweb_breaker: true,
+                websocket_server_url: 'ws://192.168.23.223:10060',
+                outbound_proxy_url: 'udp://192.168.23.202:5060',
                 display_name: 'Great and Awful',
                 events_listener: {
                     events: 'started',
