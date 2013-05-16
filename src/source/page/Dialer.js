@@ -12,6 +12,7 @@ enyo.kind({
     sipInited: false,
     sipRegistered: false,
     sipStack: null,
+    sipSessionCall: null,
 
     handlers: {
         onOpen: 'pageOpen'
@@ -30,7 +31,7 @@ enyo.kind({
         {name: 'mediaContainer', classes: 'ui-dialer-media-container', components: [
             {name: 'remoteVideo', classes: 'ui-dialer-remote-video', tag: 'video'},
             {name: 'localVideo', classes: 'ui-dialer-local-video', tag: 'video'},
-            {name: 'remoteAudio', classes: 'ui-dialer-remote-audio', tag: 'audio'},
+            {name: 'remoteAudio', classes: 'ui-dialer-remote-audio', tag: 'audio'}
         ]}
     ],
 
@@ -49,6 +50,8 @@ enyo.kind({
         SIPml.init( function(){
             page.sipInited = true;
         });
+        if ( !this.sipStack )
+            this.sipRegister();
     },
 
     sipRegister: function(){
@@ -68,33 +71,98 @@ enyo.kind({
                 { name: 'Organization', value: 'RingCentral' }
             ]
         });
+        this.sipStack.start();
+        console.log( this.sipStack );
+    },
+
+    sipCall: function(){
+        var oConf = {
+                video_local: this.$.localVideo.node,
+                video_remote: this.$.remoteVideo.node,
+                audio_remote: this.$.remoteAudio.node,
+                events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) },
+                sip_caps: [
+                    { name: '+g.oma.sip-im' },
+                    { name: '+sip.ice' },
+                    { name: 'language', value: '"en,ru"' }
+                ]
+            },
+            phoneIdentifier = this.getPhoneNumber(),
+            videoEnabled = App.get('sip.enableVideo' ),
+            error;
+
+        if ( this.sipStack && !this.sipSessionCall && phoneIdentifier ){
+            this.sipSessionCall = this.sipStack.newSession( videoEnabled ? 'call-audiovideo' : 'call-audio', oConf );
+            error = this.sipSessionCall.call( phoneIdentifier );
+            if ( error != 0 ){
+                this.sipSessionCall = null;
+                console.error( '.sipCall()', error );
+            }
+        }
+        else if ( this.sipSessionCall )
+            this.sipSessionCall.accept( oConf );
     },
 
     sipStackEventHandler: function( /*SIPml.Stack.Event*/ e ){
         console.error( e );
         switch ( e.type ){
             case 'started':
-                this.sipSession = this.newSession('register', {
+                this.sipSession = this.sipStack.newSession('register', {
                     expires: 300,
-                    events_listener: { events: '*', listener: this.onSipEventSession },
+                    events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) },
                     sip_caps: [
                         { name: '+g.oma.sip-im', value: null },
                         { name: '+audio', value: null },
-                        { name: 'language', value: '\"en,ru,fr\"' }
+                        { name: 'language', value: '"en,ru"' }
                     ]
                 });
-                oSipSessionRegister.register();
+                this.sipSession.register();
+                break;
+
+            case 'stopping':
+            case 'stopped':
+            case 'failed_to_start':
+            case 'failed_to_stop':
+                this.sipStack = null;
+                this.sipSession = null;
+                this.sipSessionCall = null;
                 break;
         }
     },
 
-    sipSessionEventHandler: function(){
+    sipSessionEventHandler: function( /*SIPml.Session.Event*/ e ){
+        console.log( 'sipSessionEventHandler', e );
+        switch ( e.type ){
+            case 'connecting':
+            case 'connected':
+                if ( e.session == this.sipSession )
+                    console.error( 'connected: something goes wrong' );
+                else if ( e.session == this.sipSessionCall ){
+                    console.log( 'connected: eeee!' );
+                }
+                break;
 
+            case 'terminating':
+            case 'terminated':
+                if ( e.session == this.sipSession ){
+                    this.sipSessionCall = null;
+                    this.sipSession = null;
+                }
+                else if ( e.session == this.sipSessionCall )
+                    console.warn( 'terminating' );
+                break;
+        }
     },
 
     hangUp: function(){
         this.log( 'hang up' );
-        this.setCalling( false );
+        if ( this.sipSessionCall ){
+            this.setCalling( false );
+            this.setConnecting( false );
+            this.sipSessionCall.hangup({
+                events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) }
+            });
+        }
     },
 
     makeCall: function( phoneIdentifier ){
@@ -149,10 +217,6 @@ enyo.kind({
         return this.$.phoneNumber.getValue();
     },
 
-    validateNumber: function( number ){
-        return typeof number == 'string';
-    },
-
     setCalling: function( calling ){
         this.calling = !!calling;
         this.$.phoneNumber.setDisabled( this.calling );
@@ -176,17 +240,12 @@ enyo.kind({
         if ( this.connecting )
             this.log( 'Wait. Connection is establishing.' );
         else if ( this.calling ){
-
             this.hangUp();
         }
         else {
-            var number = this.getPhoneNumber();
-            if ( !this.validateNumber(number) )
-                alert( 'Incorrect phone number' );
-            else {
-                this.$.call.setContent( loc.Dialer.hangup );
-                this.makeCall( number );
-            }
+            this.$.call.setContent( loc.Dialer.hangup );
+            this.sipCall();
+//            this.makeCall( this.getPhoneNumber() );
         }
     }
 });
