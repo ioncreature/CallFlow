@@ -181,7 +181,12 @@ enyo.kind({
         },
 
         get: function( key ){
-            return this.config[key];
+            var parts = key.split( '.' ),
+                obj = this.config,
+                i;
+            for ( i = 0; i < parts.length - 1; i++ )
+                obj = obj[parts[i]];
+            return obj[parts[parts.length - 1]];
         },
 
         /**
