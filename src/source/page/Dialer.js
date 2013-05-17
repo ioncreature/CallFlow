@@ -13,6 +13,7 @@ enyo.kind({
     sipRegistered: false,
     sipStack: null,
     sipSessionCall: null,
+    sipAudioNode: null,
 
     handlers: {
         onOpen: 'pageOpen'
@@ -26,13 +27,10 @@ enyo.kind({
         {classes: 'ui-center', components: [
             {name: 'call', kind:'rc.Button', content: loc.Dialer.call, ontap: 'tapCallButton'}
         ]},
-
-        // TODO: move it to separate ui component
-        {name: 'mediaContainer', classes: 'ui-dialer-media-container', components: [
-            {name: 'remoteVideo', classes: 'ui-dialer-remote-video', tag: 'video'},
-            {name: 'localVideo', classes: 'ui-dialer-local-video', tag: 'video'},
-            {name: 'remoteAudio', classes: 'ui-dialer-remote-audio', tag: 'audio'}
-        ]}
+        {classes: 'ui-center', components: [
+            {name: 'pickup', kind:'rc.Button', content: loc.Dialer.pickup, ontap: 'tapPickup', showing: false}
+        ]},
+        {name: 'audioContainer', allowHtml: true, content:'<audio autoplay id="dialer_audio" />'}
     ],
 
     create: function(){
@@ -72,14 +70,11 @@ enyo.kind({
             ]
         });
         this.sipStack.start();
-        console.log( this.sipStack );
     },
 
     sipCall: function(){
         var oConf = {
-                video_local: this.$.localVideo.node,
-                video_remote: this.$.remoteVideo.node,
-                audio_remote: this.$.remoteAudio.node,
+                audio_remote: this.sipAudioNode,
                 events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) },
                 sip_caps: [
                     { name: '+g.oma.sip-im' },
@@ -104,7 +99,7 @@ enyo.kind({
     },
 
     sipStackEventHandler: function( /*SIPml.Stack.Event*/ e ){
-        console.error( e );
+        console.warn( 'sipStackEventHandler', e );
         switch ( e.type ){
             case 'started':
                 this.sipSession = this.sipStack.newSession('register', {
@@ -123,94 +118,43 @@ enyo.kind({
             case 'stopped':
             case 'failed_to_start':
             case 'failed_to_stop':
-                this.sipStack = null;
                 this.sipSession = null;
                 this.sipSessionCall = null;
+                break;
+
+            case 'i_new_call':
+                if ( this.sipSessionCall )
+                    e.newSession.hangup();
+                else {
+                    this.sipSessionCall = e.newSession;
+                    this.showPickUp();
+                }
                 break;
         }
     },
 
     sipSessionEventHandler: function( /*SIPml.Session.Event*/ e ){
-        console.log( 'sipSessionEventHandler', e );
+        console.warn( 'sipSessionEventHandler', e );
         switch ( e.type ){
             case 'connecting':
             case 'connected':
-                if ( e.session == this.sipSession )
-                    console.error( 'connected: something goes wrong' );
-                else if ( e.session == this.sipSessionCall ){
-                    console.log( 'connected: eeee!' );
-                }
+                console.log( 'Connected' );
                 break;
 
             case 'terminating':
             case 'terminated':
-                if ( e.session == this.sipSession ){
-                    this.sipSessionCall = null;
-                    this.sipSession = null;
-                }
-                else if ( e.session == this.sipSessionCall )
-                    console.warn( 'terminating' );
+                this.sipSessionCall = null;
+                this.setCalling( false );
+                this.setConnecting( false );
                 break;
         }
     },
 
     hangUp: function(){
-        this.log( 'hang up' );
-        if ( this.sipSessionCall ){
-            this.setCalling( false );
-            this.setConnecting( false );
+        if ( this.sipSessionCall )
             this.sipSessionCall.hangup({
                 events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) }
             });
-        }
-    },
-
-    makeCall: function( phoneIdentifier ){
-        var page = this;
-
-        page.log( 'make call' );
-        page.connecting = true;
-        SIPml.init( function( e ){
-            console.log( 'init', e );
-            var stack = new SIPml.Stack({
-                realm: 'sip.dins.ru',
-                impi: '17453008',
-                impu: 'sip:12052160015@192.168.23.202:5060',
-                password: '17453008',
-                enable_rtcweb_breaker: true,
-                websocket_server_url: 'ws://192.168.23.223:10060',
-                websocket_proxy_url: 'ws://192.168.23.223:10060',
-                outbound_proxy_url: 'udp://192.168.23.202:5060',
-                display_name: 'Great and Awful',
-                events_listener: {
-                    events: 'started',
-                    listener: function( e ){
-                        console.log( 'started', e );
-                        var callSession = stack.newSession( 'call-audiovideo', {
-                            video_local: page.$.localVideo.node,
-                            video_remote: page.$.remoteVideo.node,
-                            audio_remote: page.$.remoteAudio.node
-                        });
-                        try {
-                            callSession.call( phoneIdentifier );
-                            page.log( 'connection established', phoneIdentifier );
-                            page.setCalling( true );
-                            page.setConnecting( false );
-                        }
-                        catch ( e ){
-                            console.log( 'call error', e );
-                            page.setCalling( false );
-                            page.setConnecting( false );
-                        }
-                    }
-                }
-            });
-            stack.start();
-        }, page.errorBack.bind(page) );
-    },
-
-    errorBack: function( e ){
-        console.log( 'error', e );
     },
 
     getPhoneNumber: function(){
@@ -247,5 +191,19 @@ enyo.kind({
             this.sipCall();
 //            this.makeCall( this.getPhoneNumber() );
         }
+    },
+
+    tapPickup: function(){
+        this.sipSessionCall.accept({ audio_remote: this.sipAudioNode });
+        this.hidePickUp();
+        this.setCalling( true );
+    },
+
+    showPickUp: function(){
+        this.$.pickup.show();
+    },
+
+    hidePickUp: function(){
+        this.$.pickup.hide();
     }
 });

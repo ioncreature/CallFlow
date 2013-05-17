@@ -164,6 +164,7 @@ var loc = {
         call: 'Call',
         phoneNumber: 'Phone Number',
         phoneNumberPlaceholder: 'Enter Phone Number',
-        hangup: 'Hang up'
+        hangup: 'Hang up',
+        pickup: 'Pick Up'
     }
 };
