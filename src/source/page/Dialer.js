@@ -184,10 +184,6 @@ enyo.kind({
         }
     },
 
-    getSipIdentity: function( name ){
-        return App.get( 'sip.identity.'+ name );
-    },
-
     hangUp: function(){
         if ( this.sipSessionCall )
             this.sipSessionCall.hangup({
@@ -219,7 +215,12 @@ enyo.kind({
     },
 
     getSelecteIdentity: function(){
-        return App.get( 'sip.identity.0' );
+        return this.$.caller.getActiveModel().get([
+            'displayName',
+            'publicIdentity',
+            'privateIdentity',
+            'password'
+        ]);
     },
 
     tapLoginButton: function(){
