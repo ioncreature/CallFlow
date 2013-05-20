@@ -10,9 +10,38 @@ var _config = {
     },
     sip: {
         realm: 'sip.dins.ru',
-        publicIdentity: 'sip:12052160015@192.168.23.202:5060',
-        privateIdentity: '17453008',
-        password: '17453008',
+        identity: [
+            {
+                displayName: 'Alexander Marenin',
+                publicIdentity: 'sip:12052160015@192.168.23.202:5060',
+                privateIdentity: '17453008',
+                password: '17453008'
+            },
+            {
+                displayName: 'Dmitry Pevzner',
+                publicIdentity: 'sip:12052160015@192.168.23.202:5060',
+                privateIdentity: '17453008',
+                password: '17453008'
+            },
+            {
+                displayName: 'Alexey Shpagin',
+                publicIdentity: 'sip:12052160015@192.168.23.202:5060',
+                privateIdentity: '17453008',
+                password: '17453008'
+            },
+            {
+                displayName: 'Alexey Petrov',
+                publicIdentity: 'sip:12052160015@192.168.23.202:5060',
+                privateIdentity: '17453008',
+                password: '17453008'
+            },
+            {
+                displayName: 'Vlad Vendrow',
+                publicIdentity: 'sip:12052160015@192.168.23.202:5060',
+                privateIdentity: '17453008',
+                password: '17453008'
+            }
+        ],
         displayName: '',
         enableVideo: false,
         enableRtcWebBreaker: true,

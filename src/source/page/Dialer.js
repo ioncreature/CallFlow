@@ -13,14 +13,22 @@ enyo.kind({
     sipRegistered: false,
     sipStack: null,
     sipSessionCall: null,
-    sipAudioNode: null,
+
+    calling: false,
+    connecting: false,
 
     handlers: {
         onOpen: 'pageOpen'
     },
 
     components: [
-        {classes: 'ui-label', content: loc.Dialer.phoneNumber},
+        {classes: 'ui-label', content: loc.Dialer.caller},
+        {name: 'caller', kind: 'rc.RadioList'},
+        {classes: 'ui-center', components: [
+            {name: 'register', kind:'rc.Button', content: loc.Dialer.register, ontap: 'tapLoginButton'}
+        ]},
+
+        {classes: 'ui-label', content: loc.Dialer.callTo},
         {kind: 'onyx.InputDecorator', classes: 'ui-text-input ui-block', components: [
             {name: 'phoneNumber', kind: 'onyx.Input', placeholder: loc.Dialer.phoneNumberPlaceholder, value: '12052160027'}
         ]},
@@ -40,7 +48,24 @@ enyo.kind({
     },
 
     pageOpen: function(){
+        this.fillIdentityList();
         this.sipInit();
+    },
+
+    fillIdentityList: function(){
+        this.collection = new rc.Collection();
+        var list = App.get( 'sip.identity' );
+        list.forEach( function( item ){
+            this.collection.add( item );
+        }, this );
+        this.$.caller.setAdapter( function( item ){
+            var pu = item.get( 'publicIdentity' );
+            return {
+                caption: item.get( 'displayName' ),
+                description: pu.slice( pu.indexOf(':') + 1, pu.indexOf('@') )
+            }
+        });
+        this.$.caller.setCollection( this.collection );
     },
 
     sipInit: function(){
@@ -48,17 +73,15 @@ enyo.kind({
         SIPml.init( function(){
             page.sipInited = true;
         });
-        if ( !this.sipStack )
-            this.sipRegister();
     },
 
-    sipRegister: function(){
+    sipRegister: function( identity ){
         this.sipStack = new SIPml.Stack({
             realm: App.get( 'sip.realm' ),
-            impi: App.get( 'sip.privateIdentity' ),
-            impu: App.get( 'sip.publicIdentity' ),
-            password: App.get( 'sip.password' ),
-            display_name: App.get( 'sip.displayName' ),
+            impi: identity.privateIdentity,
+            impu: identity.publicIdentity,
+            password: identity.password,
+            display_name: identity.displayName,
             websocket_proxy_url: App.get( 'sip.websocketServerUrl' ),
             outbound_proxy_url: App.get( 'sip.sipOutboundProxyUrl' ),
             ice_servers: App.get( 'sip.iceServers' ),
@@ -72,9 +95,20 @@ enyo.kind({
         this.sipStack.start();
     },
 
+    sipLogout: function(){
+        if ( this.sipStack ){
+            this.sipStack.stop();
+            delete this.sipStack;
+        }
+    },
+
+    sipIsRegistered: function(){
+        return !!this.sipStack;
+    },
+
     sipCall: function(){
         var oConf = {
-                audio_remote: this.sipAudioNode,
+                audio_remote: this.getAudioNode(),
                 events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) },
                 sip_caps: [
                     { name: '+g.oma.sip-im' },
@@ -150,6 +184,10 @@ enyo.kind({
         }
     },
 
+    getSipIdentity: function( name ){
+        return App.get( 'sip.identity.'+ name );
+    },
+
     hangUp: function(){
         if ( this.sipSessionCall )
             this.sipSessionCall.hangup({
@@ -180,21 +218,34 @@ enyo.kind({
             this.$.call.setContent( loc.Dialer.call );
     },
 
+    getSelecteIdentity: function(){
+        return App.get( 'sip.identity.0' );
+    },
+
+    tapLoginButton: function(){
+        if ( this.sipIsRegistered() ){
+            this.sipLogout();
+            this.$.register.setContent( loc.Dialer.register );
+        }
+        else {
+            this.sipRegister( this.getSelecteIdentity() );
+            this.$.register.setContent( loc.Dialer.logout );
+        }
+    },
+
     tapCallButton: function(){
         if ( this.connecting )
             this.log( 'Wait. Connection is establishing.' );
-        else if ( this.calling ){
+        else if ( this.calling )
             this.hangUp();
-        }
         else {
             this.$.call.setContent( loc.Dialer.hangup );
             this.sipCall();
-//            this.makeCall( this.getPhoneNumber() );
         }
     },
 
     tapPickup: function(){
-        this.sipSessionCall.accept({ audio_remote: this.sipAudioNode });
+        this.sipSessionCall.accept({ audio_remote: this.getAudioNode() });
         this.hidePickUp();
         this.setCalling( true );
     },
@@ -205,5 +256,9 @@ enyo.kind({
 
     hidePickUp: function(){
         this.$.pickup.hide();
+    },
+
+    getAudioNode: function(){
+        return document.getElementById( 'dialer_audio' );
     }
 });
