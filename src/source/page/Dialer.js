@@ -29,6 +29,8 @@ enyo.kind({
         ]},
 
         {classes: 'ui-label', content: loc.Dialer.callTo},
+        {name: 'callee', kind: 'rc.RadioList', onActivate: 'onCalleeActivate'},
+        {classes: 'ui-label', content: loc.Dialer.phoneNumber},
         {kind: 'onyx.InputDecorator', classes: 'ui-text-input ui-block', components: [
             {name: 'phoneNumber', kind: 'onyx.Input', placeholder: loc.Dialer.phoneNumberPlaceholder, value: '12052160027'}
         ]},
@@ -48,24 +50,34 @@ enyo.kind({
     },
 
     pageOpen: function(){
-        this.fillIdentityList();
+        this.fillLists();
         this.sipInit();
     },
 
-    fillIdentityList: function(){
+    fillLists: function(){
+        var page = this;
         this.collection = new rc.Collection();
-        var list = App.get( 'sip.identity' );
-        list.forEach( function( item ){
+        App.get( 'sip.identity' ).forEach( function( item ){
             this.collection.add( item );
         }, this );
-        this.$.caller.setAdapter( function( item ){
-            var pu = item.get( 'publicIdentity' );
+
+        this.$.caller.setAdapter( itemAdapter );
+        this.$.caller.setCollection( this.collection );
+
+        this.$.callee.setAdapter( itemAdapter );
+        this.$.callee.setCollection( this.collection );
+
+        function itemAdapter( item ){
+            var pu = item.get('publicIdentity');
             return {
                 caption: item.get( 'displayName' ),
-                description: pu.slice( pu.indexOf(':') + 1, pu.indexOf('@') )
-            }
-        });
-        this.$.caller.setCollection( this.collection );
+                description: page.sipParseNumberFromPublicIdentity( item.get('publicIdentity') )
+            };
+        }
+    },
+
+    sipParseNumberFromPublicIdentity: function( pi ){
+        return pi.slice( pi.indexOf(':') + 1, pi.indexOf('@') );
     },
 
     sipInit: function(){
@@ -132,8 +144,15 @@ enyo.kind({
             this.sipSessionCall.accept( oConf );
     },
 
+    sipHangUp: function(){
+        if ( this.sipSessionCall )
+            this.sipSessionCall.hangup({
+                events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) }
+            });
+    },
+
     sipStackEventHandler: function( /*SIPml.Stack.Event*/ e ){
-        console.warn( 'sipStackEventHandler', e );
+        console.warn( 'sipStack', e );
         switch ( e.type ){
             case 'started':
                 this.sipSession = this.sipStack.newSession('register', {
@@ -152,8 +171,9 @@ enyo.kind({
             case 'stopped':
             case 'failed_to_start':
             case 'failed_to_stop':
-                this.sipSession = null;
                 this.sipSessionCall = null;
+                this.setCalling( false );
+                this.setConnecting( false );
                 break;
 
             case 'i_new_call':
@@ -168,11 +188,16 @@ enyo.kind({
     },
 
     sipSessionEventHandler: function( /*SIPml.Session.Event*/ e ){
-        console.warn( 'sipSessionEventHandler', e );
+        console.warn( 'sipSession', e );
         switch ( e.type ){
             case 'connecting':
+                this.setCalling( false );
+                this.setConnecting( true );
+                break;
+
             case 'connected':
-                console.log( 'Connected' );
+                this.setCalling( true );
+                this.setConnecting( false );
                 break;
 
             case 'terminating':
@@ -182,13 +207,6 @@ enyo.kind({
                 this.setConnecting( false );
                 break;
         }
-    },
-
-    hangUp: function(){
-        if ( this.sipSessionCall )
-            this.sipSessionCall.hangup({
-                events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) }
-            });
     },
 
     getPhoneNumber: function(){
@@ -223,6 +241,11 @@ enyo.kind({
         ]);
     },
 
+    onCalleeActivate: function(){
+        var model = this.$.callee.getActiveModel();
+        this.$.phoneNumber.setValue( this.sipParseNumberFromPublicIdentity(model.get( 'publicIdentity' )) );
+    },
+
     tapLoginButton: function(){
         if ( this.sipIsRegistered() ){
             this.sipLogout();
@@ -237,8 +260,8 @@ enyo.kind({
     tapCallButton: function(){
         if ( this.connecting )
             this.log( 'Wait. Connection is establishing.' );
-        else if ( this.calling )
-            this.hangUp();
+        else if ( this.sipSessionCall )
+            this.sipHangUp();
         else {
             this.$.call.setContent( loc.Dialer.hangup );
             this.sipCall();
