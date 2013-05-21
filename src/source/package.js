@@ -34,6 +34,7 @@ enyo.depends(
     'ui/UserInfoPanel.js',
     'ui/CallFlowItem.js',
     'ui/AudioPlayer.js',
+    'ui/Timer.js',
     'ui/Tabs.js',
     'ui/Page.js',
     'ui/WizardPage.js',

@@ -167,6 +167,7 @@ var loc = {
         phoneNumberPlaceholder: 'Enter Phone Number',
         hangup: 'Hang up',
         pickup: 'Pick Up',
+        refuse: 'Refuse',
         caller: 'Caller',
         register: 'Register',
         login: 'Login',

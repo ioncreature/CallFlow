@@ -58,8 +58,28 @@ enyo.kind({
             {classes: 'ui-center', components: [
                 {name: 'pickup', kind:'rc.Button', content: loc.Dialer.pickup, ontap: 'tapPickup', showing: false}
             ]},
-            {name: 'audioContainer', allowHtml: true, content:'<audio autoplay id="dialer_audio" />'}
-        ]}
+
+            {
+                name: 'popup',
+                kind: 'onyx.Popup',
+                floating: true,
+                scrim: true,
+                centered: true,
+                autoDismiss: false,
+                classes: 'ui-center ui-dialer-popup',
+                scrimClassName: 'ui-dialer-popup-scrim',
+                components: [
+                    {name: 'popupName', classes: 'ui-dialer-popup-name'},
+                    {name: 'popupNumber', classes: 'ui-dialer-popup-number'},
+                    {name: 'popupTimer', classes: 'ui-dialer-popup-timer', kind: 'rc.Timer'},
+                    {classes: 'ui-center', components: [
+                        {name: 'answerCall', kind: 'rc.Button', ontap: 'tapAnswerCall', content: loc.Dialer.pickup},
+                        {name: 'refuseCall', kind: 'rc.Button', ontap: 'tapRefuseCall', content: loc.Dialer.refuse}
+                    ]}
+                ]
+            }
+        ]},
+        {name: 'audioContainer', allowHtml: true, content:'<audio autoplay id="dialer_audio" />'}
     ],
 
     create: function(){
@@ -142,7 +162,7 @@ enyo.kind({
     },
 
     sipStackEventHandler: function( /*SIPml.Stack.Event*/ e ){
-        console.warn( 'sipStack', e.type, e );
+        console.warn( 'stack\ntype', e.type, '\ndesc', e.description );
         switch ( e.type ){
             case 'started':
                 this.sipSession = this.sipStack.newSession( 'register', {
@@ -211,7 +231,7 @@ enyo.kind({
     },
 
     sipSessionEventHandler: function( /*SIPml.Session.Event*/ e ){
-        console.warn( 'sipSession', e.type, e );
+        console.warn( 'session\ntype', e.type, '\ndesc', e.description );
         switch ( e.type ){
             case 'connecting':
 //                this.setCalling( false );
@@ -266,8 +286,9 @@ enyo.kind({
     },
 
     onCalleeActivate: function(){
-        var identity = this.getSelectedIdentity();
-        this.$.phoneNumber.setValue( this.sipParseNumberFromPublicIdentity(identity.publicIdentity) );
+        var identity = this.$.callee.getActiveModel(),
+            number = this.sipParseNumberFromPublicIdentity( identity.get('publicIdentity') );
+        this.$.phoneNumber.setValue( number );
     },
 
     setUiRegistered: function(){
@@ -279,6 +300,8 @@ enyo.kind({
         this.$.callerName.setContent( identity.displayName );
         this.$.callerPhone.setContent( number );
         this.$.logout.setDisabled( false );
+
+        this.$.popup.show();
     },
 
     setUiUnregistered: function(){
@@ -329,6 +352,14 @@ enyo.kind({
         this.sipSessionCall.accept({ audio_remote: this.getAudioNode() });
         this.hidePickUp();
         this.setCalling( true );
+    },
+
+    tapAnswerCall: function(){
+        this.$.popupTimer.start();
+    },
+
+    tapRefuseCall: function(){
+        this.$.popupTimer.stop();
     },
 
     showPickUp: function(){
