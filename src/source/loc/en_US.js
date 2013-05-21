@@ -163,12 +163,14 @@ var loc = {
         caption: 'Dialer',
         call: 'Call',
         phoneNumber: 'Phone Number',
-        callTo: 'Call to:',
+        callTo: 'Call to',
         phoneNumberPlaceholder: 'Enter Phone Number',
         hangup: 'Hang up',
         pickup: 'Pick Up',
         caller: 'Caller',
         register: 'Register',
-        logout: 'Logout'
+        login: 'Login',
+        logout: 'Logout',
+        notLoggedIn: 'You are not logged in'
     }
 };

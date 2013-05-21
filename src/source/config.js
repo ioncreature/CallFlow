@@ -48,7 +48,7 @@ var _config = {
                 password: '17459008'
             },
             {
-                displayName: 'Tester 2',
+                displayName: 'Alexander Marenin Hardphone',
                 publicIdentity: 'sip:12052160027@192.168.23.202:5060',
                 privateIdentity: '17454008',
                 password: '17454008'

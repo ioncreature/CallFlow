@@ -3,6 +3,46 @@
  * May 2013
  */
 
-.ui-label:first-child {
-    margin-top: @rc-margin;
+.ui-dialer {
+    .ui-message:first-child {
+        margin: @rc-margin-big @rc-margin;
+    }
+    .ui-label {
+        margin-top: @rc-margin-big;
+    }
+}
+
+.ui-dialer-error {
+    margin: @rc-margin-bigger @rc-margin;
+    color: @rc-color-error;
+    background-color: @rc-color-bg-error;
+    padding: @rc-padding;
+    border: @rc-border-width solid @rc-color-error;
+    border-radius: @rc-border-radius;
+}
+
+.ui-dialer-registered-caller {
+    position: relative;
+    font-size: @rc-font-size-medium;
+    margin: 0 @rc-margin @rc-margin-bigger;
+    padding: @rc-padding;
+    border: @rc-border-width solid @rc-color-main;
+    border-radius: @rc-border-radius;
+    background: @rc-color-bg-light;
+}
+
+.ui-dialer-registered-caller-name {
+    font-weight: bold;
+    color: @rc-color-main;
+}
+
+.ui-dialer-registered-caller-phone {
+    font-weight: bold;
+}
+
+.ui-dialer-registered-caller-button {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -17px;
 }

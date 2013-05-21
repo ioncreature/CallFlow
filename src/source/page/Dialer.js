@@ -22,25 +22,45 @@ enyo.kind({
     },
 
     components: [
-        {classes: 'ui-label', content: loc.Dialer.caller},
-        {name: 'caller', kind: 'rc.RadioList'},
-        {classes: 'ui-center', components: [
-            {name: 'register', kind:'rc.Button', content: loc.Dialer.register, ontap: 'tapLoginButton'}
+        {name: 'error', classes: 'ui-dialer-error', showing: false, content: 'This is a big error message'},
+
+        {name: 'unregisteredBlock', components: [
+            {classes: 'ui-message', content: loc.Dialer.notLoggedIn},
+            {classes: 'ui-label', content: loc.Dialer.caller},
+            {name: 'caller', kind: 'rc.RadioList'},
+            {classes: 'ui-center', components: [
+                {name: 'login', kind:'rc.Button', content: loc.Dialer.login, ontap: 'tapLoginButton'}
+            ]}
         ]},
 
-        {classes: 'ui-label', content: loc.Dialer.callTo},
-        {name: 'callee', kind: 'rc.RadioList', onActivate: 'onCalleeActivate'},
-        {classes: 'ui-label', content: loc.Dialer.phoneNumber},
-        {kind: 'onyx.InputDecorator', classes: 'ui-text-input ui-block', components: [
-            {name: 'phoneNumber', kind: 'onyx.Input', placeholder: loc.Dialer.phoneNumberPlaceholder, value: '12052160027'}
-        ]},
-        {classes: 'ui-center', components: [
-            {name: 'call', kind:'rc.Button', content: loc.Dialer.call, ontap: 'tapCallButton'}
-        ]},
-        {classes: 'ui-center', components: [
-            {name: 'pickup', kind:'rc.Button', content: loc.Dialer.pickup, ontap: 'tapPickup', showing: false}
-        ]},
-        {name: 'audioContainer', allowHtml: true, content:'<audio autoplay id="dialer_audio" />'}
+        {name: 'registeredBlock', components: [
+            {classes: 'ui-label', content: loc.Dialer.caller},
+            {name: 'registeredCaller', classes: 'ui-dialer-registered-caller', components: [
+                {name: 'callerName', classes: 'ui-dialer-registered-caller-name'},
+                {name: 'callerPhone', classes: 'ui-dialer-registered-caller-phone'},
+                {
+                    name: 'logout',
+                    kind:'rc.Button',
+                    classes: 'ui-dialer-registered-caller-button',
+                    ontap: 'tapLogoutButton',
+                    content: loc.Dialer.logout
+                }
+            ]},
+
+            {classes: 'ui-label', content: loc.Dialer.callTo},
+            {name: 'callee', kind: 'rc.RadioList', onActivate: 'onCalleeActivate'},
+            {classes: 'ui-label', content: loc.Dialer.phoneNumber},
+            {kind: 'onyx.InputDecorator', classes: 'ui-text-input ui-block', components: [
+                {name: 'phoneNumber', kind: 'onyx.Input', placeholder: loc.Dialer.phoneNumberPlaceholder, value: '12052160027'}
+            ]},
+            {classes: 'ui-center', components: [
+                {name: 'call', kind:'rc.Button', content: loc.Dialer.call, ontap: 'tapCallButton'}
+            ]},
+            {classes: 'ui-center', components: [
+                {name: 'pickup', kind:'rc.Button', content: loc.Dialer.pickup, ontap: 'tapPickup', showing: false}
+            ]},
+            {name: 'audioContainer', allowHtml: true, content:'<audio autoplay id="dialer_audio" />'}
+        ]}
     ],
 
     create: function(){
@@ -52,6 +72,10 @@ enyo.kind({
     pageOpen: function(){
         this.fillLists();
         this.sipInit();
+        if ( this.sipIsRegistered() )
+            this.setUiRegistered();
+        else
+            this.setUiUnregistered();
     },
 
     fillLists: function(){
@@ -118,6 +142,42 @@ enyo.kind({
         return !!this.sipStack;
     },
 
+    sipStackEventHandler: function( /*SIPml.Stack.Event*/ e ){
+        console.warn( 'sipStack', e.type, e );
+        switch ( e.type ){
+            case 'started':
+                this.sipSession = this.sipStack.newSession( 'register', {
+                    expires: 300,
+                    events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) },
+                    sip_caps: [
+                        { name: '+g.oma.sip-im', value: null },
+                        { name: '+audio', value: null },
+                        { name: 'language', value: '"en,ru"' }
+                    ]
+                });
+                this.sipSession.register();
+                break;
+
+            case 'failed_to_start':
+            case 'stopped':
+                delete this.sipSessionCall;
+                this.setUiUnregistered();
+            case 'failed_to_stop':
+                break;
+            case 'stopping':
+                break;
+
+            case 'i_new_call':
+                if ( this.sipSessionCall )
+                    e.newSession.hangup();
+                else {
+                    this.sipSessionCall = e.newSession;
+                    this.showPickUp();
+                }
+                break;
+        }
+    },
+
     sipCall: function(){
         var oConf = {
                 audio_remote: this.getAudioNode(),
@@ -151,53 +211,18 @@ enyo.kind({
             });
     },
 
-    sipStackEventHandler: function( /*SIPml.Stack.Event*/ e ){
-        console.warn( 'sipStack', e );
-        switch ( e.type ){
-            case 'started':
-                this.sipSession = this.sipStack.newSession('register', {
-                    expires: 300,
-                    events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) },
-                    sip_caps: [
-                        { name: '+g.oma.sip-im', value: null },
-                        { name: '+audio', value: null },
-                        { name: 'language', value: '"en,ru"' }
-                    ]
-                });
-                this.sipSession.register();
-                break;
-
-            case 'stopping':
-            case 'stopped':
-            case 'failed_to_start':
-            case 'failed_to_stop':
-                this.sipSessionCall = null;
-                this.setCalling( false );
-                this.setConnecting( false );
-                break;
-
-            case 'i_new_call':
-                if ( this.sipSessionCall )
-                    e.newSession.hangup();
-                else {
-                    this.sipSessionCall = e.newSession;
-                    this.showPickUp();
-                }
-                break;
-        }
-    },
-
     sipSessionEventHandler: function( /*SIPml.Session.Event*/ e ){
-        console.warn( 'sipSession', e );
+        console.warn( 'sipSession', e.type, e );
         switch ( e.type ){
             case 'connecting':
-                this.setCalling( false );
-                this.setConnecting( true );
+//                this.setCalling( false );
+//                this.setConnecting( true );
                 break;
 
             case 'connected':
-                this.setCalling( true );
-                this.setConnecting( false );
+//                this.setCalling( false );
+//                this.setConnecting( false );
+                this.setUiRegistered();
                 break;
 
             case 'terminating':
@@ -232,7 +257,7 @@ enyo.kind({
             this.$.call.setContent( loc.Dialer.call );
     },
 
-    getSelecteIdentity: function(){
+    getSelectedIdentity: function(){
         return this.$.caller.getActiveModel().get([
             'displayName',
             'publicIdentity',
@@ -246,15 +271,48 @@ enyo.kind({
         this.$.phoneNumber.setValue( this.sipParseNumberFromPublicIdentity(model.get( 'publicIdentity' )) );
     },
 
+    setUiRegistered: function(){
+        this.$.unregisteredBlock.hide();
+        this.$.registeredBlock.show();
+
+        var identity = this.getSelectedIdentity(),
+            number = this.sipParseNumberFromPublicIdentity( identity.publicIdentity );
+        this.$.callerName.setContent( identity.displayName );
+        this.$.callerPhone.setContent( number );
+        this.$.logout.setDisabled( false );
+    },
+
+    setUiUnregistered: function(){
+        this.$.unregisteredBlock.show();
+        this.$.registeredBlock.hide();
+        this.$.login.setDisabled( false );
+    },
+
+    showErrorMessage: function( message ){
+        if ( message ){
+            this.$.error.show();
+            this.$.error.setContent( message );
+        }
+        this.$.login.setDisabled( false );
+        this.$.logout.setDisabled( false );
+    },
+
+    hideErrorMessage: function(){
+        this.$.error.hide();
+    },
+
     tapLoginButton: function(){
-        if ( this.sipIsRegistered() ){
-            this.sipLogout();
-            this.$.register.setContent( loc.Dialer.register );
+        if ( !this.sipIsRegistered() ){
+            this.hideErrorMessage();
+            this.sipRegister( this.getSelectedIdentity() );
+            this.$.login.setDisabled( true );
         }
-        else {
-            this.sipRegister( this.getSelecteIdentity() );
-            this.$.register.setContent( loc.Dialer.logout );
-        }
+    },
+
+    tapLogoutButton: function(){
+        this.hideErrorMessage();
+        this.$.logout.setDisabled( true );
+        this.sipLogout();
     },
 
     tapCallButton: function(){
