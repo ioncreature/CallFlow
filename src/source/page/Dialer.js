@@ -34,7 +34,6 @@ enyo.kind({
         ]},
 
         {name: 'registeredBlock', components: [
-            {classes: 'ui-label', content: loc.Dialer.caller},
             {name: 'registeredCaller', classes: 'ui-dialer-registered-caller', components: [
                 {name: 'callerName', classes: 'ui-dialer-registered-caller-name'},
                 {name: 'callerPhone', classes: 'ui-dialer-registered-caller-phone'},
@@ -267,8 +266,8 @@ enyo.kind({
     },
 
     onCalleeActivate: function(){
-        var model = this.$.callee.getActiveModel();
-        this.$.phoneNumber.setValue( this.sipParseNumberFromPublicIdentity(model.get( 'publicIdentity' )) );
+        var identity = this.getSelectedIdentity();
+        this.$.phoneNumber.setValue( this.sipParseNumberFromPublicIdentity(identity.publicIdentity) );
     },
 
     setUiRegistered: function(){
