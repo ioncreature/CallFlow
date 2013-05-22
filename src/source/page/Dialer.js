@@ -237,10 +237,12 @@ enyo.kind({
     },
 
     sipHangUp: function(){
-        if ( this.sipSessionCall )
+        if ( this.sipSessionCall ){
             this.sipSessionCall.hangup({
                 events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) }
             });
+            delete this.sipSessionCall;
+        }
     },
 
     sipReject: function(){
@@ -258,7 +260,6 @@ enyo.kind({
                 break;
 
             case 'terminating':
-                break;
             case 'terminated':
                 this.hidePopup();
                 this.sipSessionCall = null;
