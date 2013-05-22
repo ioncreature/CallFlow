@@ -301,6 +301,7 @@ enyo.kind({
         this.$.unregisteredBlock.show();
         this.$.registeredBlock.hide();
         this.$.login.setDisabled( false );
+        this.hidePopup();
     },
 
     showErrorMessage: function( message ){
@@ -368,6 +369,7 @@ enyo.kind({
 
     hidePopup: function(){
         this.$.popup.hide();
+        this.$.popupTimer.stop();
     },
 
     getAudioNode: function(){
