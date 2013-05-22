@@ -24,6 +24,10 @@ enyo.kind({
 
     start: function(){
         this.startTime = Date.now();
+        this.resume();
+    },
+
+    resume: function(){
         this.interval = setInterval( this.updateTimer.bind(this), 500 );
     },
 

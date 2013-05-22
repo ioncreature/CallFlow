@@ -49,14 +49,17 @@ enyo.kind({
             {classes: 'ui-label', content: loc.Dialer.callTo},
             {name: 'callee', kind: 'rc.RadioList', onActivate: 'onCalleeActivate'},
             {classes: 'ui-label', content: loc.Dialer.phoneNumber},
-            {kind: 'onyx.InputDecorator', classes: 'ui-text-input ui-block', components: [
-                {name: 'phoneNumber', kind: 'onyx.Input', placeholder: loc.Dialer.phoneNumberPlaceholder, value: '12052160027'}
-            ]},
-            {classes: 'ui-center', components: [
-                {name: 'call', kind:'rc.Button', content: loc.Dialer.call, ontap: 'tapCallButton'}
-            ]},
-            {classes: 'ui-center', components: [
-                {name: 'pickup', kind:'rc.Button', content: loc.Dialer.pickup, ontap: 'tapPickup', showing: false}
+            {name: 'colls', kind: 'FittableColumns', components: [
+                {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
+                    {name: 'phoneNumber', kind: 'onyx.Input', placeholder: loc.Dialer.phoneNumberPlaceholder, value: '12052160027'}
+                ]},
+                {
+                    name: 'call',
+                    kind:'rc.Button',
+                    classes: 'ui-dialer-call',
+                    style: 'width: 100px; margin-top: 3px !important;',
+                    content: loc.Dialer.call,
+                    ontap: 'tapCallButton'}
             ]},
 
             {
@@ -69,12 +72,13 @@ enyo.kind({
                 classes: 'ui-center ui-dialer-popup',
                 scrimClassName: 'ui-dialer-popup-scrim',
                 components: [
+                    {name: 'popupCaption', classes: 'ui-dialer-popup-caption', content: loc.Dialer.incomingCall},
                     {name: 'popupName', classes: 'ui-dialer-popup-name'},
                     {name: 'popupNumber', classes: 'ui-dialer-popup-number'},
                     {name: 'popupTimer', classes: 'ui-dialer-popup-timer', kind: 'rc.Timer'},
                     {classes: 'ui-center', components: [
-                        {name: 'answerCall', kind: 'rc.Button', ontap: 'tapAnswerCall', content: loc.Dialer.pickup},
-                        {name: 'refuseCall', kind: 'rc.Button', ontap: 'tapRefuseCall', content: loc.Dialer.refuse}
+                        {name: 'answerCall', classes: 'ui-dialer-popup-answer', ontap: 'tapAnswerCall'},
+                        {name: 'refuseCall', classes: 'ui-dialer-popup-refuse', ontap: 'tapRefuseCall'}
                     ]}
                 ]
             }
@@ -191,10 +195,19 @@ enyo.kind({
                     e.newSession.hangup();
                 else {
                     this.sipSessionCall = e.newSession;
-                    this.showPickUp();
+                    this.sipSessionCall.isIncoming = true;
+                    this.showIncomingCall();
                 }
                 break;
+
+            case 'm_permission_accepted':
+                this.$.popupTimer.start();
+                break;
         }
+    },
+
+    sipCallTypeIsIncoming: function(){
+        return this.sipSessionCall && !!this.sipSessionCall.isIncoming;
     },
 
     sipCall: function(){
@@ -208,7 +221,7 @@ enyo.kind({
                 ]
             },
             phoneIdentifier = this.getPhoneNumber(),
-            videoEnabled = App.get('sip.enableVideo' ),
+            videoEnabled = App.get( 'sip.enableVideo' ),
             error;
 
         if ( this.sipStack && !this.sipSessionCall && phoneIdentifier ){
@@ -230,50 +243,30 @@ enyo.kind({
             });
     },
 
+    sipReject: function(){
+        this.sipSessionCall.reject();
+    },
+
     sipSessionEventHandler: function( /*SIPml.Session.Event*/ e ){
         console.warn( 'session\ntype', e.type, '\ndesc', e.description );
         switch ( e.type ){
             case 'connecting':
-//                this.setCalling( false );
-//                this.setConnecting( true );
                 break;
 
             case 'connected':
-//                this.setCalling( false );
-//                this.setConnecting( false );
                 this.setUiRegistered();
                 break;
 
             case 'terminating':
+                break;
             case 'terminated':
                 this.sipSessionCall = null;
-                this.setCalling( false );
-                this.setConnecting( false );
                 break;
         }
     },
 
     getPhoneNumber: function(){
         return this.$.phoneNumber.getValue();
-    },
-
-    setCalling: function( calling ){
-        this.calling = !!calling;
-        this.$.phoneNumber.setDisabled( this.calling );
-        this.setButtonCaption();
-    },
-
-    setConnecting: function( connecting ){
-        this.connecting = !!connecting;
-        this.$.call.setContent( loc.Dialer.hangup );
-        this.setButtonCaption();
-    },
-
-    setButtonCaption: function(){
-        if ( this.calling || this.connecting )
-            this.$.call.setContent( loc.Dialer.hangup );
-        else
-            this.$.call.setContent( loc.Dialer.call );
     },
 
     getSelectedIdentity: function(){
@@ -300,8 +293,7 @@ enyo.kind({
         this.$.callerName.setContent( identity.displayName );
         this.$.callerPhone.setContent( number );
         this.$.logout.setDisabled( false );
-
-        this.$.popup.show();
+        this.$.colls.render();
     },
 
     setUiUnregistered: function(){
@@ -338,36 +330,39 @@ enyo.kind({
     },
 
     tapCallButton: function(){
-        if ( this.connecting )
-            this.log( 'Wait. Connection is establishing.' );
-        else if ( this.sipSessionCall )
-            this.sipHangUp();
-        else {
-            this.$.call.setContent( loc.Dialer.hangup );
+        if ( !this.sipSessionCall ){
+            this.showOutgoingCall();
             this.sipCall();
         }
     },
 
-    tapPickup: function(){
-        this.sipSessionCall.accept({ audio_remote: this.getAudioNode() });
-        this.hidePickUp();
-        this.setCalling( true );
-    },
-
     tapAnswerCall: function(){
+        this.$.answerCall.hide();
+        this.sipSessionCall.accept({ audio_remote: this.getAudioNode() });
         this.$.popupTimer.start();
     },
 
     tapRefuseCall: function(){
         this.$.popupTimer.stop();
+        this.$.popup.hide();
+        if ( this.sipCallTypeIsIncoming() )
+            this.sipReject();
+        else
+            this.sipHangUp();
     },
 
-    showPickUp: function(){
-        this.$.pickup.show();
+    showIncomingCall: function(){
+        this.$.answerCall.show();
+        this.$.popup.show();
+        this.$.popupTimer.start();
+        this.$.popupCaption.setContent( loc.Dialer.incomingCall );
     },
 
-    hidePickUp: function(){
-        this.$.pickup.hide();
+    showOutgoingCall: function(){
+        this.$.answerCall.hide();
+        this.$.popup.show();
+        this.$.popupTimer.start();
+        this.$.popupCaption.setContent( loc.Dialer.outgoingCall );
     },
 
     getAudioNode: function(){

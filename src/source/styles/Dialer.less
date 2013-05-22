@@ -14,10 +14,10 @@
 
 .ui-dialer-error {
     margin: @rc-margin-bigger @rc-margin;
-    color: @rc-color-error;
+    color: @rc-color-red;
     background-color: @rc-color-bg-error;
     padding: @rc-padding;
-    border: @rc-border-width solid @rc-color-error;
+    border: @rc-border-width solid @rc-color-red;
     border-radius: @rc-border-radius;
 }
 
@@ -47,29 +47,53 @@
     margin-top: -17px;
 }
 
+.ui-dialer-call {
+    width: 70px;
+    margin-top: 2 * @rc-border-width-bold - @rc-border-width;
+    margin-left: 0;
+}
 
 .ui-dialer-popup {
-    color: @rc-color-text;
+    color: #F3F3F3;
     padding: @rc-padding;
-    border: @rc-border-width-bold solid @rc-color-main;
-    box-shadow: none;
-    background: @rc-color-bg-input;
+    width: 260px;
+    border: none;
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.4) !important;
+
+    .ui-dialer-popup-caption {
+        font-size: @rc-font-size-bigger;
+    }
+
+    .ui-dialer-popup-name {}
+
+    .ui-dialer-popup-scrim {}
+
+    .ui-dialer-popup-number {
+    }
+
+    .ui-dialer-popup-timer {
+        font-weight: bold;
+        margin: @rc-margin-big;
+    }
+
+    .ui-dialer-popup-answer,
+    .ui-dialer-popup-refuse {
+        margin: @rc-margin;
+        display: inline-block;
+        width: 110px;
+        height: 45px;
+        border: none;
+    }
+
+    .ui-dialer-popup-answer {
+        background: @rc-color-green url(@rc-images-accept-call) center center no-repeat;
+        background-size: auto 53%;
+    }
+
+    .ui-dialer-popup-refuse {
+        background: @rc-color-red url(@rc-images-end-call) center center no-repeat;
+        background-size: 30% auto;
+    }
 }
 
-.ui-dialer-popup-name {
-
-}
-
-.ui-dialer-popup-scrim {
-    background-color: rgba(255, 255, 255, 0.9) !important;
-}
-
-.ui-dialer-popup-number {
-
-}
-
-.ui-dialer-popup-timer {
-    color: @rc-color-main;
-    font-weight: bold;
-    margin: @rc-margin-big;
-}
