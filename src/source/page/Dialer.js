@@ -181,13 +181,13 @@ enyo.kind({
                 this.sipSession.register();
                 break;
 
+            case 'stopping':
+            case 'failed_to_stop':
+                break;
             case 'failed_to_start':
             case 'stopped':
                 delete this.sipSessionCall;
                 this.setUiUnregistered();
-            case 'failed_to_stop':
-                break;
-            case 'stopping':
                 break;
 
             case 'i_new_call':
@@ -260,6 +260,7 @@ enyo.kind({
             case 'terminating':
                 break;
             case 'terminated':
+                this.hidePopup();
                 this.sipSessionCall = null;
                 break;
         }
@@ -331,8 +332,8 @@ enyo.kind({
 
     tapCallButton: function(){
         if ( !this.sipSessionCall ){
-            this.showOutgoingCall();
             this.sipCall();
+            this.showOutgoingCall();
         }
     },
 
@@ -344,7 +345,7 @@ enyo.kind({
 
     tapRefuseCall: function(){
         this.$.popupTimer.stop();
-        this.$.popup.hide();
+        this.hidePopup();
         if ( this.sipCallTypeIsIncoming() )
             this.sipReject();
         else
@@ -363,6 +364,10 @@ enyo.kind({
         this.$.popup.show();
         this.$.popupTimer.start();
         this.$.popupCaption.setContent( loc.Dialer.outgoingCall );
+    },
+
+    hidePopup: function(){
+        this.$.popup.hide();
     },
 
     getAudioNode: function(){
