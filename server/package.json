@@ -1,12 +1,15 @@
 {
     "name": "CallFlowServer",
     "author": "Alexander Marenin <great_muchacho@mail.ru>",
-    "version": "1.0.8",
+    "version": "0.1.0",
     "engines": {
-        "node": ">=0.6.10"
+        "node": ">=0.8.16"
     },
     "main": "app",
     "dependencies": {
-        "websocket": ">=1.0.8"
+        "express": ">=3.2.x",
+        "request": ">=2.21.x",
+        "websocket": ">=1.0.8",
+        "mocha": ">=1.10.0"
     }
 }
