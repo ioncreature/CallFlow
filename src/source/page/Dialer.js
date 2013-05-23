@@ -246,7 +246,8 @@ enyo.kind({
     },
 
     sipReject: function(){
-        this.sipSessionCall.reject();
+        if ( this.sipSessionCall )
+            this.sipSessionCall.reject();
     },
 
     sipSessionEventHandler: function( /*SIPml.Session.Event*/ e ){
@@ -343,6 +344,8 @@ enyo.kind({
         this.$.answerCall.hide();
         this.sipSessionCall.accept({ audio_remote: this.getAudioNode() });
         this.$.popupTimer.start();
+        if ( this.sipCallTypeIsIncoming() )
+            delete this.sipSessionCall.isIncoming;
     },
 
     tapRefuseCall: function(){
