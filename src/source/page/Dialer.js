@@ -115,7 +115,6 @@ enyo.kind({
         this.$.callee.setCollection( this.collection );
 
         function itemAdapter( item ){
-            var pu = item.get('publicIdentity');
             return {
                 caption: item.get( 'displayName' ),
                 description: page.sipParseNumberFromPublicIdentity( item.get('publicIdentity') )
@@ -151,6 +150,7 @@ enyo.kind({
                 { name: 'Organization', value: 'RingCentral' }
             ]
         });
+        App.set( 'sip.currentIdentity', identity );
         this.sipStack.start();
     },
 
@@ -290,7 +290,7 @@ enyo.kind({
         this.$.unregisteredBlock.hide();
         this.$.registeredBlock.show();
 
-        var identity = this.getSelectedIdentity(),
+        var identity = App.get( 'sip.currentIdentity' ),
             number = this.sipParseNumberFromPublicIdentity( identity.publicIdentity );
         this.$.callerName.setContent( identity.displayName );
         this.$.callerPhone.setContent( number );

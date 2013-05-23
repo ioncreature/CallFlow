@@ -177,7 +177,7 @@ enyo.kind({
         config: {},
 
         set: function( key, value ){
-            this.config[key] = value;
+            enyo.setObject( key, value, this.config );
         },
 
         get: function( key ){
