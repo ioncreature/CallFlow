@@ -13,5 +13,5 @@ var server = require( './server' ),
     util = require( './util.js' ),
     config = util.getConfig( configName );
 
-var app = server.create( config );
-server.start( app );
+var app = server.start( config );
+
