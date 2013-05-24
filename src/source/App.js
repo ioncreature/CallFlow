@@ -207,6 +207,22 @@ enyo.kind({
 
         goToMenu: function(){
             this.trigger( 'goToMenu' );
+        },
+
+        /**
+         * Services control interface
+         */
+
+        services: {},
+
+        /**
+         * @param {string} name
+         * @param {*?} service - setter interface
+         */
+        service: function( name, service ){
+            if ( arguments.length == 2 )
+                this.services[name] = service;
+            return this.services[name];
         }
     }
 });
