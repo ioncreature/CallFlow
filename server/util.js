@@ -34,6 +34,27 @@ exports.mixin = function mixin( destination, source ){
     return res;
 };
 
+/**
+ * @param {Object} original
+ * @param {Object} newSample
+ * @return Object
+ */
+exports.objectDiff = function( original, newSample ){
+    var diff = {},
+        count = 0;
+    for ( var k in newSample ) if ( newSample.hasOwnProperty(k) )
+        if ( original[k] !== newSample[k] ){
+            diff[k] = newSample[k];
+            count ++;
+        }
+
+    return count ? diff : false;
+};
+
+/**
+ * @param {string} configName
+ * @returns Object
+ */
 exports.getConfig = function( configName ){
     var conf = require( './config/' + configName + '.js' ),
         common = require('./config/common.js');

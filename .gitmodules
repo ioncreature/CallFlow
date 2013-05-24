@@ -13,3 +13,6 @@
 [submodule "src/lib/g11n"]
 	path = src/lib/g11n
 	url = https://github.com/enyojs/g11n.git
+[submodule "src/lib/socket.io-client"]
+	path = src/lib/socket.io-client
+	url = https://github.com/LearnBoost/socket.io-client.git

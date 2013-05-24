@@ -7,9 +7,9 @@
     },
     "main": "app",
     "dependencies": {
+        "socket.io": ">=0.9.14",
         "express": ">=3.2.x",
         "request": ">=2.21.x",
-        "websocket": ">=1.0.8",
         "mocha": ">=1.10.0"
     }
 }
