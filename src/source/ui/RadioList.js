@@ -45,7 +45,6 @@ enyo.kind({
         this.removeBindings();
         this.destroyComponents();
         this.collection.forEach( this.createComponentByModel, this );
-        this.render();
         this.addBinding( this.collection.on('add', this.createComponentByModel, this) );
         this.children.length && this.onItemTap( this.children[0] );
     },
@@ -62,6 +61,7 @@ enyo.kind({
         component.model = model;
         this.addBinding( model.on(names.caption, component.setCaption, component) );
         this.addBinding( model.on(names.description, component.setDescription, component) );
+        this.render();
     },
 
     getActiveItem: function(){
