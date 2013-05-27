@@ -175,5 +175,14 @@ var loc = {
         login: 'Login',
         logout: 'Logout',
         notLoggedIn: 'You are not logged in'
+    },
+
+    Login: {
+        caption: 'Login',
+        header: 'Enter your phone number and password',
+        login: 'Login',
+        loginPlaceholder: 'enter login',
+        password: 'Password',
+        passwordPlaceholder: 'enter password'
     }
 };

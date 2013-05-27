@@ -41,6 +41,7 @@ function Server( config ){
 Server.prototype.start = function(){
     this.httpServer.listen( this.config.port || 80 );
     this.io = socketIo.listen( this.httpServer );
+    this.initSocketServer();
 };
 
 
@@ -52,3 +53,13 @@ Server.prototype.stop = function( callback ){
     })
 };
 
+
+Server.prototype.initSocketServer = function(){
+    this.io.sockets.on( 'connection', function( socket ){
+        socket.emit( 'ping', {hello: 'client'} );
+
+        socket.on( 'pong', function( msg ){
+            console.log( msg );
+        });
+    });
+};

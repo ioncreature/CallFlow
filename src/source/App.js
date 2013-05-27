@@ -8,7 +8,7 @@ enyo.kind({
     classes: 'enyo-fit ui-app',
     kind: 'Panels',
     arrangerKind: 'CollapsingArranger',
-    defaultPage: 'CallFlow',
+    defaultPage: 'Login',
 
     components: [
         {name: 'menu', kind: 'Scroller', thumb: false, touch: true, classes: 'ui-main-menu', ontap: 'menuTapped', components: [
@@ -29,6 +29,7 @@ enyo.kind({
             {page: 'Dev', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-dev', caption: loc.App.dev}
         ]},
         {name: 'pages', classes: 'ui-app-pages', kind: 'Panels', draggable: false, components: [
+            {kind: 'rc.page.Login', name: 'Login'},
             {kind: 'rc.page.Dialer', name: 'Dialer'},
             {kind: 'rc.page.CallFlow', name: 'CallFlow'},
             {kind: 'rc.page.UserInfo', name: 'UserInfo'},
@@ -44,10 +45,16 @@ enyo.kind({
         ]}
     ],
 
+    services: {
+        server: { kind: 'rc.service.Server', configName: 'websocket' }
+    },
+
     create: function(){
         this.pageStack = [];
         this.inherited( arguments );
         this.initConfig();
+        this.initServices();
+        this.preparePages();
 
         App.on( 'goBack', this.goBack, this );
         App.on( 'goTo', this.goTo, this );
@@ -55,13 +62,37 @@ enyo.kind({
         App.on( 'goToMenu', this.showMenu, this );
 
         App.goTo( App.get('indexPage') || this.defaultPage );
+
+        App.trigger( 'appReady' );
     },
 
     initConfig: function(){
+        try {
+            var appConfig = JSON.parse( localStorage.getItem('_appConfig') );
+            if ( typeof appConfig == 'object' )
+                enyo.mixin( App.config, appConfig )
+        }
+        catch ( e ){
+            console.warn( 'Failed to load config from localStorage' );
+        }
+
         var cfg = typeof _config == 'object' && _config ? _config : {};
-        Object.keys( cfg ).forEach( function( key ){
-            App.set( key, cfg[key] );
-        });
+        enyo.mixin( App.config, cfg );
+    },
+
+    initServices: function(){
+        Object.keys( this.services ).forEach( function( name ){
+            var serviceInfo = this.services[name],
+                config = App.get( serviceInfo.configName ),
+                ctor = enyo.getObject( serviceInfo.kind );
+            App.service( name, new ctor(config, this) );
+        }, this );
+    },
+
+    preparePages: function(){
+        this.$.pages.children.forEach( function( page ){
+            page._app = this;
+        }, this );
     },
 
     menuItemTap: function( inSender ){
@@ -178,6 +209,7 @@ enyo.kind({
 
         set: function( key, value ){
             enyo.setObject( key, value, this.config );
+            localStorage && localStorage.setItem( '_appConfig', JSON.stringify(this.config) );
         },
 
         get: function( key ){

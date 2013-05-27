@@ -3,7 +3,7 @@
  * May 2013
  */
 
-exports.port = 3000;
+exports.port = 31337;
 
 exports.cookieAge = 7*24*3600*1000; // 7 days
 

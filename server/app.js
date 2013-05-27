@@ -8,10 +8,10 @@
  * November 2012
  */
 
-var server = require( './server' ),
+var Server = require( './server' ),
     configName = process.argv[2] || 'dev',
     util = require( './util.js' ),
     config = util.getConfig( configName );
 
-var app = server.start( config );
-
+var app = new Server( config );
+app.start();

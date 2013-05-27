@@ -49,6 +49,10 @@ enyo.kind({
         this.nextButtonTypeChanged();
     },
 
+    getService: function( serviceName ){
+        return this._app instanceof App ? this._app.getService( serviceName ) : false;
+    },
+
     initComponents: function(){
         this.createChrome( this.pageTools );
         this.inherited( arguments );
