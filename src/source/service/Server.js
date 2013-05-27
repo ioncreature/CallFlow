@@ -7,17 +7,16 @@ enyo.kind({
     name: 'rc.service.Server',
     kind: 'rc.Observable',
 
-    constructor: function( config ){
+    constructor: function( config, app ){
+        this.callbacks = {};
         this.inherited( arguments );
         this.setConfig( config );
         this.connect();
     },
 
-
     setConfig: function( config ){
         this.url = config.path;
     },
-
 
     /**
      * @param {Function?} callback
@@ -26,7 +25,9 @@ enyo.kind({
         if ( this.socket )
             this.socket.close();
         this.socket = io.connect( this.url );
-        var socket = this.socket;
+
+        var socket = this.socket,
+            server = this;
 
         socket.on( 'connect', function(){
             callback && callback();
@@ -38,8 +39,7 @@ enyo.kind({
         });
     },
 
-
-    get: function( query, callback ){
-
+    query: function( command, msg, callback ){
+        this.socket.emit( command, msg, callback );
     }
 });

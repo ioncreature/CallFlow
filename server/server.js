@@ -55,11 +55,21 @@ Server.prototype.stop = function( callback ){
 
 
 Server.prototype.initSocketServer = function(){
+    this.users = [];
+
     this.io.sockets.on( 'connection', function( socket ){
         socket.emit( 'ping', {hello: 'client'} );
 
         socket.on( 'pong', function( msg ){
             console.log( msg );
         });
+
+        socket.on( 'authBySid', function( sid, fn ){
+            fn( true );
+        });
+
+        socket.on( 'authByLoginPassword', function( sid, fn ){
+            fn( true );
+        })
     });
 };

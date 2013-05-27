@@ -4,5 +4,6 @@
  */
 
 enyo.depends(
-    'Server.js'
+    'Server.js',
+    'Auth.js'
 );
