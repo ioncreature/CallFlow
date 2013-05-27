@@ -8,7 +8,11 @@ var http = require( 'http' ),
     socketIo = require( 'socket.io' ),
     express = require( 'express' );
 
-exports.start = function( config ){
+
+module.exports = Server;
+
+
+function Server( config ){
     var app = express();
     app.configure( function(){
         app.disable( 'x-powered-by' );
@@ -28,8 +32,23 @@ exports.start = function( config ){
         });
     });
 
-    var httpServer = http.createServer( app );
-    httpServer.listen( config.port || 80 );
-    var io = socketIo.listen( httpServer );
+    this.config = config;
+    this.app = app;
+    this.httpServer = http.createServer( app );
+}
+
+
+Server.prototype.start = function(){
+    this.httpServer.listen( this.config.port || 80 );
+    this.io = socketIo.listen( this.httpServer );
+};
+
+
+Server.prototype.stop = function( callback ){
+    var server = this;
+    server.httpServer.close( function(){
+        server.socket.close();
+        callback();
+    })
 };
 
