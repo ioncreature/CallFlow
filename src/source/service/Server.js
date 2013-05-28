@@ -33,9 +33,9 @@ enyo.kind({
             callback && callback();
         });
 
-        socket.on( 'ping', function( msg ){
+        socket.on( 'ping', function( msg, fn ){
             console.log( msg );
-            socket.emit( 'pong', {hello: 'server'} );
+            fn({ hello: 'server' });
         });
     },
 

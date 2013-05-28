@@ -9,6 +9,7 @@ enyo.kind({
     kind: 'Panels',
     arrangerKind: 'CollapsingArranger',
     defaultPage: 'Login',
+    canRedirect: false,
 
     components: [
         {name: 'menu', kind: 'Scroller', thumb: false, touch: true, classes: 'ui-main-menu', ontap: 'menuTapped', components: [
@@ -46,7 +47,8 @@ enyo.kind({
     ],
 
     services: {
-        server: { kind: 'rc.service.Server', configName: 'websocket' }
+        server: { kind: 'rc.service.Server', configName: 'websocket' },
+        auth: { kind: 'rc.service.Auth', configName: 'auth' }
     },
 
     create: function(){
@@ -54,14 +56,12 @@ enyo.kind({
         this.inherited( arguments );
         this.initConfig();
         this.initServices();
-        this.preparePages();
+        this.initAuth();
 
         App.on( 'goBack', this.goBack, this );
         App.on( 'goTo', this.goTo, this );
         App.on( 'goTo', this.activateMenuItem, this );
         App.on( 'goToMenu', this.showMenu, this );
-
-        App.goTo( App.get('indexPage') || this.defaultPage );
 
         App.trigger( 'appReady' );
     },
@@ -89,10 +89,36 @@ enyo.kind({
         }, this );
     },
 
-    preparePages: function(){
-        this.$.pages.children.forEach( function( page ){
-            page._app = this;
-        }, this );
+    initAuth: function(){
+        console.warn( 'Ololo!' );
+        var auth = App.service( 'auth' ),
+            app = this;
+
+        auth.isLoggedIn( function( res ){
+            if ( res )
+                app.login();
+            else
+                app.showLoginPage();
+        });
+    },
+
+    login: function(){
+        this.canRedirect = true;
+        App.goTo( App.get('indexPage') || this.defaultPage );
+        this.showMenu();
+        this.setDraggable( false );
+    },
+
+    logout: function(){
+        App.service( 'auth' ).logout();
+        this.showLoginPage();
+    },
+
+    showLoginPage: function(){
+        App.goTo( 'Login' );
+        this.canRedirect = true;
+        this.setDraggable( false );
+        this.hideMenu();
     },
 
     menuItemTap: function( inSender ){
@@ -124,7 +150,7 @@ enyo.kind({
             pageData,
             i;
 
-        if ( this.pageStack.length > 1 ){
+        if ( this.canRedirect && this.pageStack.length > 1 ){
             this.pageStack.pop();
             i = this.pageStack[this.pageStack.length - 1];
             pages.setIndex( i );
@@ -143,7 +169,10 @@ enyo.kind({
      * @param {?} options.data
      */
     goTo: function( options ){
-        var pages = this.$.pages,
+        if ( !this.canRedirect )
+            return;
+
+        var pages = app.$.pages,
             pageName = options.pageName,
             data = options.data;
 

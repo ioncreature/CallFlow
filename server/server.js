@@ -58,18 +58,27 @@ Server.prototype.initSocketServer = function(){
     this.users = [];
 
     this.io.sockets.on( 'connection', function( socket ){
-        socket.emit( 'ping', {hello: 'client'} );
-
-        socket.on( 'pong', function( msg ){
-            console.log( msg );
+        socket.emit( 'ping', {hello: 'client'}, function( response ){
+            console.log( response );
         });
 
         socket.on( 'authBySid', function( sid, fn ){
-            fn( true );
+            if ( sid && sid.length > 3 )
+                fn( true );
+            else
+                fn( false );
         });
 
-        socket.on( 'authByLoginPassword', function( sid, fn ){
-            fn( true );
+        socket.on( 'authByLoginPassword', function( query, fn ){
+            var login = query.login,
+                pass = query.password;
+            if ( pass && pass.length > 0 && login && login.length > 0 )
+                fn({
+                    res: true,
+                    sid: Date.now()
+                });
+            else
+                fn( false );
         })
     });
 };

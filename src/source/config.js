@@ -8,6 +8,7 @@ var _config = {
     websocket: {
         path: 'http://localhost:31337'
     },
+    auth: {},
     sip: {
         realm: 'sip.dins.ru',
         identity: [
