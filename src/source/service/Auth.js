@@ -55,8 +55,10 @@ enyo.kind({
             if ( res && sid ){
                 logged = true;
                 auth.setSid( sid );
+                callback( true );
             }
-            callback( !!answer );
+            else
+                callback( false );
         });
     },
 
@@ -66,6 +68,11 @@ enyo.kind({
 
     getSid: function(){
         return App.get( 'auth.sid' );
+    },
+
+    login: function(){
+        if ( logged && this.getSid() )
+            this.app.login();
     },
 
     logout: function(){

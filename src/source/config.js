@@ -3,7 +3,7 @@
  * May 2013
  */
 
-var _config = {
+var _configDev = {
     indexPage: 'Dialer',
     websocket: {
         path: 'http://localhost:31337'
@@ -60,6 +60,68 @@ var _config = {
         enableRtcWebBreaker: true,
         websocketServerUrl: 'ws://192.168.23.223:10060',
         sipOutboundProxyUrl: 'udp://192.168.23.202:5060',
+        iceServers: null
+    }
+};
+
+
+var _configProduction = {
+    indexPage: 'CallFlow',
+    websocket: {
+        path: 'http://callflow.firecrush.com:31337'
+    },
+    auth: {},
+    sip: {
+        realm: 'sip-devrnd.lab.nordigy.ru:5060',
+        identity: [
+            {
+                displayName: 'Alexander Marenin',
+                publicIdentity: 'sip:18664100003@sip-devrnd.lab.nordigy.ru:5060',
+                privateIdentity: '11051976',
+                password: '11051976'
+            },
+            {
+                displayName: 'Dmitry Pevzner',
+                publicIdentity: 'sip:12052160036@sip-devrnd.lab.nordigy.ru:5060',
+                privateIdentity: '17414008',
+                password: '17414008'
+            },
+            {
+                displayName: 'Alexey Shpagin',
+                publicIdentity: 'sip:12052160028@sip-devrnd.lab.nordigy.ru:5060',
+                privateIdentity: '17413008',
+                password: '17413008'
+            },
+            {
+                displayName: 'Alexey Petrov',
+                publicIdentity: 'sip:12052160045@sip-devrnd.lab.nordigy.ru:5060',
+                privateIdentity: '17415008',
+                password: '17415008'
+            },
+            {
+                displayName: 'Vlad Vendrow',
+                publicIdentity: 'sip:12052160016@sip-devrnd.lab.nordigy.ru:5060',
+                privateIdentity: '17416008',
+                password: '17416008'
+            },
+            {
+                displayName: 'Test Account',
+                publicIdentity: 'sip:18664100005@sip-devrnd.lab.nordigy.ru:5060',
+                privateIdentity: '11051976',
+                password: '11051976'
+            },
+            {
+                displayName: 'Test Account 2',
+                publicIdentity: 'sip:18664100006@sip-devrnd.lab.nordigy.ru:5060',
+                privateIdentity: '11051976',
+                password: '11051976'
+            }
+        ],
+        displayName: '',
+        enableVideo: false,
+        enableRtcWebBreaker: true,
+        websocketServerUrl: 'ws://199.68.214.209:10060',
+        sipOutboundProxyUrl: 'udp://192.209.31.31:5090',
         iceServers: null
     }
 };

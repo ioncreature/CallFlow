@@ -51,6 +51,11 @@ enyo.kind({
         auth: { kind: 'rc.service.Auth', configName: 'auth' }
     },
 
+    constructor: function( config ){
+        this.initConfig( config );
+        this.inherited( arguments );
+    },
+
     create: function(){
         this.pageStack = [];
         this.inherited( arguments );
@@ -66,7 +71,7 @@ enyo.kind({
         App.trigger( 'appReady' );
     },
 
-    initConfig: function(){
+    initConfig: function( config ){
         try {
             var appConfig = JSON.parse( localStorage.getItem('_appConfig') );
             if ( typeof appConfig == 'object' )
@@ -76,8 +81,7 @@ enyo.kind({
             console.warn( 'Failed to load config from localStorage' );
         }
 
-        var cfg = typeof _config == 'object' && _config ? _config : {};
-        enyo.mixin( App.config, cfg );
+        enyo.mixin( App.config, config );
     },
 
     initServices: function(){
@@ -90,7 +94,6 @@ enyo.kind({
     },
 
     initAuth: function(){
-        console.warn( 'Ololo!' );
         var auth = App.service( 'auth' ),
             app = this;
 
@@ -105,8 +108,7 @@ enyo.kind({
     login: function(){
         this.canRedirect = true;
         App.goTo( App.get('indexPage') || this.defaultPage );
-        this.showMenu();
-        this.setDraggable( false );
+        this.setDraggable( true );
     },
 
     logout: function(){
@@ -172,7 +174,7 @@ enyo.kind({
         if ( !this.canRedirect )
             return;
 
-        var pages = app.$.pages,
+        var pages = this.$.pages,
             pageName = options.pageName,
             data = options.data;
 

@@ -181,8 +181,9 @@ var loc = {
         caption: 'Login',
         header: 'Enter your phone number and password',
         login: 'Login',
-        loginPlaceholder: 'enter login',
+        loginPlaceholder: 'Enter login',
         password: 'Password',
-        passwordPlaceholder: 'enter password'
+        passwordPlaceholder: 'Enter password',
+        submit: 'Submit'
     }
 };

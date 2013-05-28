@@ -4,6 +4,5 @@
  */
 
 enyo.depends(
-    'WebSocket.js',
     'WebRTC.js'
 );
