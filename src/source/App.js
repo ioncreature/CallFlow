@@ -59,7 +59,6 @@ enyo.kind({
     create: function(){
         this.pageStack = [];
         this.inherited( arguments );
-        this.initConfig();
         this.initServices();
         this.initAuth();
 
