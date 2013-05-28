@@ -68,7 +68,7 @@ var _configDev = {
 var _configProduction = {
     indexPage: 'CallFlow',
     websocket: {
-        path: 'http://callflow.firecrush.com:31337'
+        path: 'http://callflow.firecrush.com:8080'
     },
     auth: {},
     sip: {
