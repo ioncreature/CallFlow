@@ -262,6 +262,10 @@ enyo.kind({
 
             case 'terminating':
             case 'terminated':
+                // TODO: переделать определение ошибки
+                if ( e.description === 'Forbidden (authorization error)' )
+                    alert( e.description );
+                this.$.login.setDisabled( false );
                 this.hidePopup();
                 this.sipSessionCall = null;
                 break;
