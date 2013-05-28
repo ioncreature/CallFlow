@@ -180,10 +180,10 @@ var loc = {
     Login: {
         caption: 'Login',
         header: 'Enter your phone number and password',
-        login: 'Login',
-        loginPlaceholder: 'Enter login',
+        login: 'Phone number',
+        loginPlaceholder: 'Enter phone number',
         password: 'Password',
         passwordPlaceholder: 'Enter password',
-        submit: 'Submit'
+        submit: 'Login'
     }
 };
