@@ -8,7 +8,6 @@ var _configDev = {
     websocket: {
         path: 'http://localhost:31337'
     },
-    auth: {},
     sip: {
         realm: 'sip.dins.ru',
         identity: [
@@ -70,7 +69,6 @@ var _configProduction = {
     websocket: {
         path: 'http://callflow.firecrush.com:8080'
     },
-    auth: {},
     sip: {
         realm: 'sip-devrnd.lab.nordigy.ru:5060',
         identity: [

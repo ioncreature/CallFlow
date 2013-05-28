@@ -27,7 +27,8 @@ enyo.kind({
             {classes: 'ui-main-menu-header', content: loc.App.applicationSettings},
             {page: 'General', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-general', caption: loc.App.general},
             {page: 'Audio', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-audio', caption: loc.App.audio},
-            {page: 'Dev', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-dev', caption: loc.App.dev}
+            {page: 'Dev', ontap: 'menuItemTap', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-dev', caption: loc.App.dev},
+            {ontap: 'logout', kind: 'rc.MainMenuItem', icon: 'ui-main-menu-dev', caption: loc.App.logout}
         ]},
         {name: 'pages', classes: 'ui-app-pages', kind: 'Panels', draggable: false, components: [
             {kind: 'rc.page.Login', name: 'Login'},
@@ -66,6 +67,7 @@ enyo.kind({
         App.on( 'goTo', this.goTo, this );
         App.on( 'goTo', this.activateMenuItem, this );
         App.on( 'goToMenu', this.showMenu, this );
+        App.on( 'toggleMenu', this.toggleMenu, this );
 
         App.trigger( 'appReady' );
     },
@@ -107,6 +109,7 @@ enyo.kind({
     login: function(){
         this.canRedirect = true;
         App.goTo( App.get('indexPage') || this.defaultPage );
+        this.showMenu();
         this.setDraggable( true );
     },
 
@@ -132,6 +135,13 @@ enyo.kind({
 
     showMenu: function(){
         this.setIndex( 0 );
+    },
+
+    toggleMenu: function(){
+        if ( this.getIndex() )
+            this.showMenu();
+        else
+            this.hideMenu();
     },
 
     activateMenuItem: function( options ){
@@ -269,6 +279,10 @@ enyo.kind({
 
         goToMenu: function(){
             this.trigger( 'goToMenu' );
+        },
+
+        toggleMenu: function(){
+            this.trigger( 'toggleMenu' );
         },
 
         /**

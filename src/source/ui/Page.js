@@ -34,7 +34,7 @@ enyo.kind({
     handleBackTap: function(){
         if ( !this.doBack() )
             this.getIsRoot()
-                ? App.goToMenu()
+                ? App.toggleMenu()
                 : App.back();
     },
 

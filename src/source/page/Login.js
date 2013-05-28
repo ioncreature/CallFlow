@@ -34,9 +34,7 @@ enyo.kind({
         this.inherited( arguments );
     },
 
-    loginPageOpen: function(){
-
-    },
+    loginPageOpen: function(){},
 
     submitTap: function(){
         var login = this.$.login.getValue(),
@@ -46,11 +44,10 @@ enyo.kind({
 
         button.setDisabled( true );
         auth.authByLoginPassword( login, password, function( result ){
-            console.log( result );
             if ( result )
                 auth.login();
             else
-                alert( 'incorrect login or password' );
+                alert( 'Incorrect login or password.' );
             button.setDisabled( false );
         });
     }

@@ -11,8 +11,8 @@ enyo.kind({
     components: [
         {classes: 'ui-header-left', content: 'Preview'},
         {name: 'scrollType', kind: 'rc.RadioList', onActivate: 'setScrollType', components: [
-            {caption: 'No', value: rc.Scroller.THUMB},
-            {caption: 'Right fixed (default)', active: true, value: rc.Scroller.VIEWPORT_RIGHT},
+            {caption: 'No', active: true, value: rc.Scroller.THUMB},
+            {caption: 'Right fixed (default)', value: rc.Scroller.VIEWPORT_RIGHT},
             {caption: 'Left fixed', value: rc.Scroller.VIEWPORT_LEFT},
             {caption: 'Stretch to height', value: rc.Scroller.VIEWPORT_STRETCHED},
             {caption: 'Fixed viewport (right)', value: rc.Scroller.VIEWPORT_MOVING},

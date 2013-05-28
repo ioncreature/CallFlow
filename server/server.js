@@ -24,7 +24,6 @@ function Server( config ){
         app.set( 'view engine', 'jade' );
     });
 
-
     app.get( '/dev', function( req, res ){
         res.render( 'dev', {
             title: 'Hi, guys',
@@ -63,7 +62,7 @@ Server.prototype.initSocketServer = function(){
         });
 
         socket.on( 'authBySid', function( sid, fn ){
-            if ( sid && sid.length > 3 )
+            if ( sid && sid.toString().length > 3 )
                 fn( true );
             else
                 fn( false );

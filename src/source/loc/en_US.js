@@ -35,7 +35,8 @@ var loc = {
         applicationSettings: 'Application Settings',
         general: 'General',
         audio: 'Audio',
-        dev: 'Dev'
+        dev: 'Dev',
+        logout: 'Logout'
     },
 
     CallFlow: {
