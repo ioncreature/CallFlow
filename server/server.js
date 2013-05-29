@@ -16,7 +16,8 @@ module.exports = Server;
 
 
 function Server( config ){
-    var app = express();
+    var app = express(),
+        server = this;
     app.configure( function(){
         app.disable( 'x-powered-by' );
         app.set( 'views', __dirname + '/view' );
@@ -32,6 +33,14 @@ function Server( config ){
             title: 'Hi, guys',
             caption: 'Hello'
         });
+    });
+
+    app.get( '/exit', function( req, res ){
+        res.render( 'dev', {
+            title: 'Stop server',
+            caption: 'Stopping'
+        });
+        server.stop();
     });
 
     this.config = config;
@@ -54,7 +63,7 @@ Server.prototype.stop = function( callback ){
     var server = this;
     server.httpServer.close( function(){
         server.socket.close();
-        callback();
+        callback && callback();
     })
 };
 
