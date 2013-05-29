@@ -49,7 +49,8 @@ enyo.kind({
 
     services: {
         server: { kind: 'rc.service.Server', configName: 'websocket' },
-        auth: { kind: 'rc.service.Auth', configName: 'auth' }
+        auth: { kind: 'rc.service.Auth', configName: 'auth' },
+        user: { kind: 'rc.service.User' }
     },
 
     constructor: function( config ){
@@ -88,7 +89,7 @@ enyo.kind({
     initServices: function(){
         Object.keys( this.services ).forEach( function( name ){
             var serviceInfo = this.services[name],
-                config = App.get( serviceInfo.configName ),
+                config = serviceInfo.configName && App.get( serviceInfo.configName ),
                 ctor = enyo.getObject( serviceInfo.kind );
             App.service( name, new ctor(config, this) );
         }, this );

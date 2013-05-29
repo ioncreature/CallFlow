@@ -27,7 +27,9 @@ enyo.kind({
         else if ( !sid )
             callback( false );
         else
-            auth.authBySessionId( sid, callback );
+            callback( false );
+            // TODO: uncomment it when it will be ready
+            // auth.authBySessionId( sid, callback );
     },
 
     authBySessionId: function( sid, callback ){
@@ -55,6 +57,7 @@ enyo.kind({
             if ( success ){
                 logged = true;
                 auth.setSid( sid );
+                auth.trigger( 'auth', res.user );
                 callback({
                     success: true,
                     user: res.user
