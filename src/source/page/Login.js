@@ -14,11 +14,11 @@ enyo.kind({
         {classes: 'ui-login-block', components: [
             {classes: 'ui-label', content: loc.Login.login},
             {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
-                {name: 'login', kind: 'onyx.Input', placeholder: loc.Login.loginPlaceholder}
+                {name: 'login', kind: 'onyx.Input', value: '18663530010', placeholder: loc.Login.loginPlaceholder}
             ]},
             {classes: 'ui-label', content: loc.Login.password},
             {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
-                {name: 'password', kind: 'onyx.Input', type: 'password', placeholder: loc.Login.passwordPlaceholder}
+                {name: 'password', kind: 'onyx.Input', type: 'password', value: '123123123', placeholder: loc.Login.passwordPlaceholder}
             ]},
             {classes: 'ui-center', components: [
                 {name: 'submit', classes: 'ui-login-submit', kind:'rc.Button', content: loc.Login.submit, ontap: 'submitTap'}

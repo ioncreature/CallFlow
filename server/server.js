@@ -93,18 +93,20 @@ Server.prototype.initSocketServer = function(){
                             pin: ext || ''
                         }
                     };
-                console.log( '\n\nBlaBla\n');
+                console.log( '\n\nBlaBla\n', user );
 
                 request.post( httpParams, function( req, res ){
                     try {
                         var body = JSON.parse( res.body ),
                             status = body.status;
-                        console.log( '\n\n\n', body );
+
                         if ( status.success ){
                             user.info = user.info || {};
-                            delete body.counterResponse.status;
+                            if ( body.counterResponse )
+                                delete body.counterResponse.status;
                             user.info.counters = body.counterResponse;
-                            delete body.subscriberResponse.status;
+                            if ( body.subscriberResponse )
+                                delete body.subscriberResponse.status;
                             user.info.subscriber = body.subscriberResponse;
                             user.jar = jar;
                             user.socket = socket;
@@ -114,10 +116,10 @@ Server.prototype.initSocketServer = function(){
 
                             async.parallel({
                                 mailboxInfo: function( callback ){
-                                    var params = enyo.mixin( httoParams, { mid: mid });
+                                    var params = util.mixin( httpParams, { mid: mid });
                                     request.post( params, function( req, res ){
                                         try {
-                                            var body = JSON.parse( req.body );
+                                            var body = JSON.parse( res.body );
                                             callback( null, body.mailboxInfo );
                                         }
                                         catch ( e ){
@@ -129,10 +131,10 @@ Server.prototype.initSocketServer = function(){
                                 if ( error )
                                     fn({
                                         success: false,
-                                        errorMessage: e.message
+                                        errorMessage: error.message
                                     });
                                 else {
-                                    enyo.mixin( user.info, res );
+                                    util.mixin( user.info, res );
                                     fn({
                                         success: true,
                                         user: user.info,
@@ -163,11 +165,11 @@ Server.prototype.initSocketServer = function(){
 
 
 Server.prototype.getUser = function( login, pass, ext ){
-    var hash = login + '_' + pass + '_' + (ext || ''),
-        user = this.users[hash];
-    if ( !user )
+    var hash = login + '_' + pass + '_' + (ext || '');
+
+    if ( !this.users[hash] )
         this.users[hash] = {};
-    return user;
+    return this.users[hash];
 };
 
 
