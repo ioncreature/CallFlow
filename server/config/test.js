@@ -16,5 +16,5 @@ exports.static = {
 };
 
 exports.jedi = {
-    path: 'http://spb01-t07-jws04.dins.ru/mobile/api/proxy.html'
+    path: 'http://service-rnd.lab.nordigy.ru/mobile/api/proxy.html'
 };

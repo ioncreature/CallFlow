@@ -14,7 +14,7 @@ enyo.kind({
         {classes: 'ui-login-block', components: [
             {classes: 'ui-label', content: loc.Login.login},
             {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
-                {name: 'login', kind: 'onyx.Input', value: '18663530010', placeholder: loc.Login.loginPlaceholder}
+                {name: 'login', kind: 'onyx.Input', value: '18664100005', placeholder: loc.Login.loginPlaceholder}
             ]},
             {classes: 'ui-label', content: loc.Login.password},
             {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
