@@ -93,7 +93,6 @@ Server.prototype.initSocketServer = function(){
                             pin: ext || ''
                         }
                     };
-                console.log( '\n\nBlaBla\n', user );
 
                 request.post( httpParams, function( req, res ){
                     try {
@@ -116,7 +115,12 @@ Server.prototype.initSocketServer = function(){
 
                             async.parallel({
                                 mailboxInfo: function( callback ){
-                                    var params = util.mixin( httpParams, { mid: mid });
+                                    var params = util.mixin( httpParams, {
+                                        form: {
+                                            cmd: 'extensions.getExtension',
+                                            mid: mid
+                                        }
+                                    });
                                     request.post( params, function( req, res ){
                                         try {
                                             var body = JSON.parse( res.body );

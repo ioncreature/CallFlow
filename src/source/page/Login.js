@@ -44,8 +44,10 @@ enyo.kind({
 
         button.setDisabled( true );
         auth.authByLoginPassword( login, password, function( result ){
-            if ( result.success )
+            if ( result.success ){
+                console.log( result );
                 auth.login();
+            }
             else
                 alert( result.errorMessage );
             button.setDisabled( false );
