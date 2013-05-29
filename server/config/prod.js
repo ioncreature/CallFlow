@@ -16,5 +16,5 @@ exports.static = {
 };
 
 exports.jedi = {
-    path: 'http://service-rnd.lab.nordigy.ru/mobile/api/proxy.html'
+    path: 'http://service.ringcentral.com/mobile/api/proxy.html'
 };
