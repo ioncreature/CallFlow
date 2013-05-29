@@ -50,7 +50,7 @@ enyo.kind({
 
         server.query( 'authByLoginPassword', query, function( res ){
             var success = res.success !== false,
-                sid = res.cookie;
+                sid = res.sid;
 
             if ( success ){
                 logged = true;

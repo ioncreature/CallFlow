@@ -67,7 +67,10 @@ Server.prototype.initSocketServer = function(){
     server.io.sockets.on( 'connection', function( socket ){
         var jar = request.jar(),
             data = {},
-            mid;
+            mid,
+            pin,
+            instanceId,
+            sid;
 
         socket.emit( 'ping', {hello: 'client'}, function( response ){
             console.log( response );
@@ -102,26 +105,59 @@ Server.prototype.initSocketServer = function(){
                         if ( res.subscriberResponse )
                             delete res.subscriberResponse.status;
                         data.subscriber = res.subscriberResponse;
-                        mid = data.subscriber.mailboxId;
 
-                        async.parallel({
-                            mailboxInfo: function( callback ){
+                        mid = data.subscriber.mailboxId;
+                        sid = res.JSESSIONID;
+
+                        async.series({
+                            mailbox: function( callback ){
                                 jediRequest({ cmd: 'extensions.getExtension', mid: mid }, function( error, res ){
-                                    callback( error, res && res.mailboxInfo );
+                                    if ( error || !res.status.success )
+                                        callback( error || new Error(res.status.message) );
+                                    else {
+                                        pin = res.mailboxInfo.pin;
+                                        callback( null, res.mailboxInfo );
+                                    }
+                                });
+                            },
+                            phones: function( callback ){
+                                jediRequest({ cmd: 'digitalline.listPhones' }, function( error, res ){
+                                    if ( error || !res.status.success )
+                                        callback( error || new Error(res.status.message) );
+                                    else {
+                                        res.phones.some( function( item ){
+                                            if ( item.userExtension === pin ){
+                                                instanceId = item.device.instanceId;
+                                                return true;
+                                            }
+                                        });
+                                        callback( error, res && res.phones );
+                                    }
+                                });
+                            },
+                            provisioningInfo: function( callback ){
+                                jediRequest({
+                                    cmd: 'digitalline.getProvisioningInfo',
+                                    instanceId: instanceId
+                                }, function( error, res ){
+                                    callback( error, res && res.provisioningInfo );
                                 });
                             }
-                        }, function( error, res ){
+                        }, finishRequest );
+
+                        function finishRequest( error, res ){
                             if ( error )
                                 errorResponse( error, fn );
                             else {
                                 util.mixin( data, res );
                                 fn({
                                     success: true,
+                                    sid: sid,
                                     user: data,
                                     cookie: jar.toString()
                                 });
                             }
-                        });
+                        }
                     }
                     else
                         errorResponse( res.status.message, fn );
@@ -155,23 +191,4 @@ Server.prototype.initSocketServer = function(){
             });
         }
     });
-};
-
-
-Server.prototype.getUser = function( login, pass, ext ){
-    var hash = login + '_' + pass + '_' + (ext || '');
-
-    if ( !this.users[hash] )
-        this.users[hash] = {};
-    return this.users[hash];
-};
-
-
-Server.prototype.loadMailbox = function( options ){
-
-};
-
-
-Server.prototype.logout = function(){
-
 };
