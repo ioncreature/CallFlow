@@ -65,6 +65,10 @@ Server.prototype.initSocketServer = function(){
 
 
     server.io.sockets.on( 'connection', function( socket ){
+        var jar = request.jar(),
+            data = {},
+            mid;
+
         socket.emit( 'ping', {hello: 'client'}, function( response ){
             console.log( response );
         });
@@ -80,90 +84,76 @@ Server.prototype.initSocketServer = function(){
                 ext = query.ext;
 
             if ( pass && pass.length > 0 && login && login.length > 0 ){
-                var user = server.getUser( login, pass ),
-                    jar = request.jar(),
-                    httpParams = {
-                        url: server.config.jedi.path,
-                        jar: jar,
-                        form: {
-                            cmd: 'authenticator.findSubscriberComplete',
-                            autoLogin: true,
-                            login: login,
-                            password: pass,
-                            pin: ext || ''
-                        }
-                    };
+                var params = {
+                    cmd: 'authenticator.findSubscriberComplete',
+                    autoLogin: true,
+                    login: login,
+                    password: pass,
+                    pin: ext || ''
+                };
 
-                request.post( httpParams, function( req, res ){
-                    try {
-                        var body = JSON.parse( res.body ),
-                            status = body.status;
+                jediRequest( params, function( error, res ){
+                    if ( error )
+                        errorResponse( error, fn );
+                    else if ( res.status.success ){
+                        if ( res.countersResponse )
+                            delete res.countersResponse.status;
+                        data.counters = res.countersResponse;
+                        if ( res.subscriberResponse )
+                            delete res.subscriberResponse.status;
+                        data.subscriber = res.subscriberResponse;
+                        mid = data.subscriber.mailboxId;
 
-                        if ( status.success ){
-                            user.info = user.info || {};
-                            if ( body.counterResponse )
-                                delete body.counterResponse.status;
-                            user.info.counters = body.counterResponse;
-                            if ( body.subscriberResponse )
-                                delete body.subscriberResponse.status;
-                            user.info.subscriber = body.subscriberResponse;
-                            user.jar = jar;
-                            user.socket = socket;
-                            socket.set( 'user', user );
-
-                            var mid = user.info.subscriber.mailboxId;
-
-                            async.parallel({
-                                mailboxInfo: function( callback ){
-                                    var params = util.mixin( httpParams, {
-                                        form: {
-                                            cmd: 'extensions.getExtension',
-                                            mid: mid
-                                        }
-                                    });
-                                    request.post( params, function( req, res ){
-                                        try {
-                                            var body = JSON.parse( res.body );
-                                            callback( null, body.mailboxInfo );
-                                        }
-                                        catch ( e ){
-                                            callback( new Error('Unable to load mailboxInfo') );
-                                        }
-                                    });
-                                }
-                            }, function( error, res ){
-                                if ( error )
-                                    fn({
-                                        success: false,
-                                        errorMessage: error.message
-                                    });
-                                else {
-                                    util.mixin( user.info, res );
-                                    fn({
-                                        success: true,
-                                        user: user.info,
-                                        cookie: jar.toString()
-                                    });
-                                }
-                            })
-                        }
-                        else
-                            throw new Error( status.message );
-                    }
-                    catch ( e ){
-                        fn({
-                            success: false,
-                            errorMessage: e.message
+                        async.parallel({
+                            mailboxInfo: function( callback ){
+                                jediRequest({ cmd: 'extensions.getExtension', mid: mid }, function( error, res ){
+                                    callback( error, res && res.mailboxInfo );
+                                });
+                            }
+                        }, function( error, res ){
+                            if ( error )
+                                errorResponse( error, fn );
+                            else {
+                                util.mixin( data, res );
+                                fn({
+                                    success: true,
+                                    user: data,
+                                    cookie: jar.toString()
+                                });
+                            }
                         });
                     }
+                    else
+                        errorResponse( res.status.message, fn );
                 });
             }
             else
-                fn({
-                    success: false,
-                    errorMessage: e.message
-                });
+                errorResponse( e, fn );
         });
+
+        function jediRequest( params, callback ){
+            var httpParams = {
+                url: server.config.jedi.path,
+                jar: jar,
+                form: params
+            };
+            request.post( httpParams, function( req, res ){
+                try {
+                    var body = JSON.parse( res.body );
+                    callback( null, body );
+                }
+                catch ( e ){
+                    callback( e );
+                }
+            });
+        }
+
+        function errorResponse( error, fn ){
+            fn({
+                success: false,
+                errorMessage: error.message || error
+            });
+        }
     });
 };
 
