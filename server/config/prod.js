@@ -14,3 +14,7 @@ exports.i18n = {
 exports.static = {
     path: './static/'
 };
+
+exports.jedi = {
+    path: 'http://spb01-t07-jws04.dins.ru/mobile/api/proxy.html'
+};

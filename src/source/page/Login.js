@@ -44,10 +44,10 @@ enyo.kind({
 
         button.setDisabled( true );
         auth.authByLoginPassword( login, password, function( result ){
-            if ( result )
+            if ( result.success )
                 auth.login();
             else
-                alert( 'Incorrect login or password.' );
+                alert( result.errorMessage );
             button.setDisabled( false );
         });
     }

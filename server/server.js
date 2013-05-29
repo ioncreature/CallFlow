@@ -6,7 +6,10 @@
 
 var http = require( 'http' ),
     socketIo = require( 'socket.io' ),
-    express = require( 'express' );
+    express = require( 'express' ),
+    async = require( 'async' ),
+    request = require( 'request' ),
+    util = require( './util.js' );
 
 
 module.exports = Server;
@@ -34,8 +37,11 @@ function Server( config ){
     this.config = config;
     this.app = app;
     this.httpServer = http.createServer( app );
+    this.users = {};
 }
 
+
+Server.prototype.cacheTtl = 60 * 5;
 
 Server.prototype.start = function(){
     this.httpServer.listen( this.config.port || 80 );
@@ -54,30 +60,122 @@ Server.prototype.stop = function( callback ){
 
 
 Server.prototype.initSocketServer = function(){
-    this.users = [];
+    var server = this,
+        users = server.users;
 
-    this.io.sockets.on( 'connection', function( socket ){
+
+    server.io.sockets.on( 'connection', function( socket ){
         socket.emit( 'ping', {hello: 'client'}, function( response ){
             console.log( response );
         });
 
         socket.on( 'authBySid', function( sid, fn ){
-            if ( sid && sid.toString().length > 3 )
-                fn( true );
-            else
-                fn( false );
+            var isValid = sid && sid.toString().length > 3;
+            fn( !!isValid );
         });
 
         socket.on( 'authByLoginPassword', function( query, fn ){
             var login = query.login,
-                pass = query.password;
-            if ( pass && pass.length > 0 && login && login.length > 0 )
-                fn({
-                    res: true,
-                    sid: Date.now()
+                pass = query.password,
+                ext = query.ext;
+
+            if ( pass && pass.length > 0 && login && login.length > 0 ){
+                var user = server.getUser( login, pass ),
+                    jar = request.jar(),
+                    httpParams = {
+                        url: server.config.jedi.path,
+                        jar: jar,
+                        form: {
+                            cmd: 'authenticator.findSubscriberComplete',
+                            autoLogin: true,
+                            login: login,
+                            password: pass,
+                            pin: ext || ''
+                        }
+                    };
+                console.log( '\n\nBlaBla\n');
+
+                request.post( httpParams, function( req, res ){
+                    try {
+                        var body = JSON.parse( res.body ),
+                            status = body.status;
+                        console.log( '\n\n\n', body );
+                        if ( status.success ){
+                            user.info = user.info || {};
+                            delete body.counterResponse.status;
+                            user.info.counters = body.counterResponse;
+                            delete body.subscriberResponse.status;
+                            user.info.subscriber = body.subscriberResponse;
+                            user.jar = jar;
+                            user.socket = socket;
+                            socket.set( 'user', user );
+
+                            var mid = user.info.subscriber.mailboxId;
+
+                            async.parallel({
+                                mailboxInfo: function( callback ){
+                                    var params = enyo.mixin( httoParams, { mid: mid });
+                                    request.post( params, function( req, res ){
+                                        try {
+                                            var body = JSON.parse( req.body );
+                                            callback( null, body.mailboxInfo );
+                                        }
+                                        catch ( e ){
+                                            callback( new Error('Unable to load mailboxInfo') );
+                                        }
+                                    });
+                                }
+                            }, function( error, res ){
+                                if ( error )
+                                    fn({
+                                        success: false,
+                                        errorMessage: e.message
+                                    });
+                                else {
+                                    enyo.mixin( user.info, res );
+                                    fn({
+                                        success: true,
+                                        user: user.info,
+                                        cookie: jar.toString()
+                                    });
+                                }
+                            })
+                        }
+                        else
+                            throw new Error( status.message );
+                    }
+                    catch ( e ){
+                        fn({
+                            success: false,
+                            errorMessage: e.message
+                        });
+                    }
                 });
+            }
             else
-                fn( false );
-        })
+                fn({
+                    success: false,
+                    errorMessage: e.message
+                });
+        });
     });
+};
+
+
+Server.prototype.getUser = function( login, pass, ext ){
+    var hash = login + '_' + pass + '_' + (ext || ''),
+        user = this.users[hash];
+    if ( !user )
+        this.users[hash] = {};
+    return user;
+};
+
+
+Server.prototype.loadMailbox = function( options ){
+
+};
+
+
+Server.prototype.logout = function(){
+
 };

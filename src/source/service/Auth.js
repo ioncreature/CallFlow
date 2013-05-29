@@ -48,17 +48,23 @@ enyo.kind({
                 password: password
             };
 
-        server.query( 'authByLoginPassword', query, function( answer ){
-            var res = answer.res,
-                sid = answer.sid;
+        server.query( 'authByLoginPassword', query, function( res ){
+            var success = res.success !== false,
+                sid = res.cookie;
 
-            if ( res && sid ){
+            if ( success ){
                 logged = true;
                 auth.setSid( sid );
-                callback( true );
+                callback({
+                    success: true,
+                    user: res.user
+                });
             }
             else
-                callback( false );
+                callback({
+                    status: false,
+                    errorMessage: res.errorMessage
+                });
         });
     },
 
