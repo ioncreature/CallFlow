@@ -70,7 +70,7 @@ var _configProduction = {
         path: 'http://callflow.firecrush.com:8080'
     },
     sip: {
-        realm: 'sip-devrnd.lab.nordigy.ru:5060',
+        realm: 'sip.ringcentral.com:5060',
         identity: [
             {
                 displayName: 'Alexander Marenin',
@@ -119,7 +119,7 @@ var _configProduction = {
         enableVideo: false,
         enableRtcWebBreaker: true,
         websocketServerUrl: 'ws://199.68.214.209:10060',
-        sipOutboundProxyUrl: 'udp://192.209.31.31:5090',
+        sipOutboundProxyUrl: 'udp://199.255.120.176:5090',
         iceServers: null
     }
 };

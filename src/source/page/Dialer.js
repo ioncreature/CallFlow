@@ -93,12 +93,27 @@ enyo.kind({
     },
 
     pageOpen: function(){
+        this.appendLoggedPhone();
         this.fillLists();
         this.sipInit();
         if ( this.sipIsRegistered() )
             this.setUiRegistered();
         else
             this.setUiUnregistered();
+    },
+
+    appendLoggedPhone: function(){
+        var user = App.service( 'user' ).getData(),
+            info = user.provisioningInfo,
+            fullName = user.mailbox.fullName,
+            array = App.get( 'sip.identity' );
+
+        array.unshift({
+            displayName: fullName,
+            publicIdentity: 'sip:' + info.userName + '@' + info.outboundProxy,
+            privateIdentity: info.authorizationId,
+            password: info.authorizationId
+        });
     },
 
     fillLists: function(){
