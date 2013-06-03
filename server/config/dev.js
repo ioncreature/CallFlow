@@ -18,3 +18,8 @@ exports.static = {
 exports.jedi = {
     path: 'http://service-rnd.lab.nordigy.ru/mobile/api/proxy.html'
 };
+
+exports.rgs = {
+    path: 'http://agentconnect-rnd.lab.nordigy.ru/httpreg/rchttpreg.dll?Register'
+};
+

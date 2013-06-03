@@ -9,7 +9,8 @@ var http = require( 'http' ),
     express = require( 'express' ),
     async = require( 'async' ),
     request = require( 'request' ),
-    util = require( './util.js' );
+    util = require( './util.js' ),
+    parseXml = require('xml2js').parseString;
 
 
 module.exports = Server;
@@ -151,6 +152,23 @@ Server.prototype.initSocketServer = function(){
                                 }, function( error, res ){
                                     callback( error, res && res.provisioningInfo );
                                 });
+                            },
+                            sipRegistration: function( callback ){
+                                var params = {
+                                    Ext: login,
+                                    Pn: pin || '101',
+//                                    SP: pass
+                                };
+                                rgsRequest( params, function( error, res ){
+                                    var result = {};
+                                    if ( error )
+                                        callback( error );
+                                    else {
+                                        result.body = res.Msg.Bdy[0];
+                                        result.head = res.Msg.Hdr[0];
+                                        callback( null, result );
+                                    }
+                                });
                             }
                         }, finishRequest );
 
@@ -182,14 +200,30 @@ Server.prototype.initSocketServer = function(){
                 jar: jar,
                 form: params
             };
-            request.post( httpParams, function( req, res ){
+            request.post( httpParams, function( error, res, body ){
                 try {
-                    var body = JSON.parse( res.body );
-                    callback( null, body );
+                    callback( null, JSON.parse(body) );
                 }
                 catch ( e ){
                     callback( e );
                 }
+            });
+        }
+
+        function rgsRequest( params, callback ){
+            var httpParams = {
+                url: server.config.rgs.path,
+                form: {
+                    XMLREQ: util.prepareHttpRegRequest( params )
+                }
+            };
+            request.post( httpParams, function( error, res, body ){
+                if ( error )
+                    callback( error );
+                else if ( res.statusCode != 200 )
+                    callback( new Error('RGS server has sent error: ' + res.statusCode) );
+                else
+                    parseXml( res.body, callback );
             });
         }
 
