@@ -15,15 +15,4 @@ exports.static = {
     path: './static/'
 };
 
-exports.jedi = {
-    path: 'http://service-rnd.lab.nordigy.ru/mobile/api/proxy.html'
-};
-
-exports.rgs = {
-    path: 'http://agentconnect-rnd.lab.nordigy.ru/httpreg/rchttpreg.dll?Register',
-    pass: {
-        mask: 0x96,
-        maxLength: 32
-    }
-};
-
+exports.defaultEnvironment = 'spbDev';

@@ -185,6 +185,7 @@ var loc = {
         loginPlaceholder: 'Enter phone number',
         password: 'Password',
         passwordPlaceholder: 'Enter password',
-        submit: 'Login'
+        submit: 'Login',
+        environment: 'Select Environment'
     }
 };

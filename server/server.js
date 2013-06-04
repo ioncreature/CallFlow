@@ -80,6 +80,7 @@ Server.prototype.initSocketServer = function(){
             mid,
             pin,
             instanceId,
+            environment,
             sid;
 
         socket.emit( 'ping', {hello: 'client'}, function( response ){
@@ -94,7 +95,15 @@ Server.prototype.initSocketServer = function(){
         socket.on( 'authByLoginPassword', function( query, fn ){
             var login = query.login,
                 pass = query.password,
-                ext = query.ext;
+                ext = query.ext,
+                envName = query.envName;
+
+            if ( !server.config.environments[envName] ){
+                errorResponse( new Error('Environment with name ' + envName + ' not found'), fn );
+                return;
+            }
+            else
+                environment = server.config.environments[envName];
 
             if ( pass && pass.length > 0 && login && login.length > 0 ){
                 var params = {
@@ -153,21 +162,36 @@ Server.prototype.initSocketServer = function(){
                                     callback( error, res && res.provisioningInfo );
                                 });
                             },
-                            sipRegistration: function( callback ){
-                                var rgs = server.config.rgs;
+                            sip: function( callback ){
+                                var rgs = environment.rgs;
                                 var params = {
                                     Ext: login,
                                     Pn: pin || '101',
-                                    SP: util.rcEncrypt( pass, rgs.pass.mask, rgs.pass.maxLength )
+                                    SP: util.rcEncrypt( pass, rgs.passMask, rgs.passMaxLength )
                                 };
-                                rgsRequest( params, function( error, res ){
-                                    var result = {};
+                                rgsRequest( params, function( error, result ){
                                     if ( error )
                                         callback( error );
                                     else {
-                                        result.body = res.Msg.Bdy[0];
-                                        result.head = res.Msg.Hdr[0];
-                                        callback( null, result );
+                                        var res = {},
+                                            bodyAttr = result.Msg.Bdy[0].$;
+
+                                        res.realm = bodyAttr.Prx;
+                                        res.websocketServerUrl = environment.websocketServerUrl;
+                                        res.outboundProxy = 'udp://' + bodyAttr.ObndPrx;
+                                        res.phoneNumber = bodyAttr.Ext;
+                                        res.identity = {
+                                            displayName: bodyAttr.FullNm,
+                                            publicIdentity: 'sip:' + res.phoneNumber + '@' + res.realm,
+                                            privateIdentity: bodyAttr.Inst,
+                                            password: bodyAttr.Inst
+                                        };
+                                        res.extension = bodyAttr.Pn;
+                                        res.instanceId = bodyAttr.Inst;
+                                        res.clientId = bodyAttr.Cln;
+                                        res.mailboxId = bodyAttr.MboxId;
+
+                                        callback( null, res );
                                     }
                                 });
                             }
@@ -197,7 +221,7 @@ Server.prototype.initSocketServer = function(){
 
         function jediRequest( params, callback ){
             var httpParams = {
-                url: server.config.jedi.path,
+                url: environment.jedi.path,
                 jar: jar,
                 form: params
             };
@@ -213,7 +237,7 @@ Server.prototype.initSocketServer = function(){
 
         function rgsRequest( params, callback ){
             var httpParams = {
-                url: server.config.rgs.path,
+                url: environment.rgs.path,
                 form: {
                     XMLREQ: util.prepareHttpRegRequest( params )
                 }

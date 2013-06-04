@@ -19,3 +19,56 @@ exports.statusCodes = {
     NOT_FOUND: 404,
     INTERNAL_ERROR: 500
 };
+
+exports.environments = {
+    spbDev: {
+        jedi: {
+            path: 'http://service-rnd.lab.nordigy.ru/mobile/api/proxy.html'
+        },
+        rgs: {
+            path: 'http://agentconnect-rnd.lab.nordigy.ru/httpreg/rchttpreg.dll?Register',
+            passMask: 0x96,
+            passMaxLength: 32
+        },
+        sip: {
+            websocketServerUrl: 'ws://192.168.23.223:10060',
+            enableVideo: false,
+            iceServers: null,
+            enableRtcWebBreaker: true
+        }
+    },
+
+    sv7: {
+        jedi: {
+            path: 'http://service-devrnd.lab.nordigy.ru/mobile/api/proxy.html'
+        },
+        rgs: {
+            path: 'http://agentconnect-rnd.lab.nordigy.ru/httpreg/rchttpreg.dll?Register',
+            passMask: 0x96,
+            passMaxLength: 32
+        },
+        sip: {
+            websocketServerUrl: 'ws://199.68.214.209:10060',
+            enableVideo: false,
+            iceServers: null,
+            enableRtcWebBreaker: true
+        }
+    },
+
+    production: {
+        jedi: {
+            path: 'https://service.ringcentral.com/mobile/api/proxy.html'
+        },
+        rgs: {
+            path: 'http://agentconnect.ringcentral.com/httpreg/rchttpreg.dll?Register',
+            passMask: 0x96,
+            passMaxLength: 32
+        },
+        sip: {
+            websocketServerUrl: 'ws://199.68.214.209:10060',
+            enableVideo: false,
+            iceServers: null,
+            enableRtcWebBreaker: true
+        }
+    }
+};

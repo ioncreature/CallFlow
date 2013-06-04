@@ -16,10 +16,22 @@ enyo.kind({
             {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
                 {name: 'login', kind: 'onyx.Input', value: '18664100005', placeholder: loc.Login.loginPlaceholder}
             ]},
+
             {classes: 'ui-label', content: loc.Login.password},
             {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
                 {name: 'password', kind: 'onyx.Input', type: 'password', value: '123123123', placeholder: loc.Login.passwordPlaceholder}
             ]},
+
+            {classes: 'ui-label', content: loc.Login.environment},
+            {classes: 'ui-login-picker', kind: 'onyx.PickerDecorator', components: [
+                {},
+                {name: 'rings', classes: 'ui-login-picker-picker', kind: 'onyx.Picker', components: [
+                    {content: 'spbDev', value: 'spbDev', active: true},
+                    {content: 'sv7', value: 'sv7'},
+                    {content: 'production', value: 'production'}
+                ]}
+            ]},
+
             {classes: 'ui-center', components: [
                 {name: 'submit', classes: 'ui-login-submit', kind:'rc.Button', content: loc.Login.submit, ontap: 'submitTap'}
             ]}

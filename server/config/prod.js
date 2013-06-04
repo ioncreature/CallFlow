@@ -15,6 +15,4 @@ exports.static = {
     path: './static/'
 };
 
-exports.jedi = {
-    path: 'http://service.ringcentral.com/mobile/api/proxy.html'
-};
+exports.defaultEnvironment = 'production';
