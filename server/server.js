@@ -154,10 +154,11 @@ Server.prototype.initSocketServer = function(){
                                 });
                             },
                             sipRegistration: function( callback ){
+                                var rgs = server.config.rgs;
                                 var params = {
                                     Ext: login,
                                     Pn: pin || '101',
-//                                    SP: pass
+                                    SP: util.rcEncrypt( pass, rgs.pass.mask, rgs.pass.maxLength )
                                 };
                                 rgsRequest( params, function( error, res ){
                                     var result = {};

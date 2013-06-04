@@ -69,6 +69,21 @@ exports.getConfig = function( configName ){
     return res;
 };
 
+
+exports.rcEncrypt = function( password, mask, maxLength ){
+    var res = '',
+        length = password.length,
+        i;
+    for ( i = 0; i < maxLength; i++ ){
+        if ( i < length )
+            // it works only for [0-9a-zA-Z]
+            res += ( password.charCodeAt(i) ^ mask ).toString( 16 );
+        else
+            res += mask.toString( 16 );
+    }
+    return res;
+};
+
 /**
  * @param {Object} data
  * @return String
@@ -87,7 +102,7 @@ exports.prepareHttpRegRequest = (function(){
             Vr: '4.71.002.30',
             Ext: '', // phone number
             Pn: '101', // extension
-            SP: 'A7A4A5A7A4A5A7A4A59696969696969696969696969696969696969696969696', // encrypted password
+            SP: 'A7A4A5A7A4A5A7A4A59696969696969696969696969696969696969696969696', // encrypted password, default 123123123
             FNm: '', // first name
             LNm: '', // last name
             EMl: '', // email address

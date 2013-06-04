@@ -20,6 +20,10 @@ exports.jedi = {
 };
 
 exports.rgs = {
-    path: 'http://agentconnect-rnd.lab.nordigy.ru/httpreg/rchttpreg.dll?Register'
+    path: 'http://agentconnect-rnd.lab.nordigy.ru/httpreg/rchttpreg.dll?Register',
+    pass: {
+        mask: 0x96,
+        maxLength: 32
+    }
 };
 

@@ -110,7 +110,8 @@ enyo.kind({
 
         array.unshift({
             displayName: fullName,
-            publicIdentity: 'sip:' + info.userName + '@' + info.outboundProxy,
+//            publicIdentity: 'sip:' + info.userName + '@' + info.outboundProxy,
+            publicIdentity: 'sip:' + info.userName + '@' + App.get( 'sip.realm' ),
             privateIdentity: info.authorizationId,
             password: info.authorizationId
         });
