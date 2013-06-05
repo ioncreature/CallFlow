@@ -31,7 +31,7 @@ exports.environments = {
             passMaxLength: 32
         },
         sip: {
-            websocketServerUrl: 'ws://192.168.23.223:10060',
+            websocketServerUrl: 'ws://199.68.214.209:10060',
             enableVideo: false,
             iceServers: null,
             enableRtcWebBreaker: true

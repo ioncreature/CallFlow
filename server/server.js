@@ -139,6 +139,7 @@ Server.prototype.initSocketServer = function(){
                                     }
                                 });
                             },
+
                             phones: function( callback ){
                                 jediRequest({ cmd: 'digitalline.listPhones' }, function( error, res ){
                                     if ( error || !res.status.success )
@@ -147,6 +148,25 @@ Server.prototype.initSocketServer = function(){
                                         callback( error, res && res.phones );
                                 });
                             },
+
+                            extensions: function( callback ){
+                                jediRequest({ cmd: 'extensions.listExtensions' }, function( error, res ){
+                                    if ( error || !res.status.success )
+                                        callback( error || new Error(res.status.message) );
+                                    else
+                                        callback( error, res && res.extensions );
+                                });
+                            },
+
+                            phoneNumbers: function( callback ){
+                                jediRequest({ cmd: 'extensions.listPhoneNumbers' }, function( error, res ){
+                                    if ( error || !res.status.success )
+                                        callback( error || new Error(res.status.message) );
+                                    else
+                                        callback( error, res && res.phones );
+                                });
+                            },
+
                             sip: function( callback ){
                                 var rgs = environment.rgs;
                                 var params = {
@@ -162,7 +182,10 @@ Server.prototype.initSocketServer = function(){
                                             bodyAttr = result.Msg.Bdy[0].$;
 
                                         res.realm = bodyAttr.Prx;
-                                        res.websocketServerUrl = environment.websocketServerUrl;
+                                        res.websocketServerUrl = environment.sip.websocketServerUrl;
+                                        res.iceServers = environment.sip.iceServers;
+                                        res.enableRtcWebBreaker = environment.sip.enableRtcWebBreaker;
+                                        res.enableVideo = environment.sip.enableVideo;
                                         res.outboundProxy = 'udp://' + bodyAttr.ObndPrx;
                                         res.phoneNumber = bodyAttr.Ext;
                                         res.identity = {
@@ -228,9 +251,6 @@ Server.prototype.initSocketServer = function(){
                 }
             };
             request.post( httpParams, function( error, res, body ){
-                console.log( '\n\n' );
-                console.log( body );
-                console.log( '\n\n' );
                 if ( error )
                     callback( error );
                 else if ( res.statusCode != 200 )

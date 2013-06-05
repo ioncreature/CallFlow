@@ -22,67 +22,49 @@ enyo.kind({
     },
 
     components: [
-        {name: 'error', classes: 'ui-dialer-error', showing: false, content: 'This is a big error message'},
-
-        {name: 'unregisteredBlock', components: [
-            {classes: 'ui-message', content: loc.Dialer.notLoggedIn},
-            {classes: 'ui-label', content: loc.Dialer.caller},
-            {name: 'caller', kind: 'rc.RadioList'},
-            {classes: 'ui-center', components: [
-                {name: 'login', kind:'rc.Button', content: loc.Dialer.login, ontap: 'tapLoginButton'}
-            ]}
+        {name: 'registeredCaller', classes: 'ui-dialer-registered-caller', components: [
+            {name: 'callerName', classes: 'ui-dialer-registered-caller-name'},
+            {name: 'callerPhone', classes: 'ui-dialer-registered-caller-phone'}
         ]},
 
-        {name: 'registeredBlock', components: [
-            {name: 'registeredCaller', classes: 'ui-dialer-registered-caller', components: [
-                {name: 'callerName', classes: 'ui-dialer-registered-caller-name'},
-                {name: 'callerPhone', classes: 'ui-dialer-registered-caller-phone'},
-                {
-                    name: 'logout',
-                    kind:'rc.Button',
-                    classes: 'ui-dialer-registered-caller-button',
-                    ontap: 'tapLogoutButton',
-                    content: loc.Dialer.logout
-                }
+        {classes: 'ui-label', content: loc.Dialer.callTo},
+        {name: 'callee', kind: 'rc.RadioList', onActivate: 'onCalleeActivate'},
+        {classes: 'ui-label', content: loc.Dialer.phoneNumber},
+        {name: 'colls', kind: 'FittableColumns', components: [
+            {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
+                {name: 'phoneNumber', kind: 'onyx.Input', placeholder: loc.Dialer.phoneNumberPlaceholder, value: '12052160027'}
             ]},
-
-            {classes: 'ui-label', content: loc.Dialer.callTo},
-            {name: 'callee', kind: 'rc.RadioList', onActivate: 'onCalleeActivate'},
-            {classes: 'ui-label', content: loc.Dialer.phoneNumber},
-            {name: 'colls', kind: 'FittableColumns', components: [
-                {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
-                    {name: 'phoneNumber', kind: 'onyx.Input', placeholder: loc.Dialer.phoneNumberPlaceholder, value: '12052160027'}
-                ]},
-                {
-                    name: 'call',
-                    kind:'rc.Button',
-                    classes: 'ui-dialer-call',
-                    style: 'width: 100px; margin-top: 3px !important;',
-                    content: loc.Dialer.call,
-                    ontap: 'tapCallButton'}
-            ]},
-
             {
-                name: 'popup',
-                kind: 'onyx.Popup',
-                floating: true,
-                scrim: true,
-                centered: true,
-                autoDismiss: false,
-                classes: 'ui-center ui-dialer-popup',
-                scrimClassName: 'ui-dialer-popup-scrim',
-                components: [
-                    {name: 'popupCaption', classes: 'ui-dialer-popup-caption', content: loc.Dialer.incomingCall},
-                    {name: 'popupName', classes: 'ui-dialer-popup-name'},
-                    {name: 'popupNumber', classes: 'ui-dialer-popup-number'},
-                    {name: 'popupTimer', classes: 'ui-dialer-popup-timer', kind: 'rc.Timer'},
-                    {classes: 'ui-center', components: [
-                        {name: 'answerCall', classes: 'ui-dialer-popup-answer', ontap: 'tapAnswerCall'},
-                        {name: 'refuseCall', classes: 'ui-dialer-popup-refuse', ontap: 'tapRefuseCall'}
-                    ]}
-                ]
+                name: 'call',
+                kind:'rc.Button',
+                classes: 'ui-dialer-call',
+                style: 'width: 100px; margin-top: 3px !important;',
+                content: loc.Dialer.call,
+                ontap: 'tapCallButton'
             }
         ]},
+
+        {
+            name: 'popup',
+            kind: 'onyx.Popup',
+            floating: true,
+            scrim: true,
+            centered: true,
+            autoDismiss: false,
+            classes: 'ui-center ui-dialer-popup',
+            scrimClassName: 'ui-dialer-popup-scrim',
+            components: [
+                {name: 'popupCaption', classes: 'ui-dialer-popup-caption', content: loc.Dialer.incomingCall},
+                {name: 'popupName', classes: 'ui-dialer-popup-name'},
+                {name: 'popupNumber', classes: 'ui-dialer-popup-number'},
+                {name: 'popupTimer', classes: 'ui-dialer-popup-timer', kind: 'rc.Timer'},
+                {classes: 'ui-center', components: [
+                    {name: 'answerCall', classes: 'ui-dialer-popup-answer', ontap: 'tapAnswerCall'},
+                    {name: 'refuseCall', classes: 'ui-dialer-popup-refuse', ontap: 'tapRefuseCall'}
+                ]}
+            ]
+        },
+
         {name: 'audioContainer', allowHtml: true, content:'<audio autoplay id="dialer_audio" />'}
     ],
 
@@ -94,58 +76,49 @@ enyo.kind({
         App.on( 'login', this.initPage, this );
     },
 
-    pageOpen: function(){
-        this.appendLoggedPhone();
-        this.fillLists();
-        this.sipInit();
-        if ( this.sipIsRegistered() )
-            this.setUiRegistered();
-        else
-            this.setUiUnregistered();
-    },
-
     initPage: function(){
-        // this.sipInit();
+        var user = App.service('user').getData(),
+            mailbox = user.mailbox,
+            sip = user.sip,
+            phoneNumbers = user.phoneNumbers.filter( function( number ){
+                if ( number.extensionPin == mailbox.pin && number.extensionName == mailbox.fullName  )
+                    return false;
+
+                if ( !number.extensionPin && !number.extensionName )
+                    return false;
+
+                return true;
+            });
+
+        this.$.callerName.setContent( sip.identity.displayName );
+        this.$.callerPhone.setContent( sip.phoneNumber );
+        this.$.colls.render();
+        this.fillList( phoneNumbers );
+
+        this.sipInit();
+        this.sipRegister( sip );
     },
 
-    appendLoggedPhone: function(){
-        var user = App.service( 'user' ).getData(),
-            info = user.provisioningInfo,
-            fullName = user.mailbox.fullName,
-            array = App.get( 'sip.identity' );
 
-        array.unshift({
-            displayName: fullName,
-//            publicIdentity: 'sip:' + info.userName + '@' + info.outboundProxy,
-            publicIdentity: 'sip:' + info.userName + '@' + App.get( 'sip.realm' ),
-            privateIdentity: info.authorizationId,
-            password: info.authorizationId
-        });
-    },
-
-    fillLists: function(){
+    /**
+     * @param {Array} phoneNumbers
+     */
+    fillList: function( phoneNumbers ){
         var page = this;
         this.collection = new rc.Collection();
-        App.get( 'sip.identity' ).forEach( function( item ){
-            this.collection.add( item );
+        phoneNumbers.forEach( function( ext ){
+            this.collection.add( ext );
         }, this );
-
-        this.$.caller.setAdapter( itemAdapter );
-        this.$.caller.setCollection( this.collection );
 
         this.$.callee.setAdapter( itemAdapter );
         this.$.callee.setCollection( this.collection );
 
         function itemAdapter( item ){
             return {
-                caption: item.get( 'displayName' ),
-                description: page.sipParseNumberFromPublicIdentity( item.get('publicIdentity') )
+                caption: item.get( 'extensionName' ),
+                description: item.get( 'numRow' )
             };
         }
-    },
-
-    sipParseNumberFromPublicIdentity: function( pi ){
-        return pi.slice( pi.indexOf(':') + 1, pi.indexOf('@') );
     },
 
     sipInit: function(){
@@ -155,24 +128,24 @@ enyo.kind({
         });
     },
 
-    sipRegister: function( identity ){
+    sipRegister: function( sip ){
         this.sipStack = new SIPml.Stack({
-            realm: App.get( 'sip.realm' ),
-            impi: identity.privateIdentity,
-            impu: identity.publicIdentity,
-            password: identity.password,
-            display_name: identity.displayName,
-            websocket_proxy_url: App.get( 'sip.websocketServerUrl' ),
-            outbound_proxy_url: App.get( 'sip.sipOutboundProxyUrl' ),
-            ice_servers: App.get( 'sip.iceServers' ),
-            enable_rtcweb_breaker: App.get( 'sip.enableRtcWebBreaker' ),
+            realm: sip.realm,
+            impi: sip.identity.privateIdentity,
+            impu: sip.identity.publicIdentity,
+            password: sip.identity.password,
+            display_name: sip.identity.displayName,
+            websocket_proxy_url: sip.websocketServerUrl,
+            outbound_proxy_url: sip.outboundProxyUrl,
+            ice_servers: sip.iceServers,
+            enable_rtcweb_breaker: sip.enableRtcWebBreaker,
             events_listener: { events: '*', listener: this.sipStackEventHandler.bind(this) },
             sip_headers: [
                 { name: 'User-Agent', value: 'IM-client/OMA1.0 sipML5-v1.2013.04.26' },
                 { name: 'Organization', value: 'RingCentral' }
             ]
         });
-        App.set( 'sip.currentIdentity', identity );
+        App.set( 'sip.currentIdentity', sip.identity );
         this.sipStack.start();
     },
 
@@ -279,7 +252,7 @@ enyo.kind({
                 break;
 
             case 'connected':
-                this.setUiRegistered();
+                this.$.call.setDisabled( false );
                 break;
 
             case 'terminating':
@@ -287,7 +260,6 @@ enyo.kind({
                 // TODO: переделать определение ошибки
                 if ( e.description === 'Forbidden (authorization error)' )
                     alert( e.description );
-                this.$.login.setDisabled( false );
                 this.hidePopup();
                 this.sipSessionCall = null;
                 break;
@@ -308,55 +280,7 @@ enyo.kind({
     },
 
     onCalleeActivate: function(){
-        var identity = this.$.callee.getActiveModel(),
-            number = this.sipParseNumberFromPublicIdentity( identity.get('publicIdentity') );
-        this.$.phoneNumber.setValue( number );
-    },
-
-    setUiRegistered: function(){
-        this.$.unregisteredBlock.hide();
-        this.$.registeredBlock.show();
-
-        var identity = App.get( 'sip.currentIdentity' ),
-            number = this.sipParseNumberFromPublicIdentity( identity.publicIdentity );
-        this.$.callerName.setContent( identity.displayName );
-        this.$.callerPhone.setContent( number );
-        this.$.logout.setDisabled( false );
-        this.$.colls.render();
-    },
-
-    setUiUnregistered: function(){
-        this.$.unregisteredBlock.show();
-        this.$.registeredBlock.hide();
-        this.$.login.setDisabled( false );
-        this.hidePopup();
-    },
-
-    showErrorMessage: function( message ){
-        if ( message ){
-            this.$.error.show();
-            this.$.error.setContent( message );
-        }
-        this.$.login.setDisabled( false );
-        this.$.logout.setDisabled( false );
-    },
-
-    hideErrorMessage: function(){
-        this.$.error.hide();
-    },
-
-    tapLoginButton: function(){
-        if ( !this.sipIsRegistered() ){
-            this.hideErrorMessage();
-            this.sipRegister( this.getSelectedIdentity() );
-            this.$.login.setDisabled( true );
-        }
-    },
-
-    tapLogoutButton: function(){
-        this.hideErrorMessage();
-        this.$.logout.setDisabled( true );
-        this.sipLogout();
+        this.$.phoneNumber.setValue( this.$.callee.getActiveModel().get('numRow') );
     },
 
     tapCallButton: function(){
