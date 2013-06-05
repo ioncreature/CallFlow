@@ -235,6 +235,8 @@ Server.prototype.initSocketServer = function(){
             };
             request.post( httpParams, function( error, res, body ){
                 try {
+                    if ( error )
+                        throw error;
                     callback( null, JSON.parse(body) );
                 }
                 catch ( e ){
