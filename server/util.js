@@ -101,7 +101,7 @@ exports.prepareHttpRegRequest = (function(){
             Inst: '',
             Vr: '4.71.002.30',
             Ext: '', // phone number
-            Pn: '101', // extension
+            Pn: '', // extension
             SP: 'A7A4A5A7A4A5A7A4A59696969696969696969696969696969696969696969696', // encrypted password, default 123123123
             FNm: '', // first name
             LNm: '', // last name
@@ -111,15 +111,15 @@ exports.prepareHttpRegRequest = (function(){
             OSVr: 'Window', // os version
             OSBld: '7601',
             AgnLb: 'RingCentral',
-            Cntry: 'USA',
+            Cntry: 'ENU',
             LngAgn: '1033',
             LngSys: '1033',
             SkNm: 'RingCentral Blue',
             SkSch: 19,
-            PC: 'ololosh',
+            PC: 'AMARENIN',
             Cntr: '1',
             Area: '425',
-            OSUsr: 'huy',
+            OSUsr: 'huyhuy',
             OSDom: 'int.nordigy.ru'
         };
 

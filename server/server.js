@@ -128,7 +128,7 @@ Server.prototype.initSocketServer = function(){
                         mid = data.subscriber.mailboxId;
                         sid = res.JSESSIONID;
 
-                        async.series({
+                        async.parallel({
                             mailbox: function( callback ){
                                 jediRequest({ cmd: 'extensions.getExtension', mid: mid }, function( error, res ){
                                     if ( error || !res.status.success )
@@ -143,23 +143,8 @@ Server.prototype.initSocketServer = function(){
                                 jediRequest({ cmd: 'digitalline.listPhones' }, function( error, res ){
                                     if ( error || !res.status.success )
                                         callback( error || new Error(res.status.message) );
-                                    else {
-                                        res.phones.some( function( item ){
-                                            if ( item.userExtension === pin ){
-                                                instanceId = item.device.instanceId;
-                                                return true;
-                                            }
-                                        });
+                                    else
                                         callback( error, res && res.phones );
-                                    }
-                                });
-                            },
-                            provisioningInfo: function( callback ){
-                                jediRequest({
-                                    cmd: 'digitalline.getProvisioningInfo',
-                                    instanceId: instanceId
-                                }, function( error, res ){
-                                    callback( error, res && res.provisioningInfo );
                                 });
                             },
                             sip: function( callback ){
@@ -243,6 +228,9 @@ Server.prototype.initSocketServer = function(){
                 }
             };
             request.post( httpParams, function( error, res, body ){
+                console.log( '\n\n' );
+                console.log( body );
+                console.log( '\n\n' );
                 if ( error )
                     callback( error );
                 else if ( res.statusCode != 200 )
