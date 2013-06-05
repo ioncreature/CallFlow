@@ -52,10 +52,11 @@ enyo.kind({
         var login = this.$.login.getValue(),
             password = this.$.password.getValue(),
             auth = App.service( 'auth' ),
-            button = this.$.submit;
+            button = this.$.submit,
+            envName = this.$.rings.getSelected().getContent();
 
         button.setDisabled( true );
-        auth.authByLoginPassword( login, password, function( result ){
+        auth.authByLoginPassword( login, password, envName, function( result ){
             if ( result.success ){
                 console.log( result );
                 auth.login();

@@ -112,6 +112,7 @@ enyo.kind({
         App.goTo( App.get('indexPage') || this.defaultPage );
         this.showMenu();
         this.setDraggable( true );
+        App.trigger( 'login' );
     },
 
     logout: function(){

@@ -90,6 +90,8 @@ enyo.kind({
         this.inherited( arguments );
         this.connecting = false;
         this.calling = false;
+
+        App.on( 'login', this.initPage, this );
     },
 
     pageOpen: function(){
@@ -100,6 +102,10 @@ enyo.kind({
             this.setUiRegistered();
         else
             this.setUiUnregistered();
+    },
+
+    initPage: function(){
+        // this.sipInit();
     },
 
     appendLoggedPhone: function(){

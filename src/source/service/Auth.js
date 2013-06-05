@@ -42,12 +42,13 @@ enyo.kind({
         });
     },
 
-    authByLoginPassword: function( login, password, callback ){
+    authByLoginPassword: function( login, password, envName, callback ){
         var server = App.service( 'server' ),
             auth = this,
             query = {
                 login: login,
-                password: password
+                password: password,
+                envName: envName
             };
 
         server.query( 'authByLoginPassword', query, function( res ){
