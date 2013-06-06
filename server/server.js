@@ -197,7 +197,7 @@ Server.prototype.initSocketServer = function(){
                                         res.extension = bodyAttr.Pn;
                                         res.instanceId = bodyAttr.Inst;
                                         res.clientId = bodyAttr.Cln;
-                                        res.mailboxId = bodyAttr.MboxId;
+                                        res.mailboxId = mid;
 
                                         callback( null, res );
                                     }

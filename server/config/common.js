@@ -43,7 +43,7 @@ exports.environments = {
             path: 'http://service-devrnd.lab.nordigy.ru/mobile/api/proxy.html'
         },
         rgs: {
-            path: 'http://agentconnect-devrnd.lab.nordigy.ru/httpreg/rchttpreg.dll?Register',
+            path: 'http://199.68.214.208/httpreg/rchttpreg.dll?Register',
             passMask: 0x96,
             passMaxLength: 32
         },

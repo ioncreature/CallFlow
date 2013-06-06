@@ -16,7 +16,7 @@ enyo.kind({
             pass: '123123123'
         },
         sv7: {
-            login: '18664100008',
+            login: '18664100009',
             pass: '123123123'
         },
         production: {
