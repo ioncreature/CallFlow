@@ -182,7 +182,7 @@ Server.prototype.initSocketServer = function(){
                                             bodyAttr = result.Msg.Bdy[0].$;
 
                                         res.realm = bodyAttr.Prx;
-                                        res.websocketServerUrl = environment.sip.websocketServerUrl;
+                                        res.websocketServer = environment.sip.websocketServer;
                                         res.iceServers = environment.sip.iceServers;
                                         res.enableRtcWebBreaker = environment.sip.enableRtcWebBreaker;
                                         res.enableVideo = environment.sip.enableVideo;
@@ -192,7 +192,7 @@ Server.prototype.initSocketServer = function(){
                                             displayName: bodyAttr.FullNm,
                                             publicIdentity: 'sip:' + res.phoneNumber + '@' + res.realm,
                                             privateIdentity: bodyAttr.Inst,
-                                            password: bodyAttr.Inst
+                                            password: pass
                                         };
                                         res.extension = bodyAttr.Pn;
                                         res.instanceId = bodyAttr.Inst;

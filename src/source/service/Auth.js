@@ -19,17 +19,10 @@ enyo.kind({
     },
 
     isLoggedIn: function( callback ){
-        var auth = this,
-            sid = auth.getSid();
-
         if ( logged )
             callback( true );
-        else if ( !sid )
-            callback( false );
         else
             callback( false );
-            // TODO: uncomment it when it will be ready
-            // auth.authBySessionId( sid, callback );
     },
 
     authBySessionId: function( sid, callback ){
@@ -52,12 +45,10 @@ enyo.kind({
             };
 
         server.query( 'authByLoginPassword', query, function( res ){
-            var success = res.success !== false,
-                sid = res.sid;
+            var success = res.success !== false;
 
             if ( success ){
                 logged = true;
-                auth.setSid( sid );
                 auth.trigger( 'auth', res.user );
                 callback({
                     success: true,
@@ -72,22 +63,13 @@ enyo.kind({
         });
     },
 
-    setSid: function( sid ){
-        App.set( 'auth.sid', sid );
-    },
-
-    getSid: function(){
-        return App.get( 'auth.sid' );
-    },
-
     login: function(){
-        if ( logged && this.getSid() )
+        if ( logged  )
             this.app.login();
     },
 
     logout: function(){
         logged = false;
-        this.setSid( '' );
     }
 });
 

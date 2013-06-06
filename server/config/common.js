@@ -31,7 +31,7 @@ exports.environments = {
             passMaxLength: 32
         },
         sip: {
-            websocketServerUrl: 'ws://199.68.214.209:10060',
+            websocketServer: 'ws://192.168.23.223:10060',
             enableVideo: false,
             iceServers: null,
             enableRtcWebBreaker: true
@@ -40,7 +40,7 @@ exports.environments = {
 
     sv7: {
         jedi: {
-            path: 'http://service-devrnd.lab.nordigy.ru/mobile/api/proxy.html'
+            path: 'http://199.68.214.199/mobile/api/proxy.html'
         },
         rgs: {
             path: 'http://199.68.214.208/httpreg/rchttpreg.dll?Register',
@@ -48,7 +48,7 @@ exports.environments = {
             passMaxLength: 32
         },
         sip: {
-            websocketServerUrl: 'ws://199.68.214.209:10060',
+            websocketServer: 'ws://199.68.214.209:10060',
             enableVideo: false,
             iceServers: null,
             enableRtcWebBreaker: true
@@ -65,7 +65,7 @@ exports.environments = {
             passMaxLength: 32
         },
         sip: {
-            websocketServerUrl: 'ws://199.68.214.209:10060',
+            websocketServer: 'ws://199.68.214.209:10060',
             enableVideo: false,
             iceServers: null,
             enableRtcWebBreaker: true

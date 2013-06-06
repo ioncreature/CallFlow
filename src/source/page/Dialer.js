@@ -95,8 +95,10 @@ enyo.kind({
         this.$.colls.render();
         this.fillList( phoneNumbers );
 
-        this.sipInit();
-        this.sipRegister( sip );
+        var s = this;
+        this.sipInit( function(){
+            s.sipRegister( sip );
+        });
     },
 
 
@@ -104,7 +106,6 @@ enyo.kind({
      * @param {Array} phoneNumbers
      */
     fillList: function( phoneNumbers ){
-        var page = this;
         this.collection = new rc.Collection();
         phoneNumbers.forEach( function( ext ){
             this.collection.add( ext );
@@ -121,10 +122,11 @@ enyo.kind({
         }
     },
 
-    sipInit: function(){
+    sipInit: function( callback ){
         var page = this;
         SIPml.init( function(){
             page.sipInited = true;
+            callback();
         });
     },
 
@@ -135,8 +137,8 @@ enyo.kind({
             impu: sip.identity.publicIdentity,
             password: sip.identity.password,
             display_name: sip.identity.displayName,
-            websocket_proxy_url: sip.websocketServerUrl,
-            outbound_proxy_url: sip.outboundProxyUrl,
+            websocket_proxy_url: sip.websocketServer,
+            outbound_proxy_url: sip.outboundProxy,
             ice_servers: sip.iceServers,
             enable_rtcweb_breaker: sip.enableRtcWebBreaker,
             events_listener: { events: '*', listener: this.sipStackEventHandler.bind(this) },
