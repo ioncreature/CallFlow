@@ -6,7 +6,7 @@
 var _configDev = {
     indexPage: 'Dialer',
     websocket: {
-        path: 'http://localhost:31337'
+        path: 'http://amarenin.int.nordigy.ru:31337'
     },
     sip: {
         realm: 'sip.dins.ru',
