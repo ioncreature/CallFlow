@@ -258,7 +258,7 @@ Server.prototype.initSocketServer = function(){
                 else if ( res.statusCode != 200 )
                     callback( new Error('RGS server has sent error: ' + res.statusCode) );
                 else
-                    parseXml( res.body, callback );
+                    parseXml( body, callback );
             });
         }
 

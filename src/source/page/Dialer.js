@@ -147,7 +147,6 @@ enyo.kind({
                 { name: 'Organization', value: 'RingCentral' }
             ]
         });
-        App.set( 'sip.currentIdentity', sip.identity );
         this.sipStack.start();
     },
 
@@ -160,47 +159,6 @@ enyo.kind({
 
     sipIsRegistered: function(){
         return !!this.sipStack;
-    },
-
-    sipStackEventHandler: function( /*SIPml.Stack.Event*/ e ){
-        console.warn( 'stack\ntype', e.type, '\ndesc', e.description );
-        switch ( e.type ){
-            case 'started':
-                this.sipSession = this.sipStack.newSession( 'register', {
-                    expires: 300,
-                    events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) },
-                    sip_caps: [
-                        { name: '+g.oma.sip-im', value: null },
-                        { name: '+audio', value: null },
-                        { name: 'language', value: '"en,ru"' }
-                    ]
-                });
-                this.sipSession.register();
-                break;
-
-            case 'stopping':
-            case 'failed_to_stop':
-                break;
-            case 'failed_to_start':
-            case 'stopped':
-                delete this.sipSessionCall;
-                this.setUiUnregistered();
-                break;
-
-            case 'i_new_call':
-                if ( this.sipSessionCall )
-                    e.newSession.hangup();
-                else {
-                    this.sipSessionCall = e.newSession;
-                    this.sipSessionCall.isIncoming = true;
-                    this.showIncomingCall();
-                }
-                break;
-
-            case 'm_permission_accepted':
-                this.$.popupTimer.start();
-                break;
-        }
     },
 
     sipCallTypeIsIncoming: function(){
@@ -247,6 +205,50 @@ enyo.kind({
             this.sipSessionCall.reject();
     },
 
+    sipStackEventHandler: function( /*SIPml.Stack.Event*/ e ){
+        console.warn( 'stack\ntype', e.type, '\ndesc', e.description );
+        switch ( e.type ){
+            case 'started':
+                this.sipSession = this.sipStack.newSession( 'register', {
+                    expires: 300,
+                    events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) },
+                    sip_caps: [
+                        { name: '+g.oma.sip-im', value: null },
+                        { name: '+audio', value: null },
+                        { name: 'language', value: '"en,ru"' }
+                    ]
+                });
+                this.sipSession.register();
+                break;
+
+            case 'stopping':
+            case 'failed_to_stop':
+                break;
+            case 'failed_to_start':
+            case 'stopped':
+                delete this.sipSessionCall;
+                var s = this;
+                setTimeout( function(){
+                    s.sipRegister( App.service('user' ).getData().sip );
+                }, 2000 );
+                break;
+
+            case 'i_new_call':
+                if ( this.sipSessionCall )
+                    e.newSession.hangup();
+                else {
+                    this.sipSessionCall = e.newSession;
+                    this.sipSessionCall.isIncoming = true;
+                    this.showIncomingCall();
+                }
+                break;
+
+            case 'm_permission_accepted':
+                this.$.popupTimer.start();
+                break;
+        }
+    },
+
     sipSessionEventHandler: function( /*SIPml.Session.Event*/ e ){
         console.warn( 'session\ntype', e.type, '\ndesc', e.description );
         switch ( e.type ){
@@ -257,13 +259,40 @@ enyo.kind({
                 this.$.call.setDisabled( false );
                 break;
 
-            case 'terminating':
-            case 'terminated':
+            case 'webrtc_error':
+            case 'transport_error':
+            case 'global_error':
+            case 'message_error':
+            case 'cancelled_request':
                 // TODO: переделать определение ошибки
                 if ( e.description === 'Forbidden (authorization error)' )
                     alert( e.description );
                 this.hidePopup();
-                this.sipSessionCall = null;
+                try {
+                    this.sipSessionCall.hangup();
+                }
+                catch ( e ){
+                    alert( e );
+                }
+                delete this.sipSessionCall;
+                break;
+
+            case 'terminating':
+                break;
+
+            case 'terminated':
+                delete this.sipSessionCall;
+                this.hidePopup();
+                break;
+
+            case 'media_added':
+                console.warn( e );
+                break;
+
+            case 'm_early_media':
+            case 'm_stream_audio_local_added':
+            case 'm_stream_audio_remote_added':
+                console.warn( e );
                 break;
         }
     },
