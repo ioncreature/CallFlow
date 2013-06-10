@@ -224,6 +224,7 @@ enyo.kind({
 
             case 'stopping':
             case 'failed_to_stop':
+                this.hidePopup();
                 break;
             case 'failed_to_start':
             case 'stopped':
