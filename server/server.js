@@ -248,9 +248,7 @@ Server.prototype.initSocketServer = function(){
         function rgsRequest( params, callback ){
             var httpParams = {
                 url: environment.rgs.path,
-                form: {
-                    XMLREQ: util.prepareHttpRegRequest( params )
-                }
+                body: 'XMLREQ=' + util.prepareHttpRegRequest( params )
             };
             request.post( httpParams, function( error, res, body ){
                 if ( error )

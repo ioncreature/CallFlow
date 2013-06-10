@@ -8,6 +8,7 @@ enyo.depends(
 	'Theme.less', // uncomment this line, and follow the steps described in Theme.less
 
     'config.js',
+    'util.js',
 	'loc/en_US.js',
     'core',
     'data',

@@ -169,6 +169,7 @@ enyo.kind({
         var oConf = {
                 audio_remote: this.getAudioNode(),
                 events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) },
+                expires: 600,
                 sip_caps: [
                     { name: '+g.oma.sip-im' },
                     { name: '+sip.ice' },
@@ -226,7 +227,11 @@ enyo.kind({
                 break;
             case 'failed_to_start':
             case 'stopped':
-                delete this.sipSessionCall;
+                this.hidePopup();
+                if ( this.sipSessionCall ){
+                    this.sipSessionCall.hangup();
+                    delete this.sipSessionCall;
+                }
                 var s = this;
                 setTimeout( function(){
                     s.sipRegister( App.service('user' ).getData().sip );
@@ -268,12 +273,7 @@ enyo.kind({
                 if ( e.description === 'Forbidden (authorization error)' )
                     alert( e.description );
                 this.hidePopup();
-                try {
-                    this.sipSessionCall.hangup();
-                }
-                catch ( e ){
-                    alert( e );
-                }
+                this.sipSessionCall && this.sipSessionCall.hangup();
                 delete this.sipSessionCall;
                 break;
 
