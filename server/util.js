@@ -69,6 +69,12 @@ exports.getConfig = function( configName ){
     return res;
 };
 
+exports.preparePhoneNumber = function( number ){
+    var res = String( number ).replace( /[^0-9]/g, '' );
+    if ( res.length === 10 )
+        res = '1' + res;
+    return res;
+};
 
 exports.rcEncrypt = function( password, mask, maxLength ){
     var res = '',
@@ -99,28 +105,28 @@ exports.prepareHttpRegRequest = (function(){
             Cmd: 19,
             Cln: '',
             Inst: '',
-            Vr: '4.71.002.30',
+            Vr: '4.2.1',
             Ext: '', // phone number
             Pn: '', // extension
             SP: 'A7A4A5A7A4A5A7A4A59696969696969696969696969696969696969696969696', // encrypted password, default 123123123
             FNm: '', // first name
             LNm: '', // last name
             EMl: '', // email address
-            Edtn: 12, // ? agent type
-            CnTp: 1,
-            OSVr: 'Window', // os version
-            OSBld: '7601',
-            AgnLb: 'RingCentral',
+            Edtn: '17', // ? agent type
+            CnTp: '1',
+            OSVr: 'Android', // os version
+            OSBld: '17',
+            AgnLb: '',
             Cntry: 'ENU',
             LngAgn: '1033',
             LngSys: '1033',
-            SkNm: 'RingCentral Blue',
-            SkSch: 19,
-            PC: 'AMARENIN',
+            SkNm: '',
+            SkSch: '',
+            PC: 'maguro-JOP40D',
             Cntr: '1',
-            Area: '425',
-            OSUsr: 'huyhuy',
-            OSDom: 'int.nordigy.ru'
+            Area: '650',
+            OSUsr: 'dpi.sec',
+            OSDom: ''
         };
 
     return function( data ){

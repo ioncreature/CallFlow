@@ -79,7 +79,6 @@ Server.prototype.initSocketServer = function(){
             data = {},
             mid,
             pin,
-            instanceId,
             environment,
             sid;
 
@@ -171,7 +170,7 @@ Server.prototype.initSocketServer = function(){
                                 var rgs = environment.rgs;
                                 var params = {
                                     Ext: login,
-                                    Pn: pin || '101',
+                                    Pn: pin || '',
                                     SP: util.rcEncrypt( pass, rgs.passMask, rgs.passMaxLength )
                                 };
                                 rgsRequest( params, function( error, result ){
@@ -190,9 +189,10 @@ Server.prototype.initSocketServer = function(){
                                         res.phoneNumber = bodyAttr.Ext;
                                         res.identity = {
                                             displayName: bodyAttr.FullNm,
-                                            publicIdentity: 'sip:' + res.phoneNumber + '@' + res.realm,
+                                            publicIdentity: 'sip:' + util.preparePhoneNumber(res.phoneNumber) + '@' + res.realm,
                                             privateIdentity: bodyAttr.Inst,
                                             password: pass
+                                            //password: bodyAttr.Inst
                                         };
                                         res.extension = bodyAttr.Pn;
                                         res.instanceId = bodyAttr.Inst;
