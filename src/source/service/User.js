@@ -10,6 +10,11 @@ enyo.kind({
     constructor: function(){
         this.inherited( arguments );
         App.service( 'auth' ).on( 'auth', this.setData, this );
+        App.on( 'logout', this.release, this )
+    },
+
+    release: function(){
+        delete this.data;
     },
 
     setData: function( data ){

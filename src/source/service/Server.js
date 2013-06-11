@@ -12,24 +12,40 @@ enyo.kind({
         this.inherited( arguments );
         this.setConfig( config );
         this.connect();
+        App.on( 'logout', this.reload, this );
+    },
+
+    reload: function(){
+        var server = this;
+        server.disconnect( function(){
+            server.connect();
+        });
     },
 
     setConfig: function( config ){
         this.url = config.path;
     },
 
+    disconnect: function( callback ){
+        this.socket.destroy();
+        callback();
+    },
+
     /**
      * @param {Function?} callback
      */
     connect: function( callback ){
-        if ( this.socket )
-            this.socket.close();
-        this.socket = io.connect( this.url );
+        var server = this,
+            socket;
 
-        var socket = this.socket,
-            server = this;
+        if ( server.socket )
+            server.socket.close();
+        server.socket = io.connect( server.url );
+
+        socket = server.socket;
 
         socket.on( 'connect', function(){
+            server.connected = true;
             callback && callback();
         });
 

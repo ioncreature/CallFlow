@@ -175,7 +175,8 @@ var loc = {
         register: 'Register',
         login: 'Login',
         logout: 'Logout',
-        notLoggedIn: 'You are not logged in'
+        notLoggedIn: 'You are not logged in',
+        extCaption: 'Ext.'
     },
 
     Login: {
@@ -185,6 +186,8 @@ var loc = {
         loginPlaceholder: 'Enter phone number',
         password: 'Password',
         passwordPlaceholder: 'Enter password',
+        extension: 'Extension',
+        extensionPlaceholder: 'Enter extension',
         submit: 'Login',
         environment: 'Select Environment'
     }

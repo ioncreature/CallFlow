@@ -27,6 +27,16 @@ enyo.kind({
 
     components: [
         {classes: 'ui-login-block', components: [
+            {classes: 'ui-label', content: loc.Login.environment},
+            {classes: 'ui-login-picker', kind: 'onyx.PickerDecorator', components: [
+                {},
+                {name: 'env', classes: 'ui-login-picker-picker', kind: 'onyx.Picker', onSelect: 'envSelected', components: [
+                    {content: 'spbDev', value: 'spbDev', active: true},
+                    {content: 'sv7', value: 'sv7'},
+                    {content: 'production', value: 'production'}
+                ]}
+            ]},
+
             {classes: 'ui-label', content: loc.Login.login},
             {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
                 {name: 'login', kind: 'onyx.Input', placeholder: loc.Login.loginPlaceholder}
@@ -37,14 +47,9 @@ enyo.kind({
                 {name: 'password', kind: 'onyx.Input', type: 'password', placeholder: loc.Login.passwordPlaceholder}
             ]},
 
-            {classes: 'ui-label', content: loc.Login.environment},
-            {classes: 'ui-login-picker', kind: 'onyx.PickerDecorator', components: [
-                {},
-                {name: 'env', classes: 'ui-login-picker-picker', kind: 'onyx.Picker', onSelect: 'envSelected', components: [
-                    {content: 'spbDev', value: 'spbDev', active: true},
-                    {content: 'sv7', value: 'sv7'},
-                    {content: 'production', value: 'production'}
-                ]}
+            {classes: 'ui-label', content: loc.Login.extension},
+            {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
+                {name: 'extension', kind: 'onyx.Input', placeholder: loc.Login.extensionPlaceholder}
             ]},
 
             {classes: 'ui-center', components: [
@@ -69,14 +74,17 @@ enyo.kind({
     loginPageOpen: function(){},
 
     submitTap: function(){
-        var login = String( this.$.login.getValue() ).replace( /[^0-9]/g, '' ),
-            password = this.$.password.getValue(),
+        var button = this.$.submit,
             auth = App.service( 'auth' ),
-            button = this.$.submit,
-            envName = this.$.env.getSelected().getContent();
+            query = {
+                login: rc.preparePhoneNumber( this.$.login.getValue() ),
+                password: this.$.password.getValue(),
+                ext: this.$.extension.getValue(),
+                envName: this.$.env.getSelected().getContent()
+            };
 
         button.setDisabled( true );
-        auth.authByLoginPassword( login, password, envName, function( result ){
+        auth.authByLoginPassword( query, function( result ){
             if ( result.success ){
                 console.log( result );
                 auth.login();
@@ -91,6 +99,7 @@ enyo.kind({
         var envName = this.getEnvironment();
         this.$.login.setValue( this.envCredits[envName].login );
         this.$.password.setValue( this.envCredits[envName].pass );
+        this.$.extension.setValue( this.envCredits[envName].ext || '' );
     },
 
     envSelected: function( sender, event ){

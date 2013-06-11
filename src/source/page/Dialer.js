@@ -24,8 +24,12 @@ enyo.kind({
     components: [
         {name: 'registeredCaller', classes: 'ui-dialer-registered-caller', components: [
             {name: 'callerName', classes: 'ui-dialer-registered-caller-name'},
-            {name: 'callerPhone', classes: 'ui-dialer-registered-caller-phone'}
+            {name: 'callerPhone', classes: 'ui-dialer-registered-caller-phone'},
+            {name: 'callerExtCaption', classes: 'ui-dialer-registered-caller-ext-caption', content: loc.Dialer.extCaption},
+            {name: 'callerExt', classes: 'ui-dialer-registered-caller-ext'}
         ]},
+
+        {name: 'errorContainer', showing: false},
 
         {classes: 'ui-label', content: loc.Dialer.callTo},
         {name: 'callee', kind: 'rc.RadioList', onActivate: 'onCalleeActivate'},
@@ -90,8 +94,9 @@ enyo.kind({
                 return true;
             });
 
-        this.$.callerName.setContent( sip.identity.displayName );
-        this.$.callerPhone.setContent( sip.phoneNumber );
+        this.$.callerName.setContent( mailbox.fullName );
+        this.$.callerPhone.setContent( rc.preparePhoneNumber(sip.phoneNumber) );
+        this.$.callerExt.setContent( mailbox.pin );
         this.$.colls.render();
         this.fillList( phoneNumbers );
 
@@ -269,6 +274,7 @@ enyo.kind({
             case 'transport_error':
             case 'global_error':
             case 'message_error':
+                this.showError( e.type + ' ' + e.description );
             case 'cancelled_request':
                 // TODO: переделать определение ошибки
                 if ( e.description === 'Forbidden (authorization error)' )
@@ -360,5 +366,9 @@ enyo.kind({
 
     getAudioNode: function(){
         return document.getElementById( 'dialer_audio' );
+    },
+
+    showError: function( message ){
+        alert( 'ERROR! ' + message );
     }
 });

@@ -4,7 +4,19 @@
  */
 
 (function(){
-    var util = {};
+    var rc = {};
+
+
+    /**
+     * @param {string} number
+     * @return string
+     */
+    rc.preparePhoneNumber = function( number ){
+        var res = String( number ).replace( /[^0-9]/g, '' );
+        if ( res.length === 10 )
+            res = '1' + res;
+        return res;
+    };
 
 
     /**
@@ -13,7 +25,7 @@
      * @param {Function?} compareFn
    	 * @return Array
    	 */
-    util.arrayUnique = function( array, compareFn ){
+    rc.arrayUnique = function( array, compareFn ){
    		return array.filter( function( val, i ){
    			for ( var j = i + 1; j < array.length; j++ ){
                    if ( compareFn )
@@ -35,7 +47,7 @@
      * @param {number?} _stackDepth - depth of search in tree
      * @return Array
      */
-    util.find = function find( object, needle, _stackDepth ){
+    rc.find = function find( object, needle, _stackDepth ){
         if ( _stackDepth <= 0 )
             return [];
         else if ( typeof _stackDepth == 'undefined' )
@@ -77,7 +89,7 @@
                 });
         }
 
-        return util.arrayUnique( searchResults );
+        return rc.arrayUnique( searchResults );
     };
 
     function testString( value, str ){
@@ -92,6 +104,6 @@
         return re.test( value );
     }
 
-    enyo.setObject( 'rc', util );
-})();
 
+    enyo.setObject( 'rc', enyo.mixin(enyo.getObject('rc'), rc) );
+})();

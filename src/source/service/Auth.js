@@ -12,10 +12,10 @@ enyo.kind({
     kind: 'rc.Observable',
 
     constructor: function( config, app ){
-        this.user = null;
         this.app = app;
         this.config = config;
         this.inherited( arguments );
+        App.on( 'logout', this.destroySessionData, this );
     },
 
     isLoggedIn: function( callback ){
@@ -35,14 +35,9 @@ enyo.kind({
         });
     },
 
-    authByLoginPassword: function( login, password, envName, callback ){
+    authByLoginPassword: function( query, callback ){
         var server = App.service( 'server' ),
-            auth = this,
-            query = {
-                login: login,
-                password: password,
-                envName: envName
-            };
+            auth = this;
 
         server.query( 'authByLoginPassword', query, function( res ){
             var success = res.success !== false;
@@ -64,13 +59,15 @@ enyo.kind({
     },
 
     login: function(){
-        if ( logged  )
+        if ( logged )
             this.app.login();
     },
 
     logout: function(){
         logged = false;
-    }
+    },
+
+    destroySessionData: function(){}
 });
 
 })();
