@@ -26,10 +26,9 @@ enyo.kind({
             {name: 'callerName', classes: 'ui-dialer-registered-caller-name'},
             {name: 'callerPhone', classes: 'ui-dialer-registered-caller-phone'},
             {name: 'callerExtCaption', classes: 'ui-dialer-registered-caller-ext-caption', content: loc.Dialer.extCaption},
-            {name: 'callerExt', classes: 'ui-dialer-registered-caller-ext'}
+            {name: 'callerExt', classes: 'ui-dialer-registered-caller-ext'},
+            {name: 'callerOriginalPhone', classes: 'ui-dialer-registered-caller-original'}
         ]},
-
-        {name: 'errorContainer', showing: false},
 
         {classes: 'ui-label', content: loc.Dialer.callTo},
         {name: 'callee', kind: 'rc.RadioList', onActivate: 'onCalleeActivate'},
@@ -68,6 +67,9 @@ enyo.kind({
                 ]}
             ]
         },
+
+        {name: 'errorContainer', classes: 'ui-dialer-error', allowHtml: true, showing: false},
+        {name: 'statusContainer', classes: 'ui-dialer-status', allowHtml: true, showing: false},
 
         {name: 'audioContainer', allowHtml: true, content:'<audio autoplay id="dialer_audio" />'}
     ],
@@ -213,6 +215,7 @@ enyo.kind({
 
     sipStackEventHandler: function( /*SIPml.Stack.Event*/ e ){
         console.warn( 'stack\ntype', e.type, '\ndesc', e.description );
+        this.showStatus( e.type + ' : ' + e.description );
         switch ( e.type ){
             case 'started':
                 this.sipSession = this.sipStack.newSession( 'register', {
@@ -228,10 +231,11 @@ enyo.kind({
                 break;
 
             case 'stopping':
-            case 'failed_to_stop':
                 this.hidePopup();
                 break;
+            case 'failed_to_stop':
             case 'failed_to_start':
+                this.showError( e.type + ' : ' + e.description );
             case 'stopped':
                 this.hidePopup();
                 if ( this.sipSessionCall ){
@@ -257,11 +261,15 @@ enyo.kind({
             case 'm_permission_accepted':
                 this.$.popupTimer.start();
                 break;
+            case 'm_permission_refused':
+                this.showError( e.type + ' : ' + e.description );
+                break;
         }
     },
 
     sipSessionEventHandler: function( /*SIPml.Session.Event*/ e ){
         console.warn( 'session\ntype', e.type, '\ndesc', e.description );
+        this.showStatus( e.type + ' : ' + e.description );
         switch ( e.type ){
             case 'connecting':
                 break;
@@ -293,13 +301,9 @@ enyo.kind({
                 break;
 
             case 'media_added':
-                console.warn( e );
-                break;
-
             case 'm_early_media':
             case 'm_stream_audio_local_added':
             case 'm_stream_audio_remote_added':
-                console.warn( e );
                 break;
         }
     },
@@ -369,6 +373,16 @@ enyo.kind({
     },
 
     showError: function( message ){
-        alert( 'ERROR! ' + message );
+        this.$.errorContainer.show();
+        var prev = this.$.errorContainer.prev || '...';
+        this.$.errorContainer.setContent( prev + '<br/>' + message );
+        this.$.errorContainer.prev = message;
+    },
+
+    showStatus: function( status ){
+        this.$.statusContainer.show();
+        var prev = this.$.statusContainer.prev || '...';
+        this.$.statusContainer.setContent( prev + '<br/>' + status );
+        this.$.statusContainer.prev = status;
     }
 });

@@ -33,8 +33,30 @@
     font-weight: bold;
 }
 
+.ui-dialer-registered-caller-original {
+    font-weight: bold;
+}
+
 .ui-dialer-registered-caller-ext-caption {
     margin: 0 @rc-margin-small;
+}
+
+.ui-dialer-error,
+.ui-dialer-status {
+    font-size: @rc-font-size-small;
+    border-radius: @rc-border-radius;
+    line-height: @rc-font-size-medium;
+    margin: @rc-margin;
+    padding: @rc-padding-small;
+    border: @rc-border-width solid @rc-color-red;
+    background-color: @rc-color-bg-error;
+    color: @rc-color-red;
+}
+
+.ui-dialer-status {
+    border-color: @rc-color-main;
+    background-color: @rc-color-bg-light;
+    color: @rc-color-main;
 }
 
 .ui-dialer-call {
