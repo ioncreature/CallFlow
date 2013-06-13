@@ -21,6 +21,24 @@ enyo.kind({
         onOpen: 'pageOpen'
     },
 
+    messageType: {
+        NONE: -1,
+        ACK: 0,
+        BYE: 1,
+        CANCEL: 2,
+        INVITE: 3,
+        OPTIONS: 4,
+        REGISTER: 5,
+        SUBSCRIBE: 6,
+        NOTIFY: 7,
+        REFER: 8,
+        INFO: 9,
+        UPDATE: 10,
+        MESSAGE: 11,
+        PUBLISH: 12,
+        PRACK: 13
+    },
+
     components: [
         {name: 'registeredCaller', classes: 'ui-dialer-registered-caller', components: [
             {name: 'callerName', classes: 'ui-dialer-registered-caller-name'},
@@ -255,7 +273,7 @@ enyo.kind({
                 }
                 var s = this;
                 setTimeout( function(){
-                    s.sipStack && s.sipRegister( App.service('user' ).getData().sip );
+                    s.sipStack && s.sipRegister( App.service('user').getData().sip );
                 }, 2000 );
                 break;
 
@@ -265,7 +283,7 @@ enyo.kind({
                 else {
                     this.sipSessionCall = e.newSession;
                     this.sipSessionCall.isIncoming = true;
-                    this.showIncomingCall();
+                    this.showIncomingCall( this.sipSessionCall.getRemoteFriendlyName() || 'Unknown' );
                 }
                 break;
 
@@ -274,6 +292,12 @@ enyo.kind({
                 break;
             case 'm_permission_refused':
                 this.showError( e.type + ' : ' + e.description );
+                break;
+
+            case 'i_new_message':
+                console.warn( e );
+                if ( e.e_type === this.messageType.BYE )
+                    this.sipHangUp();
                 break;
         }
     },
@@ -364,11 +388,11 @@ enyo.kind({
             this.sipHangUp();
     },
 
-    showIncomingCall: function(){
+    showIncomingCall: function( caller ){
         this.$.answerCall.show();
         this.$.popup.show();
         this.$.popupTimer.start();
-        this.$.popupCaption.setContent( loc.Dialer.incomingCall );
+        this.$.popupCaption.setContent( rc.format(loc.Dialer.incomingCall, {caller: caller}) );
     },
 
     showOutgoingCall: function(){

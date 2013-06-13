@@ -7,6 +7,17 @@
     var rc = {};
 
 
+    rc.format = function( format, data ){
+        var placeholders = format.match( /\{\{\w+\}\}/g ) || [],
+            res = format,
+            i;
+
+        for ( i = 0; i < placeholders.length; i++ )
+            res = res.replace( new RegExp(placeholders[i], 'g'), data[placeholders[i].replace(/[\{\}]/g, '')] );
+
+        return res;
+    };
+
     /**
      * @param {string} number
      * @return string

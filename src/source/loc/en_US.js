@@ -162,7 +162,7 @@ var loc = {
 
     Dialer: {
         caption: 'Dialer',
-        incomingCall: 'Incoming call...',
+        incomingCall: '{{caller}} Calling...',
         outgoingCall: 'Outgoing call...',
         call: 'Call',
         phoneNumber: 'Phone Number',
