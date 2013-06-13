@@ -80,6 +80,7 @@ enyo.kind({
         this.calling = false;
 
         App.on( 'login', this.initPage, this );
+        App.on( 'logout', this.releaseResources, this );
     },
 
     initPage: function(){
@@ -108,6 +109,9 @@ enyo.kind({
         });
     },
 
+    releaseResources: function(){
+        this.sipStop();
+    },
 
     /**
      * @param {Array} phoneNumbers
@@ -135,6 +139,13 @@ enyo.kind({
             page.sipInited = true;
             callback();
         });
+    },
+
+    sipStop: function(){
+        this.sipStack && this.sipStack.stop();
+        delete this.sipSessionCall;
+        delete this.sipSession;
+        delete this.sipStack;
     },
 
     sipRegister: function( sip ){
@@ -374,15 +385,21 @@ enyo.kind({
 
     showError: function( message ){
         this.$.errorContainer.show();
-        var prev = this.$.errorContainer.prev || '...';
-        this.$.errorContainer.setContent( prev + '<br/>' + message );
-        this.$.errorContainer.prev = message;
+        this._appendMessage( this.$.errorContainer, message );
     },
 
     showStatus: function( status ){
         this.$.statusContainer.show();
-        var prev = this.$.statusContainer.prev || '...';
-        this.$.statusContainer.setContent( prev + '<br/>' + status );
-        this.$.statusContainer.prev = status;
+        this._appendMessage( this.$.statusContainer, status );
+    },
+
+    _appendMessage: function( elem, message ){
+        var count = 5,
+            list = elem._messageList || [],
+            result;
+        list.push( message );
+        elem._messageList = list;
+        result = list.slice( list.length - (count + 1) ).join( '<br />' );
+        elem.setContent( result );
     }
 });
