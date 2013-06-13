@@ -79,6 +79,7 @@ Server.prototype.initSocketServer = function(){
             data = {},
             mid,
             pin,
+            accountNumber,
             environment,
             sid;
 
@@ -124,10 +125,11 @@ Server.prototype.initSocketServer = function(){
                             delete res.subscriberResponse.status;
                         data.subscriber = res.subscriberResponse;
 
+                        accountNumber = util.preparePhoneNumber( res.countersResponse.accountNumber );
                         mid = data.subscriber.mailboxId;
                         sid = res.JSESSIONID;
 
-                        async.parallel({
+                        async.series({
                             mailbox: function( callback ){
                                 jediRequest({ cmd: 'extensions.getExtension', mid: mid }, function( error, res ){
                                     if ( error || !res.status.success )
@@ -170,7 +172,7 @@ Server.prototype.initSocketServer = function(){
                                 var rgs = environment.rgs;
                                 var params = {
                                     Ext: login,
-                                    Pn: pin || '',
+                                    Pn: pin,
                                     SP: util.rcEncrypt( pass, rgs.passMask, rgs.passMaxLength )
                                 };
                                 rgsRequest( params, function( error, result ){
@@ -186,13 +188,13 @@ Server.prototype.initSocketServer = function(){
                                         res.enableRtcWebBreaker = environment.sip.enableRtcWebBreaker;
                                         res.enableVideo = environment.sip.enableVideo;
                                         res.outboundProxy = 'udp://' + bodyAttr.ObndPrx;
-                                        res.phoneNumber = bodyAttr.Ext;
+                                        res.phoneNumber = util.preparePhoneNumber( bodyAttr.Ext );
                                         res.identity = {
                                             displayName: bodyAttr.FullNm,
-                                            publicIdentity: 'sip:' + util.preparePhoneNumber(res.phoneNumber) + '@' + res.realm,
+//                                            publicIdentity: 'sip:' + util.preparePhoneNumber(res.phoneNumber) + '@' + res.realm,
+                                            publicIdentity: 'sip:' + util.preparePhoneNumber(res.phoneNumber) + '*' + pin + '@' + res.realm,
                                             privateIdentity: bodyAttr.Inst,
                                             password: pass
-                                            //password: bodyAttr.Inst
                                         };
                                         res.extension = bodyAttr.Pn;
                                         res.instanceId = bodyAttr.Inst;

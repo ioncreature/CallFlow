@@ -27,8 +27,9 @@ enyo.kind({
     },
 
     disconnect: function( callback ){
-        this.socket.destroy();
-        callback();
+        this.socket.disconnect();
+        delete this.socket;
+        setTimeout( callback, 100 );
     },
 
     /**
@@ -38,10 +39,7 @@ enyo.kind({
         var server = this,
             socket;
 
-        if ( server.socket )
-            server.socket.close();
         server.socket = io.connect( server.url );
-
         socket = server.socket;
 
         socket.on( 'connect', function(){

@@ -255,7 +255,7 @@ enyo.kind({
                 }
                 var s = this;
                 setTimeout( function(){
-                    s.sipRegister( App.service('user' ).getData().sip );
+                    s.sipStack && s.sipRegister( App.service('user' ).getData().sip );
                 }, 2000 );
                 break;
 
@@ -297,11 +297,15 @@ enyo.kind({
             case 'cancelled_request':
                 // TODO: переделать определение ошибки
                 if ( e.description === 'Forbidden (authorization error)' )
-                    alert( e.description );
+                    this.showError( e.type + ' ' + e.description );
                 this.hidePopup();
                 this.sipSessionCall && this.sipSessionCall.hangup();
                 delete this.sipSessionCall;
                 break;
+
+            case 'i_ao_request':
+                if ( e.description === 'Service Unavailable' )
+                    this.showError( e.type + ' ' + e.description );
 
             case 'terminating':
                 break;

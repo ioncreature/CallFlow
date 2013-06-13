@@ -118,7 +118,7 @@ enyo.kind({
     logout: function(){
         App.trigger( 'logout' );
         App.service( 'auth' ).logout();
-        this.showLoginPage();
+        window.location.reload();
     },
 
     showLoginPage: function(){
