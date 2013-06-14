@@ -27,7 +27,7 @@ enyo.kind({
             {name: 'callerPhone', classes: 'ui-dialer-registered-caller-phone'},
             {name: 'callerExtCaption', classes: 'ui-dialer-registered-caller-ext-caption', content: loc.Dialer.extCaption},
             {name: 'callerExt', classes: 'ui-dialer-registered-caller-ext'},
-            {name: 'callerOriginalPhone', classes: 'ui-dialer-registered-caller-original'}
+            {name: 'callerOriginalPhone', classes: 'ui-dialer-registered-caller-original', allowHtml: true}
         ]},
 
         {classes: 'ui-label', content: loc.Dialer.callTo},
@@ -87,15 +87,21 @@ enyo.kind({
         var user = App.service('user').getData(),
             mailbox = user.mailbox,
             sip = user.sip,
+            ownNumbers = [],
             phoneNumbers = user.phoneNumbers.filter( function( number ){
-                if ( number.extensionPin == mailbox.pin && number.extensionName == mailbox.fullName  )
+                if ( number.extensionPin == mailbox.pin && number.extensionName == mailbox.fullName  ){
+                    ownNumbers.push( number.numRow );
                     return false;
+                }
 
                 if ( !number.extensionPin && !number.extensionName )
                     return false;
 
                 return true;
             });
+
+        this.$.callerOriginalPhone.setContent( ownNumbers.join('<br />') );
+        this.$.callerOriginalPhone.getContent() && this.$.callerOriginalPhone.show();
 
         this.$.callerName.setContent( mailbox.fullName );
         this.$.callerPhone.setContent( rc.preparePhoneNumber(sip.phoneNumber) );
