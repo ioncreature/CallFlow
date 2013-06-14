@@ -21,24 +21,6 @@ enyo.kind({
         onOpen: 'pageOpen'
     },
 
-    messageType: {
-        NONE: -1,
-        ACK: 0,
-        BYE: 1,
-        CANCEL: 2,
-        INVITE: 3,
-        OPTIONS: 4,
-        REGISTER: 5,
-        SUBSCRIBE: 6,
-        NOTIFY: 7,
-        REFER: 8,
-        INFO: 9,
-        UPDATE: 10,
-        MESSAGE: 11,
-        PUBLISH: 12,
-        PRACK: 13
-    },
-
     components: [
         {name: 'registeredCaller', classes: 'ui-dialer-registered-caller', components: [
             {name: 'callerName', classes: 'ui-dialer-registered-caller-name'},
@@ -230,10 +212,14 @@ enyo.kind({
 
     sipHangUp: function(){
         if ( this.sipSessionCall ){
-            this.sipSessionCall.hangup({
-                events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) }
-            });
-            delete this.sipSessionCall;
+            try {
+                this.sipSessionCall.hangup({
+                    events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) }
+                });
+            }
+            catch ( e ){
+                console.error( 'sipHangUp', e );
+            }
         }
     },
 
@@ -278,8 +264,9 @@ enyo.kind({
                 break;
 
             case 'i_new_call':
-                if ( this.sipSessionCall )
-                    e.newSession.hangup();
+                if ( this.sipSessionCall && this.sipSessionCall !== e.newSession )
+//                    e.newSession.hangup();
+                    ;
                 else {
                     this.sipSessionCall = e.newSession;
                     this.sipSessionCall.isIncoming = true;
@@ -296,8 +283,11 @@ enyo.kind({
 
             case 'i_new_message':
                 console.warn( e );
-                if ( e.e_type === this.messageType.BYE )
-                    this.sipHangUp();
+                var par = e.o_event;
+                if ( par && par.e_type === 1 && par.i_code === 800 ){
+//                    this.hidePopup();
+//                    this.sipHangUp();
+                }
                 break;
         }
     },
