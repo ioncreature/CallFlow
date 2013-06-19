@@ -60,6 +60,12 @@ enyo.kind({
                 {name: 'popupCaption', classes: 'ui-dialer-popup-caption', content: loc.Dialer.incomingCall},
                 {name: 'popupName', classes: 'ui-dialer-popup-name'},
                 {name: 'popupNumber', classes: 'ui-dialer-popup-number'},
+                {
+                    name: 'popupVideo',
+                    classes: 'ui-dialer-popup-video',
+                    allowHtml: true,
+                    content:'<video autoplay id="dialer_video" />'
+                },
                 {name: 'popupTimer', classes: 'ui-dialer-popup-timer', kind: 'rc.Timer'},
                 {classes: 'ui-center', components: [
                     {name: 'answerCall', classes: 'ui-dialer-popup-answer', ontap: 'tapAnswerCall'},
@@ -89,7 +95,7 @@ enyo.kind({
             sip = user.sip,
             ownNumbers = [],
             phoneNumbers = user.phoneNumbers.filter( function( number ){
-                if ( number.extensionPin == mailbox.pin && number.extensionName == mailbox.fullName  ){
+                if ( number.extensionPin == mailbox.pin && number.extensionName == mailbox.fullName ){
                     ownNumbers.push( number.numRow );
                     return false;
                 }
@@ -191,6 +197,7 @@ enyo.kind({
 
     sipCall: function(){
         var oConf = {
+                video_remote: this.getVideoNode(),
                 audio_remote: this.getAudioNode(),
                 events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) },
                 expires: 600,
@@ -405,6 +412,10 @@ enyo.kind({
 
     getAudioNode: function(){
         return document.getElementById( 'dialer_audio' );
+    },
+
+    getVideoNode: function(){
+        return document.getElementById( 'dialer_video' );
     },
 
     showError: function( message ){

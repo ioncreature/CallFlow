@@ -191,7 +191,6 @@ Server.prototype.initSocketServer = function(){
                                         res.phoneNumber = util.preparePhoneNumber( bodyAttr.Ext );
                                         res.identity = {
                                             displayName: bodyAttr.FullNm,
-//                                            publicIdentity: 'sip:' + util.preparePhoneNumber(res.phoneNumber) + '@' + res.realm,
                                             publicIdentity: 'sip:' + util.preparePhoneNumber(res.phoneNumber) + '*' + pin + '@' + res.realm,
                                             privateIdentity: bodyAttr.Inst,
                                             password: pass

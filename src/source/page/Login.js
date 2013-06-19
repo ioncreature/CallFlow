@@ -31,8 +31,8 @@ enyo.kind({
             {classes: 'ui-login-picker', kind: 'onyx.PickerDecorator', components: [
                 {},
                 {name: 'env', classes: 'ui-login-picker-picker', kind: 'onyx.Picker', onSelect: 'envSelected', components: [
-                    {content: 'spbDev', value: 'spbDev', active: true},
-                    {content: 'sv7', value: 'sv7'},
+                    {content: 'spbDev', value: 'spbDev'},
+                    {content: 'sv7', value: 'sv7', active: true},
                     {content: 'production', value: 'production'}
                 ]}
             ]},
@@ -59,7 +59,7 @@ enyo.kind({
     ],
 
     published: {
-        environment: 'spbDev'
+        environment: 'sv7'
     },
 
     handlers: {
