@@ -63,6 +63,7 @@ enyo.kind({
                 {
                     name: 'popupVideo',
                     classes: 'ui-dialer-popup-video',
+                    showing: false,
                     allowHtml: true,
                     content:'<video autoplay id="dialer_video" />'
                 },
@@ -370,7 +371,7 @@ enyo.kind({
     tapCallButton: function(){
         if ( !this.sipSessionCall ){
             this.sipCall();
-            this.showOutgoingCall();
+            this.showOutgoingCall( this.getPhoneNumber() );
         }
     },
 
@@ -394,15 +395,14 @@ enyo.kind({
     showIncomingCall: function( caller ){
         this.$.answerCall.show();
         this.$.popup.show();
-        this.$.popupTimer.start();
         this.$.popupCaption.setContent( rc.format(loc.Dialer.incomingCall, {caller: caller}) );
     },
 
-    showOutgoingCall: function(){
+    showOutgoingCall: function( callee ){
         this.$.answerCall.hide();
         this.$.popup.show();
         this.$.popupTimer.start();
-        this.$.popupCaption.setContent( loc.Dialer.outgoingCall );
+        this.$.popupCaption.setContent( rc.format(loc.Dialer.outgoingCall, {callee: callee}) );
     },
 
     hidePopup: function(){
