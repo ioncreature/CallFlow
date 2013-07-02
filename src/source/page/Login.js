@@ -11,10 +11,6 @@ enyo.kind({
     showNext: false,
 
     envCredits: {
-        spbDev: {
-            login: '18664100005',
-            pass: '123123123'
-        },
         sv7: {
             login: '18664100009',
             pass: '123123123'
