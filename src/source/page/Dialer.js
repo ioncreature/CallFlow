@@ -213,7 +213,8 @@ enyo.kind({
             error;
 
         if ( this.sipStack && !this.sipSessionCall && phoneIdentifier ){
-            this.sipSessionCall = this.sipStack.newSession( videoEnabled ? 'call-audiovideo' : 'call-audio', oConf );
+            this.sipSessionCall = this.sipStack.newSession( 'call-audio', oConf );
+            // this.sipSessionCall = this.sipStack.newSession( videoEnabled ? 'call-audiovideo' : 'call-audio', oConf );
             error = this.sipSessionCall.call( phoneIdentifier );
             if ( error != 0 ){
                 this.sipSessionCall = null;
@@ -278,9 +279,9 @@ enyo.kind({
                 break;
 
             case 'i_new_call':
-                if ( this.sipSessionCall && this.sipSessionCall !== e.newSession )
-//                    e.newSession.hangup();
-                    ;
+                if ( this.sipSessionCall && this.sipSessionCall !== e.newSession ){
+                    // e.newSession.hangup();
+                }
                 else {
                     this.sipSessionCall = e.newSession;
                     this.sipSessionCall.isIncoming = true;
@@ -293,14 +294,17 @@ enyo.kind({
                 break;
             case 'm_permission_refused':
                 this.showError( e.type + ' : ' + e.description );
+                this.hidePopup();
+                this.sipSessionCall && this.sipSessionCall.hangup();
                 break;
 
             case 'i_new_message':
                 console.warn( e );
                 var par = e.o_event;
                 if ( par && par.e_type === 1 && par.i_code === 800 ){
-//                    this.hidePopup();
-//                    this.sipHangUp();
+                    this.showStatus( 'It was probably hangup from remote side' );
+                    // this.hidePopup();
+                    // this.sipHangUp();
                 }
                 break;
         }

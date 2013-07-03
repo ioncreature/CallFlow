@@ -83,13 +83,17 @@ Server.prototype.initSocketServer = function(){
             environment,
             sid;
 
+        //registerUser
+        var user = new User();
+        user.id = socket.id;
+        user.socket = socket;
+
         socket.emit( 'ping', {hello: 'client'}, function( response ){
             console.log( response );
         });
 
-        socket.on( 'authBySid', function( sid, fn ){
-            var isValid = sid && sid.toString().length > 3;
-            fn( !!isValid );
+        socket.on( 'registerNumbers', function( query ){
+
         });
 
         socket.on( 'authByLoginPassword', function( query, fn ){
@@ -105,108 +109,18 @@ Server.prototype.initSocketServer = function(){
             else
                 environment = server.config.environments[envName];
 
-            if ( pass && pass.length > 0 && login && login.length > 0 ){
-                var params = {
-                    cmd: 'authenticator.findSubscriberComplete',
-                    autoLogin: true,
-                    login: login,
-                    password: pass,
-                    pin: ext || ''
-                };
-
-                jediRequest( params, function( error, res ){
+            if ( isLoginPassValid(login, pass) ){
+                jediLogin( function( error, res ){
                     if ( error )
                         errorResponse( error, fn );
-                    else if ( res.status.success ){
-                        if ( res.countersResponse )
-                            delete res.countersResponse.status;
-                        data.counters = res.countersResponse;
-                        if ( res.subscriberResponse )
-                            delete res.subscriberResponse.status;
-                        data.subscriber = res.subscriberResponse;
-
-                        accountNumber = util.preparePhoneNumber( res.countersResponse.accountNumber );
-                        mid = data.subscriber.mailboxId;
-                        sid = res.JSESSIONID;
-
+                    else {
                         async.series({
-                            mailbox: function( callback ){
-                                jediRequest({ cmd: 'extensions.getExtension', mid: mid }, function( error, res ){
-                                    if ( error || !res.status.success )
-                                        callback( error || new Error(res.status.message) );
-                                    else {
-                                        pin = res.mailboxInfo.pin;
-                                        callback( null, res.mailboxInfo );
-                                    }
-                                });
-                            },
-
-                            phones: function( callback ){
-                                jediRequest({ cmd: 'digitalline.listPhones' }, function( error, res ){
-                                    if ( error || !res.status.success )
-                                        callback( error || new Error(res.status.message) );
-                                    else
-                                        callback( error, res && res.phones );
-                                });
-                            },
-
-                            extensions: function( callback ){
-                                jediRequest({ cmd: 'extensions.listExtensions' }, function( error, res ){
-                                    if ( error || !res.status.success )
-                                        callback( error || new Error(res.status.message) );
-                                    else
-                                        callback( error, res && res.extensions );
-                                });
-                            },
-
-                            phoneNumbers: function( callback ){
-                                jediRequest({ cmd: 'extensions.listPhoneNumbers' }, function( error, res ){
-                                    if ( error || !res.status.success )
-                                        callback( error || new Error(res.status.message) );
-                                    else
-                                        callback( error, res && res.phones );
-                                });
-                            },
-
-                            sip: function( callback ){
-                                var rgs = environment.rgs;
-                                var params = {
-                                    Ext: login,
-                                    Pn: pin,
-                                    SP: util.rcEncrypt( pass, rgs.passMask, rgs.passMaxLength )
-                                };
-                                rgsRequest( params, function( error, result ){
-                                    if ( error )
-                                        callback( error );
-                                    else {
-                                        var res = {},
-                                            bodyAttr = result.Msg.Bdy[0].$;
-
-                                        res.realm = bodyAttr.Prx;
-                                        res.websocketServer = environment.sip.websocketServer;
-                                        res.iceServers = environment.sip.iceServers;
-                                        res.enableRtcWebBreaker = environment.sip.enableRtcWebBreaker;
-                                        res.enableVideo = environment.sip.enableVideo;
-                                        res.outboundProxy = 'udp://' + bodyAttr.ObndPrx;
-                                        res.phoneNumber = util.preparePhoneNumber( bodyAttr.Ext );
-                                        res.identity = {
-                                            displayName: bodyAttr.FullNm,
-                                            publicIdentity: 'sip:' + util.preparePhoneNumber(res.phoneNumber) + '*' + pin + '@' + res.realm,
-                                            privateIdentity: bodyAttr.Inst,
-                                            password: pass
-                                        };
-                                        res.extension = bodyAttr.Pn;
-                                        res.instanceId = bodyAttr.Inst;
-                                        res.clientId = bodyAttr.Cln;
-                                        res.mailboxId = mid;
-
-                                        callback( null, res );
-                                    }
-                                });
-                            }
-                        }, finishRequest );
-
-                        function finishRequest( error, res ){
+                            mailbox: loadMailbox,
+                            phones: loadPhones,
+                            extensions: loadExtensions,
+                            phoneNumbers: loadPhoneNumbers,
+                            sip: sipRegister
+                        }, function( error, res ){
                             if ( error )
                                 errorResponse( error, fn );
                             else {
@@ -218,14 +132,118 @@ Server.prototype.initSocketServer = function(){
                                     cookie: jar.toString()
                                 });
                             }
-                        }
+                        });
                     }
-                    else
-                        errorResponse( res.status.message, fn );
                 });
             }
             else
                 errorResponse( e, fn );
+
+
+            function jediLogin( callback ){
+                var params = {
+                    cmd: 'authenticator.findSubscriberComplete',
+                    autoLogin: true,
+                    login: login,
+                    password: pass,
+                    pin: ext || ''
+                };
+
+                jediRequest( params, function( error, res ){
+                    if ( error )
+                        callback( error );
+                    else if ( res.status.success ){
+                        if ( res.countersResponse )
+                            delete res.countersResponse.status;
+                        data.counters = res.countersResponse;
+                        if ( res.subscriberResponse )
+                            delete res.subscriberResponse.status;
+                        data.subscriber = res.subscriberResponse;
+
+                        accountNumber = util.preparePhoneNumber( res.countersResponse.accountNumber );
+                        mid = data.subscriber.mailboxId;
+                        sid = res.JSESSIONID;
+                        callback( null, data );
+                    }
+                    else
+                        callback( res.status.message );
+                })
+            }
+
+            function loadMailbox( callback ){
+                jediRequest( {cmd: 'extensions.getExtension', mid: mid}, function( error, res ){
+                    if ( error || !res.status.success )
+                        callback( error || new Error(res.status.message) );
+                    else {
+                        pin = res.mailboxInfo.pin;
+                        callback( null, res.mailboxInfo );
+                    }
+                });
+            }
+
+            function loadPhones( callback ){
+                jediRequest( {cmd: 'digitalline.listPhones'}, function( error, res ){
+                    if ( error || !res.status.success )
+                        callback( error || new Error(res.status.message) );
+                    else
+                        callback( error, res && res.phones );
+                });
+            }
+
+            function loadExtensions( callback ){
+                jediRequest( {cmd: 'extensions.listExtensions'}, function( error, res ){
+                    if ( error || !res.status.success )
+                        callback( error || new Error(res.status.message) );
+                    else
+                        callback( error, res && res.extensions );
+                });
+            }
+
+            function loadPhoneNumbers( callback ){
+                jediRequest( {cmd: 'extensions.listPhoneNumbers'}, function( error, res ){
+                    if ( error || !res.status.success )
+                        callback( error || new Error(res.status.message) );
+                    else
+                        callback( error, res && res.phones );
+                });
+            }
+
+            function sipRegister( callback ){
+                var rgs = environment.rgs;
+                var params = {
+                    Ext: login,
+                    Pn: pin,
+                    SP: util.rcEncrypt( pass, rgs.passMask, rgs.passMaxLength )
+                };
+                rgsRequest( params, function( error, result ){
+                    if ( error )
+                        callback( error );
+                    else {
+                        var res = {},
+                            bodyAttr = result.Msg.Bdy[0].$;
+
+                        res.realm = bodyAttr.Prx;
+                        res.websocketServer = environment.sip.websocketServer;
+                        res.iceServers = environment.sip.iceServers;
+                        res.enableRtcWebBreaker = environment.sip.enableRtcWebBreaker;
+                        res.enableVideo = environment.sip.enableVideo;
+                        res.outboundProxy = 'udp://' + bodyAttr.ObndPrx;
+                        res.phoneNumber = util.preparePhoneNumber( bodyAttr.Ext );
+                        res.identity = {
+                            displayName: bodyAttr.FullNm,
+                            publicIdentity: 'sip:' + util.preparePhoneNumber(res.phoneNumber) + '*' + pin + '@' + res.realm,
+                            privateIdentity: bodyAttr.Inst,
+                            password: pass
+                        };
+                        res.extension = bodyAttr.Pn;
+                        res.instanceId = bodyAttr.Inst;
+                        res.clientId = bodyAttr.Cln;
+                        res.mailboxId = mid;
+
+                        callback( null, res );
+                    }
+                });
+            }
         });
 
         function jediRequest( params, callback ){
@@ -269,3 +287,11 @@ Server.prototype.initSocketServer = function(){
         }
     });
 };
+
+
+function User(){}
+
+
+function isLoginPassValid( login, pass ){
+    return pass && pass.length > 0 && login && login.length > 0;
+}
