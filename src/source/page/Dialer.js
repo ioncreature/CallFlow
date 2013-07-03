@@ -88,6 +88,7 @@ enyo.kind({
 
         App.on( 'login', this.initPage, this );
         App.on( 'logout', this.releaseResources, this );
+        App.on( 'incomingCall', this.onIncomingCall, this );
     },
 
     initPage: function(){
@@ -106,6 +107,8 @@ enyo.kind({
 
                 return true;
             });
+
+        App.service( 'server' ).registerNumbers( ownNumbers );
 
         this.$.callerOriginalPhone.setContent( ownNumbers.join('<br />') );
         this.$.callerOriginalPhone.getContent() && this.$.callerOriginalPhone.show();
@@ -375,6 +378,7 @@ enyo.kind({
     tapCallButton: function(){
         if ( !this.sipSessionCall ){
             this.sipCall();
+            App.trigger( 'outgoingCall', {} );
             this.showOutgoingCall( this.getPhoneNumber() );
         }
     },
@@ -440,5 +444,9 @@ enyo.kind({
         elem._messageList = list;
         result = list.slice( list.length - (count + 1) ).join( '<br />' );
         elem.setContent( result );
+    },
+
+    onIncomingCall: function( message ){
+        console.warn( message );
     }
 });

@@ -51,6 +51,14 @@ enyo.kind({
             console.log( msg );
             fn({ hello: 'server' });
         });
+
+        socket.on( 'incomingCall', function( msg ){
+            App.trigger( 'incomingCall', msg );
+        });
+    },
+
+    registerNumbers: function( phoneNumbers ){
+        server.socket.emit( 'registerNumbers', phoneNumbers );
     },
 
     query: function( command, msg, callback ){

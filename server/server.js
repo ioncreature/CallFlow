@@ -47,7 +47,7 @@ function Server( config ){
     this.config = config;
     this.app = app;
     this.httpServer = http.createServer( app );
-    this.users = {};
+    this.users = [];
 }
 
 
@@ -69,10 +69,32 @@ Server.prototype.stop = function( callback ){
 };
 
 
-Server.prototype.initSocketServer = function(){
-    var server = this,
-        users = server.users;
+Server.prototype.addUser = function( user ){
+    this.users.push( user );
+};
 
+
+Server.prototype.removeUser = function( user ){
+    var index = this.users.indexOf( user );
+    if ( index > -1 )
+        delete this.users[index];
+};
+
+
+Server.prototype.getUserByNumber = function( phoneNumber ){
+    var length = this.users.length,
+        user;
+
+    for ( var i = 0; i < length; i++ ){
+        user = this.users[i];
+        if ( user && user.numbers instanceof Array && user.numbers.indexOf(phoneNumber) > -1 )
+            return user;
+    }
+};
+
+
+Server.prototype.initSocketServer = function(){
+    var server = this;
 
     server.io.sockets.on( 'connection', function( socket ){
         var jar = request.jar(),
@@ -83,17 +105,33 @@ Server.prototype.initSocketServer = function(){
             environment,
             sid;
 
-        //registerUser
+        console.log( socket.handshake );
+
         var user = new User();
         user.id = socket.id;
         user.socket = socket;
+        server.addUser( user );
 
         socket.emit( 'ping', {hello: 'client'}, function( response ){
             console.log( response );
         });
 
         socket.on( 'registerNumbers', function( query ){
+            if ( query.numbers )
+                user.numbers = query.numbers;
+        });
 
+        socket.on( 'outboundCall', function( query, callback ){
+            var remoteUser = server.getUserByNumber( query.number ),
+                video = query.video;
+            if ( remoteUser ){
+                remoteUser.socket.emit( 'incomingCall', {address: user.handshake.address.address, video: video} );
+                callback( remoteUser.handshake.address.address );
+            }
+        });
+
+        socket.on( 'disconnect', function(){
+            server.removeUser( user );
         });
 
         socket.on( 'authByLoginPassword', function( query, fn ){
@@ -125,6 +163,7 @@ Server.prototype.initSocketServer = function(){
                                 errorResponse( error, fn );
                             else {
                                 util.mixin( data, res );
+                                user.data = data;
                                 fn({
                                     success: true,
                                     sid: sid,
