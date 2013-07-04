@@ -105,8 +105,6 @@ Server.prototype.initSocketServer = function(){
             environment,
             sid;
 
-        console.log( socket.handshake );
-
         var user = new User();
         user.id = socket.id;
         user.socket = socket;
@@ -121,12 +119,12 @@ Server.prototype.initSocketServer = function(){
                 user.numbers = query.numbers;
         });
 
-        socket.on( 'outboundCall', function( query, callback ){
+        socket.on( 'outboundCall', function( query, fn ){
             var remoteUser = server.getUserByNumber( query.number ),
                 video = query.video;
             if ( remoteUser ){
-                remoteUser.socket.emit( 'incomingCall', {address: user.handshake.address.address, video: video} );
-                callback( remoteUser.handshake.address.address );
+                remoteUser.socket.emit( 'incomingCall', {address: user.socket.handshake.address.address, video: video} );
+                fn( remoteUser.socket.handshake.address.address );
             }
         });
 

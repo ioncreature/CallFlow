@@ -92,10 +92,11 @@ enyo.kind({
     },
 
     initPage: function(){
-        var user = App.service('user').getData(),
+        var user = App.service( 'user' ).getData(),
             mailbox = user.mailbox,
             sip = user.sip,
             ownNumbers = [],
+            accountNumber = rc.preparePhoneNumber( sip.phoneNumber ),
             phoneNumbers = user.phoneNumbers.filter( function( number ){
                 if ( number.extensionPin == mailbox.pin && number.extensionName == mailbox.fullName ){
                     ownNumbers.push( number.numRow );
@@ -108,16 +109,21 @@ enyo.kind({
                 return true;
             });
 
-        App.service( 'server' ).registerNumbers( ownNumbers );
-
         this.$.callerOriginalPhone.setContent( ownNumbers.join('<br />') );
         this.$.callerOriginalPhone.getContent() && this.$.callerOriginalPhone.show();
 
         this.$.callerName.setContent( mailbox.fullName );
-        this.$.callerPhone.setContent( rc.preparePhoneNumber(sip.phoneNumber) );
+        this.$.callerPhone.setContent( accountNumber );
         this.$.callerExt.setContent( mailbox.pin );
         this.$.colls.render();
+
         this.fillList( phoneNumbers );
+
+        var userNumbers = ownNumbers.concat( accountNumber + '*' + mailbox.pin );
+        if ( mailbox.accessLevel === 'Admin' )
+            userNumbers.push( accountNumber );
+
+        App.service( 'server' ).registerNumbers( userNumbers );
 
         var s = this;
         this.sipInit( function(){
@@ -358,6 +364,12 @@ enyo.kind({
         }
     },
 
+    releaseCallSession: function(){
+        this.sipHangUp();
+        delete this.sipSessionCall;
+        App.service( 'server' ).sendHangup();
+    },
+
     getPhoneNumber: function(){
         return this.$.phoneNumber.getValue();
     },
@@ -378,7 +390,7 @@ enyo.kind({
     tapCallButton: function(){
         if ( !this.sipSessionCall ){
             this.sipCall();
-            App.trigger( 'outgoingCall', {} );
+            App.service( 'server' ).outboundCall( {number: this.getPhoneNumber(), video: true} );
             this.showOutgoingCall( this.getPhoneNumber() );
         }
     },
@@ -447,6 +459,6 @@ enyo.kind({
     },
 
     onIncomingCall: function( message ){
-        console.warn( message );
+        console.error( message );
     }
 });

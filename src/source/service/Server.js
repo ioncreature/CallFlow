@@ -58,7 +58,20 @@ enyo.kind({
     },
 
     registerNumbers: function( phoneNumbers ){
-        server.socket.emit( 'registerNumbers', phoneNumbers );
+        this.socket.emit( 'registerNumbers', {numbers: phoneNumbers} );
+    },
+
+    sendHangup: function(){
+        this.socket.emit( 'hangup' );
+    },
+
+    /**
+     * @param {{number: string, video: boolean}} params
+     * @param {Function} callback
+     */
+    outboundCall: function( params, callback ){
+        var msg = enyo.mixin( {number: '', video: false}, params );
+        this.socket.emit( 'outboundCall', msg, callback );
     },
 
     query: function( command, msg, callback ){
