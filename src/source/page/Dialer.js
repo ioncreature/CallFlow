@@ -201,6 +201,11 @@ enyo.kind({
         return !!this.sipStack;
     },
 
+
+    sipIsCalling: function(){
+        return !!this.sipSessionCall;
+    },
+
     sipCallTypeIsIncoming: function(){
         return this.sipSessionCall && !!this.sipSessionCall.isIncoming;
     },
@@ -235,11 +240,12 @@ enyo.kind({
     },
 
     sipHangUp: function(){
-        if ( this.sipSessionCall ){
+        if ( this.sipIsCalling() ){
             try {
                 this.sipSessionCall.hangup({
                     events_listener: { events: '*', listener: this.sipSessionEventHandler.bind(this) }
                 });
+                delete this.sipSessionCall;
             }
             catch ( e ){
                 console.error( 'sipHangUp', e );
@@ -364,10 +370,9 @@ enyo.kind({
         }
     },
 
-    releaseCallSession: function(){
+    hangUpCall: function(){
         this.sipHangUp();
-        delete this.sipSessionCall;
-        App.service( 'server' ).sendHangup();
+        App.service( 'server' ).sendHangup( this.getPhoneNumber() );
     },
 
     getPhoneNumber: function(){
@@ -388,10 +393,15 @@ enyo.kind({
     },
 
     tapCallButton: function(){
-        if ( !this.sipSessionCall ){
+        if ( !this.sipIsCalling() ){
             this.sipCall();
-            App.service( 'server' ).outboundCall( {number: this.getPhoneNumber(), video: true} );
+            App.service( 'server' ).outboundCall( {number: this.getPhoneNumber(), video: true}, function( resp ){
+                console.error( resp );
+            });
             this.showOutgoingCall( this.getPhoneNumber() );
+        }
+        else {
+            alert( 'Cannot make call during another call session' );
         }
     },
 

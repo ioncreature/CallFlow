@@ -61,8 +61,8 @@ enyo.kind({
         this.socket.emit( 'registerNumbers', {numbers: phoneNumbers} );
     },
 
-    sendHangup: function(){
-        this.socket.emit( 'hangup' );
+    sendHangup: function( phoneNumber ){
+        this.socket.emit( 'hangup', {number: phoneNumber} );
     },
 
     /**

@@ -119,12 +119,12 @@ Server.prototype.initSocketServer = function(){
                 user.numbers = query.numbers;
         });
 
-        socket.on( 'outboundCall', function( query, fn ){
-            var remoteUser = server.getUserByNumber( query.number ),
-                video = query.video;
+        socket.on( 'outboundCall', function( msg, fn ){
+            var remoteUser = server.getUserByNumber( msg.number ),
+                video = msg.video;
             if ( remoteUser ){
                 remoteUser.socket.emit( 'incomingCall', {address: user.socket.handshake.address.address, video: video} );
-                fn( remoteUser.socket.handshake.address.address );
+                typeof fn == 'function' && fn( remoteUser.socket.handshake.address.address );
             }
         });
 
