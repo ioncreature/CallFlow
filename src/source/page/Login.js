@@ -39,12 +39,12 @@ enyo.kind({
 
             {classes: 'ui-label', content: loc.Login.password},
             {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
-                {name: 'password', kind: 'onyx.Input', type: 'password', placeholder: loc.Login.passwordPlaceholder}
+                {name: 'password', kind: 'onyx.Input', type: 'password', placeholder: loc.Login.passwordPlaceholder, onkeydown: 'keyDown'}
             ]},
 
             {classes: 'ui-label', content: loc.Login.extension},
             {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
-                {name: 'extension', kind: 'onyx.Input', placeholder: loc.Login.extensionPlaceholder}
+                {name: 'extension', kind: 'onyx.Input', placeholder: loc.Login.extensionPlaceholder, onkeydown: 'keyDown'}
             ]},
 
             {classes: 'ui-center', components: [
@@ -99,5 +99,10 @@ enyo.kind({
 
     envSelected: function( sender, event ){
         this.setEnvironment( event.selected.getContent() );
+    },
+
+    keyDown: function( sender, event ){
+        if ( event.keyCode == 13 && !this.$.submit.getDisabled() )
+            this.submitTap();
     }
 });
