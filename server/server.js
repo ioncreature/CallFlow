@@ -51,8 +51,6 @@ function Server( config ){
 }
 
 
-Server.prototype.cacheTtl = 60 * 5;
-
 Server.prototype.start = function(){
     this.httpServer.listen( this.config.port || 80 );
     this.io = socketIo.listen( this.httpServer );
