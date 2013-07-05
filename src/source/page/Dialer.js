@@ -378,8 +378,7 @@ enyo.kind({
 
     hangUpCall: function(){
         this.sipHangUp();
-        if ( this.get('videoCall') )
-            App.service( 'server' ).sendHangup( this.getPhoneNumber() );
+        App.service( 'server' ).sendHangup( this.getPhoneNumber() );
         this.hidePopup();
     },
 
