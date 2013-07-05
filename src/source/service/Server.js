@@ -55,14 +55,18 @@ enyo.kind({
         socket.on( 'incomingCall', function( msg ){
             App.trigger( 'incomingCall', msg );
         });
+
+        socket.on( 'hangup', function( msg ){
+            App.trigger( 'hangup', msg );
+        });
     },
 
     registerNumbers: function( phoneNumbers ){
         this.socket.emit( 'registerNumbers', {numbers: phoneNumbers} );
     },
 
-    sendHangup: function( phoneNumber ){
-        this.socket.emit( 'hangup', {number: phoneNumber} );
+    sendHangup: function( msg ){
+        this.socket.emit( 'hangup', {incoming: msg && !!msg.incoming} );
     },
 
     /**

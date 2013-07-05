@@ -124,10 +124,39 @@ Server.prototype.initSocketServer = function(){
                 video = msg.video;
             if ( remoteUser ){
                 remoteUser.socket.emit( 'incomingCall', {address: user.socket.handshake.address.address, video: video} );
+
+                // TODO: This potentially a place for memory leaks
+                user.callTo = remoteUser;
+                remoteUser.callFrom = user;
+
                 typeof fn == 'function' && fn({ address: remoteUser.socket.handshake.address.address });
             }
-            else {
+            else
                 typeof fn == 'function' && fn({ address: false });
+        });
+
+        socket.on( 'hangup', function( msg ){
+            if ( msg.incoming )
+                hangUpIncoming();
+            else
+                hangUpOutgoing();
+
+            function hangUpOutgoing(){
+                var remoteUser = user.callTo;
+                delete user.callTo;
+                if ( remoteUser ){
+                    remoteUser.socket.emit( 'hangup', {incoming: true} );
+                    delete remoteUser.callFrom;
+                }
+            }
+
+            function hangUpIncoming(){
+                var remoteUser = user.callFrom;
+                delete user.callFrom;
+                if ( remoteUser ){
+                    remoteUser.socket.emit( 'hangup', {incoming: false} );
+                    delete remoteUser.callTo;
+                }
             }
         });
 

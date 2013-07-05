@@ -93,6 +93,7 @@ enyo.kind({
         App.on( 'login', this.initPage, this );
         App.on( 'logout', this.releaseResources, this );
         App.on( 'incomingCall', this.onIncomingCall, this );
+        App.on( 'hangup', this.onHangUp, this );
     },
 
     initPage: function(){
@@ -322,10 +323,8 @@ enyo.kind({
                 var par = e.o_event;
                 if ( par && par.e_type === 1 && par.i_code === 800 ){
                     this.showError( 'It was probably hangup from remote side' );
-                    if ( this.sipIsCalling() ){
-                        this.hidePopup();
-                        this.sipHangUp();
-                    }
+                    if ( this.sipIsCalling() )
+                        this.hangUpCall();
                 }
                 break;
         }
@@ -377,8 +376,10 @@ enyo.kind({
     },
 
     hangUpCall: function(){
+        App.service( 'server' ).sendHangup({
+            incoming: this.sipCallTypeIsIncoming()
+        });
         this.sipHangUp();
-        App.service( 'server' ).sendHangup( this.getPhoneNumber() );
         this.hidePopup();
     },
 
@@ -479,7 +480,11 @@ enyo.kind({
         elem.setContent( result );
     },
 
-    onIncomingCall: function( message ){
-        console.error( message );
+    onIncomingCall: function( msg ){
+        console.error( 'incoming call', msg );
+    },
+
+    onHangUp: function( msg ){
+        console.error( 'hangup', msg );
     }
 });
