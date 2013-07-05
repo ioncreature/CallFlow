@@ -124,7 +124,10 @@ Server.prototype.initSocketServer = function(){
                 video = msg.video;
             if ( remoteUser ){
                 remoteUser.socket.emit( 'incomingCall', {address: user.socket.handshake.address.address, video: video} );
-                typeof fn == 'function' && fn( remoteUser.socket.handshake.address.address );
+                typeof fn == 'function' && fn({ address: remoteUser.socket.handshake.address.address });
+            }
+            else {
+                typeof fn == 'function' && fn({ address: false });
             }
         });
 

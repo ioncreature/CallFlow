@@ -21,6 +21,10 @@ enyo.kind({
         onOpen: 'pageOpen'
     },
 
+    published: {
+        videoCalling: false
+    },
+
     components: [
         {name: 'registeredCaller', classes: 'ui-dialer-registered-caller', components: [
             {name: 'callerName', classes: 'ui-dialer-registered-caller-name'},
@@ -317,9 +321,11 @@ enyo.kind({
                 console.warn( e );
                 var par = e.o_event;
                 if ( par && par.e_type === 1 && par.i_code === 800 ){
-                    this.showStatus( 'It was probably hangup from remote side' );
-                    // this.hidePopup();
-                    // this.sipHangUp();
+                    this.showError( 'It was probably hangup from remote side' );
+                    if ( this.sipIsCalling() ){
+                        this.hidePopup();
+                        this.sipHangUp();
+                    }
                 }
                 break;
         }
@@ -372,7 +378,14 @@ enyo.kind({
 
     hangUpCall: function(){
         this.sipHangUp();
-        App.service( 'server' ).sendHangup( this.getPhoneNumber() );
+        if ( this.get('videoCall') )
+            App.service( 'server' ).sendHangup( this.getPhoneNumber() );
+        this.hidePopup();
+    },
+
+    rejectIncomingCall: function(){
+        this.sipReject();
+        this.hidePopup();
     },
 
     getPhoneNumber: function(){
@@ -397,6 +410,7 @@ enyo.kind({
             this.sipCall();
             App.service( 'server' ).outboundCall( {number: this.getPhoneNumber(), video: true}, function( resp ){
                 console.error( resp );
+
             });
             this.showOutgoingCall( this.getPhoneNumber() );
         }
@@ -414,12 +428,10 @@ enyo.kind({
     },
 
     tapRefuseCall: function(){
-        this.$.popupTimer.stop();
-        this.hidePopup();
         if ( this.sipCallTypeIsIncoming() )
-            this.sipReject();
+            this.rejectIncomingCall();
         else
-            this.sipHangUp();
+            this.hangUpCall();
     },
 
     showIncomingCall: function( caller ){
