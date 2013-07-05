@@ -67,7 +67,7 @@ enyo.kind({
                 {
                     name: 'popupVideo',
                     classes: 'ui-dialer-popup-video',
-                    showing: false,
+                    showing: true,
                     allowHtml: true,
                     content:'<video autoplay id="dialer_video" />'
                 },
@@ -407,6 +407,7 @@ enyo.kind({
 
     tapCallButton: function(){
         if ( !this.sipIsCalling() ){
+            this.showLocalVideo();
             this.sipCall();
             App.service( 'server' ).outboundCall( {number: this.getPhoneNumber(), video: true}, function( resp ){
                 console.error( resp );
@@ -486,5 +487,17 @@ enyo.kind({
 
     onHangUp: function( msg ){
         console.error( 'hangup', msg );
+    },
+
+
+    showLocalVideo: function(){
+        console.error( 'video', this.getVideoNode() );
+        this.webrtcVideo = new rc.network.WebRTC({
+            localVideoNode: this.getVideoNode()
+        });
+
+        this.webrtcVideo.startCapturingLocalVideo();
     }
 });
+
+// TODO: look at http://mozilla.github.io/webrtc-landing/
