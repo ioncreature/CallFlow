@@ -135,30 +135,32 @@ Server.prototype.initSocketServer = function(){
 
         socket.on( 'hangup', function( msg ){
             if ( msg.incoming )
-                hangUpIncoming();
+                hangUpIncoming( user );
             else
-                hangUpOutgoing();
-
-            function hangUpOutgoing(){
-                var remoteUser = user.callTo;
-                delete user.callTo;
-                if ( remoteUser ){
-                    remoteUser.socket.emit( 'hangup', {incoming: true} );
-                    delete remoteUser.callFrom;
-                }
-            }
-
-            function hangUpIncoming(){
-                var remoteUser = user.callFrom;
-                delete user.callFrom;
-                if ( remoteUser ){
-                    remoteUser.socket.emit( 'hangup', {incoming: false} );
-                    delete remoteUser.callTo;
-                }
-            }
+                hangUpOutgoing( user );
         });
 
+        function hangUpOutgoing( user ){
+            var remoteUser = user.callTo;
+            delete user.callTo;
+            if ( remoteUser ){
+                remoteUser.socket.emit( 'hangup', {incoming: true} );
+                delete remoteUser.callFrom;
+            }
+        }
+
+        function hangUpIncoming( user ){
+            var remoteUser = user.callFrom;
+            delete user.callFrom;
+            if ( remoteUser ){
+                remoteUser.socket.emit( 'hangup', {incoming: false} );
+                delete remoteUser.callTo;
+            }
+        }
+
         socket.on( 'disconnect', function(){
+            hangUpIncoming( user );
+            hangUpOutgoing( user );
             server.removeUser( user );
         });
 

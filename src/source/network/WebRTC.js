@@ -13,7 +13,7 @@ enyo.kind({
 
     constructor: function( params ){
         params.remoteVideoNode && this.setRemoteVideoNode( params.remoteVideoNode );
-        params.localVideoNode && this.setRemoteVideoNode( params.localVideoNode );
+        params.localVideoNode && this.setLocalVideoNode( params.localVideoNode );
         params.remoteHost && this.setRemoteHost( params.remoteHost );
     },
 
@@ -39,39 +39,45 @@ enyo.kind({
 
     startCapturingLocalVideo: function(){
         var self = this;
-        console.log( 'self', self );
-        this.localUserMedia = getUserMedia({
-            video: self.localVideoNode,
-            onsuccess: function( stream ){
-                self.attachStream = stream;
-                self.localVideoNode.play();
-            },
-            onerror: function(){
-                alert( 'unable to get access to your webcam' );
+        getUserMedia( {video: true, audio: false}, function( error, stream  ){
+            if ( error || !stream )
+                alert( error || 'Unable to catch local video stream' );
+            else {
+                self.localStream = stream;
+                attachStreamToVideoNode( stream, self.localVideoNode );
             }
         });
     }
 });
 
 
-function getUserMedia( options ){
-    var URL = window.webkitURL || window.URL;
-    navigator.getUserMediaCross = navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.getUserMedia;
+function getUserMedia( options, callback ){
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-    navigator.getUserMediaCross(
-        { audio: false, video: true },
+    navigator.getUserMedia(
+        { audio: !!options.audio, video: !!options.video },
+
         function( stream ){
-            if ( options.video ){
-                if ( !navigator.mozGetUserMedia )
-                    options.video.src = URL.createObjectURL( stream );
-                else
-                    options.video.mozSrcObject = stream;
-                options.video.localVideoNode.play();
-            }
-
-            options.onsuccess && options.onsuccess( stream );
-            return stream;
+            callback( undefined, stream );
         },
-        options.onerror
+
+        function( error ){
+            callback( error );
+        }
     );
+}
+
+
+function attachStreamToVideoNode( stream, node ){
+    if ( !node )
+        throw new Error( 'Hey man, where is my video node? Fuck off!' );
+
+    if ( isFirefox() )
+        node.mozSrcObject = stream;
+    else
+        node.src = URL.createObjectURL( stream );
+
+    function isFirefox(){
+        return !!navigator.mozGetUserMedia;
+    }
 }

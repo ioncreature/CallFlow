@@ -64,13 +64,7 @@ enyo.kind({
                 {name: 'popupCaption', classes: 'ui-dialer-popup-caption', content: loc.Dialer.incomingCall},
                 {name: 'popupName', classes: 'ui-dialer-popup-name'},
                 {name: 'popupNumber', classes: 'ui-dialer-popup-number'},
-                {
-                    name: 'popupVideo',
-                    classes: 'ui-dialer-popup-video',
-                    showing: true,
-                    allowHtml: true,
-                    content:'<video autoplay id="dialer_video" />'
-                },
+                {name: 'popupVideo', classes: 'ui-dialer-popup-video', showing: true},
                 {name: 'popupTimer', classes: 'ui-dialer-popup-timer', kind: 'rc.Timer'},
                 {classes: 'ui-center', components: [
                     {name: 'answerCall', classes: 'ui-dialer-popup-answer', ontap: 'tapAnswerCall'},
@@ -82,7 +76,8 @@ enyo.kind({
         {name: 'errorContainer', classes: 'ui-dialer-error', allowHtml: true, showing: false},
         {name: 'statusContainer', classes: 'ui-dialer-status', allowHtml: true, showing: false},
 
-        {name: 'audioContainer', allowHtml: true, content:'<audio autoplay id="dialer_audio" />'}
+        {name: 'audioContainer', allowHtml: true, content:'<audio autoplay id="dialer_audio" />'},
+        {name: 'videoContainer', allowHtml: true, content:'<video autoplay id="dialer_video" autoplay></video>', showing: false}
     ],
 
     create: function(){
@@ -92,8 +87,12 @@ enyo.kind({
 
         App.on( 'login', this.initPage, this );
         App.on( 'logout', this.releaseResources, this );
-        App.on( 'incomingCall', this.onIncomingCall, this );
-        App.on( 'hangup', this.onHangUp, this );
+        App.on( 'incomingCall', this.onVideoIncomingCall, this );
+        App.on( 'hangup', this.onVideoRemoteHangup, this );
+    },
+
+    pageOpen: function(){
+        console.warn( 'Dialer page opened' );
     },
 
     initPage: function(){
@@ -263,6 +262,10 @@ enyo.kind({
             this.sipSessionCall.reject();
     },
 
+    sipAccept: function(){
+        this.sipSessionCall.accept({ audio_remote: this.getAudioNode() });
+    },
+
     sipStackEventHandler: function( /*SIPml.Stack.Event*/ e ){
         console.warn( 'stack\ntype', e.type, '\ndesc', e.description );
         this.showStatus( e.type + ' : ' + e.description );
@@ -375,10 +378,77 @@ enyo.kind({
         }
     },
 
-    hangUpCall: function(){
-        App.service( 'server' ).sendHangup({
-            incoming: this.sipCallTypeIsIncoming()
+    videoCall: function(){
+        if ( this.isVideoCallInProgress() )
+            alert( 'Cannot make video call during another one' );
+        else {
+            var self = this;
+            App.service( 'server' ).outboundCall( {number: this.getPhoneNumber(), video: true}, function( resp ){
+                console.error( resp );
+                if ( resp && resp.address ){
+                    self.isVideoCall = true;
+                    self.prepareWebRTC();
+                    self.onVideoRemoteAvailable();
+                }
+            });
+        }
+    },
+
+    videoHangup: function(){
+        if ( this.isVideoCallInProgress() ){
+            self.isVideoCall = false;
+            App.service( 'server' ).sendHangup({
+                incoming: this.sipCallTypeIsIncoming()
+            });
+        }
+    },
+
+    videoReject: function(){
+        console.error( 'Video Reject' );
+    },
+
+    videoAccept: function(){
+        console.error( 'Video Reject' );
+    },
+
+    isVideoCallInProgress: function(){
+        return this.isVideoCall;
+    },
+
+    onVideoIncomingCall: function( msg ){
+        console.error( 'Video Incoming Call', msg );
+    },
+
+    onVideoHangup: function(){
+
+    },
+
+    onVideoRemoteHangup: function( msg ){
+        console.error( 'Video Remote Hangup', msg );
+    },
+
+    onVideoRemoteAvailable: function(){
+        console.error( 'Remote Video Available' );
+        this.showLocalVideo();
+    },
+
+    prepareWebRTC: function(){
+        if ( this.videoConference ){
+            this.videoConference.destroy();
+            delete this.videoConference;
+        }
+
+        this.videoConference = new rc.network.WebRTC({
+            localVideoNode: this.getVideoNode()
         });
+    },
+
+    showLocalVideo: function(){
+        this.videoConference && this.videoConference.startCapturingLocalVideo();
+    },
+
+    hangUpCall: function(){
+        this.videoHangup();
         this.sipHangUp();
         this.hidePopup();
     },
@@ -407,22 +477,17 @@ enyo.kind({
 
     tapCallButton: function(){
         if ( !this.sipIsCalling() ){
-            this.showLocalVideo();
             this.sipCall();
-            App.service( 'server' ).outboundCall( {number: this.getPhoneNumber(), video: true}, function( resp ){
-                console.error( resp );
-
-            });
+            this.videoCall();
             this.showOutgoingCall( this.getPhoneNumber() );
         }
-        else {
+        else
             alert( 'Cannot make call during another call session' );
-        }
     },
 
     tapAnswerCall: function(){
         this.$.answerCall.hide();
-        this.sipSessionCall.accept({ audio_remote: this.getAudioNode() });
+        this.sipAccept();
         this.$.popupTimer.start();
         if ( this.sipCallTypeIsIncoming() )
             delete this.sipSessionCall.isIncoming;
@@ -437,20 +502,40 @@ enyo.kind({
 
     showIncomingCall: function( caller ){
         this.$.answerCall.show();
-        this.$.popup.show();
+        this.showPopup();
         this.$.popupCaption.setContent( rc.format(loc.Dialer.incomingCall, {caller: caller}) );
     },
 
     showOutgoingCall: function( callee ){
         this.$.answerCall.hide();
-        this.$.popup.show();
+        this.showPopup();
         this.$.popupTimer.start();
         this.$.popupCaption.setContent( rc.format(loc.Dialer.outgoingCall, {callee: callee}) );
     },
 
     hidePopup: function(){
+        if ( this.$.videoContainer.hasNode() ){
+            var videoNode = this.getVideoNode();
+            videoNode.pause && videoNode.pause();
+            delete videoNode.src;
+            this.$.videoContainer.node.appendChild( this.getVideoNode() );
+        }
+        else
+            alert( 'WTF? Where is videoContainer node?' );
         this.$.popup.hide();
         this.$.popupTimer.stop();
+    },
+
+    showPopup: function(){
+        this.$.popup.show();
+        if ( this.isVideoCallInProgress() ){
+            if ( this.$.popupVideo.hasNode() ){
+                this.$.popupVideo.node.appendChild( this.getVideoNode() );
+                this.showLocalVideo();
+            }
+            else
+                alert( 'WTF? Where is popupVideo node?' );
+        }
     },
 
     getAudioNode: function(){
@@ -479,24 +564,6 @@ enyo.kind({
         elem._messageList = list;
         result = list.slice( list.length - (count + 1) ).join( '<br />' );
         elem.setContent( result );
-    },
-
-    onIncomingCall: function( msg ){
-        console.error( 'incoming call', msg );
-    },
-
-    onHangUp: function( msg ){
-        console.error( 'hangup', msg );
-    },
-
-
-    showLocalVideo: function(){
-        console.error( 'video', this.getVideoNode() );
-        this.webrtcVideo = new rc.network.WebRTC({
-            localVideoNode: this.getVideoNode()
-        });
-
-        this.webrtcVideo.startCapturingLocalVideo();
     }
 });
 
