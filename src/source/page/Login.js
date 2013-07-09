@@ -66,11 +66,26 @@ enyo.kind({
         this.environmentChanged();
     },
 
-    loginPageOpen: function(){},
+    loginPageOpen: function(){
+        if ( App.get('lastEnv') && App.get('lastLogin') && App.get('lastPassword') ){
+            var lastEnv = App.get('lastEnv');
+            this.$.env.controls.some( function( item ){
+                if ( item instanceof onyx.MenuItem && item.value === lastEnv ){
+                    this.$.env.setSelected( item );
+                    return true;
+                }
+            }, this );
+            this.setEnvironment( App.get('lastEnv') );
+            this.$.login.setValue( App.get('lastLogin') );
+            this.$.password.setValue( App.get('lastPassword') );
+            this.$.extension.setValue( App.get('lastExt') || '' );
+        }
+    },
 
     submitTap: function(){
         var button = this.$.submit,
             auth = App.service( 'auth' ),
+            page = this,
             query = {
                 login: rc.preparePhoneNumber( this.$.login.getValue() ),
                 password: this.$.password.getValue(),
@@ -81,7 +96,10 @@ enyo.kind({
         button.setDisabled( true );
         auth.authByLoginPassword( query, function( result ){
             if ( result.success ){
-                console.log( result );
+                App.set( 'lastEnv', page.getEnvironment() );
+                App.set( 'lastLogin', page.$.login.getValue() );
+                App.set( 'lastPassword', page.$.password.getValue() );
+                App.set( 'lastExt', page.$.extension.getValue() );
                 auth.login();
             }
             else

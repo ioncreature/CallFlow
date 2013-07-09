@@ -62,13 +62,14 @@ enyo.kind({
         this.pageStack = [];
         this.inherited( arguments );
         this.initServices();
-        this.initAuth();
 
         App.on( 'goBack', this.goBack, this );
         App.on( 'goTo', this.goTo, this );
         App.on( 'goTo', this.activateMenuItem, this );
         App.on( 'goToMenu', this.showMenu, this );
         App.on( 'toggleMenu', this.toggleMenu, this );
+
+        this.initAuth();
 
         App.trigger( 'appReady' );
     },
@@ -122,8 +123,8 @@ enyo.kind({
     },
 
     showLoginPage: function(){
-        App.goTo( 'Login' );
         this.canRedirect = true;
+        App.goTo( 'Login' );
         this.setDraggable( false );
         this.hideMenu();
     },
