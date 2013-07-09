@@ -134,6 +134,7 @@ enyo.kind({
 
     releaseResources: function(){
         this.sipStop();
+        this.videoStop();
     },
 
     /**
@@ -255,11 +256,14 @@ enyo.kind({
     },
 
     sipReject: function(){
-        this.sipHangup();
+        if ( this.sipSessionCall )
+            this.sipSessionCall.reject();
     },
 
     sipAccept: function(){
         this.sipSessionCall.accept({ audio_remote: this.getAudioNode() });
+        if ( this.sipCallTypeIsIncoming() )
+            delete this.sipSessionCall.isIncoming;
     },
 
     sipStackEventHandler: function( /*SIPml.Stack.Event*/ e ){
@@ -299,7 +303,7 @@ enyo.kind({
 
             case 'i_new_call':
                 if ( this.sipSessionCall && this.sipSessionCall !== e.newSession ){
-                    e.newSession.hangup();
+                    // e.newSession.hangup();
                 }
                 else {
                     this.sipSessionCall = e.newSession;
@@ -397,16 +401,16 @@ enyo.kind({
             App.service( 'server' ).sendHangup({
                 incoming: this.videoIsIncomingCall()
             });
+            this.videoStop();
             if ( !this.videoIsIncomingCall() )
                 this.onVideoHangup();
-            self.isVideoCall = false;
         }
     },
 
     videoReject: function(){
         console.error( 'Video Reject' );
         App.service( 'server' ).sendReject();
-        this.videoStopConference();
+        this.videoStop();
     },
 
     videoAccept: function(){
@@ -431,12 +435,12 @@ enyo.kind({
 
     onVideoHangup: function(){
         console.error( 'On Video Hangup' );
-        this.videoStopConference();
+        this.videoStop();
     },
 
     onVideoRemoteHangup: function( msg ){
         console.error( 'Video Remote Hangup', msg );
-        this.videoStopConference();
+        this.hangup();
     },
 
     onVideoRemoteAvailable: function(){
@@ -453,7 +457,7 @@ enyo.kind({
         this.showLocalVideo();
     },
 
-    videoStopConference: function(){
+    videoStop: function(){
         this.videoConference && this.videoConference.destroy();
         delete this.videoConference;
         delete this.isVideoCall;
@@ -482,8 +486,8 @@ enyo.kind({
         }
     },
 
-    isIncomingCall: function(){
-        return this.sipCallTypeIsIncoming() || this.videoIsIncomingCall();
+    isNewCall: function(){
+        return this.sipCallTypeIsIncoming();
     },
 
     call: function(){
@@ -538,12 +542,10 @@ enyo.kind({
         this.$.answerCall.hide();
         this.acceptIncoming();
         this.$.popupTimer.start();
-        if ( this.sipCallTypeIsIncoming() )
-            delete this.sipSessionCall.isIncoming;
     },
 
     tapRefuseCall: function(){
-        if ( this.isIncomingCall() )
+        if ( this.isNewCall() )
             this.rejectIncoming();
         else
             this.hangup();
