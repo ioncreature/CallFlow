@@ -419,10 +419,11 @@ enyo.kind({
     },
 
     videoIsCalling: function(){
-        return this.isVideoCall;
+        return !!this.isVideoCall;
     },
 
     onVideoIncomingCall: function( msg ){
+        this.isVideoCall = true;
         this.videoIsIncoming = true;
         this.prepareWebRTC();
         console.error( 'Video Incoming Call', msg );
@@ -456,6 +457,7 @@ enyo.kind({
         this.videoConference && this.videoConference.destroy();
         delete this.videoConference;
         delete this.isVideoCall;
+        delete this.videoIsIncoming;
     },
 
     prepareWebRTC: function(){

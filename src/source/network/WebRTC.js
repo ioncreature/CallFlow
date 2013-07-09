@@ -51,7 +51,7 @@ enyo.kind({
 
     startCapturingLocalVideo: function(){
         var self = this;
-        getUserMedia( {video: true, audio: false}, function( error, stream  ){
+        getUserMedia( {video: true, audio: true}, function( error, stream  ){
             if ( error || !stream )
                 alert( error || 'Unable to catch local video stream' );
             else {
