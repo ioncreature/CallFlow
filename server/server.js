@@ -140,6 +140,11 @@ Server.prototype.initSocketServer = function(){
                 hangUpOutgoing( user );
         });
 
+        socket.on( 'accept', function( msg ){
+            var remoteUser = user.callFrom;
+            remoteUser.socket.emit( 'accept', msg );
+        });
+
         function hangUpOutgoing( user ){
             var remoteUser = user.callTo;
             delete user.callTo;

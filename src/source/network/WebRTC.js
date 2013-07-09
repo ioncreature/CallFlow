@@ -17,6 +17,8 @@ enyo.kind({
         params.remoteHost && this.setRemoteHost( params.remoteHost );
     },
 
+    destroy: function(){},
+
     setLocalVideoNode: function( node ){
         this.localVideoNode = node;
         this.prepareVideoNode( this.localVideoNode );
@@ -33,7 +35,6 @@ enyo.kind({
 
     prepareVideoNode: function( node ){
         node.setAttribute( 'muted', true );
-        node.setAttribute( 'autoplay', true );
         node.setAttribute( 'controls', true );
     },
 

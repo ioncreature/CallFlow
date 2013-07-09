@@ -89,6 +89,7 @@ enyo.kind({
         App.on( 'logout', this.releaseResources, this );
         App.on( 'incomingCall', this.onVideoIncomingCall, this );
         App.on( 'hangup', this.onVideoRemoteHangup, this );
+        App.on( 'accept', this.onVideoRemoteAccept, this );
     },
 
     pageOpen: function(){
@@ -243,7 +244,7 @@ enyo.kind({
             this.sipSessionCall.accept( oConf );
     },
 
-    sipHangUp: function(){
+    sipHangup: function(){
         if ( this.sipIsCalling() ){
             try {
                 this.sipSessionCall.hangup({
@@ -252,14 +253,13 @@ enyo.kind({
                 delete this.sipSessionCall;
             }
             catch ( e ){
-                console.error( 'sipHangUp', e );
+                console.error( 'sipHangup', e );
             }
         }
     },
 
     sipReject: function(){
-        if ( this.sipSessionCall )
-            this.sipSessionCall.reject();
+        this.sipHangup();
     },
 
     sipAccept: function(){
@@ -303,7 +303,7 @@ enyo.kind({
 
             case 'i_new_call':
                 if ( this.sipSessionCall && this.sipSessionCall !== e.newSession ){
-                    // e.newSession.hangup();
+                    e.newSession.hangup();
                 }
                 else {
                     this.sipSessionCall = e.newSession;
@@ -327,7 +327,7 @@ enyo.kind({
                 if ( par && par.e_type === 1 && par.i_code === 800 ){
                     this.showError( 'It was probably hangup from remote side' );
                     if ( this.sipIsCalling() )
-                        this.hangUpCall();
+                        this.hangup();
                 }
                 break;
         }
@@ -379,7 +379,7 @@ enyo.kind({
     },
 
     videoCall: function(){
-        if ( this.isVideoCallInProgress() )
+        if ( this.videoIsCalling() )
             alert( 'Cannot make video call during another one' );
         else {
             var self = this;
@@ -395,41 +395,63 @@ enyo.kind({
     },
 
     videoHangup: function(){
-        if ( this.isVideoCallInProgress() ){
+        if ( this.videoIsCalling() ){
             self.isVideoCall = false;
             App.service( 'server' ).sendHangup({
-                incoming: this.sipCallTypeIsIncoming()
+                incoming: this.videoIsIncomingCall()
             });
         }
+        this.onVideoHangup();
     },
 
     videoReject: function(){
         console.error( 'Video Reject' );
+        App.service( 'server' ).sendReject();
+        this.videoStopConference();
     },
 
     videoAccept: function(){
         console.error( 'Video Reject' );
+        App.service( 'server' ).sendAccept();
     },
 
-    isVideoCallInProgress: function(){
+    videoIsIncomingCall: function(){
+        return this.videoIsCalling() && this.videoIsIncoming;
+    },
+
+    videoIsCalling: function(){
         return this.isVideoCall;
     },
 
     onVideoIncomingCall: function( msg ){
+        this.showLocalVideo();
+        this.videoIsIncoming = true;
         console.error( 'Video Incoming Call', msg );
     },
 
     onVideoHangup: function(){
-
+        console.error( 'On Video Hangup' );
+        this.videoStopConference();
     },
 
     onVideoRemoteHangup: function( msg ){
         console.error( 'Video Remote Hangup', msg );
+        this.isVideoCall = false;
     },
 
     onVideoRemoteAvailable: function(){
         console.error( 'Remote Video Available' );
         this.showLocalVideo();
+    },
+
+    onVideoRemoteAccept: function( msg ){
+        console.error( 'Video Accepted' );
+        this.showLocalVideo();
+    },
+
+    videoStopConference: function(){
+        this.videoConference && this.videoConference.destroy();
+        delete this.videoConference;
     },
 
     prepareWebRTC: function(){
@@ -444,16 +466,38 @@ enyo.kind({
     },
 
     showLocalVideo: function(){
-        this.videoConference && this.videoConference.startCapturingLocalVideo();
+        if ( this.videoConference && this.videoIsCalling() ){
+            if ( this.$.popupVideo.hasNode() ){
+                this.$.popupVideo.node.appendChild( this.getVideoNode() );
+                this.videoConference.startCapturingLocalVideo();
+            }
+            else
+                alert( 'WTF? Where is popupVideo node?' );
+        }
     },
 
-    hangUpCall: function(){
+    isIncomingCall: function(){
+        return this.sipCallTypeIsIncoming() || this.videoIsIncomingCall();
+    },
+
+    call: function(){
+        this.videoCall();
+        this.sipCall();
+    },
+
+    hangup: function(){
         this.videoHangup();
-        this.sipHangUp();
+        this.sipHangup();
         this.hidePopup();
     },
 
-    rejectIncomingCall: function(){
+    acceptIncoming: function(){
+        this.sipAccept();
+        this.videoAccept();
+    },
+
+    rejectIncoming: function(){
+        this.videoReject();
         this.sipReject();
         this.hidePopup();
     },
@@ -477,8 +521,7 @@ enyo.kind({
 
     tapCallButton: function(){
         if ( !this.sipIsCalling() ){
-            this.sipCall();
-            this.videoCall();
+            this.call();
             this.showOutgoingCall( this.getPhoneNumber() );
         }
         else
@@ -487,17 +530,17 @@ enyo.kind({
 
     tapAnswerCall: function(){
         this.$.answerCall.hide();
-        this.sipAccept();
+        this.acceptIncoming();
         this.$.popupTimer.start();
         if ( this.sipCallTypeIsIncoming() )
             delete this.sipSessionCall.isIncoming;
     },
 
     tapRefuseCall: function(){
-        if ( this.sipCallTypeIsIncoming() )
-            this.rejectIncomingCall();
+        if ( this.isIncomingCall() )
+            this.rejectIncoming();
         else
-            this.hangUpCall();
+            this.hangup();
     },
 
     showIncomingCall: function( caller ){
@@ -528,14 +571,6 @@ enyo.kind({
 
     showPopup: function(){
         this.$.popup.show();
-        if ( this.isVideoCallInProgress() ){
-            if ( this.$.popupVideo.hasNode() ){
-                this.$.popupVideo.node.appendChild( this.getVideoNode() );
-                this.showLocalVideo();
-            }
-            else
-                alert( 'WTF? Where is popupVideo node?' );
-        }
     },
 
     getAudioNode: function(){

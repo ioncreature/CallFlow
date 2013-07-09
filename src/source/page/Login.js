@@ -34,7 +34,7 @@ enyo.kind({
 
             {classes: 'ui-label', content: loc.Login.login},
             {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
-                {name: 'login', kind: 'onyx.Input', placeholder: loc.Login.loginPlaceholder}
+                {name: 'login', kind: 'onyx.Input', placeholder: loc.Login.loginPlaceholder, onkeydown: 'keyDown'}
             ]},
 
             {classes: 'ui-label', content: loc.Login.password},

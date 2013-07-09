@@ -59,6 +59,11 @@ enyo.kind({
         socket.on( 'hangup', function( msg ){
             App.trigger( 'hangup', msg );
         });
+
+        socket.on( 'accept', function( msg ){
+            App.trigger( 'accept', msg );
+        });
+
     },
 
     registerNumbers: function( phoneNumbers ){
@@ -67,6 +72,14 @@ enyo.kind({
 
     sendHangup: function( msg ){
         this.socket.emit( 'hangup', {incoming: msg && !!msg.incoming} );
+    },
+
+    sendAccept: function(){
+        this.socket.emit( 'accept', {accept: true} );
+    },
+
+    sendReject: function(){
+        this.socket.emit( 'reject', {reject: true} );
     },
 
     /**
