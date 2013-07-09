@@ -17,7 +17,12 @@ enyo.kind({
         params.remoteHost && this.setRemoteHost( params.remoteHost );
     },
 
-    destroy: function(){},
+    destroy: function(){
+        if ( this.localVideoNode )
+            this.releaseVideoNode( this.localVideoNode );
+        if ( this.remoteVideoNode )
+            this.releaseVideoNode( this.remoteVideoNode );
+    },
 
     setLocalVideoNode: function( node ){
         this.localVideoNode = node;
@@ -34,8 +39,14 @@ enyo.kind({
     },
 
     prepareVideoNode: function( node ){
-        node.setAttribute( 'muted', true );
-        node.setAttribute( 'controls', true );
+        node.setAttribute( 'autoplay', 'autoplay' );
+        node.setAttribute( 'muted', 'muted' );
+    },
+
+    releaseVideoNode: function( node ){
+        node.pause && node.pause();
+        delete node.src;
+        delete node.mozSrcObject;
     },
 
     startCapturingLocalVideo: function(){

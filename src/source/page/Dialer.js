@@ -21,10 +21,6 @@ enyo.kind({
         onOpen: 'pageOpen'
     },
 
-    published: {
-        videoCalling: false
-    },
-
     components: [
         {name: 'registeredCaller', classes: 'ui-dialer-registered-caller', components: [
             {name: 'callerName', classes: 'ui-dialer-registered-caller-name'},
@@ -379,10 +375,12 @@ enyo.kind({
     },
 
     videoCall: function(){
+        var self = this;
+
         if ( this.videoIsCalling() )
             alert( 'Cannot make video call during another one' );
         else {
-            var self = this;
+            this.videoIsIncoming = false;
             App.service( 'server' ).outboundCall( {number: this.getPhoneNumber(), video: true}, function( resp ){
                 console.error( resp );
                 if ( resp && resp.address ){
@@ -396,12 +394,13 @@ enyo.kind({
 
     videoHangup: function(){
         if ( this.videoIsCalling() ){
-            self.isVideoCall = false;
             App.service( 'server' ).sendHangup({
                 incoming: this.videoIsIncomingCall()
             });
+            if ( !this.videoIsIncomingCall() )
+                this.onVideoHangup();
+            self.isVideoCall = false;
         }
-        this.onVideoHangup();
     },
 
     videoReject: function(){
@@ -411,8 +410,8 @@ enyo.kind({
     },
 
     videoAccept: function(){
-        console.error( 'Video Reject' );
         App.service( 'server' ).sendAccept();
+        this.onVideoAccept();
     },
 
     videoIsIncomingCall: function(){
@@ -424,8 +423,8 @@ enyo.kind({
     },
 
     onVideoIncomingCall: function( msg ){
-        this.showLocalVideo();
         this.videoIsIncoming = true;
+        this.prepareWebRTC();
         console.error( 'Video Incoming Call', msg );
     },
 
@@ -436,22 +435,27 @@ enyo.kind({
 
     onVideoRemoteHangup: function( msg ){
         console.error( 'Video Remote Hangup', msg );
-        this.isVideoCall = false;
+        this.videoStopConference();
     },
 
     onVideoRemoteAvailable: function(){
         console.error( 'Remote Video Available' );
+    },
+
+    onVideoAccept: function(){
+        console.error( 'Video Accept' );
         this.showLocalVideo();
     },
 
     onVideoRemoteAccept: function( msg ){
-        console.error( 'Video Accepted' );
+        console.error( 'Remote Video Accepted' );
         this.showLocalVideo();
     },
 
     videoStopConference: function(){
         this.videoConference && this.videoConference.destroy();
         delete this.videoConference;
+        delete this.isVideoCall;
     },
 
     prepareWebRTC: function(){
