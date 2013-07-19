@@ -460,10 +460,8 @@ enyo.kind({
 
     onVideoAccept: function(){
         console.error( 'Video Accept' );
-        var self = this;
         this.showLocalVideo( function( error ){
-            if ( !error )
-                self.videoConference.waitForConnection();
+            console.error( 'Video Accept .showLocalVideo()' );
         });
     },
 
@@ -471,8 +469,9 @@ enyo.kind({
         console.error( 'Remote Video Accepted' );
         var self = this;
         this.showLocalVideo( function( error ){
+            console.error( 'Remote Video Accepted .showLocalVideo()' );
             if ( !error )
-                self.videoConference.connectToPeer( msg );
+                self.videoConference.call( msg );
         });
     },
 
@@ -494,9 +493,10 @@ enyo.kind({
                 this.$.popupVideo.node.appendChild( this.getVideoNode() );
                 this.$.popupVideo.node.appendChild( this.getRemoteVideoNode() );
                 var vc = this.videoConference;
-                vc.startCapturingLocalVideo();
-                vc.attachStream( vc.getLocalVideoStream(), vc.getLocalVideoNode() );
-                callback();
+                vc.startCapturingLocalVideo( function( stream ){
+                    vc.attachStream( stream, vc.getLocalVideoNode() );
+                    callback();
+                });
             }
             else {
                 var msg = 'WTF? Where is popupVideo node?';

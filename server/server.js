@@ -118,7 +118,8 @@ Server.prototype.initSocketServer = function(){
         });
 
         socket.on( 'iceCandidate', function( candidate ){
-            user.callTo.socket.emit( 'iceCandidate', candidate );
+            var remoteUser = user.callTo ? user.callTo : user.callFrom;
+            remoteUser && remoteUser.socket.emit( 'iceCandidate', candidate );
         });
 
         socket.on( 'sdpOffer', function( sdp ){
@@ -126,7 +127,7 @@ Server.prototype.initSocketServer = function(){
         });
 
         socket.on( 'sdpAnswer', function( sdp ){
-            user.callTo.socket.emit( 'sdpAnswer', sdp );
+            user.callFrom.socket.emit( 'sdpAnswer', sdp );
         });
 
         socket.on( 'outboundCall', function( msg, fn ){

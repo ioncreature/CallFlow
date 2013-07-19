@@ -33,13 +33,15 @@ enyo.kind({
         this.pc.onopen = function(){ console.error( 'localPeer.onopen()', arguments ); };
 
         this.offerListener = App.on( 'sdpOffer', function( description ){
+            console.error( 'onSdpOffer' );
             if ( self.pc ){
                 self.pc.setRemoteDescription( new RTCSessionDescription(description) );
-                self.pc.createAnswer( self.pc.remoteDescription, self.onLocalDescription.bind(self) );
+                self.pc.createAnswer( self.onLocalDescription.bind(self) );
             }
         });
 
         this.answerListener = App.on( 'sdpAnswer', function( description ){
+            console.error( 'onSdpAnswer' );
             if ( self.pc ){
                 self.pc.setRemoteDescription( new RTCSessionDescription(description) );
                 // Here peers should connect
@@ -47,6 +49,7 @@ enyo.kind({
         });
 
         this.iceCandidateListener = App.on( 'iceCandidate', function( candidate ){
+            console.error( 'onIceCandidate' );
             if ( self.pc )
                 self.pc.addIceCandidate( new RTCIceCandidate(candidate) );
         });
@@ -101,10 +104,6 @@ enyo.kind({
         this.remoteAddress = host;
     },
 
-    getLocalVideoStream: function(){
-        return this.localStream;
-    },
-
     prepareVideoNode: function( node ){
         node.setAttribute( 'autoplay', 'autoplay' );
         node.setAttribute( 'muted', 'muted' );
@@ -116,19 +115,22 @@ enyo.kind({
         delete node.mozSrcObject;
     },
 
-    startCapturingLocalVideo: function(){
+    startCapturingLocalVideo: function( callback ){
         var self = this;
         getUserMedia( {video: true, audio: false}, function( error, stream ){
+            console.error( 'startCapturingLocalVideo', stream );
             if ( error || !stream )
                 alert( error || 'Unable to catch local video stream' );
             else {
                 self.localStream = stream;
-                self.pc.addStream( stream );
+                self.pc && self.pc.addStream( stream );
+                callback( stream );
             }
         });
     },
 
     attachStream: function( stream, videoNode ){
+        console.error( stream );
         attachStreamToVideoNode( stream, videoNode );
         videoNode.play && videoNode.play();
     },
@@ -139,11 +141,13 @@ enyo.kind({
     },
 
     onAddRemoteStream: function( event ){
+        console.error( 'onAddRemoteStream', event );
         if ( event.stream )
             this.attachStream( event.stream, this.getRemoteVideoNode() );
     },
 
     onLocalDescription: function( sdp ){
+        console.error( 'onLocalDescription', sdp );
         this.pc.setLocalDescription( sdp );
         if ( this.isCaller )
             App.service( 'server' ).sendOffer( sdp );
