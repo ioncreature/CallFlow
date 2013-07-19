@@ -426,6 +426,13 @@ enyo.kind({
         return !!this.isVideoCall;
     },
 
+    videoStop: function(){
+        this.videoConference && this.videoConference.destroy();
+        delete this.videoConference;
+        delete this.isVideoCall;
+        delete this.videoIsIncoming;
+    },
+
     onVideoIncomingCall: function( msg ){
         this.isVideoCall = true;
         this.videoIsIncoming = true;
@@ -455,13 +462,6 @@ enyo.kind({
     onVideoRemoteAccept: function( msg ){
         console.error( 'Remote Video Accepted' );
         this.showLocalVideo();
-    },
-
-    videoStop: function(){
-        this.videoConference && this.videoConference.destroy();
-        delete this.videoConference;
-        delete this.isVideoCall;
-        delete this.videoIsIncoming;
     },
 
     prepareWebRTC: function(){

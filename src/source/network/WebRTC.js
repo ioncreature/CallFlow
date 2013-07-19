@@ -11,6 +11,8 @@ enyo.kind({
     remoteVideoNode: null,
     remoteAddress: null,
 
+    PeerConnection: window.webkitRTCPeerConnection || window.mozRTCPeerConnection || window.RTCPeerConnection,
+
     constructor: function( params ){
         params.remoteVideoNode && this.setRemoteVideoNode( params.remoteVideoNode );
         params.localVideoNode && this.setLocalVideoNode( params.localVideoNode );
@@ -60,6 +62,14 @@ enyo.kind({
                 self.localVideoNode.play && self.localVideoNode.play();
             }
         });
+    },
+
+    connectToPeer: function(){
+        var conn = new this.PeerConnection();
+    },
+
+    waitForConnection: function(){
+        var conn = new this.PeerConnection();
     }
 });
 
