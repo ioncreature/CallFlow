@@ -117,13 +117,24 @@ Server.prototype.initSocketServer = function(){
                 user.numbers = query.numbers;
         });
 
+        socket.on( 'iceCandidate', function( candidate ){
+            user.callTo.socket.emit( 'iceCandidate', candidate );
+        });
+
+        socket.on( 'sdpOffer', function( sdp ){
+            user.callTo.socket.emit( 'sdpOffer', sdp );
+        });
+
+        socket.on( 'sdpAnswer', function( sdp ){
+            user.callTo.socket.emit( 'sdpAnswer', sdp );
+        });
+
         socket.on( 'outboundCall', function( msg, fn ){
             var remoteUser = server.getUserByNumber( msg.number ),
                 video = msg.video;
             if ( remoteUser ){
                 remoteUser.socket.emit( 'incomingCall', {address: user.socket.handshake.address.address, video: video} );
 
-                // TODO: This potentially a place for memory leaks
                 user.callTo = remoteUser;
                 remoteUser.callFrom = user;
 
