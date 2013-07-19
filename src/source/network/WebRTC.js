@@ -49,14 +49,15 @@ enyo.kind({
         });
 
         this.iceCandidateListener = App.on( 'iceCandidate', function( candidate ){
-            console.error( 'onIceCandidate' );
-            if ( self.pc )
+            if ( self.pc && candidate )
                 self.pc.addIceCandidate( new RTCIceCandidate(candidate) );
         });
     },
 
     sendIceCandidate: function( event ){
-        App.service( 'server' ).sendIceCandidate( event.candidate );
+        console.error( 'sendIceCandidate' );
+        if ( event )
+            App.service( 'server' ).sendIceCandidate( event.candidate );
     },
 
     destroy: function(){
@@ -118,7 +119,6 @@ enyo.kind({
     startCapturingLocalVideo: function( callback ){
         var self = this;
         getUserMedia( {video: true, audio: false}, function( error, stream ){
-            console.error( 'startCapturingLocalVideo', stream );
             if ( error || !stream )
                 alert( error || 'Unable to catch local video stream' );
             else {
