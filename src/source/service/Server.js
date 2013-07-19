@@ -64,10 +64,33 @@ enyo.kind({
             App.trigger( 'accept', msg );
         });
 
+        socket.on( 'iceCandidate', function( msg ){
+            App.trigger( 'iceCandidate', msg );
+        });
+
+        socket.on( 'sdpOffer', function( msg ){
+            App.trigger( 'sdpOffer', msg );
+        });
+
+        socket.on( 'sdpAnswer', function( msg ){
+            App.trigger( 'sdpAnswer', msg );
+        });
     },
 
     registerNumbers: function( phoneNumbers ){
         this.socket.emit( 'registerNumbers', {numbers: phoneNumbers} );
+    },
+
+    sendIceCandidate: function( candidate ){
+        this.socket.emit( 'iceCandidate', candidate );
+    },
+
+    sendOffer: function( description ){
+        this.socket.emit( 'sdpOffer', description );
+    },
+
+    sendAnswer: function( description ){
+        this.socket.emit( 'sdpAnswer', description );
     },
 
     sendHangup: function( msg ){
