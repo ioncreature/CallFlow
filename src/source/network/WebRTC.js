@@ -116,11 +116,27 @@ enyo.kind({
         delete node.mozSrcObject;
     },
 
-    startCapturingLocalVideo: function( callback ){
-        var self = this;
-        getUserMedia( {video: true, audio: false}, function( error, stream ){
-            if ( error || !stream )
+    /**
+     * @param {Object} params
+     * @param {Function} callback
+     */
+    startCapturingLocalVideo: function( params, callback ){
+        var self = this,
+            constrains = { audio: false, video: true };
+
+        if ( params.mediaSource === 'screen' ){
+            constrains.video = {
+                mandatory: {
+                    chromeMediaSource: 'screen'
+                }
+            };
+        }
+
+        getUserMedia( constrains, function( error, stream ){
+            if ( error || !stream ){
+                console.error( error || 'Unable to catch local video stream' );
                 alert( error || 'Unable to catch local video stream' );
+            }
             else {
                 self.localStream = stream;
                 self.pc && self.pc.addStream( stream );
@@ -161,7 +177,7 @@ function getUserMedia( options, callback ){
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
     navigator.getUserMedia(
-        { audio: !!options.audio, video: !!options.video },
+        { audio: options.audio, video: options.video },
 
         function( stream ){
             callback( undefined, stream );
