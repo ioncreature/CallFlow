@@ -460,15 +460,17 @@ enyo.kind({
 
     onVideoAccept: function(){
         console.error( 'Video Accept' );
-        this.showLocalVideo( function( error ){
+        this.showLocalVideo( {mediaSource: 'camera'}, function( error ){
             console.error( 'Video Accept .showLocalVideo()' );
+            if ( error )
+                console.error( error );
         });
     },
 
     onVideoRemoteAccept: function( msg ){
         console.error( 'Remote Video Accepted' );
         var self = this;
-        this.showLocalVideo( function( error ){
+        this.showLocalVideo( {}, function( error ){
             console.error( 'Remote Video Accepted .showLocalVideo()' );
             if ( !error )
                 self.videoConference.call( msg );
@@ -487,14 +489,20 @@ enyo.kind({
         });
     },
 
-    showLocalVideo: function( callback ){
+    /**
+     * @param {Object} params
+     * @param {Function} callback
+     */
+    showLocalVideo: function( params, callback ){
         if ( this.videoConference && this.videoIsCalling() ){
             if ( this.$.popupVideo.hasNode() ){
                 this.$.popupVideo.node.appendChild( this.getVideoNode() );
                 this.$.popupVideo.node.appendChild( this.getRemoteVideoNode() );
-                var vc = this.videoConference;
-                vc.startCapturingLocalVideo( function( stream ){
+                var vc = this.videoConference,
+                    self = this;
+                vc.startCapturingLocalVideo( {mediaSource: params.mediaSource}, function( stream ){
                     vc.attachStream( stream, vc.getLocalVideoNode() );
+                    self.$.popup.reflow();
                     callback();
                 });
             }
