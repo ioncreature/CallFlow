@@ -199,23 +199,29 @@ Server.prototype.initSocketServer = function(){
                     if ( error )
                         errorResponse( error, fn );
                     else {
-                        async.series({
+                        async.parallel({
                             mailbox: loadMailbox,
                             phones: loadPhones,
                             extensions: loadExtensions,
-                            phoneNumbers: loadPhoneNumbers,
-                            sip: sipRegister
-                        }, function( error, res ){
+                            phoneNumbers: loadPhoneNumbers
+                        }, function( error, jediRes ){
                             if ( error )
                                 errorResponse( error, fn );
                             else {
-                                util.mixin( data, res );
-                                user.data = data;
-                                fn({
-                                    success: true,
-                                    sid: sid,
-                                    user: data,
-                                    cookie: jar.toString()
+                                util.mixin( data, jediRes );
+                                sipRegister( function( error, sipRes ){
+                                    if ( error )
+                                        errorResponse( error, fn );
+                                    else {
+                                        data.sip = sipRes;
+                                        user.data = data;
+                                        fn({
+                                            success: true,
+                                            sid: sid,
+                                            user: data,
+                                            cookie: jar.toString()
+                                        });
+                                    }
                                 });
                             }
                         });
