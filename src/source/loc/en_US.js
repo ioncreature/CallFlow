@@ -176,7 +176,8 @@ var loc = {
         login: 'Login',
         logout: 'Logout',
         notLoggedIn: 'You are not logged in',
-        extCaption: 'Ext.'
+        extCaption: 'Ext.',
+        shareScreen: 'Share your screen on next video call'
     },
 
     Login: {

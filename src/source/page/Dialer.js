@@ -33,7 +33,7 @@ enyo.kind({
         {classes: 'ui-label', content: loc.Dialer.callTo},
         {name: 'callee', kind: 'rc.RadioList', onActivate: 'onCalleeActivate'},
         {classes: 'ui-label', content: loc.Dialer.phoneNumber},
-        {name: 'colls', kind: 'FittableColumns', components: [
+        {name: 'colls', classes: 'ui-dialer-call-container', kind: 'FittableColumns', components: [
             {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
                 {name: 'phoneNumber', kind: 'onyx.Input', placeholder: loc.Dialer.phoneNumberPlaceholder, value: '12052160027'}
             ]},
@@ -46,6 +46,9 @@ enyo.kind({
                 ontap: 'tapCallButton'
             }
         ]},
+
+        {classes: 'ui-label', content: loc.Dialer.shareScreen},
+        {name: 'shareScreen', classes: 'ui-dialer-share-screen', kind: 'rc.Switch', value: false},
 
         {
             name: 'popup',
@@ -460,21 +463,27 @@ enyo.kind({
 
     onVideoAccept: function(){
         console.error( 'Video Accept' );
-        this.showLocalVideo( {mediaSource: 'camera'}, function( error ){
-            console.error( 'Video Accept .showLocalVideo()' );
-            if ( error )
-                console.error( error );
-        });
+        this.showLocalVideo(
+            {mediaSource: this.$.shareScreen.getValue() ? 'screen' : 'camera'},
+            function( error ){
+                console.error( 'Video Accept .showLocalVideo()' );
+                if ( error )
+                    console.error( error );
+            }
+        );
     },
 
     onVideoRemoteAccept: function( msg ){
         console.error( 'Remote Video Accepted' );
         var self = this;
-        this.showLocalVideo( {}, function( error ){
-            console.error( 'Remote Video Accepted .showLocalVideo()' );
-            if ( !error )
-                self.videoConference.call( msg );
-        });
+        this.showLocalVideo(
+            {mediaSource: this.$.shareScreen.getValue() ? 'screen' : 'camera'},
+            function( error ){
+                console.error( 'Remote Video Accepted .showLocalVideo()' );
+                if ( !error )
+                    self.videoConference.call( msg );
+            }
+        );
     },
 
     prepareWebRTC: function(){
