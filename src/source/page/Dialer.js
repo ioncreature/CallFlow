@@ -30,8 +30,6 @@ enyo.kind({
             {name: 'callerOriginalPhone', classes: 'ui-dialer-registered-caller-original', allowHtml: true}
         ]},
 
-        {classes: 'ui-label', content: loc.Dialer.callTo},
-        {name: 'callee', kind: 'rc.RadioList', onActivate: 'onCalleeActivate'},
         {classes: 'ui-label', content: loc.Dialer.phoneNumber},
         {name: 'colls', classes: 'ui-dialer-call-container', kind: 'FittableColumns', components: [
             {kind: 'onyx.InputDecorator', fit: true, classes: 'ui-text-input', components: [
@@ -46,6 +44,9 @@ enyo.kind({
                 ontap: 'tapCallButton'
             }
         ]},
+
+        {classes: 'ui-label', content: loc.Dialer.callTo},
+        {name: 'callee', kind: 'rc.RadioList', onActivate: 'onCalleeActivate'},
 
         {classes: 'ui-label', content: loc.Dialer.shareScreen},
         {name: 'shareScreen', classes: 'ui-dialer-share-screen', kind: 'rc.Switch', value: false},
@@ -360,9 +361,7 @@ enyo.kind({
                 // TODO: переделать определение ошибки
                 if ( e.description === 'Forbidden (authorization error)' )
                     this.showError( e.type + ' ' + e.description );
-                this.hidePopup();
-                this.sipSessionCall && this.sipSessionCall.hangup();
-                delete this.sipSessionCall;
+                this.hangup();
                 break;
 
             case 'i_ao_request':
@@ -553,15 +552,6 @@ enyo.kind({
         return this.$.phoneNumber.getValue();
     },
 
-    getSelectedIdentity: function(){
-        return this.$.caller.getActiveModel().get([
-            'displayName',
-            'publicIdentity',
-            'privateIdentity',
-            'password'
-        ]);
-    },
-
     onCalleeActivate: function(){
         this.$.phoneNumber.setValue( this.$.callee.getActiveModel().get('numRow') );
     },
@@ -652,5 +642,3 @@ enyo.kind({
         elem.setContent( result );
     }
 });
-
-// TODO: look at http://mozilla.github.io/webrtc-landing/

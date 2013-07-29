@@ -67,8 +67,11 @@ enyo.kind({
         delete this.offerListener;
         delete this.answerListener;
         delete this.iceCandidateListener;
-
         this.hangup();
+
+        if ( this.localStream && this.localStream.stop )
+            this.localStream.stop();
+
         if ( this.localVideoNode )
             this.releaseVideoNode( this.localVideoNode );
         if ( this.remoteVideoNode )
