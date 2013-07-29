@@ -115,6 +115,8 @@ enyo.kind({
 
     releaseVideoNode: function( node ){
         node.pause && node.pause();
+        node.src && node.src.stop && node.src.stop();
+        node.mozSrcObject && node.mozSrcObject.stop && node.mozSrcObject.stop();
         delete node.src;
         delete node.mozSrcObject;
     },
