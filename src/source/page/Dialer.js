@@ -64,7 +64,10 @@ enyo.kind({
                 {name: 'popupCaption', classes: 'ui-dialer-popup-caption', content: loc.Dialer.incomingCall},
                 {name: 'popupName', classes: 'ui-dialer-popup-name'},
                 {name: 'popupNumber', classes: 'ui-dialer-popup-number'},
-                {name: 'popupVideo', classes: 'ui-dialer-popup-video', showing: true},
+                {name: 'popupVideo', classes: 'ui-dialer-popup-video', showing: true, components: [
+                    {name: 'localVideo', classes: 'ui-dialer-popup-local-video'},
+                    {name: 'remoteVideo', classes: 'ui-dialer-popup-remote-video'},
+                ]},
                 {name: 'popupTimer', classes: 'ui-dialer-popup-timer', kind: 'rc.Timer'},
                 {classes: 'ui-center', components: [
                     {name: 'answerCall', classes: 'ui-dialer-popup-answer', ontap: 'tapAnswerCall'},
@@ -76,13 +79,7 @@ enyo.kind({
         {name: 'errorContainer', classes: 'ui-dialer-error', allowHtml: true, showing: false},
         {name: 'statusContainer', classes: 'ui-dialer-status', allowHtml: true, showing: false},
 
-        {name: 'audioContainer', allowHtml: true, content:'<audio autoplay id="dialer_audio" />'},
-        {
-            name: 'videoContainer',
-            allowHtml: true,
-            content:'<video autoplay id="dialer_video"></video><video autoplay id="dialer_remote_video"></video>',
-            showing: false
-        }
+        {name: 'audioContainer', allowHtml: true, content:'<audio autoplay id="dialer_audio" />'}
     ],
 
     create: function(){
@@ -492,8 +489,8 @@ enyo.kind({
         }
 
         this.videoConference = new rc.network.WebRTC({
-            localVideoNode: this.getVideoNode(),
-            remoteVideoNode: this.getRemoteVideoNode()
+            localVideoNode: this.createVideoNode(),
+            remoteVideoNode: this.createVideoNode()
         });
     },
 
@@ -502,12 +499,15 @@ enyo.kind({
      * @param {Function} callback
      */
     showLocalVideo: function( params, callback ){
-        if ( this.videoConference && this.videoIsCalling() ){
-            if ( this.$.popupVideo.hasNode() ){
-                this.$.popupVideo.node.appendChild( this.getVideoNode() );
-                this.$.popupVideo.node.appendChild( this.getRemoteVideoNode() );
-                var vc = this.videoConference,
-                    self = this;
+        var vc = this.videoConference,
+            self = this;
+        if ( vc && this.videoIsCalling() ){
+            var localVideoContainer = this.$.localVideo.getNode(),
+                remoteVideoContainer = this.$.remoteVideo.getNode();
+            if ( localVideoContainer && remoteVideoContainer ){
+                localVideoContainer.appendChild( vc.getLocalVideoNode() );
+                remoteVideoContainer.appendChild( vc.getRemoteVideoNode() );
+
                 vc.startCapturingLocalVideo( {mediaSource: params.mediaSource}, function( stream ){
                     vc.attachStream( stream, vc.getLocalVideoNode() );
                     self.$.popup.reflow();
@@ -592,18 +592,17 @@ enyo.kind({
     },
 
     hidePopup: function(){
-        if ( this.$.videoContainer.hasNode() ){
-            var videoNode = this.getVideoNode();
-            var remoteVideoNode = this.getRemoteVideoNode();
-            videoNode.pause && videoNode.pause();
-            delete videoNode.src;
-            this.$.videoContainer.node.appendChild( videoNode );
-            this.$.videoContainer.node.appendChild( remoteVideoNode );
+        this.$.popupTimer.stop();
+
+        var localVideoContainer = this.$.localVideo.getNode(),
+            remoteVideoContainer = this.$.remoteVideo.getNode();
+        if ( localVideoContainer && remoteVideoContainer ){
+            this.removeChildren( localVideoContainer );
+            this.removeChildren( remoteVideoContainer );
         }
         else
             alert( 'WTF? Where is videoContainer node?' );
         this.$.popup.hide();
-        this.$.popupTimer.stop();
     },
 
     showPopup: function(){
@@ -614,12 +613,23 @@ enyo.kind({
         return document.getElementById( 'dialer_audio' );
     },
 
-    getVideoNode: function(){
-        return document.getElementById( 'dialer_video' );
+    createVideoNode: function(){
+        return document.createElement( 'video' );
     },
 
-    getRemoteVideoNode: function(){
-        return document.getElementById( 'dialer_remote_video' );
+    /**
+     * @param {Element} domElement
+     */
+    removeChildren: function( domElement ){
+        while ( domElement.firstChild ){
+            var e = domElement.firstChild;
+            e.pause && e.pause();
+            e.src && e.src.stop && e.src.stop();
+            e.mozSrcObject && e.mozSrcObject.stop && e.mozSrcObject.stop();
+            delete e.src;
+            delete e.mozSrcObject;
+            domElement.removeChild( domElement.firstChild );
+        }
     },
 
     showError: function( message ){
