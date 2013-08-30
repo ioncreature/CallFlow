@@ -11,7 +11,6 @@ enyo.kind({
 
     localVideoNode: null,
     remoteVideoNode: null,
-    remoteAddress: null,
 
     isCaller: false,
 
@@ -21,7 +20,6 @@ enyo.kind({
     constructor: function( params ){
         params.remoteVideoNode && this.setRemoteVideoNode( params.remoteVideoNode );
         params.localVideoNode && this.setLocalVideoNode( params.localVideoNode );
-        params.remoteHost && this.setRemoteHost( params.remoteHost );
 
         var self = this;
 
@@ -102,10 +100,6 @@ enyo.kind({
 
     getRemoteVideoNode: function(){
         return this.remoteVideoNode;
-    },
-
-    setRemoteHost: function( host ){
-        this.remoteAddress = host;
     },
 
     prepareVideoNode: function( node ){

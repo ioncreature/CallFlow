@@ -502,8 +502,8 @@ enyo.kind({
         var vc = this.videoConference,
             self = this;
         if ( vc && this.videoIsCalling() ){
-            var localVideoContainer = this.$.localVideo.getNode(),
-                remoteVideoContainer = this.$.remoteVideo.getNode();
+            var localVideoContainer = this.$.localVideo.node,
+                remoteVideoContainer = this.$.remoteVideo.node;
             if ( localVideoContainer && remoteVideoContainer ){
                 localVideoContainer.appendChild( vc.getLocalVideoNode() );
                 remoteVideoContainer.appendChild( vc.getRemoteVideoNode() );
@@ -594,8 +594,8 @@ enyo.kind({
     hidePopup: function(){
         this.$.popupTimer.stop();
 
-        var localVideoContainer = this.$.localVideo.getNode(),
-            remoteVideoContainer = this.$.remoteVideo.getNode();
+        var localVideoContainer = this.$.localVideo.node,
+            remoteVideoContainer = this.$.remoteVideo.node;
         if ( localVideoContainer && remoteVideoContainer ){
             this.removeChildren( localVideoContainer );
             this.removeChildren( remoteVideoContainer );
