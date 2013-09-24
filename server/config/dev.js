@@ -15,4 +15,4 @@ exports.static = {
     path: './static/'
 };
 
-exports.defaultEnvironment = 'spbDev';
+exports.defaultEnvironment = 'sv7';

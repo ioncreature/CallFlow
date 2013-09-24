@@ -22,11 +22,11 @@ function Server( config ){
     app.configure( function(){
         app.disable( 'x-powered-by' );
         app.set( 'views', __dirname + '/view' );
-        app.use( app.router );
         app.use( express.logger('dev') );
         app.use( express.bodyParser() );
         app.use( express.errorHandler() );
         app.set( 'view engine', 'jade' );
+        app.use( app.router );
     });
 
     app.get( '/dev', function( req, res ){
@@ -63,7 +63,7 @@ Server.prototype.stop = function( callback ){
     server.httpServer.close( function(){
         server.socket.close();
         callback && callback();
-    })
+    });
 };
 
 
@@ -100,8 +100,7 @@ Server.prototype.initSocketServer = function(){
             mid,
             pin,
             accountNumber,
-            environment,
-            sid;
+            environment;
 
         var user = new User();
         user.id = socket.id;
@@ -217,7 +216,6 @@ Server.prototype.initSocketServer = function(){
                                         user.data = data;
                                         fn({
                                             success: true,
-                                            sid: sid,
                                             user: data,
                                             cookie: jar.toString()
                                         });
@@ -254,7 +252,6 @@ Server.prototype.initSocketServer = function(){
 
                         accountNumber = util.preparePhoneNumber( res.countersResponse.accountNumber );
                         mid = data.subscriber.mailboxId;
-                        sid = res.JSESSIONID;
                         callback( null, data );
                     }
                     else

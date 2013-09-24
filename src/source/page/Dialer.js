@@ -527,23 +527,23 @@ enyo.kind({
     },
 
     call: function(){
-        this.videoCall();
+//        this.videoCall();
         this.sipCall();
     },
 
     hangup: function(){
-        this.videoHangup();
+//        this.videoHangup();
         this.sipHangup();
         this.hidePopup();
     },
 
     acceptIncoming: function(){
         this.sipAccept();
-        this.videoAccept();
+//        this.videoAccept();
     },
 
     rejectIncoming: function(){
-        this.videoReject();
+//        this.videoReject();
         this.sipReject();
         this.hidePopup();
     },
